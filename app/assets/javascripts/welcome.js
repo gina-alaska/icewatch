@@ -13,7 +13,9 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require bootstrap-datepicker//= require d3.v2
+//= require bootstrap-datepicker
+//= require gina-map-layers/gina-openlayers
+//= require d3.v2
 //= require rickshaw/rickshaw
 //= require jquery-file-upload/js/vendor/jquery.ui.widget
 //= require jquery-file-upload/js/jquery.iframe-transport
@@ -23,4 +25,36 @@
 //= require_tree .
 
 $(document).ready(function() {
+  $("#map").OpenLayers({
+    units: 'm',
+    projection: "EPSG:3572",
+    displayProjection: new OpenLayers.Projection("EPSG:4326"),
+    defaultCenter: new OpenLayers.LonLat(-147.849, 80.856) 
+  });
+
+  var map = $("#map").OpenLayers('getmap')[0];
+
+  //Gina.Layers.inject(map, 'TILE.EPSG:3572.*');
+
+  map.zoomTo(3);     
+
+  var style = new OpenLayers.Style({
+
+  },{})
+
+  var trackLayer = new OpenLayers.Layer.Vector("track");
+  var parser = new OpenLayers.Format.GeoJSON;
+  $.getJSON("/observations.json", function(data) {
+    $.each(data, function(index,point){
+      var feature = parser.parseFeature(point.location);
+      feature.geometry.transform(map.displayProjection, map.getProjectionObject());
+      trackLayer.addFeatures(feature);
+    })
+  });
+
+  map.addLayer(trackLayer);
+
+  var i = new IceGraph;
+  i.init();
+
 });
