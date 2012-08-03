@@ -1,0 +1,52 @@
+.container
+  .hero-unit
+    %h1
+      Cruises
+      =link_to new_admin_cruise_url, class: 'btn btn-large btn-success pull-right' do 
+        %i.icon-plus.icon-white
+        New Cruise
+  #cruises.accordion
+    .accordion-group
+      .accordion-heading
+        = link_to "#active", data: {toggle: 'collapse', parent: 'cruises'}, class: 'accordion-toggle' do
+          Active Cruises
+          %span.label
+            = Cruise.active.count
+
+      #active.accordion-body.collapse.in
+        .accordion-inner
+          =render partial: 'cruise_table', locals: {cruises: Cruise.active}
+
+    .accordion-group
+      .accordion-heading
+        = link_to "#upcoming", data: {toggle: 'collapse', parent: 'cruises'}, class: 'accordion-toggle' do
+          Upcoming Cruises
+          %span.label
+            = Cruise.active.count
+      #upcoming.accordion-body.collapse
+        .accordion-inner
+          =render partial: 'cruise_table', locals: {cruises: Cruise.upcoming}
+
+    .accordion-group
+      .accordion-heading
+        = link_to "#ended", data: {toggle: 'collapse', parent: 'cruises'}, class: 'accordion-toggle' do
+          Ended Cruises
+          %span.label
+            = Cruise.ended.count
+      #ended.accordion-body.collapse
+        .accordion-inner
+          =render partial: 'cruise_table', locals: {cruises: Cruise.ended}
+
+    .accordion-group
+      .accordion-heading
+        = link_to "#archived", data: {toggle: 'collapse', parent: 'cruises'}, class: 'accordion-toggle' do
+          Archived Cruises
+          %span.label
+            = Cruise.archived.count
+
+#import-modal.modal.hide
+  .modal-body
+  .modal-footer
+    %button.btn.disabled{data:{dismiss: 'modal'}, disabled: true}
+      Dismiss
+                  

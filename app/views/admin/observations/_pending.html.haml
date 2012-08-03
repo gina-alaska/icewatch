@@ -1,0 +1,38 @@
+-@pending.group_by{|o| o.cruise_id }.each do |group|
+  - next if group.first == nil
+  - cruise = Cruise.find(group.first)
+  .row-fluid
+    .span12
+      .alert.alert-info
+        %h3   
+          ="#{cruise.ship}: #{ymd(cruise.start_date)} to #{ymd(cruise.end_date)}"
+          .btn.btn-success.pull-right
+            %i.icon-ok.icon-white
+            Approve All
+    
+  .row-fluid
+    .span10 
+      %table.pending.table-striped.table-bordered
+        %thead
+          %tr
+            %th= "Observed At"
+            %th= "Cruise ID"
+            %th= "Primary Observer"
+            %th= "Latitude"
+            %th= "Longitude"
+            %th
+        %tbody
+          -group.last.each do |p|
+            %tr.error
+              %td= p.obs_datetime
+              %td= p.cruise_id
+              %td= "Placeholder"
+              %td= p.latitude
+              %td= p.longitude
+              %td
+                .btn.btn-small.btn-success
+                  %i.icon-ok.icon-white
+                .btn.btn-small.btn-primary
+                  %i.icon-edit.icon-white
+                .btn.btn-small.btn-danger
+                  %i.icon-remove.icon-white

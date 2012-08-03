@@ -1,0 +1,16 @@
+.container
+  .row
+  .span12.well
+    =simple_form_for @cruise || Cruise.new, html: {class: 'form-inline'}, defaults: {label: false} do |f|
+      %fieldset
+        %legend= "Cruise Information >"
+        =f.input :ship, placeholder: "Ship Name", required: true
+        =f.input :start_date, placeholder: "Cruise Start", class: 'datefield', 'data-date-format' => 'yyyy.mm.dd'
+        =f.input :end_date, placeholder: "Cruise End", class: 'datefield', 'data-date-format' => 'yyyy.mm.dd'
+      %fieldset
+        %legend= "Additional Information >"
+        =f.input :captain, placeholder: "Captain's Name"
+      .row-fluid
+        .span12
+          =f.submit "Add Cruise", class: 'btn btn-primary pull-right'
+        

@@ -1,0 +1,24 @@
+%h2
+  Cruises
+
+%h2
+  Observations
+
+%h2
+  Other
+
+=render 'form'
+
+%table.table.table-striped.table-bordered{id: 'cruises'}
+  %thead
+    %tr
+      %th= "Ship"
+      %th= "Cruise Start"
+      %th= "Cruise End"
+      %th= "Captain"
+      %th= "Observations"
+      %th= "Pending"
+      %th= "Errors"
+      %th= ""
+  %tbody
+    =render partial: 'cruises/cruise', collection: @cruises, as: 'cruise' if @cruises.any?

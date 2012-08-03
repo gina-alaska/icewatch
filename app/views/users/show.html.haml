@@ -1,0 +1,13 @@
+.container
+  .row
+    .span12
+      .page-header 
+        %h1
+          =@user.name
+          %small
+            =@user.email
+          .pull-right
+            =link_to "Edit", edit_user_path(@user), class: 'btn btn-primary'    
+  .row
+    .span6
+      

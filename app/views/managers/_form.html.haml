@@ -1,0 +1,8 @@
+.container-fluid
+  =form_for Cruise.new, {multipart: true, remote: true, html: {class: 'well form-inline'}} do |f|
+    =f.text_field :ship, placeholder: "Ship Name"
+    =f.text_field :captain, placeholder: "Captain's Name"
+    =f.text_field :start_date, placeholder: "Cruise Start", class: 'datefield', 'data-date-format' => 'yyyy.mm.dd'
+    =f.text_field :end_date, placeholder: "Cruise End", class: 'datefield', 'data-date-format' => 'yyyy.mm.dd'
+    =f.submit "Add Cruise", class: 'btn'
+    

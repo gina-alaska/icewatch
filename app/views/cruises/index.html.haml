@@ -1,0 +1,24 @@
+=render 'cruises/form'
+            
+%table.table.table-striped
+  %thead
+    %tr
+      %th= "Ship"
+      %th= "Start Date"
+      %th= "End Date"
+      %th= "Observations"
+      %th
+  %tbody
+    -@cruises.each do |c|
+      %tr
+        %td= c.ship
+        %td= c.start_date
+        %td= c.end_date
+        %td= c.observations.count
+        %td
+          -if c.archived?
+            This cruise has been archived.
+          -else
+            .btn.btn-success
+              %i.icon-upload.icon-white
+              Upload Observations

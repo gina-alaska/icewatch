@@ -1,0 +1,19 @@
+.container-fluid
+  .row-fluid
+    .span12
+      .hero-unit
+        %h1
+          Pending
+        
+  =render partial: 'admin/observations/pending'
+  .row-fluid
+    .span12
+      %h2
+        Errors
+        %span.badge
+          =@errors.count
+  .row-fluid
+    .span12
+      Errors Table
+      
+      

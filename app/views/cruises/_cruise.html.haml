@@ -1,0 +1,19 @@
+%tr{id: cruise.id}
+  %td
+    = cruise.ship
+  %td
+    = cruise.start_date
+  %td
+    = cruise.end_date
+  %td
+    = cruise.captain
+  %td
+    = cruise.observations.count
+  %td
+    = cruise.pending_observations.count
+  %td
+    = cruise.invalid_observations.count
+  %td
+    =form_tag import_observations_url, :multipart => true, :remote => true, html: {:class => "form-inline"} do
+      =hidden_field_tag :cruise_id, cruise.id
+      =file_field_tag :observation, class: "obs-upload"

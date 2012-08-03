@@ -1,0 +1,92 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ *= require bootstrap-datepicker
+ *= require rickshaw/rickshaw
+ *= require datatables/media/css/jquery.dataTables
+ */
+
+@import "bootstrap";
+
+#map {
+  min-width: 460px;
+  height: 460px;
+  width: 100%;
+  img {
+    max-width: none;
+  }
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+#y_axis {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+}
+#graph {
+  display: inline-block;
+  margin-left: 40px;
+}
+#graph-container {
+  position: relative;
+  //display: inline-block;
+  //padding-top: 10px;
+  margin-top: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+#legend {
+  position: absolute;
+  right: 5px;
+  margin-left: 15px;
+}
+#slider {
+  margin-top: 10px;
+  margin-left: 50px;
+}
+
+td form {
+  margin-bottom: 0px;
+  input {
+    margin-bottom: 0px;
+  }
+}
+.fileinput-button {
+  position: relative;
+  overflow: hidden;
+  float: left;
+  margin-right: 4px;
+  input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    border: solid transparent;
+    border-width: 0 0 100px 200px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -moz-transform: translate(-300px, 0) scale(4);
+    direction: ltr;
+    cursor: pointer;
+  }
+}
+
+.form-inline .controls, 
+.form-inline .control-group { display:inline-block; }
+
+tr.error {
+  @extend .alert-error;
+}
+

@@ -1,0 +1,11 @@
+.container
+  .row
+    .span12
+      .page-header
+        %h1= "Editing #{@user.name}"
+  .row
+    .span12
+      =simple_form_for @user, url: admin_user_path do |f|
+        =f.input :admin, collection: [["Yes",true],["No", false]], include_blank: false
+        =f.input :approved , collection: [["Yes",true],["No", false]], include_blank: false
+        =f.button :submit, class: 'btn btn-primary'

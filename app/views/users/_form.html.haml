@@ -1,0 +1,12 @@
+.row
+  .span12
+    =simple_form_for @user do |f|
+      .row
+        .span6
+          =f.input :name
+        .span6
+          =f.input :affiliation
+      .row
+        .span12
+          .pull-right
+            =f.button :submit, 'Update', {class: 'btn-primary'}

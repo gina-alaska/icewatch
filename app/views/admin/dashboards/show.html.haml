@@ -1,0 +1,47 @@
+.container-fluid
+  .row-fluid
+    .span12.hero-unit
+      %h1 Dashboard
+  .row-fluid
+    .span6
+      .page-header
+        %h1
+          =link_to "Cruises", admin_cruises_url  
+          .pull-right   
+            .btn
+              =link_to "Manage", admin_cruises_url
+            .btn
+              =link_to "Create", new_admin_cruise_url   
+      %p="Active Cruises: #{Cruise.active.count}"
+      %p="Upcoming Cruises: #{Cruise.upcoming.count}"
+      %p="Ended Cruises: #{Cruise.ended.count}"
+      %p="Archived Cruises: #{Cruise.archived.count}"
+
+        
+    .span6  
+      .page-header
+        %h1
+          Observations
+      %p="Observations waiting for approval: #{Observation.pending.count}"
+      %p="Observations with errors: #{Observation.has_errors.count}"
+      %p
+        .btn-toolbar
+          .btn
+            =link_to "Approve", admin_observations_url 
+          .btn
+            =link_to "Fix", admin_observations_url
+  .row-fluid
+    .span6
+      .page-header
+        %h1
+          Users
+      %p= "Registered Users: #{User.count}"
+      %p= "Users awaiting authorization: #{User.pending_approval.count}"
+      .btn
+        =link_to "Approve Users", admin_users_url
+  .row-fluid  
+    .span12
+      .page-header
+        %h1
+          Lookup Tables
+        
