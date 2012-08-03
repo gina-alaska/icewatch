@@ -22,7 +22,7 @@
 //= require jquery-file-upload/js/jquery.fileupload
 //= require datatables/media/js/jquery.dataTables
 //=# require jquery-ui/jquery-ui-1.8.21.custom.min
-//= require_tree .
+//= require_tree ./map
 
 $(document).ready(function() {
   $("#map").OpenLayers({

@@ -13,14 +13,15 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
-//= require bootstrap-datepicker//= require d3.v2
+//= require bootstrap-datepicker
+//= require d3.v2
 //= require rickshaw/rickshaw
 //= require jquery-file-upload/js/vendor/jquery.ui.widget
 //= require jquery-file-upload/js/jquery.iframe-transport
 //= require jquery-file-upload/js/jquery.fileupload
 //= require datatables/media/js/jquery.dataTables
 //=# require jquery-ui/jquery-ui-1.8.21.custom.min
-//= require_tree .
+//=# require_tree .
 
 $(document).ready(function() {
 });
