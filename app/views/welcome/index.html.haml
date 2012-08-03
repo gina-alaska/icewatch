@@ -1,7 +1,3 @@
-=content_for :navbar do
-  %form.form-search.navbar-form.pull-right{id: :cruise_select}
-    = collection_select :cruise, :_id, Cruise.asc(:start_date).all, :_id, :ship_with_date 
-
 .container
   .row
     .span6{style:'height: 500px; overflow-y: scroll'}
@@ -11,12 +7,12 @@
         .page-header
           %h4=cruise.ship
         %dl.dl-horizontal
-          %dt="Captain"
-          %dd=cruise.captain || "Not Specfied"
           %dt="Start Date"
           %dd=ymd cruise.start_date
           %dt="End Date"
           %dd=ymd cruise.end_date
+          %dt="Other Data:"
+          %dd="???????  Profit!"
 
     .span6
       .page-header
@@ -38,38 +34,3 @@
         #y_axis
         #graph
         #legend
-
--# #map
--#   
--# %ul.nav.nav-tabs
--#   %li.active
--#     =link_to "Table", "#table",{ data: {toggle: 'tab'}}
--#   %li
--#     =link_to "Graph", "#graph-container",{ data: {toggle: 'tab'}}
--#     
--# .tab-content
--#   #table.tab-pane.active
--#     %table.table-bordered.table-striped.table-condensed
--#       %thead
--#         %tr
--#           %th="Observation time"
--#           %th="Latitude"
--#           %th="Longitude"
--#           %th="Total Ice Concentration"
--#       %tbody  
--#         - @observations.each do |obs|
--#           %tr
--#             %td= obs.obs_datetime.strftime("%Y.%m.%d %H:%M")
--#             %td= obs.latitude
--#             %td= obs.longitude
--#             %td= obs.ice.total_concentration
--#   #graph-container.tab-pane
--#     #y_axis    
--#     #graph
--#     #legend
--#     #slider
--#     
--# :javascript
--#   $("#cruise_select").change( function(e) {
--#     $(this).submit();
--#   })
