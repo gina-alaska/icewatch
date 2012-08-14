@@ -3,7 +3,13 @@ Icebox::Application.routes.draw do
   # first created -> highest priority.
   resources :observations
   resources :cruises
-  resources :users
+
+  resources :users do
+    resources :observations
+  end
+
+  resource :graph, only: :show
+  resource :map, only: :show
 
   namespace :admin do
     resource :dashboard, only: :show
@@ -17,10 +23,20 @@ Icebox::Application.routes.draw do
   end
   
   
+  namespace :api do 
+    resources :cruises, only: [:index, :show] do
+      resources :observations, only: [:index, :show]
+      collection do 
+        get :all
+      end
+    end
+  end
+  
 
   match '/admin/users/:id/approve/:value', to: 'admin/users#approve', as: 'approve_user'
   match '/admin/cruises/:id/approve/:value', to: 'admin/cruises#approve', as: 'approve_cruise'
-  
+  match '/admin/observations/:id/approve/:value', to: 'admin/observations#approve', as: 'approve_observation'
+
   match '/auth/:provider/callback', to: 'sessions#create'
   match '/auth/failure' => 'sessions#failure'
   match '/login' => 'sessions#new', as: 'login'
