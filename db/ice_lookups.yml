@@ -1,0 +1,29 @@
+---
+  - :name: Frazil
+    :code: 10
+  - :name: Shuga
+    :code: 11
+  - :name: Grease
+    :code: 12
+  - :name: Nilas
+    :code: 20
+  - :name: Pancakes
+    :code: 30
+  - :name: "Young Grey Ice 0.1-1.15m"
+    :code: 40
+  - :name: "Young Grey-White Ice 0.15-0.3m"
+    :code: 50
+  - :name: "First year < 0.7m"
+    :code: 60
+  - :name: "First year 0.7-1.2m"
+    :code: 70
+  - :name: "First year >1.2m"
+    :code: 80
+  - :name: "Second year"
+    :code: 75
+  - :name: "Multiyear"
+    :code: 85
+  - :name: Brash
+    :code: 90
+  - :name: "Fast ice"
+    :code: 95

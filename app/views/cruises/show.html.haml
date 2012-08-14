@@ -1,0 +1,58 @@
+.container
+  .row
+    .span12
+      .page-header
+        %h1
+          =@cruise.ship
+          %small
+            = "#{ymd(@cruise.start_date)} to #{ymd(@cruise.end_date)}"
+            .pull-right
+              .btn-toolbar
+                .btn-group
+                  .btn.disabled
+                    Download as:
+                  =link_to "CSV", api_cruise_observations_url(@cruise, :csv), class: 'btn'
+                  =link_to "JSON", api_cruise_observations_url(@cruise, :json), class: 'btn'
+  .row
+    .span12
+      .well
+        Cruise Metadata?
+  .row
+    .span6{style:'height: 500px; overflow-y: scroll'}
+      .page-header
+        %h2 
+          Observations
+          %small
+            Ice Concentration
+          %span.badge.badge-info
+            =@cruise.observations.count
+      %table.table.table-striped
+        %thead
+          %tr
+            %th="Date"
+            %th="Time"
+            %th="Total"
+            %th="Primary"
+            %th="Secondary"
+            %th="Tertiary"
+        %tbody
+          - @cruise.observations.each do |o|
+            %tr
+              %td= o.obs_datetime.strftime("%y/%m/%d")
+              %td= o.obs_datetime.strftime("%H:%M")
+              %td= o.ice.total_concentration
+              %td= o.ice_observations[0].try(:partial_concentration)
+              %td= o.ice_observations[1].try(:partial_concentration)            
+              %td= o.ice_observations[2].try(:partial_concentration)
+    .span6
+      .page-header
+        %h2
+          Cruise Activity
+      #map{data: {url: api_cruise_observations_url(@cruise, :geojson)}}
+  .row
+    .span12
+      .page-header
+        %h2
+          Charts
+      #chart
+  

@@ -1,0 +1,23 @@
+---
+  - :name: Whale
+    :code: 0
+  - :name: Walrus
+    :code: 1
+  - :name: Seal
+    :code: 2
+  - :name: Gull
+    :code: 3
+  - :name: Sea-Duck
+    :code: 4
+  - :name: Alcid
+    :code: 5
+  - :name: Cormorant
+    :code: 6
+  - :name: Amphipod/Shrimp
+    :code: 7
+  - :name: Arctic Cod
+    :code: 8
+  - :name: Polar Bear
+    :code: 9
+  - :name: Other(specify in comments)
+    :code: 10

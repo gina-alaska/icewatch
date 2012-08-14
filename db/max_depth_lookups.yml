@@ -1,0 +1,9 @@
+---
+  - :name: "0-10cm"
+    :code: 1
+  - :name: "10-30cm"
+    :code: 2
+  - :name: "30-50cm"
+    :code: 3
+  - :name: ">50cm"
+    :code: 4

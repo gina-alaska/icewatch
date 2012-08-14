@@ -1,0 +1,73 @@
+---
+- :code: 2
+  :region: Antarctica
+  :subregion: W. Antarctic 'coast'
+- :code: 3
+  :region: Antarctica
+  :subregion: E. Antarctic 'coast'
+- :code: 4
+  :region: Antarctica
+  :subregion: Amery Ice Shelf
+- :code: 5
+  :region: Antarctica
+  :subregion: Ronne-Filchner Shelf
+- :code: 1
+  :region: Antarctica
+  :subregion: Ross Ice Shelf
+- :code: 2
+  :region: Greenland
+  :subregion: Edge of ice sheet
+- :code: 3
+  :region: Greenland
+  :subregion: Outlying ice fields
+- :code: 10
+  :region: North America
+  :subregion: Alaska
+- :code: 11
+  :region: North America
+  :subregion: Conterminous USA
+- :code: 12
+  :region: North America
+  :subregion: Canada, continental
+- :code: 13
+  :region: North America
+  :subregion: Canada, arctic islands
+- :code: 14
+  :region: South America
+  :subregion: Cordillera
+- :code: 15
+  :region: Europe and Africa
+  :subregion: Fennoscandia
+- :code: 16
+  :region: Europe and Africa
+  :subregion: Alps
+- :code: 17
+  :region: Europe and Africa
+  :subregion: Svalbard + Jan Mayen
+- :code: 18
+  :region: Europe and Africa
+  :subregion: Iceland
+- :code: 19
+  :region: Europe and Africa
+  :subregion: Africa
+- :code: 20
+  :region: Russia
+  :subregion: Russia, arctic islands
+- :code: 21
+  :region: Russia
+  :subregion: Russia, continental
+- :code: 22
+  :region: Asia (except Russia)
+  :subregion: Himalayas+Hindu Kush
+- :code: 23
+  :region: Asia (except Russia)
+  :subregion: Turkey
+- :code: 24
+  :region: Asia (except Russia)
+  :subregion: Iran
+- :code: 25
+  :region: Oceania
+  :subregion: New Zealand
+- :code: 26
+  :region: Oceania
+  :subregion: Indonesia

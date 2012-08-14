@@ -1,0 +1,11 @@
+---
+  - :name: "semi-attached strands and patches of algae at bottom and sides of floes"
+    :code: 0
+  - :name: "bottom algal layer"
+    :code: 1
+  - :name: "interior algal layer"
+    :code: 2
+  - :name: "surface algal layer"
+    :code: 3
+  - :name: "melt-pond community"
+    :code: 4

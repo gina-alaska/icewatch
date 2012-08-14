@@ -1,0 +1,15 @@
+---
+  - :code: 1
+    :name: "on station"
+  - :code: 2
+    :name: "travelling outside of ice edge"
+  - :code: 3
+    :name: "traveling in lead or other open water within pack ice"
+  - :code: 4
+    :name: "proceeding through loose ice"
+  - :code: 5
+    :name: "continuous icebreaking"
+  - :code: 6
+    :name: ramming
+  - :code: 7
+    :name: "stopped due to ice"

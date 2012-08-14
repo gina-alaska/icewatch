@@ -1,0 +1,37 @@
+---
+  - :name: Stratus
+    :code: St
+    :height: Surface-600M
+    :group: Low
+  - :name: Stratocumulus
+    :code: SC
+    :height: 300-1500M
+    :group: Low
+  - :name: Cumulus
+    :code: Cu
+    :height: 300-1500M
+    :group: Low
+  - :name: Cumulonimbus
+    :code: Cn
+    :height: 600-1500M
+    :group: Low
+  - :name: Altostratus
+    :code: As
+    :height: Surface-3000M
+    :group: Medium
+  - :name: AltoCumulus
+    :code: Ac
+    :height: 2000-6000
+    :group: Medium
+  - :name: Cirrus
+    :code: Ci
+    :height: 6000-12000M
+    :group: High
+  - :name: Cirrostratus
+    :code: Cs
+    :height: 6000-12000M
+    :group: High
+  - :name: Cirrocumulus
+    :code: Cc
+    :height: 6000-12000M
+    :group: High

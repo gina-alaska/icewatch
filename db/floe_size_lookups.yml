@@ -1,0 +1,19 @@
+---
+  - :name: "Pancakes"
+    :code: 100
+  - :name: "New sheet ice"
+    :code: 200
+  - :name: "Brash/Broken Ice"
+    :code: 300
+  - :name: "Cake ice <20m"
+    :code: 400
+  - :name: "Small floes 20-100"
+    :code: 500
+  - :name: "Medium floes 100-500m"
+    :code: 600
+  - :name: "Large floes 500-2000m"
+    :code: 700
+  - :name: "Vast floes > 2000m"
+    :code: 800
+  - :name: "Bergy Floes"
+    :code: 900

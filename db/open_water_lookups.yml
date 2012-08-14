@@ -1,0 +1,23 @@
+---
+  - :name: "No openings"
+    :code: 0
+  - :name: "Small cracks"
+    :code: 1
+  - :name: "Very narrow breaks <50m"
+    :code: 2
+  - :name: "Narrow breaks, 50-200m"
+    :code: 3
+  - :name: "Wide breaks, 200-500m"
+    :code: 4
+  - :name: "Very wide breaks, >500m"
+    :code: 5
+  - :name: Leads
+    :code: 6
+  - :name: Polynya
+    :code: 7
+  - :name: "Water broken only by scattered floes"
+    :code: 8
+  - :name: "Open Sea"
+    :code: 9
+  - :name: "Stripes and Patches"
+    :code: 10

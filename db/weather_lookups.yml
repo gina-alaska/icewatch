@@ -1,0 +1,202 @@
+---
+- :code: 0
+  :name: Clouds not observable/observed
+  :comment: Cloud development
+- :code: 1
+  :name: Clouds dissolving or becoming less developed
+  :comment: Cloud development
+- :code: 2
+  :name: State of sky as a whole unchanged
+  :comment: Cloud development
+- :code: 3
+  :name: Clouds forming or developing
+  :comment: Cloud development
+- :code: 20
+  :name: Drizzle not freezing or snow grains
+  :comment: Fog/Precipitation during past hour but not at time of obs
+- :code: 21
+  :name: Rain not freezing or snow grains
+  :comment: Fog/Precipitation during past hour but not at time of obs
+- :code: 22
+  :name: Snow not freezing or snow grains
+  :comment: Fog/Precipitation during past hour but not at time of obs
+- :code: 23
+  :name: Rain and snow or ice pellets
+  :comment: Fog/Precipitation during past hour but not at time of obs
+- :code: 24
+  :name: Drizzle or rain, freezing
+  :comment: Fog/Precipitation during past hour but not at time of obs
+- :code: 25
+  :name: Showers of rain
+  :comment: Fog/Precipitation during past hour but not at time of obs
+- :code: 26
+  :name: Showers of snow, or of rain and snow
+  :comment: Fog/Precipitation during past hour but not at time of obs
+- :code: 27
+  :name: Showers of hail, or of rain and hail
+  :comment: Fog/Precipitation during past hour but not at time of obs
+- :code: 28
+  :name: Fog in past hour, not at present
+  :comment: Fog/Precipitation during past hour but not at time of obs
+- :code: 36
+  :name: Drifting snow below eye level, slight/moderate
+  :comment: Blowing or drifting snow
+- :code: 37
+  :name: Drifting snow below eye level, heavy
+  :comment: Blowing or drifting snow
+- :code: 38
+  :name: Blowing snow, above eye level, slight/moderate
+  :comment: Blowing or drifting snow
+- :code: 39
+  :name: Blowing snow, above eye level, heavy
+  :comment: Blowing or drifting snow
+- :code: 41
+  :name: Fog in patches
+  :comment: Fog/Mist
+- :code: 42
+  :name: Fog thinning in last hour, sky discernable
+  :comment: Fog/Mist
+- :code: 43
+  :name: Fog thinning in last hour, sky not discernable
+  :comment: Fog/Mist
+- :code: 44
+  :name: Fog unchanged in last hour, sky discernable
+  :comment: Fog/Mist
+- :code: 45
+  :name: Fog unchanged in last hour, sky not discernable
+  :comment: Fog/Mist
+- :code: 46
+  :name: Fog beginning/thickening in last hour, sky discernable
+  :comment: Fog/Mist
+- :code: 47
+  :name: Fog beginning/thickening in last hour, sky not discernable
+  :comment: Fog/Mist
+- :code: 48
+  :name: Fog depositing rime, sky discernable
+  :comment: Fog/Mist
+- :code: 49
+  :name: Fog depositing rime, sky not discernable
+  :comment: Fog/Mist
+- :code: 50
+  :name: Slight drizzle, intermittent
+  :comment: Precipitation as drizzle
+- :code: 51
+  :name: Slight drizzle, continuous
+  :comment: Precipitation as drizzle
+- :code: 52
+  :name: Moderate drizzle, intermittent
+  :comment: Precipitation as drizzle
+- :code: 53
+  :name: Moderate drizzle, continuous
+  :comment: Precipitation as drizzle
+- :code: 54
+  :name: Dense drizzle, intermittent
+  :comment: Precipitation as drizzle
+- :code: 55
+  :name: Dense drizzle, continuous
+  :comment: Precipitation as drizzle
+- :code: 56
+  :name: Freezing drizzle, slight
+  :comment: Precipitation as drizzle
+- :code: 57
+  :name: Freezing drizzle, moderate or dense
+  :comment: Precipitation as drizzle
+- :code: 58
+  :name: Drizzle and rain, slight
+  :comment: Precipitation as drizzle
+- :code: 59
+  :name: Drizzle and rain, moderate or dense
+  :comment: Precipitation as drizzle
+- :code: 60
+  :name: Slight rain, intermittent
+  :comment: Precipitation as rain, not showers
+- :code: 61
+  :name: Slight rain, continuous
+  :comment: Precipitation as rain, not showers
+- :code: 62
+  :name: Moderate rain, intermittent
+  :comment: Precipitation as rain, not showers
+- :code: 63
+  :name: Moderate rain, continuous
+  :comment: Precipitation as rain, not showers
+- :code: 64
+  :name: Heavy rain, intermittent
+  :comment: Precipitation as rain, not showers
+- :code: 65
+  :name: Heavy rain, continuous
+  :comment: Precipitation as rain, not showers
+- :code: 66
+  :name: Freezing rain, slight
+  :comment: Precipitation as rain, not showers
+- :code: 67
+  :name: Freezing rain, moderate or heavy
+  :comment: Precipitation as rain, not showers
+- :code: 68
+  :name: Rain or drizzle and snow, slight
+  :comment: Precipitation as rain, not showers
+- :code: 69
+  :name: Rain or drizzle and snow, moderate/heavy
+  :comment: Precipitation as rain, not showers
+- :code: 70
+  :name: Slight fall of snow flakes, intermittent
+  :comment: Frozen precipitation, not showers
+- :code: 71
+  :name: Slight fall of snow flakes, continuous
+  :comment: Frozen precipitation, not showers
+- :code: 72
+  :name: Moderate fall of snow flakes, intermittent
+  :comment: Frozen precipitation, not showers
+- :code: 73
+  :name: Moderate fall of snow flakes, continuous
+  :comment: Frozen precipitation, not showers
+- :code: 74
+  :name: Heavy fall of snow flakes, intermittent
+  :comment: Frozen precipitation, not showers
+- :code: 75
+  :name: Heavy fall of snow flakes, continuous
+  :comment: Frozen precipitation, not showers
+- :code: 76
+  :name: Ice prisms, with/without fog
+  :comment: Frozen precipitation, not showers
+- :code: 77
+  :name: Snow grains, with/without fog
+  :comment: Frozen precipitation, not showers
+- :code: 78
+  :name: Isolated star like crystals
+  :comment: Frozen precipitation, not showers
+- :code: 79
+  :name: Ice pellets
+  :comment: Frozen precipitation, not showers
+- :code: 80
+  :name: Slight rain showers
+  :comment: Precipitation as showers
+- :code: 81
+  :name: Moderate or heavy rain showers
+  :comment: Precipitation as showers
+- :code: 82
+  :name: Violent rain showers
+  :comment: Precipitation as showers
+- :code: 83
+  :name: Slight showers of rain and snow
+  :comment: Precipitation as showers
+- :code: 84
+  :name: Moderate/heavy showers of rain and snow
+  :comment: Precipitation as showers
+- :code: 85
+  :name: Slight snow showers
+  :comment: Precipitation as showers
+- :code: 86
+  :name: Moderate or heavy snow showers
+  :comment: Precipitation as showers
+- :code: 87
+  :name: Slight showers of soft or small hail
+  :comment: Precipitation as showers
+- :code: 88
+  :name: Moderate/heavy showers of soft/small hail
+  :comment: Precipitation as showers
+- :code: 89
+  :name: Slight showers of hail
+  :comment: Precipitation as showers
+- :code: 90
+  :name: Moderate or heavy showers of hail
+  :comment: Precipitation as showers

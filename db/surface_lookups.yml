@@ -1,0 +1,7 @@
+---
+  - :name: "Frozen (dry snow, wet snow)"
+    :code: 1
+  - :name: "Open"
+    :code: 2
+  - :name: "Bottom up"
+    :code: 3

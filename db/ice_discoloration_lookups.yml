@@ -1,0 +1,9 @@
+---
+  - :name: faint
+    :code: 0
+  - :name: light
+    :code: 1
+  - :name: medium
+    :code: 2
+  - :name: strong
+    :code: 3

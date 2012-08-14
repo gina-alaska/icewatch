@@ -1,0 +1,12 @@
+.container-fluid
+  .row-fluid
+    .span12
+      .page-header
+        %h1
+          2012
+          %small
+            Total Concentration
+      #graph-container{data: {url: api_cruises_url(:json)}}
+        #y_axis
+        #graph
+        #legend
