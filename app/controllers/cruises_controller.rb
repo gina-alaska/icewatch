@@ -24,6 +24,14 @@ class CruisesController < ApplicationController
       format.html
     end 
   end
+  
+  def show
+    @cruise = Cruise.find(params[:id])
+    
+    respond_to do |format|
+      format.html
+    end
+  end
 
 protected
   def cruiseParams

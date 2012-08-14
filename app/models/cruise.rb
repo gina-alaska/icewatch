@@ -11,7 +11,12 @@ class Cruise
   
   attr_accessible :approved, :ship, :start_date, :end_date, :captain, :archived, :user_id
 
-  has_many :observations
+  has_many :observations, order: 'obs_datetime DESC' do
+    def recent count
+      desc(:obs_datetime).limit(count)
+    end
+  end
+  
   belongs_to :user
   
   scope :active, ->(){where(:start_date.lte => Time.now).where(:end_date.gte => Time.now)}
@@ -36,6 +41,32 @@ class Cruise
   
   def pending_observations
     self.observations.where(accepted: false)
+  end
+  
+  def as_geojson opts={}
+    data = self.as_json
+    observation = self.observations.recent(1).first
+  
+    lat, lon = nil
+    unless observation.nil?
+      lat = observation.delete(:latitude)
+      lon = observation.delete(:longitude)
+    end
+    data[:location] = {
+      type: "Feature",
+      geometry: {
+        type: "Point",
+        coordinates: [lat, lon]
+      }
+    }        
+    data
+  end  
+  
+  def as_json opts={}
+    data = super
+    data[:observations] = self.observations.where(accepted:true)
+    
+    data
   end
   
 private

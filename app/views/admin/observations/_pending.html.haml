@@ -23,16 +23,16 @@
             %th
         %tbody
           -group.last.each do |p|
-            %tr.error
+            %tr{class: p.is_valid? ? '' : 'error'}
               %td= p.obs_datetime
-              %td= p.cruise_id
+              %td= p.id
               %td= "Placeholder"
               %td= p.latitude
               %td= p.longitude
               %td
-                .btn.btn-small.btn-success
+                =link_to approve_observation_url(p, :yes), class: 'btn btn-small btn-success' do 
                   %i.icon-ok.icon-white
                 .btn.btn-small.btn-primary
                   %i.icon-edit.icon-white
-                .btn.btn-small.btn-danger
+                =link_to approve_observation_url(p, :no), class: 'btn btn-small btn-danger' do 
                   %i.icon-remove.icon-white

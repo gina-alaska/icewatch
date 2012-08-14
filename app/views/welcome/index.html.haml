@@ -2,35 +2,38 @@
   .row
     .span6{style:'height: 500px; overflow-y: scroll'}
       .page-header
-        %h1= "Cruise Info"
+        %h1= "Active Cruises"
       -Cruise.all.each do |cruise|
         .page-header
-          %h4=cruise.ship
+          %h3
+            =cruise.ship
+            %small.pull-right
+              =link_to "View Observations", cruise_url(cruise)
         %dl.dl-horizontal
           %dt="Start Date"
           %dd=ymd cruise.start_date
           %dt="End Date"
           %dd=ymd cruise.end_date
-          %dt="Other Data:"
-          %dd="???????  Profit!"
+          %dt="Last Observation:"
+          %dd=ymd(cruise.observations.recent(1).first.try(:obs_datetime)) || "No Observations Reported"
 
     .span6
       .page-header
         %h1
-          Active Cruises
+          Yearly Activity
           =link_to root_url, class: 'btn pull-right' do
             %i.icon-globe
             Explore
-      #map
+      #map{data: {url: api_cruises_url(:geojson)}}
   .row
     .span12
       .page-header
         %h1
           Ice Concentration
-          =link_to root_url, class: "btn pull-right" do
+          =link_to graph_url, class: "btn pull-right" do
             %i.icon-tasks
             Browse
-      #graph-container
+      #graph-container{data: {url: api_cruises_url(:json)}}
         #y_axis
         #graph
         #legend

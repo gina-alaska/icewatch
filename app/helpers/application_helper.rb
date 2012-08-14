@@ -1,6 +1,6 @@
 module ApplicationHelper
   
   def ymd date
-    date.strftime("%Y-%m-%d")
+    date.try(:strftime,"%Y-%m-%d") || nil
   end
 end
