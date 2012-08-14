@@ -1,5 +1,6 @@
 class Observation
   include Mongoid::Document
+  include AssistShared::Validations::Observation
   
   validates_presence_of :cruise_id
   validates_uniqueness_of :hexcode
@@ -14,33 +15,22 @@ class Observation
   embeds_many :ice_observations
   embeds_many :photos
   embeds_many :comments
-
+  
   belongs_to :cruise
 
   accepts_nested_attributes_for :ice, :ice_observations, :meteorology, :photos, :comments
   
+  default_scope desc(:obs_datetime)
+  
   scope :has_errors, where(:is_valid => false)
   scope :pending, where(:accepted => false)
   
-  def to_geojson opts={}
-    {
-      obs_datetime: self.obs_datetime,
-      location: {
-        type: "Feature",
-        geometry: {
-          type: "Point",
-          coordinates: [self.longitude, self.latitude]
-        }
-      },
-      total_concentration: self.ice.total_concentration
-    }
-  end
   
-
-  def as_json *opts
-    data = super
-    lat = data.delete(:latitude)
-    lon = data.delete(:longitude)
+  
+  def as_geojson opts={}
+    data = self.as_json
+    data.delete(:latitude) if data[:latitude]
+    data.delete(:longitude) if data[:longitude]
     data[:location] = {
       type: "Feature",
       geometry: {
@@ -48,8 +38,23 @@ class Observation
         coordinates: [self.longitude, self.latitude]
       }
     }
+    
     data
   end
+
+  # def as_json *opts
+  #   # data = super
+  #   # lat = data.delete(:latitude)
+  #   # lon = data.delete(:longitude)
+  #   # data[:location] = {
+  #   #   type: "Feature",
+  #   #   geometry: {
+  #   #     type: "Point",
+  #   #     coordinates: [self.longitude, self.latitude]
+  #   #   }
+  #   # }
+  #   # data
+  # end
   
   
   def self.from_file file, params={}
@@ -71,11 +76,12 @@ class Observation
     obs = []
     Zip::ZipFile.open(file) do |z|
       if(z.file.exists?("METADATA"))
-        file = self.read_metadata(z.file.read("METADATA"))
+        md = YAML.load((z.file.read("METADATA")))
+        file = md[:assist_version] == "1.0" ? "aorlich_summer_2012.observations.json" : md[:observations]
       elsif(z.file.exists?("observation.json"))
         file = "observation.json"
       end
-      data = JSON.parse(z.file.read(file))
+      data = ::JSON.parse(z.file.read(file))
       obs = self.from_json(data, params)
     end
     obs
@@ -86,17 +92,18 @@ class Observation
     data.each do |obs|
       obs = JSON.parse(obs)
       obs.merge!(params[:observation]) if params[:observation]
-      p obs
       o = Observation.new(obs)
       o.is_valid = o.valid?
+      unless o.valid?
+        logger.info o.errors
+      end
       o.save validate: false
       observations << o
     end
-    p observations
     observations
   end
   
   def self.from_csv
   end
-  
+    
 end

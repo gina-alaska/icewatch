@@ -1,3 +1,9 @@
+GIT
+  remote: http://github.com/gina-alaska/iceobs-shared
+  revision: fd599b90fe4f7b1262cd3d68501d88186e3bc3ac
+  specs:
+    assist-shared (0.0.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -140,6 +146,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  assist-shared!
   bootstrap-datepicker-rails
   bootstrap-kaminari-views
   bootstrap-sass
