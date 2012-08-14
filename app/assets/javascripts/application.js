@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require bootstrap-datepicker
+//= require gina-map-layers/gina-openlayers
 //= require d3.v2
 //= require rickshaw/rickshaw
 //= require jquery-file-upload/js/vendor/jquery.ui.widget
@@ -21,7 +22,14 @@
 //= require jquery-file-upload/js/jquery.fileupload
 //= require datatables/media/js/jquery.dataTables
 //=# require jquery-ui/jquery-ui-1.8.21.custom.min
-//=# require_tree .
+//= require_tree ./map
 
 $(document).ready(function() {
+  
+  var map = new IceMap;
+  map.init("#map");
+  
+  var graph = new IceGraph;
+  graph.init("#graph-container")
+
 });

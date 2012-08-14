@@ -1,7 +1,9 @@
 class @IceGraph
-  init: ->
-    #TODO: 
-    #IceBox should fetch the data and pass it to here, so we only have to fetch the data once.
+  init: (div)->
+    @div = $(div);
+    @datasource = @div.attr("data-url");
+    
+    
     @fetchData();
       
     #Set up on resize events to redraw the graph
@@ -9,8 +11,7 @@ class @IceGraph
     
         
   fetchData: () ->
-    url = "/observations.json"
-    $.getJSON url, (data) =>
+    $.getJSON @datasource, (data) =>
       @data = data;
       @updateGraph();
   
@@ -25,7 +26,7 @@ class @IceGraph
       element: document.querySelector("#graph"),
       width: w,
       height: h,
-      renderer: 'area',
+      renderer: 'line',
       unstack: true,
       offset: 'zero',
       interpolation: 'step-after'
@@ -48,11 +49,7 @@ class @IceGraph
       element: document.querySelector('#legend'),
       graph: graph
     );
-    # 
-    # slider =new Rickshaw.Graph.RangeSlider(
-    #   element: $("#slider"),
-    #   graph: graph
-    # );
+
     graph.render();
     
   transformData: ->
@@ -60,47 +57,26 @@ class @IceGraph
       scheme: 'cool'
     );
     data = [];
-    seriesItems = {};
-    maps = {
-      total_concentration: "Total Concentration"
-      ppartial_concentration: "Primary Concentration"
-      spartial_concentration: "Secondary Concentration"
-      tpartial_concentration: "Tertiary Concentration"
-    };
 
-    console.log(@data);
+    $.each @data, (index,cruise) ->
+      return if cruise.observations.length == 0
 
-    $.each(@data, (index,item) ->
+      seriesItems = [];
+      $.each cruise.observations, (i, obs) ->
+        x = Date.parse(obs.obs_datetime) / 1000;
+        y = obs.ice.total_concentration;
+        
+        if x? and y? 
+          seriesItems.push
+            x: Date.parse(obs.obs_datetime) / 1000,
+            y: obs.ice.total_concentration || 0
+  
       
-        seriesItems['tpartial_concentration'] = seriesItems['tpartial_concentration'] || []
-        seriesItems['tpartial_concentration'].push({
-          x: Date.parse(item.obs_datetime) / 1000
-          y: item.ice_observations[2].partial_concentration || 0
-        });
-        seriesItems['spartial_concentration'] = seriesItems['spartial_concentration'] || []
-        seriesItems['spartial_concentration'].push({
-          x: Date.parse(item.obs_datetime) / 1000
-          y: item.ice_observations[1].partial_concentration || 0
-        });
-        seriesItems['ppartial_concentration'] = seriesItems['ppartial_concentration'] || []
-        seriesItems['ppartial_concentration'].push({
-          x: Date.parse(item.obs_datetime) / 1000
-          y: item.ice_observations[0].partial_concentration || 0
-        });
-        seriesItems['total_concentration'] = seriesItems['total_concentration'] || [];
-        seriesItems['total_concentration'].push({
-          x: Date.parse(item.obs_datetime) / 1000
-          y: item.ice.total_concentration || 0
-        });
-    );
-    console.log(seriesItems);
-    
-    $.each(seriesItems, (index, s) -> 
-      data.push(
-        name: maps[index] || "Unknown",
-        data: s
+      data.push
+        name: cruise.ship
+        data: seriesItems
         color: palette.color()
-      )
-    );
+
+
     data;
     
