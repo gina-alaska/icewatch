@@ -6,7 +6,10 @@ class Api::CruisesController < ApiController
           
     respond_to do |format|
       format.json { render json: @cruises }
-      format.geojson { render json: @cruises.collect(&:as_geojson) }
+      format.geojson { render json: {
+        type: 'FeatureCollection',
+        features: @cruises.collect(&:as_geojson).compact
+      }}
     end
   end
   

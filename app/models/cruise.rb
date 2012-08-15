@@ -44,22 +44,16 @@ class Cruise
   end
   
   def as_geojson opts={}
-    data = self.as_json
-    observation = self.observations.recent(1).first
-  
-    lat, lon = nil
-    unless observation.nil?
-      lat = observation.delete(:latitude)
-      lon = observation.delete(:longitude)
-    end
-    data[:location] = {
+    observation = self.observations.where(accepted:true).last
+    return nil if observation.nil? 
+    {
       type: "Feature",
       geometry: {
         type: "Point",
-        coordinates: [lat, lon]
-      }
-    }        
-    data
+        coordinates: [observation.try(:longitude), observation.try(:latitude)]
+      },
+      attributes: self.as_json
+    }   
   end  
   
   def as_json opts={}
