@@ -10,7 +10,7 @@
     .navbar
       .navbar-inner
         .container-fluid
-          = link_to "IceBox", "#", class: 'brand'
+          = link_to "IceBox",root_url, class: 'brand'
           = yield :navbar
           %ul.nav.pull-right        
             %li= link_to 'Dashboard', admin_dashboard_path if current_user.try(:admin?)
