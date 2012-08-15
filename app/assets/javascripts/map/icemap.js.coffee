@@ -16,14 +16,13 @@ class @IceMap
     
     @map.zoomTo(3);     
 
-    console.log("Adding layers from ", @datasource)
-
+ 
     trackLayer = new OpenLayers.Layer.Vector("track");
     parser = new OpenLayers.Format.GeoJSON;
     $.getJSON @datasource, (data) =>
-      $.each data, (index,point) =>
-        feature = parser.parseFeature(point.location);
+      features = parser.read(data);
+      for feature in features
         feature.geometry.transform(@map.displayProjection, @map.getProjectionObject());
-        trackLayer.addFeatures(feature);
+      trackLayer.addFeatures(features);
     
     @map.addLayer(trackLayer);

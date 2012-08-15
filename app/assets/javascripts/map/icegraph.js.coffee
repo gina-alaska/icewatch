@@ -3,80 +3,57 @@ class @IceGraph
     @div = $(div);
     @datasource = @div.attr("data-url");
     
-    
-    @fetchData();
-      
-    #Set up on resize events to redraw the graph
-    
-    
-        
-  fetchData: () ->
     $.getJSON @datasource, (data) =>
-      @data = data;
-      @updateGraph();
-  
-  updateGraph: ->
-    w = $("#graph").width();
-    h = $("#graph").height();
-    w = 800;
-    h = 300;
-    series = @transformData()
+      @data = @transformData(data);
+      console.log(@data)
+      nv.addGraph => 
+        chart = nv.models.lineChart();
+        chart = chart.x (d) ->
+          d[0]
+        chart = chart.y (d) ->
+          d[1]
+          
+        chart.xAxis.axisLabel('Date/Time').tickFormat (d) -> 
+          return d3.time.format('%x')(new Date(d))
+        
+        chart.yAxis.axisLabel('Total Concentration').tickFormat(d3.format(',f'));
+        chart.forceY([0,10])
 
-    graph = new Rickshaw.Graph(
-      element: document.querySelector("#graph"),
-      width: w,
-      height: h,
-      renderer: 'line',
-      unstack: true,
-      offset: 'zero',
-      interpolation: 'step-after'
-      onData: (d) =>
-        @transformData(d)
-      series: series
-    );
-    
-    x_axis = new Rickshaw.Graph.Axis.Time(
-      graph: graph
-    );
-    y_axis = new Rickshaw.Graph.Axis.Y(
-      graph: graph,
-      orientation: 'left',
-      tickFormat: Rickshaw.Fixtures.Number.formatKMBT,
-      element: document.querySelector('#y_axis')
-    );
-    
-    legend = new Rickshaw.Graph.Legend(
-      element: document.querySelector('#legend'),
-      graph: graph
-    );
+        d3.select('#chart svg')
+          .datum(@data)
+          .transition().duration(500)
+          .call(chart);
+        
+        nv.utils.windowResize(chart.update);
+        
+        chart;
+      
+  #end init
 
-    graph.render();
-    
-  transformData: ->
-    palette = new Rickshaw.Color.Palette(
-      scheme: 'cool'
-    );
+  transformData: (rawData) ->
     data = [];
-
-    $.each @data, (index,cruise) ->
+    console.log(rawData)
+    $.each rawData, (index,cruise) ->
       return if cruise.observations.length == 0
-
+      
       seriesItems = [];
       $.each cruise.observations, (i, obs) ->
-        x = Date.parse(obs.obs_datetime) / 1000;
+        x = Date.parse(obs.obs_datetime);
         y = obs.ice.total_concentration;
         
         if x? and y? 
-          seriesItems.push
-            x: Date.parse(obs.obs_datetime) / 1000,
-            y: obs.ice.total_concentration || 0
-  
+          seriesItems.push [x,y]
+    
       
       data.push
-        name: cruise.ship
-        data: seriesItems
-        color: palette.color()
-
-
+        key: cruise.ship
+        values: seriesItems
+      #  color: "#ff7f0e"
+      # data.push
+      #   key: cruise.ship + "1"
+      #   values: seriesItems
+      #   color: '#2ca02c'
+        
+    console.log(data)
     data;
     

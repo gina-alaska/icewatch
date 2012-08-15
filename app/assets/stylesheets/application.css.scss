@@ -11,7 +11,7 @@
  *= require_self
  *= require_tree .
  *= require bootstrap-datepicker
- *= require rickshaw/rickshaw
+ *= require nvd3/src/nv.d3
  *= require datatables/media/css/jquery.dataTables
  */
 
@@ -47,16 +47,10 @@
   margin-top: 10px;
   font-family: Arial, Helvetica, sans-serif;
 }
-#legend {
-  position: absolute;
-  right: 5px;
-  margin-left: 15px;
-}
-#slider {
-  margin-top: 10px;
-  margin-left: 50px;
-}
 
+#chart {
+  height: 400px;
+}
 td form {
   margin-bottom: 0px;
   input {
