@@ -8,7 +8,7 @@ Icebox::Application.routes.draw do
     resources :observations
   end
 
-  resource :graph, only: :show
+  resource :chart, only: :show
   resource :map, only: :show
 
   namespace :admin do

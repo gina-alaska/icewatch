@@ -1,0 +1,52 @@
+nv.addGraph(function() {
+  var series = [];
+
+  // var data = <%= @cruise.observations.where(accepted: true).collect{|o| [o.obs_datetime.to_i * 1000, o.ice.total_concentration]}.to_json %>;
+  // if(data.length > 0) {
+  //   series.push({
+  //     values: data,
+  //     key: 'Total Concentration'
+  //   });
+  // }
+  data = <%= @cruise.observations.where(accepted: true).collect{|o| [o.obs_datetime.to_i * 1000, o.ice_observations[0].partial_concentration]}.to_json %>;
+  if(data.length > 0) {
+    series.push({
+      values: data,
+      key: 'Primary Concentration'
+    });
+  }
+  data = <%= @cruise.observations.where(accepted: true).collect{|o| [o.obs_datetime.to_i * 1000, o.ice_observations[1].partial_concentration]}.to_json %>;
+  if(data.length > 0) {
+    series.push({
+      values: data,
+      key: 'Secondary Concentration'
+    });
+  }
+  data = <%= @cruise.observations.where(accepted: true).collect{|o| [o.obs_datetime.to_i * 1000, o.ice_observations[2].partial_concentration]}.to_json %>;
+  if(data.length > 0) {
+    series.push({
+      values: data,
+      key: 'Tertiary Concentration'
+    });
+  }
+  var chart = nv.models.stackedAreaChart()
+              .x(function(d){return d[0]})
+              .y(function(d){return d[1]}).clipEdge(true);
+
+  chart.xAxis.axisLabel('Date/Time').tickFormat(function(d){ 
+    return d3.time.format('%x')(new Date(d));
+
+  });
+
+  chart.yAxis.axisLabel('Total Concentration').tickFormat(d3.format(',f'));
+  chart.stacked.forceY([0,10]);
+
+  d3.select('#<%= chart_id %> svg')
+    .datum(series)
+    .transition().duration(500)
+    .call(chart);
+
+  nv.utils.windowResize(chart.update);
+
+  return chart;
+});

@@ -9,14 +9,13 @@
             .pull-right
               .btn-toolbar
                 .btn-group
-                  .btn.disabled
-                    Download as:
+                  .btn.btn-primary.disabled
+                    %i.icon-download.icon-white
+                    Download:
                   =link_to "CSV", api_cruise_observations_url(@cruise, :csv), class: 'btn'
                   =link_to "JSON", api_cruise_observations_url(@cruise, :json), class: 'btn'
-  .row
-    .span12
-      .well
-        Cruise Metadata?
+                  =link_to "GeoJSON", api_cruise_observations_url(@cruise, :geojson), class: 'btn'
+                  =link_to "Shp", api_cruise_observations_url(@cruise, :shp), class: 'btn'
   .row
     .span6{style:'height: 500px; overflow-y: scroll'}
       .page-header
@@ -24,8 +23,6 @@
           Observations
           %small
             Ice Concentration
-          %span.badge.badge-info
-            =@cruise.observations.count
       %table.table.table-striped
         %thead
           %tr
@@ -36,7 +33,7 @@
             %th="Secondary"
             %th="Tertiary"
         %tbody
-          - @cruise.observations.each do |o|
+          - @cruise.observations.where(accepted: true).each do |o|
             %tr
               %td= o.obs_datetime.strftime("%y/%m/%d")
               %td= o.obs_datetime.strftime("%H:%M")
@@ -53,6 +50,9 @@
     .span12
       .page-header
         %h2
-          Charts
-      #chart
-  
+          Ice Concentration
+          =link_to chart_url, class: "btn pull-right" do
+            %i.icon-tasks
+            Browse
+      =render 'charts/cruise_ice_chart'
+      =render 'charts/cruise_primary_ice_type'

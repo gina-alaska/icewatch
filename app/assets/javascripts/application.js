@@ -15,13 +15,18 @@
 //= require bootstrap
 //= require bootstrap-datepicker
 //= require gina-map-layers/gina-openlayers
-//= require d3.v2
-//= require rickshaw/rickshaw
+//= require nvd3/lib/d3.v2
+//= require nvd3/nv.d3
+//= require nvd3/lib/fisheye
+//= require nvd3/lib/cie
+//= require nvd3/lib/hive
+//= require nvd3/lib/horizon
+//= require nvd3/lib/sankey
+
 //= require jquery-file-upload/js/vendor/jquery.ui.widget
 //= require jquery-file-upload/js/jquery.iframe-transport
 //= require jquery-file-upload/js/jquery.fileupload
 //= require datatables/media/js/jquery.dataTables
-//=# require jquery-ui/jquery-ui-1.8.21.custom.min
 //= require_tree ./map
 
 $(document).ready(function() {
@@ -29,7 +34,4 @@ $(document).ready(function() {
   var map = new IceMap;
   map.init("#map");
   
-  var graph = new IceGraph;
-  graph.init("#graph-container")
-
 });

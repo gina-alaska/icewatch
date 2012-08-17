@@ -11,9 +11,6 @@ class @IceMap
     
     
     @map = @div.OpenLayers('getmap')[0];
-    
-    #Gina.Layers.inject(map, 'TILE.EPSG:3572.*');
-    
     @map.zoomTo(3);     
 
  

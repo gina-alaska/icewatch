@@ -30,11 +30,12 @@
       .page-header
         %h1
           Ice Concentration
-          =link_to graph_url, class: "btn pull-right" do
+          =link_to chart_url, class: "btn pull-right" do
             %i.icon-tasks
             Browse
-      #chart.nvd3{data: {url: api_cruises_url(:json)}}
-        %svg
+      =render 'charts/cruises_tc_chart'
+      -# #chart.nvd3{data: {url: api_cruises_url(:json)}}
+      -#   %svg
       -# #graph-container{data: {url: api_cruises_url(:json)}}
       -#   #y_axis
       -#   #graph

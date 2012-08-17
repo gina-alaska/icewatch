@@ -1,0 +1,64 @@
+nv.addGraph(function() {
+  var series = [];
+  var shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square']
+  series.push({
+    values: [],
+    key: 'Concentration'
+  });
+  <%- @cruise.observations.each do |o| %>
+    series[0].values.push({
+      x: <%= o.longitude %>,
+      y: <%= o.latitude %>,
+      size: <%= o.ice.total_concentration %>,
+      shape: shapes[<%= o.ice_observations[0].try(:ice_lookup_code) % 6 %>]
+    });
+  <%- end %>
+
+  var chart = nv.models.scatterChart()
+    .showDistX(true)
+    .showDistY(true)
+    .color(d3.scale.category10().range());
+
+
+  chart.xAxis.axisLabel('Longitude').tickFormat(d3.format('.02f'));
+  chart.yAxis.axisLabel('Latitude').tickFormat(d3.format('.02f'));
+
+
+  d3.select('#<%= chart_id %>   svg')
+    .datum(series)
+    .transition().duration(500)
+    .call(chart);
+
+  nv.utils.windowResize(chart.update);
+
+  return chart;
+});
+
+nv.addGraph(function() {
+  var chart = nv.models.pieChart()
+        .x(function(d) { console.log(d); return d.label })
+        .y(function(d) { return d.value })
+        .showLabels(true);
+  var data = {
+    key: 'Ice Type',
+    values: [] 
+  };
+  
+  <%- grouped_ice_obs =  @cruise.observations.collect{|o| o.ice_observations}.flatten.map{|i| i.ice_lookup.try(:name)}.compact.inject(Hash.new(0)){|h,i| h[i] += 1; h}.as_json%>
+  
+  <%- grouped_ice_obs.each do |code, count| %>
+    data.values.push({
+      label: '<%= code %>',
+      value: <%= count %>
+    }); 
+  <%- end %>
+   
+  var series = [data]; 
+  
+  d3.select("#<%= chart_id %>2 svg")
+      .datum(series)
+    .transition().duration(1200)
+      .call(chart);
+  
+  return chart;
+});

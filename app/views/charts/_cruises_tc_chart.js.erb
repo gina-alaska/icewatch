@@ -1,0 +1,37 @@
+nv.addGraph(function() {
+  var series = [];
+  <% @cruises.each do |c| %>
+    var data = <%= c.observations.where(accepted:true).collect{|o| [o.obs_datetime.to_i * 1000, o.ice.total_concentration]}.to_json %>;
+    if(data.length > 0) {
+      series.push({
+        values: data,
+        key: '<%= c.ship %>'
+      });
+    }
+  <% end %>
+  var chart = nv.models.lineWithFocusChart()
+              .x(function(d){return d[0]})
+              .y(function(d){return d[1]});
+
+  chart.xAxis.axisLabel('Date/Time').tickFormat(function(d){ 
+    return d3.time.format('%x')(new Date(d));
+  });
+  chart.x2Axis.tickFormat(function(d){
+    return d3.time.format('%x')(new Date(d));
+  })
+
+  chart.yAxis.axisLabel('Total Concentration').tickFormat(d3.format(',f'));
+  chart.y2Axis.tickFormat(d3.format(',f'));
+  
+  chart.lines.forceY([0,10]);
+  chart.lines2.forceY([0,10]);
+  
+  d3.select('#<%= chart_id %> svg')
+    .datum(series)
+    .transition().duration(500)
+    .call(chart);
+
+  nv.utils.windowResize(chart.update);
+
+  return chart;
+});
