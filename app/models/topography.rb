@@ -1,6 +1,7 @@
 class Topography
   include Mongoid::Document
   include AssistShared::Validations::Topography
+  include AssistShared::CSV::Topography
 
   embedded_in :ice_observation
 

@@ -1,7 +1,8 @@
 class MeltPond
   include Mongoid::Document
   include AssistShared::Validations::MeltPond
-
+  include AssistShared::CSV::MeltPond
+  
   embedded_in :ice_observation
   
   field :surface_coverage, type: Integer

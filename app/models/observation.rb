@@ -1,9 +1,10 @@
 class Observation
   include Mongoid::Document
   include AssistShared::Validations::Observation
+  include AssistShared::CSV::Observation
+  
   
   validates_presence_of :cruise_id
-  validates_uniqueness_of :hexcode
   
   field :obs_datetime, type: Time
   field :accepted, type: Boolean, default: false
@@ -12,7 +13,21 @@ class Observation
   
   embeds_one :ice
   embeds_one :meteorology
-  embeds_many :ice_observations
+  embeds_many :ice_observations do
+    def obs_type type
+      where(obs_type: type).first
+    end
+    def primary
+      obs_type 'primary'
+    end
+    def secondary
+      obs_type 'secondary'
+    end
+    def tertiary
+      obs_type 'tertiary'
+    end
+  end
+  
   embeds_many :photos
   embeds_many :comments
   
@@ -20,26 +35,21 @@ class Observation
 
   accepts_nested_attributes_for :ice, :ice_observations, :meteorology, :photos, :comments
   
-  default_scope desc(:obs_datetime)
+  default_scope desc(:obs_datetime).where(accepted: true )
   
   scope :has_errors, where(:is_valid => false)
   scope :pending, where(:accepted => false)
   
-  
-  
+
   def as_geojson opts={}
-    data = self.as_json
-    data.delete(:latitude) if data[:latitude]
-    data.delete(:longitude) if data[:longitude]
-    data[:location] = {
+    {
       type: "Feature",
       geometry: {
         type: "Point",
         coordinates: [self.longitude, self.latitude]
-      }
+      },
+      attributes: self.as_json
     }
-    
-    data
   end
 
   # def as_json *opts

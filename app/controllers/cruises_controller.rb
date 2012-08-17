@@ -1,5 +1,5 @@
 class CruisesController < ApplicationController
-  before_filter :logged_in?
+  before_filter :logged_in?, except: [:show]
   
   
   def create
@@ -26,7 +26,7 @@ class CruisesController < ApplicationController
   end
   
   def show
-    @cruise = Cruise.find(params[:id])
+    @cruise = Cruise.where(id: params[:id]).includes(:observations).first#.where('observations.accepted' => true)
     
     respond_to do |format|
       format.html

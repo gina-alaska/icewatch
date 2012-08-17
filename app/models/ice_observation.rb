@@ -1,7 +1,7 @@
 class IceObservation
   include Mongoid::Document
   include AssistShared::Validations::IceObservation
-
+  include AssistShared::CSV::IceObservation
   embedded_in :observation 
   
   embeds_one :melt_pond
@@ -18,4 +18,10 @@ class IceObservation
   field :biota_lookup_code, type: Integer
   field :sediment_lookup_code, type: Integer
   field :obs_type, type: String
+  
+  #belongs_to :ice_lookup, foreign_key: :ice_lookup_code
+  
+  def ice_lookup
+    IceLookup.where(code: self.ice_lookup_code).first
+  end
 end

@@ -11,7 +11,7 @@ class Cruise
   
   attr_accessible :approved, :ship, :start_date, :end_date, :captain, :archived, :user_id
 
-  has_many :observations, order: 'obs_datetime DESC' do
+  has_many :observations, order: 'obs_datetime DESC'  do
     def recent count
       desc(:obs_datetime).limit(count)
     end

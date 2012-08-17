@@ -1,7 +1,8 @@
 class Ice
   include Mongoid::Document
   include AssistShared::Validations::Ice
-
+  include AssistShared::CSV::Ice
+  
   field :total_concentration, type: Numeric
   field :thin_ice_lookup_code, type: Integer
   field :thick_ice_lookup_code, type: Integer
