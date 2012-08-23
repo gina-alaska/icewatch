@@ -22,8 +22,8 @@ class Meteorology
   end
   accepts_nested_attributes_for :clouds
   
-  field :weather_lookup_code, type:Integer
-  field :visibility_lookup_code, type:Integer
+  belongs_to :weather_lookup
+  belongs_to :visibility_lookup
   
   
 end

@@ -12,16 +12,11 @@ class IceObservation
   field :partial_concentration, type: Integer
   field :thickness, type: Integer
   field :snow_thickness, type: Integer
-  field :floe_size_lookup_code, type: Integer
-  field :snow_lookup_code, type: Integer
-  field :ice_lookup_code, type: Integer
-  field :biota_lookup_code, type: Integer
-  field :sediment_lookup_code, type: Integer
   field :obs_type, type: String
-  
-  #belongs_to :ice_lookup, foreign_key: :ice_lookup_code
-  
-  def ice_lookup
-    IceLookup.where(code: self.ice_lookup_code).first
-  end
+
+  belongs_to :floe_size_lookup
+  belongs_to :snow_lookup
+  belongs_to :ice_lookup
+  belongs_to :biota_lookup
+  belongs_to :sediment_lookup
 end

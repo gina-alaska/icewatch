@@ -4,11 +4,11 @@ class Ice
   include AssistShared::CSV::Ice
   
   field :total_concentration, type: Numeric
-  field :thin_ice_lookup_code, type: Integer
-  field :thick_ice_lookup_code, type: Integer
-  field :open_water_lookup_code, type: Integer
-
+  
   embedded_in :observation
   
-  
+  belongs_to :thin_ice_lookup, class_name: 'IceLookup'
+  belongs_to :thick_ice_lookup, class_name: 'IceLookup'
+  belongs_to :open_water_lookup
+
 end

@@ -7,6 +7,8 @@ class Topography
 
   field :old, type:Boolean
   field :snow_covered, type: Boolean
-  field :concentration, type:Integer
-  field :ridge_height, type:Numeric
+  field :concentration, type: Integer
+  field :ridge_height, type: Numeric
+  
+  belongs_to :topography_lookup
 end
