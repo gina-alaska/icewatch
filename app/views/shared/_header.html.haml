@@ -1,0 +1,27 @@
+.navbar
+  .navbar-inner
+    .container-fluid
+      = link_to "IceBox",root_url, class: 'brand'
+      = yield :navbar
+      %ul.nav.pull-right        
+        - if logged_in? && current_user.admin?
+          %li
+            = link_to admin_dashboard_path do 
+              %i.icon-briefcase.icon-white
+              Admin
+        %li.dropdown
+          -if logged_in?
+            = link_to '#', class: 'dropdown-toggle', "data-toggle" => "dropdown" do
+              %i.icon-user.icon-white
+              - if current_user
+                = "Welcome #{current_user.name}"
+              - else
+                = "Welcome!"  
+              %b.caret
+  
+              %ul.dropdown-menu
+                %li= link_to 'My Home', user_path(current_user) if current_user.approved?
+                %li= link_to 'New Cruise', new_cruise_path if current_user.approved?
+                %li= link_to 'Logout', logout_path
+          -else
+            = link_to 'Login / Register', login_path

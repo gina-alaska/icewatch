@@ -1,5 +1,7 @@
-=render 'cruises/form'
-            
+- if current_user && current_user.approved?
+  = link_to new_cruise_url, class: "btn pull-right" do
+    %i.icon-plus
+    New Cruise
 %table.table.table-striped
   %thead
     %tr
@@ -7,6 +9,7 @@
       %th= "Start Date"
       %th= "End Date"
       %th= "Observations"
+      %th= "Cruise Status"
       %th
   %tbody
     -@cruises.each do |c|
@@ -15,10 +18,9 @@
         %td= c.start_date
         %td= c.end_date
         %td= c.observations.count
+        %td= c.status
         %td
-          -if c.archived?
-            This cruise has been archived.
-          -else
-            .btn.btn-success
-              %i.icon-upload.icon-white
-              Upload Observations
+          =link_to cruise_url(c), class: 'btn btn-small' do 
+            %i.icon-plus
+            Browse Observations
+          

@@ -23,13 +23,13 @@
         %h1
           Observations
       %p="Observations waiting for approval: #{Observation.pending.count}"
-      %p="Observations with errors: #{Observation.has_errors.count}"
+      %p="Observations with errors: #{ImportObservation.count}"
       %p
         .btn-toolbar
           .btn
             =link_to "Approve", admin_observations_url 
           .btn
-            =link_to "Fix", admin_observations_url
+            =link_to "Fix", admin_imports_url
   .row-fluid
     .span6
       .page-header

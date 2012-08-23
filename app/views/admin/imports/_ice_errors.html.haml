@@ -1,0 +1,6 @@
+-@observation.ice.errors.messages.each do |e|
+  - case e.first
+  - when :total_concentration
+    =form.label :total_concentration, "Total Concentration"
+    =form.select :total_concentration, (0..10).collect{|i| [i] }
+    =e.last.join(",")

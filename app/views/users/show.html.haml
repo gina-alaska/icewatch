@@ -10,4 +10,16 @@
             =link_to "Edit", edit_user_path(@user), class: 'btn btn-primary'    
   .row
     .span6
-      
+      ="Affiliation: #{@user.affiliation}"
+  .row
+    .span12
+      .page-header
+        %h1
+          My Cruises
+          =link_to new_cruise_url, class: 'btn pull-right' do
+            %i.icon-plus
+            New Cruise
+  .row
+    .span12
+      -@cruises.each do |cruise| 
+        =render partial: 'cruises/cruise', locals: {cruise: cruise}  

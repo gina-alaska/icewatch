@@ -1,0 +1,15 @@
+.container
+  .row
+    .span9
+      .page-heading
+        %h1=@observation.try(:obs_datetime) || "No Date Specifed"
+    .span2
+      =link_to "Edit", edit_admin_import_path(@import), class: 'btn btn-primary'
+      =link_to "Delete", admin_import_url(@import), method: :delete, class: 'btn btn-danger', confirm: 'Permanently destroy this observation. Are you sure?'
+  -@observation.errors.messages.each do |error|
+    .row
+      .span12
+        %dl.dl-horizontal
+          %dt=error.first
+          - error.last.each do |e|
+            %dd=e

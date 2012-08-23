@@ -1,11 +1,15 @@
 Icebox::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
-  resources :observations
-  resources :cruises
+  resources :cruises do 
+    resources :observations do
+      collection do
+        post :import
+      end
+    end
+  end
 
   resources :users do
-    resources :observations
   end
 
   resource :chart, only: :show
@@ -13,13 +17,10 @@ Icebox::Application.routes.draw do
 
   namespace :admin do
     resource :dashboard, only: :show
-    resources :observations, except: :new do
-      collection do
-        post :import
-      end
-    end
+    resources :observations, except: :new 
     resources :cruises
     resources :users 
+    resources :imports
   end
   
   

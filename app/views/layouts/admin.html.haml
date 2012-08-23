@@ -7,16 +7,7 @@
     = javascript_include_tag "admin"
     = csrf_meta_tags
   %body
-    .navbar
-      .navbar-inner
-        .container-fluid
-          = link_to "IceBox",root_url, class: 'brand'
-          = yield :navbar
-          %ul.nav.pull-right        
-            %li= link_to 'Dashboard', admin_dashboard_path if current_user.try(:admin?)
-            %li= link_to 'Cruises', cruises_path if current_user.try(:approved?)
-            %li= link_to 'Login', login_path if current_user.nil?
-            %li= link_to 'Logout', logout_path unless current_user.nil?
+    = render 'shared/header'
 
 
     = yield 

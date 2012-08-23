@@ -14,6 +14,7 @@ max_depth_lookup
 pattern_lookup
 surface_lookup
 open_water_lookup
+on_boat_location_lookup
 sediment_lookup
 snow_lookup
 topography_lookup

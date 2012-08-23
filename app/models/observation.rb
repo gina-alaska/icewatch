@@ -3,8 +3,10 @@ class Observation
   include AssistShared::Validations::Observation
   include AssistShared::CSV::Observation
   
+  before_validation :check_imported_as_cruise_id
   
   validates_presence_of :cruise_id
+  validate :absence_of_imported_as_cruise_id
   
   field :obs_datetime, type: Time
   field :accepted, type: Boolean, default: false
@@ -52,68 +54,16 @@ class Observation
     }
   end
 
-  # def as_json *opts
-  #   # data = super
-  #   # lat = data.delete(:latitude)
-  #   # lon = data.delete(:longitude)
-  #   # data[:location] = {
-  #   #   type: "Feature",
-  #   #   geometry: {
-  #   #     type: "Point",
-  #   #     coordinates: [self.longitude, self.latitude]
-  #   #   }
-  #   # }
-  #   # data
-  # end
+
+  def check_imported_as_cruise_id
+    if self.attributes.has_key? "imported_as_cruise_id"
+      self.attributes.delete("imported_as_cruise_id") if self.attributes["imported_as_cruise_id"] == self.cruise_id.to_s
+    end
+  end
   
-  
-  def self.from_file file, params={}
-    case params[:content_type]
-    when "application/zip"
-      self.from_zip file, params
-    when "application/json"
-      data = JSON.parse(File.read(file))
-      self.from_json data, params
-    when "text/csv"
-      self.from_csv
-    else
+  def absence_of_imported_as_cruise_id
+    errors.add(:cruise_id, "Cruise ID's do not match") if self.attributes.has_key? "imported_as_cruise_id"
+  end
+
       
-    end
-      
-  end
-  
-  def self.from_zip file, params={}
-    obs = []
-    Zip::ZipFile.open(file) do |z|
-      if(z.file.exists?("METADATA"))
-        md = YAML.load((z.file.read("METADATA")))
-        file = md[:assist_version] == "1.0" ? "aorlich_summer_2012.observations.json" : md[:observations]
-      elsif(z.file.exists?("observation.json"))
-        file = "observation.json"
-      end
-      data = ::JSON.parse(z.file.read(file))
-      obs = self.from_json(data, params)
-    end
-    obs
-  end
-  
-  def self.from_json data, params={}
-    observations = []
-    data.each do |obs|
-      obs = JSON.parse(obs)
-      obs.merge!(params[:observation]) if params[:observation]
-      o = Observation.new(obs)
-      o.is_valid = o.valid?
-      unless o.valid?
-        logger.info o.errors
-      end
-      o.save validate: false
-      observations << o
-    end
-    observations
-  end
-  
-  def self.from_csv
-  end
-    
 end

@@ -2,28 +2,32 @@
   .row
     .span6{style:'height: 500px; overflow-y: scroll'}
       .page-header
-        %h1= "Active Cruises"
-      -Cruise.all.each do |cruise|
+        %h1
+          Active Cruises
+          =link_to cruises_url, class: 'btn pull-right' do
+            %i.icon-globe
+            Browse All
+      -@cruises.each do |cruise|
         .page-header
           %h3
             =cruise.ship
             %small.pull-right
-              =link_to "View Observations", cruise_url(cruise)
+              =link_to "View Observations", cruise_url(cruise), class: 'btn'
         %dl.dl-horizontal
-          %dt="Start Date"
+          %dt="Start Date: "
           %dd=ymd cruise.start_date
-          %dt="End Date"
+          %dt="End Date: "
           %dd=ymd cruise.end_date
-          %dt="Last Observation:"
+          %dt="Last Observation: "
           %dd=ymd(cruise.observations.recent(1).first.try(:obs_datetime)) || "No Observations Reported"
 
     .span6
       .page-header
         %h1
           Yearly Activity
-          =link_to root_url, class: 'btn pull-right' do
-            %i.icon-globe
-            Explore
+          -# =link_to root_url, class: 'btn pull-right' do
+          -#   %i.icon-globe
+          -#   Explore
       #map{data: {url: api_cruises_url(:geojson)}}
   .row
     .span12
@@ -34,9 +38,4 @@
             %i.icon-tasks
             Browse
       =render 'charts/cruises_tc_chart'
-      -# #chart.nvd3{data: {url: api_cruises_url(:json)}}
-      -#   %svg
-      -# #graph-container{data: {url: api_cruises_url(:json)}}
-      -#   #y_axis
-      -#   #graph
-      -#   #legend
+

@@ -31,6 +31,19 @@ class Cruise
     "#{self.ship}: #{ymd(start_date)}-#{ymd(end_date)}"
   end
   
+  def status
+    s = if archived?
+      "archived"
+    elsif start_date >= Time.now
+      "upcoming"
+    elsif end_date  <= Time.now
+      "ended"
+    else
+      "active"
+    end
+  end
+  
+  
   def has_invalid_or_pending_observations? 
     invalid_observations.count + pending_observations.count > 0
   end

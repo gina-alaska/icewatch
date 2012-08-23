@@ -31,7 +31,7 @@
               %i.icon-remove          
           -else
             -unless cruise.archived?
-              =form_tag import_admin_observations_url do 
+              =form_tag import_cruise_observations_url(cruise) do 
                 =hidden_field_tag :cruise_id, cruise.id
                 .btn.btn-success.btn-x-small.fileinput-button
                   =file_field_tag :observation, class: 'obs-upload'

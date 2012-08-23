@@ -1,0 +1,5 @@
+.container
+  -@observations.each do |obs|    
+    .row
+      .span12
+        =link_to obs.obs_datetime, admin_import_url(obs)  
