@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     
   def show
     @user = User.find(params[:id])
-    
+    @cruises = @user.cruises
     respond_to do |format|
       format.html 
     end

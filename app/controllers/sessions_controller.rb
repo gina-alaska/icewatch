@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
     session[:user_id] = user.id
     
     flash[:success] = 'Signed in!'
-    redirect_to root_url
+    redirect_to user_url(user)
   end
   
   def destroy

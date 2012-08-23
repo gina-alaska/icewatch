@@ -1,5 +1,5 @@
 class CruisesController < ApplicationController
-  before_filter :logged_in?, except: [:show]
+  before_filter :logged_in?, except: [:index,:show]
   
   
   def create
@@ -18,7 +18,7 @@ class CruisesController < ApplicationController
   end
   
   def index
-    @cruises = current_user.admin? ? Cruise.all : Cruise.where(:created_by => current_user.id)
+    @cruises = Cruise.all
     
     respond_to do |format|
       format.html
@@ -26,11 +26,15 @@ class CruisesController < ApplicationController
   end
   
   def show
-    @cruise = Cruise.where(id: params[:id]).includes(:observations).first#.where('observations.accepted' => true)
+    @cruise = Cruise.where(id: params[:id]).includes(:observations).first
     
     respond_to do |format|
       format.html
     end
+  end
+  
+  def new
+    @cruise = Cruise.new
   end
 
 protected
