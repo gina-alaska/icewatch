@@ -13,11 +13,10 @@ class Admin::ObservationsController < AdminController
         
     if(@observation)
       @observation.accepted = accepted_params
-      
-      if @observation.save 
-        redirect_to admin_observations_url 
-      end
+      @observation.save
+
     end
+    redirect_to admin_observations_url 
   end
   
   def approve_all
