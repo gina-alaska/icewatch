@@ -1,6 +1,10 @@
+%legend="Cruise"
 - error.last.each do |message|
   -case message
   -when /do not match/
-    The cruise on the observation does not match the cruise it was imported under.  Please select the correct cruise.
-    =form.label :cruise_id, "Cruise"
+    .alert.alert-info
+      %p
+        The cruise on the observation does not match the cruise it was imported under.
+        %br
+        Please select the correct cruise.
     =form.select :cruise_id, options_for_cruise_select(@observation)

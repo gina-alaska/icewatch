@@ -1,12 +1,11 @@
-.container
-  .row
-    .span12
-      .page-heading
-        %h1
-          Pending
-        
-      - if @observations.any?         
-        =render partial: 'admin/observations/pending'
-      - else 
-        No Pending Observations      
-        
+.container-fluid
+  .page-header
+    %h1
+      Pending
+      = link_to approve_all_observations_path, class: 'btn btn-primary pull-right' do 
+        %i.icon-ok.icon-white
+        Approve All  
+  - if @observations.any?    
+    = render partial: 'admin/observations/pending', locals: {observations: @observations}
+  - else 
+    No Pending Observations      

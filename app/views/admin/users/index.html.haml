@@ -1,33 +1,30 @@
-.container
-  .row
-    .span12
-      %table.table.table-striped
+%table.table.table-striped
+  %tr
+    %thead
+      %th= "Name"
+      %th= "Email"
+      %th= "Affiliation"
+      %th= "Approved?"
+      %th= "Admin?"  
+      %th
+  %tr
+    %body
+      -@users.each do |user|
         %tr
-          %thead
-            %th= "Name"
-            %th= "Email"
-            %th= "Affiliation"
-            %th= "Approved?"
-            %th= "Admin?"  
-            %th
-        %tr
-          %body
-            -@users.each do |user|
-              %tr
-                %td= user.name
-                %td= user.email
-                %td= user.affiliation 
-                %td= user.approved? ? "Yes" : "No"
-                %td= user.admin? ? "Yes" : "No"
-                %td
-                  -unless user.approved?
-                    =link_to approve_user_path(id: user.id, value: 'yes'), class: 'btn btn-success' do
-                      %i.icon-check
-                    =link_to approve_user_path(id: user.id, value: 'no'), class: 'btn btn-danger' do
-                      %i.icon-remove
-                  -else
-                    =link_to edit_admin_user_path(user.id), class: 'btn btn-primary' do
-                      %i.icon-edit
-                      Edit User
-                    
+          %td= user.name
+          %td= user.email
+          %td= user.affiliation 
+          %td= user.approved? ? "Yes" : "No"
+          %td= user.admin? ? "Yes" : "No"
+          %td
+            -unless user.approved?
+              =link_to approve_user_path(id: user.id, value: 'yes'), class: 'btn btn-success' do
+                %i.icon-check
+              =link_to approve_user_path(id: user.id, value: 'no'), class: 'btn btn-danger' do
+                %i.icon-remove
+            -else
+              =link_to edit_admin_user_path(user.id), class: 'btn btn-primary' do
+                %i.icon-edit
+                Edit User
+              
                                       

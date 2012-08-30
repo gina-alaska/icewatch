@@ -54,6 +54,12 @@ class Observation
     }
   end
 
+  def as_json opts={}
+    data = super except: [:_id, :hexcode, :accepted, :cruise_id, :is_valid]
+    
+    data = lookup_id_to_code(data)
+    data
+  end
 
   def check_imported_as_cruise_id
     if self.attributes.has_key? "imported_as_cruise_id"
@@ -65,5 +71,20 @@ class Observation
     errors.add(:cruise_id, "Cruise ID's do not match") if self.attributes.has_key? "imported_as_cruise_id"
   end
 
+  def lookup_id_to_code(hash) 
+    hash.inject(Hash.new) do |h, (k,v)|
+      key = k.gsub(/lookup_id$/, "lookup_code")
+    
+      case v.class.to_s
+      when "Hash"
+        h[key] = lookup_id_to_code(v)
+      when "Array"
+        h[key] = v.collect{|item| item.is_a?(Hash) ? lookup_id_to_code(item) : item } 
+      else
+        h[key] = v
+      end
+      h
+    end
+  end         
       
 end

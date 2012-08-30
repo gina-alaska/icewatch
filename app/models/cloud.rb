@@ -11,4 +11,17 @@ class Cloud
 
   belongs_to :cloud_lookup
   
+  def as_json opts={}
+    data = super
+    
+    data = data.inject(Hash.new) do |h,(k,v)|
+      key = k.gsub( /lookup_id$/, "lookup_code")
+      
+      h[key] = v
+      
+      h
+    end
+    
+  end
+  
 end

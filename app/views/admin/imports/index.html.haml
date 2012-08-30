@@ -1,5 +1,7 @@
-.container
+%ul
   -@observations.each do |obs|    
-    .row
-      .span12
-        =link_to obs.obs_datetime, admin_import_url(obs)  
+    %li
+      =link_to edit_admin_import_url(obs) do 
+        =obs.try(:ship_name) || "UNKNOWN SHIP"
+        = "-"
+        =obs.try(:obs_datetime)  

@@ -9,6 +9,11 @@ class Admin::CruisesController < AdminController
     @cruise = Cruise.new
   end
   
+  def show
+    @cruise = Cruise.where(id: params[:id]).first
+    @pending = @cruise.observations.where(accepted: false)
+    @observations = @cruise.observations
+  end
   def create 
     @cruise = Cruise.new cruise_params
     

@@ -1,0 +1,34 @@
+.page-header
+  %h1
+    =@cruise.ship
+    %small
+      ="#{ymd(@cruise.start_date)} to #{ymd(@cruise.end_date)}"
+      -if @cruise.approved? 
+        .pull-right
+          =form_tag import_cruise_observations_url(@cruise) do 
+            =hidden_field_tag :cruise_id, @cruise.id
+            .btn.btn-primary.fileinput-button
+              =file_field_tag :observation, class: 'obs-upload'
+              %i.icon-list.icon-white
+              Import 
+      
+-if @cruise.approved? 
+  - if @pending.any?
+    .row-fluid
+      .span12
+        .page-header
+          %h3 
+            Pending Observations 
+            =link_to approve_cruise_observations_path(@cruise.id), class: 'btn btn-primary' do
+              %i.icon-ok.icon-white
+              Accept All
+        =render partial: 'admin/observations/pending', locals: { observations: @pending}
+-else
+  .alert.alert-info
+    This cruise hasn't been approved yet.  
+  =link_to approve_cruise_path(id: cruise.id, value: 'yes'), class: 'btn btn-success' do
+    %i.icon-check
+    Approve
+  =link_to approve_cruise_path(id: cruise.id, value: 'no'), class: 'btn btn-danger' do
+    %i.icon-remove
+    Reject

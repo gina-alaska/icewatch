@@ -1,7 +1,0 @@
-- if @cruise
-  = "Cruise: #{@cruise.id}"
-  = "Imported #{@observations.count} records:"
-  = "#{@observations.reject{|o| o.is_valid?}.count} had errors."  
-- else
-  = "Cruise not found, import aborted"
-  

@@ -36,8 +36,9 @@ Icebox::Application.routes.draw do
 
   match '/admin/users/:id/approve/:value', to: 'admin/users#approve', as: 'approve_user'
   match '/admin/cruises/:id/approve/:value', to: 'admin/cruises#approve', as: 'approve_cruise'
+  match '/admin/observations/all/approve', to: 'admin/observations#approve_all', as: 'approve_all_observations'
   match '/admin/observations/:id/approve/:value', to: 'admin/observations#approve', as: 'approve_observation'
-
+  match '/admin/cruises/:cruise_id/observations/approve', to: 'admin/observations#approve_all', as: 'approve_cruise_observations'
   match '/auth/:provider/callback', to: 'sessions#create'
   match '/auth/failure' => 'sessions#failure'
   match '/login' => 'sessions#new', as: 'login'
