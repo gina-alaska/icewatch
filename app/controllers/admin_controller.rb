@@ -12,7 +12,6 @@ private
   end
   private
   def set_layout
-    logger.info("PJAX!")
     if request.headers['X-PJAX']
       false
     else

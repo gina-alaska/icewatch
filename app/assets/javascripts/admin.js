@@ -18,7 +18,7 @@
 //= require jquery-file-upload/js/jquery.iframe-transport
 //= require jquery-file-upload/js/jquery.fileupload
 //= require datatables/media/js/jquery.dataTables
-//= require map/cruises
+//= require cruises
 //= require jquery.pjax
 
 $(document).ready(function() {

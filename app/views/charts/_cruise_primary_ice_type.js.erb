@@ -19,7 +19,7 @@ nv.addGraph(function() {
    
   var series = [data]; 
   
-  d3.select("#<%= chart_id %>2 svg")
+  d3.select("#<%= chart_id %> svg")
       .datum(series)
     .transition().duration(1200)
       .call(chart);

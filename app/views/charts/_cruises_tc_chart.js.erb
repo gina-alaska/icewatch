@@ -1,7 +1,7 @@
 nv.addGraph(function() {
   var series = [];
   <% @cruises.each do |c| %>
-    var data = <%= c.observations.where(accepted:true).collect{|o| [o.obs_datetime.to_i * 1000, o.ice.total_concentration]}.to_json %>;
+    var data = <%= c.observations.collect{|o| [o.obs_datetime.to_i * 1000, o.ice.total_concentration]}.to_json %>;
     if(data.length > 0) {
       series.push({
         values: data,

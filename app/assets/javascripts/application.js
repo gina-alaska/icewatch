@@ -28,10 +28,14 @@
 //= require jquery-file-upload/js/jquery.fileupload
 //= require datatables/media/js/jquery.dataTables
 //= require_tree ./map
+//= require cruises
+//= require jquery.pjax
+
 
 $(document).ready(function() {
   
   var map = new IceMap;
   map.init("#map");
+  console.log("PJAX!")
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content');
 });
