@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
   before_filter :is_admin
 
-  layout 'admin'
+  layout :set_layout
 
 private  
   def is_admin
@@ -10,5 +10,15 @@ private
       redirect_to root_url # halts request cycle
     end
   end
+  private
+  def set_layout
+    logger.info("PJAX!")
+    if request.headers['X-PJAX']
+      false
+    else
+      "admin"
+    end
+  end
   
+
 end
