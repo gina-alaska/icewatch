@@ -15,9 +15,7 @@ class Admin::ObservationsController < AdminController
       @observation.accepted = accepted_params
       
       if @observation.save 
-        respond_to do |format|
-          format.html { redirect_to admin_observations_url }
-        end
+        redirect_to admin_observations_url 
       end
     end
   end
@@ -26,8 +24,6 @@ class Admin::ObservationsController < AdminController
     @observations = Observation.where(accepted: false)
   
     if params[:cruise_id]
-      logger.info("************")
-      logger.info(params[:cruise_id])
       @observations = @observations.where(cruise_id: params[:cruise_id])
     end
     #Todo: Figure out why update_all isnt' working
