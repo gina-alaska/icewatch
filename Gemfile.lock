@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/yabawock/bootstrap-sass-rails
+  revision: 9f911ef7744947579ae5a52370302c371989c2fb
+  specs:
+    bootstrap-sass-rails (2.1.0.0)
+      rails (~> 3.1)
+      sass-rails (~> 3.1)
+
 PATH
   remote: ~/workspace/iceobs-shared
   specs:
@@ -39,7 +47,6 @@ GEM
     bootstrap-kaminari-views (0.0.2)
       kaminari (>= 0.13)
       rails (>= 3.1)
-    bootstrap-sass (2.0.3.1)
     builder (3.0.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -148,7 +155,7 @@ DEPENDENCIES
   assist-shared!
   bootstrap-datepicker-rails
   bootstrap-kaminari-views
-  bootstrap-sass
+  bootstrap-sass-rails!
   coffee-rails (~> 3.2.1)
   haml
   jquery-rails

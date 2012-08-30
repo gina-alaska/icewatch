@@ -12,14 +12,18 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
+//= require twitter/bootstrap
 //= require bootstrap-datepicker
 //= require jquery-file-upload/js/vendor/jquery.ui.widget
 //= require jquery-file-upload/js/jquery.iframe-transport
 //= require jquery-file-upload/js/jquery.fileupload
 //= require datatables/media/js/jquery.dataTables
 //= require map/cruises
+//= require jquery.pjax
 
 $(document).ready(function() {
-  
+  // $('a').pjax('#content').on('click', function(){
+  //   $(this).showLoader()
+  // })
+  $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content');
 });

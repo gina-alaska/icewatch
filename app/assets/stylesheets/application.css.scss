@@ -15,7 +15,7 @@
  *= require datatables/media/css/jquery.dataTables
  */
 
-@import "bootstrap";
+@import "twitter/bootstrap";
 
 #map {
   min-width: 460px;
@@ -25,6 +25,15 @@
     max-width: none;
   }
 }
+
+.nav.nav-list {
+  font-size: 1.1em;
+  .nav-header {
+    font-size: 1.1em;
+  }
+}
+
+
 
 .chart {
   height: 400px;

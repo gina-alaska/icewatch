@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap
+//= require twitter/bootstrap
 //= require bootstrap-datepicker
 //= require gina-map-layers/gina-openlayers
 //= require nvd3/lib/d3.v2
@@ -33,5 +33,5 @@ $(document).ready(function() {
   
   var map = new IceMap;
   map.init("#map");
-  
+  $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content');
 });
