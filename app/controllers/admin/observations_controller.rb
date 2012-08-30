@@ -30,7 +30,11 @@ class Admin::ObservationsController < AdminController
     
     @observations.each{|obs| obs.update_attributes(accepted: true)}
     
-    redirect_to :back # admin_observations_url
+    if params[:cruise_id]
+      redirect_to admin_cruise_url(params[:cruise_id])
+    else
+      redirect_to admin_observations_url
+    end
   end
   
   private
