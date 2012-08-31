@@ -76,7 +76,7 @@ class Cruise
     data
   end
   
-private
+    private
   def ymd date
     date.strftime("%Y.%m.%d")    
   end

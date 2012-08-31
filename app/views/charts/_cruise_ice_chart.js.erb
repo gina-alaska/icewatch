@@ -1,34 +1,6 @@
 nv.addGraph(function() {
-  var series = [];
+  var series = <%= concentration_grouped_by_type(@cruise.observations).to_json.html_safe %>
 
-  // var data = <%= @cruise.observations.where(accepted: true).collect{|o| [o.obs_datetime.to_i * 1000, o.ice.total_concentration]}.to_json %>;
-  // if(data.length > 0) {
-  //   series.push({
-  //     values: data,
-  //     key: 'Total Concentration'
-  //   });
-  // }
-  data = <%= @cruise.observations.where(accepted: true).collect{|o| [o.obs_datetime.to_i * 1000, o.ice_observations[0].partial_concentration]}.to_json %>;
-  if(data.length > 0) {
-    series.push({
-      values: data,
-      key: 'Primary Concentration'
-    });
-  }
-  data = <%= @cruise.observations.where(accepted: true).collect{|o| [o.obs_datetime.to_i * 1000, o.ice_observations[1].partial_concentration]}.to_json %>;
-  if(data.length > 0) {
-    series.push({
-      values: data,
-      key: 'Secondary Concentration'
-    });
-  }
-  data = <%= @cruise.observations.where(accepted: true).collect{|o| [o.obs_datetime.to_i * 1000, o.ice_observations[2].partial_concentration]}.to_json %>;
-  if(data.length > 0) {
-    series.push({
-      values: data,
-      key: 'Tertiary Concentration'
-    });
-  }
   var chart = nv.models.stackedAreaChart()
               .x(function(d){return d[0]})
               .y(function(d){return d[1]}).clipEdge(true);

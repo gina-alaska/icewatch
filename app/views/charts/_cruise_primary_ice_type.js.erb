@@ -8,7 +8,7 @@ nv.addGraph(function() {
     values: [] 
   };
   
-  <%- grouped_ice_obs =  @cruise.observations.collect{|o| o.ice_observations}.flatten.map{|i| [i.ice_lookup.try(:name), i.partial_concentration]}.compact.inject(Hash.new(0)){|h,i| h[i.first] += [nil,0].include?(i.last) ? 0 : 1.0 / i.last; h}.as_json%>
+  <%- grouped_ice_obs =  observations_grouped_by_ice_type(@cruise.observations).as_json %>
   
   <%- grouped_ice_obs.each do |code, count| %>
     data.values.push({
