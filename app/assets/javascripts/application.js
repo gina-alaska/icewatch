@@ -36,6 +36,6 @@ $(document).ready(function() {
   
   var map = new IceMap;
   map.init("#map");
-  console.log("PJAX!")
+
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content');
 });

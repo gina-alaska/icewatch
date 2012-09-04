@@ -22,8 +22,7 @@
 //= require jquery.pjax
 
 $(document).ready(function() {
-  // $('a').pjax('#content').on('click', function(){
-  //   $(this).showLoader()
-  // })
+
+
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content');
 });
