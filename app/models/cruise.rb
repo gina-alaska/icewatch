@@ -1,16 +1,26 @@
 class Cruise
   include Mongoid::Document
   
+  #Cruise metatdata
   field :ship, type: String
   field :start_date, type: Time
   field :end_date, type: Time
+  field :primary_observer, type: String
+  field :objective, type: String
+  
+  field :chief_scientist, type: String
   field :captain, type: String
+
+  #Internal metadata
   field :archived, type: Boolean, default: false
   field :user_id, type: Integer
   field :approved, type: Boolean, default: false
-  
-  attr_accessible :approved, :ship, :start_date, :end_date, :captain, :archived, :user_id
 
+  attr_accessible :approved, :ship, :start_date, :end_date, :captain, :primary_observer, :chief_scientist, :objective, :archived, :user_id
+
+  validates_presence_of :ship, :start_date, :end_date, :primary_observer, :objective
+  validates_length_of :objective, {maximum: 300}
+  
   has_many :observations, order: 'obs_datetime DESC'  do
     def recent count
       desc(:obs_datetime).limit(count)
@@ -23,9 +33,6 @@ class Cruise
   scope :archived, ->(){where(:archived => true)}
   scope :upcoming, ->(){where(:start_date.gte => Time.now)}
   scope :ended, ->(){where(:end_date.lte => Time.now)}
-  
-  
-  validates_presence_of :ship, :start_date, :end_date
   
   def ship_with_date
     "#{self.ship}: #{ymd(start_date)}-#{ymd(end_date)}"
@@ -76,8 +83,15 @@ class Cruise
     data
   end
   
-    private
+  def length_of_objective
+    !self.objective.nil? && self.objective.length <= 300 && self.objective.length > 0
+  end
+
+  private
   def ymd date
     date.strftime("%Y.%m.%d")    
   end
+
+
+  
 end

@@ -1,12 +1,1 @@
-.well
-  =simple_form_for @cruise, multipart: true, html: {class: 'form-vertical'}, url: admin_cruises_url, defaults: {label: false} do |f|
-    %legend= "Cruise Information"
-    =f.input :ship, placeholder: "Ship Name", required: true
-    =f.input :start_date, placeholder: "Cruise Start", class: 'datefield', 'data-date-format' => 'yyyy.mm.dd'
-    =f.input :end_date, placeholder: "Cruise End", class: 'datefield', 'data-date-format' => 'yyyy.mm.dd'
-    %legend= "Additional Information"
-    =f.input :captain, placeholder: "Captain's Name"
-    %legend
-    .row-fluid
-      .span12   
-        =f.submit "Add Cruise", class: 'btn btn-primary pull-right'
+= render 'cruises/form'
