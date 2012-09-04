@@ -1,15 +1,16 @@
 GIT
+  remote: http://github.com/gina-alaska/iceobs-shared
+  revision: 89ae3b5b0c67fc9c3d83f4dfd4f1e31383b6c40f
+  specs:
+    assist-shared (0.0.3)
+
+GIT
   remote: https://github.com/yabawock/bootstrap-sass-rails
   revision: 9f911ef7744947579ae5a52370302c371989c2fb
   specs:
     bootstrap-sass-rails (2.1.0.0)
       rails (~> 3.1)
       sass-rails (~> 3.1)
-
-PATH
-  remote: ~/workspace/iceobs-shared
-  specs:
-    assist-shared (0.0.3)
 
 GEM
   remote: https://rubygems.org/

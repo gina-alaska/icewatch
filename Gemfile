@@ -20,8 +20,8 @@ gem 'rubyzip', require: 'zip/zipfilesystem'
 
 gem 'omniauth-openid'
 
-#gem 'assist-shared', git: 'http://github.com/gina-alaska/iceobs-shared', require: 'assist_shared'
-gem 'assist-shared', path: '~/workspace/iceobs-shared', require: 'assist_shared'
+gem 'assist-shared', git: 'http://github.com/gina-alaska/iceobs-shared', require: 'assist_shared'
+#gem 'assist-shared', path: '~/workspace/iceobs-shared', require: 'assist_shared'
 
 group :development do
   gem "quiet_assets"
