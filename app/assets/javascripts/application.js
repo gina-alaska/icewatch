@@ -38,4 +38,5 @@ $(document).ready(function() {
   map.init("#map");
 
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content');
+  $(".datefield").datepicker({"format": "yyyy-mm-dd", "weekStart": 1, "autoclose": true});
 });

@@ -25,4 +25,5 @@ $(document).ready(function() {
 
 
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content');
+  $(".datefield").datepicker({"format": "yyyy-mm-dd", "autoclose": true});
 });
