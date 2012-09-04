@@ -33,7 +33,12 @@ Icebox::Application.routes.draw do
     end
   end
   
-
+  resource :pages, only: [] do 
+    collection do
+      get 'about'
+    end
+  end
+  
   match '/admin/users/:id/approve/:value', to: 'admin/users#approve', as: 'approve_user'
   match '/admin/cruises/:id/approve/:value', to: 'admin/cruises#approve', as: 'approve_cruise'
   match '/admin/observations/all/approve', to: 'admin/observations#approve_all', as: 'approve_all_observations'
@@ -43,6 +48,8 @@ Icebox::Application.routes.draw do
   match '/auth/failure' => 'sessions#failure'
   match '/login' => 'sessions#new', as: 'login'
   match '/logout' => 'sessions#destroy', as: 'logout'
+
+
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'
