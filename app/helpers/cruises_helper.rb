@@ -4,16 +4,20 @@ module CruisesHelper
     ice_obs = observations.collect(&:ice_observations).flatten
     
     ice_obs.collect!{|i| [i.ice_lookup.try(:name).try(:html_safe), i.partial_concentration] }        
-      
+    
+    concentration = observations.count * 10;
+    
     result = ice_obs.inject(Hash.new(0)) do |h,i|
       # i = [ ice_lookup, partial_concentration ]
-      if i.last == 0 || i.last.nil?
-        h[i.first] += 0
-      else
-        h[i.first] += 1.0 / i.last
+      # Only add values if there was an observation made
+      unless i.first.nil?
+        h[i.first] += i.last.to_i
+        concentration -= i.last.to_i
       end
       h
     end
+    
+    result["Water".to_sym] = concentration
     
     result 
   end
