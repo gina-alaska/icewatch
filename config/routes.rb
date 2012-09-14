@@ -31,6 +31,7 @@ Icebox::Application.routes.draw do
         get :all
       end
     end
+    resources :lookups, only: [:index, :show]
   end
   
   resource :pages, only: [] do 
@@ -38,6 +39,10 @@ Icebox::Application.routes.draw do
       get 'about'
     end
   end
+  
+  require "admin_constraint"
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/admin/jobs', :constraints => AdminConstraint.new
   
   match '/admin/users/:id/approve/:value', to: 'admin/users#approve', as: 'approve_user'
   match '/admin/cruises/:id/approve/:value', to: 'admin/cruises#approve', as: 'approve_cruise'

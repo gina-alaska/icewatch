@@ -1,6 +1,6 @@
 module CruisesHelper
   def observations_grouped_by_ice_type observations
-  
+    
     ice_obs = observations.collect(&:ice_observations).flatten
     
     ice_obs.collect!{|i| [i.ice_lookup.try(:name).try(:html_safe), i.partial_concentration] }        

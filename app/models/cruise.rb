@@ -1,6 +1,8 @@
 class Cruise
   include Mongoid::Document
   
+  mount_uploader :assist, AssistUploader
+  
   #Cruise metatdata
   field :ship, type: String
   field :start_date, type: Time

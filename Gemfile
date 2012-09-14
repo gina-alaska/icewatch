@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.6'
+gem 'rails', '3.2.8'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'sqlite3'
-gem "mongoid", "~> 3.0.0.rc"
+gem "mongoid", "~> 3.0.0"
 
 #gem "bootstrap-sass"
 gem "bootstrap-datepicker-rails"
@@ -20,12 +20,23 @@ gem 'rubyzip', require: 'zip/zipfilesystem'
 
 gem 'omniauth-openid'
 
+#Sidekiq
+gem 'slim'
+gem 'sinatra', :require => nil
+gem 'sidekiq'
+gem 'kiqstand'
+gem 'sprockets'
+
 gem 'assist-shared', git: 'http://github.com/gina-alaska/iceobs-shared', require: 'assist_shared'
 #gem 'assist-shared', path: '~/workspace/iceobs-shared', require: 'assist_shared'
 
 group :development do
   gem "quiet_assets"
 end
+
+gem 'carrierwave'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do

@@ -22,7 +22,6 @@
 //= require nvd3/lib/hive
 //= require nvd3/lib/horizon
 //= require nvd3/lib/sankey
-
 //= require jquery-file-upload/js/vendor/jquery.ui.widget
 //= require jquery-file-upload/js/jquery.iframe-transport
 //= require jquery-file-upload/js/jquery.fileupload
@@ -33,7 +32,6 @@
 
 
 $(document).ready(function() {
-  
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content');
   $(".datefield").datepicker({"format": "yyyy-mm-dd", "weekStart": 1, "autoclose": true});
 });
