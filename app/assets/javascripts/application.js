@@ -34,9 +34,6 @@
 
 $(document).ready(function() {
   
-  var map = new IceMap;
-  map.init("#map");
-
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content');
   $(".datefield").datepicker({"format": "yyyy-mm-dd", "weekStart": 1, "autoclose": true});
 });
