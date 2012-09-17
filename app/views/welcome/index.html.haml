@@ -10,7 +10,7 @@
       -@cruises.each do |cruise|
         .page-header
           %h3
-            =cruise.ship
+            .text-overflow=cruise.ship
             %small.pull-right
               =link_to "View Observations", cruise_url(cruise), class: 'btn'
         %dl.dl-horizontal
