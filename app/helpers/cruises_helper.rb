@@ -15,7 +15,7 @@ module CruisesHelper
     end
 
     concentration = observations.count * 10;
-    result["Water"] = concentration - result.values.inject(&:+) 
+    result["Water"] = concentration - result.values.inject(&:+).to_i 
     #Scale the values to be between 0 and 1
     result.each{|k,v| result[k] = v.to_f / concentration.to_f}    
     
