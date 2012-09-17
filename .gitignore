@@ -14,3 +14,4 @@
 /log/*.log
 /tmp
 /imports
+/public/uploads
