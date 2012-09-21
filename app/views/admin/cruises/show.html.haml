@@ -26,9 +26,9 @@
 -else
   .alert.alert-info
     This cruise hasn't been approved yet.  
-  =link_to approve_cruise_path(id: cruise.id, value: 'yes'), class: 'btn btn-success' do
+  =link_to approve_cruise_path(id: @cruise.id, value: 'yes'), class: 'btn btn-success' do
     %i.icon-check
     Approve
-  =link_to approve_cruise_path(id: cruise.id, value: 'no'), class: 'btn btn-danger' do
+  =link_to approve_cruise_path(id: @cruise.id, value: 'no'), class: 'btn btn-danger' do
     %i.icon-remove
     Reject
