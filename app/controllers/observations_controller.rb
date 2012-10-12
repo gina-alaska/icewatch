@@ -9,32 +9,35 @@ class ObservationsController < ApplicationController
       redirect_to :root_url
     end
     
-    @results = Hash.new(0)
+    @imported = [];
+    @errors = [];
     ImportObservation.from_file(params[:observation].tempfile, import_observation_params).each do |import|
       begin
         observation = import.to_observation
 
         if observation.save
-          @results[:valid] += 1
+          @imported << observation
         else
-          @results[:errors] += 1
+          @errors << import
           import.save
         end
-      rescue InvalidLookupException
-        @results[:invalid] += 1
+      rescue ImportObservation::InvalidLookupException
+        @errors << import
         import.save
       end
     end
     
     respond_to do |format|
       if request.xhr?
-        format.html {render @cruise, layout: false }
-        format.json {render json: @results, layout: false}
+        # format.html {render @cruise, layout: false }
+        # format.json {render json: @results, layout: false}
+        format.js { render layout: false }
       else
         format.html { redirect_to cruise_url(@cruise) }
       end
     end
   end
+  
 private
   def import_observation_params
     {

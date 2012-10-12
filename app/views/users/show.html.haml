@@ -16,10 +16,43 @@
       .page-header
         %h1
           My Cruises
-          =link_to new_cruise_url, class: 'btn pull-right' do
-            %i.icon-plus
-            New Cruise
+          .btn-toolbar.pull-right
+            .btn-group
+              =link_to new_cruise_url, class: 'btn' do
+                %i.icon-plus
+                New Cruise
+            .btn-group
+              =link_to "#", class: 'btn btn-primary dropdown-toggle', data: {toggle: :dropdown} do
+                Download ASSIST
+                %span.caret
+              %ul.dropdown-menu
+                -@cruises.each do |cruise|
+                  -if cruise.approved?
+                    %li
+                      =link_to cruise.ship, cruise_url(cruise)
+                   
   .row
     .span12
-      -@cruises.each do |cruise| 
-        =render partial: 'cruises/cruise', locals: {cruise: cruise}  
+      %table.table.table-striped
+        %thead
+          %tr
+            %td= "Cruise"
+            %td= "Start Date"
+            %td= "End Date"
+            %td= "Data"
+        %tbody
+          -@cruises.each do |cruise|
+            %tr{class: cruise.approved? ? "" : "info"}
+              %td= cruise.ship
+              %td= ymd cruise.start_date
+              %td= ymd cruise.end_date
+              %td
+                -if cruise.approved?
+                  =form_tag import_cruise_observations_url(cruise), class: 'obs-upload' do 
+                    =hidden_field_tag :cruise_id, cruise.id
+                    .btn.btn-primary.btn-mini.fileinput-button
+                      =file_field_tag :observation
+                      %i.icon-list.icon-white
+                      Import 
+                -else  
+                  Pending Approval  
