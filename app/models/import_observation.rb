@@ -42,7 +42,7 @@ class ImportObservation
   def self.from_json data, params={}
     imports = []
     data.each do |obs|
-      obs = JSON.parse(obs)
+      obs = JSON.parse(obs) if obs.is_a? String
       obs[:imported_as_cruise_id] = params[:cruise_id] unless params[:cruise_id].nil?
       imports << ImportObservation.new(obs)
     end

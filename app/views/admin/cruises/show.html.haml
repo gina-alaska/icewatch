@@ -5,17 +5,18 @@
       ="#{ymd(@cruise.start_date)} to #{ymd(@cruise.end_date)}"
       -if @cruise.approved? 
         .pull-right
-          =form_tag import_cruise_observations_url(@cruise) do 
+          =form_tag import_cruise_observations_url(@cruise), class: 'obs-upload' do 
             =hidden_field_tag :cruise_id, @cruise.id
             .btn.btn-primary.fileinput-button
-              =file_field_tag :observation, class: 'obs-upload'
+              =file_field_tag :observation
               %i.icon-list.icon-white
               Import 
       
--if @cruise.approved? 
+-if @cruise.approved?
+  #import_notice 
   - if @pending.any?
     .row-fluid
-      .span12
+      #pending.span12
         .page-header
           %h3 
             Pending Observations 
@@ -23,6 +24,7 @@
               %i.icon-ok.icon-white
               Accept All
         =render partial: 'admin/observations/pending', locals: { observations: @pending}
+        
 -else
   .alert.alert-info
     This cruise hasn't been approved yet.  

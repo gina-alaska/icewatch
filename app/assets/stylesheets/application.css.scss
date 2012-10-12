@@ -77,3 +77,9 @@ tr.error {
   @extend .alert-error;
 }
 
+#flash {
+  position: absolute;
+  width: 300px;
+  right: 20px;
+  top: 70px;
+}
