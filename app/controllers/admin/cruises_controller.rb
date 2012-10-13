@@ -28,8 +28,15 @@ class Admin::CruisesController < AdminController
     @cruise = Cruise.find(params[:id])
     
     if @cruise
-      @cruise.approved = approve_params
-      if @cruise.save
+      if approved?
+        @cruise.approved = true
+        if @cruise.save
+          respond_to do |format|
+            format.html { redirect_to admin_cruises_url }
+          end
+        end
+      else
+        @cruise.delete
         respond_to do |format|
           format.html { redirect_to admin_cruises_url }
         end
@@ -43,7 +50,7 @@ protected
     params.slice(:cruise)
   end
   
-  def approve_params
+  def approved?
     params[:value] == "yes" ? true : false
   end
 
