@@ -10,7 +10,9 @@
     = csrf_meta_tags
   %body
     = render 'shared/header'
-    #flash
     .container
+      .row
+        .span12
+          #flash
       #content.span12
         = yield 
