@@ -3,17 +3,21 @@
     %h2
       ="Editing Observation"
       =link_to "Delete", admin_import_url(@import), method: :delete, class: 'btn btn-danger pull-right', confirm: 'Permanently destroy this observation. Are you sure?'
-=form_for @observation, {url: admin_import_url(@import), :method => :put} do |f|
-  -@observation.errors.messages.each do |e|
-    - case e.first
-    - when :cruise_id
-      =render partial: 'cruise_errors', locals: {error: e, form: f}
-    - when :ice
-      =f.fields_for :ice do |ice|
-        =render partial: 'ice_errors', locals: {error: e, form: ice }
-    - when :hexcode
-      =render partial: 'hexcode_errors'
-    - else
-      =e.first
-  %legend
-  =f.submit "Attempt Import", class: 'btn btn-primary'     
+- if flash[:error] 
+  .alert.alert-error
+    =flash[:error]
+- else
+  =form_for @observation, {url: admin_import_url(@import), :method => :put} do |f|
+    -@observation.errors.messages.each do |e|
+      - case e.first
+      - when :cruise_id
+        =render partial: 'cruise_errors', locals: {error: e, form: f }
+      - when :ice
+        =f.fields_for :ice do |ice|
+          =render partial: 'ice_errors', locals: {error: e, form: ice }
+      - when :hexcode
+        =render partial: 'hexcode_errors'
+      - else
+        =render partial: 'observation_errors', locals: {error: e, form: f}
+    %legend
+    =f.submit "Attempt Import", class: 'btn btn-primary'     
