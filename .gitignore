@@ -14,5 +14,5 @@
 /log/*.log
 /tmp
 /imports
-/public/uploads
+/public/system
 /config/mongoid.yml

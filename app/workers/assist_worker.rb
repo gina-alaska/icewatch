@@ -15,13 +15,8 @@ class AssistWorker
         raise CloneError if status == false
         system("script/package.sh #{cruise_id} #{cruise.ship}")
         #Attach the generated zip file to the cruise
-        file = Dir.glob("ASSIST*.zip").first
-        cruise.assist.store!(File.open(file))
+        cruise.assist = Pathname.glob("ASSIST*.zip").first
         cruise.save!
       end
-
-    puts dir
-    puts Dir.glob(File.join(dir, "*.zip"))
-  
   end
 end

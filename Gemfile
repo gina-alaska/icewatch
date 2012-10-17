@@ -34,9 +34,6 @@ group :development do
   gem "quiet_assets"
 end
 
-gem 'carrierwave'
-gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
-
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -50,6 +47,9 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+gem 'rack-cache', require: 'rack/cache'
+gem 'dragonfly', '~>0.9.12'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

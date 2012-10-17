@@ -21,21 +21,13 @@
               =link_to new_cruise_url, class: 'btn' do
                 %i.icon-plus
                 New Cruise
-            .btn-group
-              =link_to "#", class: 'btn btn-primary dropdown-toggle', data: {toggle: :dropdown} do
-                Download ASSIST
-                %span.caret
-              %ul.dropdown-menu
-                -@cruises.each do |cruise|
-                  -if cruise.approved?
-                    %li
-                      =link_to cruise.ship, cruise_url(cruise)
                    
   .row
     .span12
       %table.table.table-striped
         %thead
           %tr
+            %td= "ASSIST"
             %td= "Cruise"
             %td= "Start Date"
             %td= "End Date"
@@ -43,6 +35,15 @@
         %tbody
           -@cruises.each do |cruise|
             %tr{class: cruise.approved? ? "" : "info"}
+              %td
+                -if cruise.assist
+                  .btn-group
+                    .btn.btn-primary.btn-mini
+                      Download
+                -else
+                  .spinner
+                    Assist is being generated
+                  
               %td= cruise.ship
               %td= ymd cruise.start_date
               %td= ymd cruise.end_date

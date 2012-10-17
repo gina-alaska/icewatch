@@ -14,6 +14,7 @@ class Admin::CruisesController < AdminController
     @pending = @cruise.observations.where(accepted: false)
     @observations = @cruise.observations
   end
+  
   def create 
     @cruise = Cruise.new cruise_params
     

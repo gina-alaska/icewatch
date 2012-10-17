@@ -1,7 +1,9 @@
 class Cruise
   include Mongoid::Document
   
-  mount_uploader :assist, AssistUploader
+  #ASSIST
+  field :assist_uid
+  file_accessor :assist
   
   #Cruise metatdata
   field :ship, type: String

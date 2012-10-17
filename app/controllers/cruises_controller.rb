@@ -7,10 +7,13 @@ class CruisesController < ApplicationController
     #Load the observations from 
     @cruise.user_id = current_user.id
     if @cruise.save
+      flash[:notice] = "Cruise has been created. Please wait a few minutes for ASSIST to be available for this cruise."
+      #Generate ASSIST for this cruise
+      AssistWorker.perform_async(@cruise.id)
       if request.xhr?
         render @cruise, layout: false
       else
-        redirect_to cruises_url
+        redirect_to user_url(current_user.id)
       end
     else
       render action: :new
