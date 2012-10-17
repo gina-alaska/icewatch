@@ -32,7 +32,8 @@ class Admin::ImportsController < AdminController
         flash[:notice] = "Observation successfully imported"
         redirect_to admin_imports_url
       else
-         render :edit
+        flash[:error] = "There was an error importing the observation"
+        render :edit
       end
     end
   end

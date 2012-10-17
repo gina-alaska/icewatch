@@ -14,5 +14,8 @@
       .row
         .span12
           #flash
+            =render partial: 'shared/alert', alert: 'info', message: flash[:notice] if flash[:notice]
+            =render partial: 'shared/alert', alert: 'error', message: flash[:error] if flash[:error]
+
       #content.span12
         = yield 
