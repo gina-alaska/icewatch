@@ -3,8 +3,9 @@ class Cloud
   include AssistShared::Validations::Cloud
   include AssistShared::Validations
   include AssistShared::CSV::Cloud
-  field :cover, type: Numeric
-  field :height, type: Numeric
+
+  field :cover, type: Integer
+  field :height, type: Integer
   field :cloud_type, type: String
   
   embedded_in :eteorology

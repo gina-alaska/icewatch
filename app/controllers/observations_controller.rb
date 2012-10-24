@@ -14,7 +14,7 @@ class ObservationsController < ApplicationController
     ImportObservation.from_file(params[:observation].tempfile, import_observation_params).each do |import|
       begin
         observation = import.to_observation
-
+        logger.info(observation.inspect)
         if observation.save
           @imported << observation
         else
@@ -42,7 +42,8 @@ private
   def import_observation_params
     {
       content_type: params[:observation].content_type,
-      cruise_id: params[:cruise_id]
+      cruise_id: params[:cruise_id],
+      filename: params[:observation].original_filename
     }
   end  
 end

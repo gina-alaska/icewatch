@@ -32,6 +32,7 @@ class Observation
   
   embeds_many :photos
   embeds_many :comments
+  embeds_one :additional_data
   
   belongs_to :cruise
 
