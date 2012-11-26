@@ -1,0 +1,21 @@
+.container-fluid
+  .row-fluid
+    .span12
+      .btn-group.pull-right
+        =link_to approve_observation_url(@observation, :yes), class: 'btn btn-small btn-success' do 
+          %i.icon-ok.icon-white
+          Approve
+        =link_to approve_observation_url(@observation, :no), class: 'btn btn-small btn-danger' do 
+          %i.icon-remove.icon-white
+          Reject
+  .row-fluid
+    #editor.span12
+      = JSON.pretty_generate(@observation.as_json)
+
+
+:javascript
+  var editor = ace.edit("editor");
+  editor.setTheme("ace/theme/github");
+  editor.setReadOnly(true);
+  editor.getSession().setMode("ace/mode/json");
+  editor.resize();

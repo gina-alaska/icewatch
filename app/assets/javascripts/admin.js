@@ -24,4 +24,9 @@
 $(document).ready(function() {
   $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content');
   $(".datefield").datepicker({"format": "yyyy-mm-dd", "autoclose": true});
+  
+  $('body').on('click', '.btn[data-form]', function() {
+    var form_id = $(this).attr('data-form');
+    $("#" + form_id).find('input[type=file]').trigger('click');
+  });
 });

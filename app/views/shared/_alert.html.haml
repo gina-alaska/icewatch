@@ -1,6 +1,6 @@
 - level ||= 'info'
-- message ||= ''
-.alert{ class: "alert-#{level}"}
-  %button.close{data: {dismiss: 'alert'}} 
-    ×
-  = message
+-if defined? message
+  .alert{ class: "alert-#{level}"}
+    %button.close{data: {dismiss: 'alert'}} 
+      ×
+    = message

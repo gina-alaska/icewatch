@@ -10,8 +10,8 @@ class AssistWorker
 
     dir = Dir.mktmpdir
       Dir.chdir(dir) do 
-        #status = system('git clone http://github.com/gina-alaska/ASSIST.git .')
-        status = system('git clone /Users/scott/workspace/iceobs .')
+        status = system('git clone http://github.com/gina-alaska/ASSIST.git .')
+        #status = system('git clone /Users/scott/workspace/iceobs .')
         raise CloneError if status == false
         system("script/package.sh #{cruise_id} #{cruise.ship}")
         #Attach the generated zip file to the cruise

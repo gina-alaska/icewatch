@@ -70,7 +70,7 @@ class ImportObservation
   def lookup_code_to_id attrs
     attrs.inject(Hash.new) do |h,(k,v)|
       key = k.to_s.gsub(/lookup_code$/, "lookup_id")
-
+      #TODO - Why is ThickIceLookup getting called sometimes for as_json?
       if key =~ /lookup_id$/ and not v.nil?
         table = key.gsub(/^thi(n|ck)_ice_lookup_id$/,"ice_lookup_id")
         lookup = table.chomp("_id").camelcase.constantize.where(code: v).first

@@ -8,6 +8,14 @@ class Admin::ObservationsController < AdminController
     end
   end
   
+  def show
+    @observation = Observation.where(accepted: false,id: params[:id]).first
+    
+    respond_to do |format|
+      format.html
+    end
+  end
+  
   def approve
     @observation = Observation.where(accepted: false, id: params[:id]).first
         

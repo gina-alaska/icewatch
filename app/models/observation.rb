@@ -75,13 +75,19 @@ class Observation
   def lookup_id_to_code(hash) 
     hash.inject(Hash.new) do |h, (k,v)|
       key = k.gsub(/lookup_id$/, "lookup_code")
-    
+
       case v.class.to_s
       when "Hash"
         h[key] = lookup_id_to_code(v)
       when "Array"
         h[key] = v.collect{|item| item.is_a?(Hash) ? lookup_id_to_code(item) : item } 
       else
+        if(key =~ /lookup_code$/ and !!v)
+          table = key.gsub(/^thi(n|ck)_ice_lookup/,"ice_lookup")
+          logger.info(table)
+          #Use where instead of find. If any bad values got injected it will turn them into nil
+          v = table.chomp("_code").camelcase.constantize.where(id: v).first.try(&:code)
+        end
         h[key] = v
       end
       h

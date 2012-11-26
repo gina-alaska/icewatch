@@ -4,26 +4,34 @@
 %table.table.dataTable.table-striped
   %thead
     %tr
-      %th= "Ship"
-      %th= "Start Date"
-      %th= "End Date"
-      %th= "Observations"
-      %th= "Pending"
-      %th 
+      %th.span3= "Ship"
+      %th.span2= "Start Date"
+      %th.span2= "End Date"
+      %th.span1= "Observations"
+      %th.span1= "Pending"
+      %th.span3 
   %tbody
     -cruises.each do |cruise|
       %tr
-        %td=cruise.ship 
-        %td=ymd(cruise.start_date)
-        %td=ymd(cruise.end_date)
-        %td
+        %td.span3=cruise.ship 
+        %td.span2=ymd(cruise.start_date)
+        %td.span2=ymd(cruise.end_date)
+        %td.span1
           %span.badge{class: cruise.observations.count > 0 ? 'badge-info' : ''}
             = cruise.observations.count
-        %td
+        %td.span1
           %span.badge{class: cruise.observations.pending.count > 0 ? 'badge-warning' : ''}
             = cruise.observations.pending.count
-        %td
-          = link_to "Manage", admin_cruise_path(cruise), class: 'btn btn-primary'
-  
-              
-  
+        %td.span3
+          -if cruise.approved?
+            .btn-group
+              = link_to "Manage", admin_cruise_path(cruise), class: 'btn btn-primary btn-small'
+              .btn.btn-primary.btn-small{data: {form: cruise.id}}
+                %i.icon-list.icon-white
+                Import              
+            = form_tag import_cruise_observations_url(cruise), class: 'obs-upload hide', id: cruise.id do           
+              = hidden_field_tag :cruise_id, cruise.id
+              =file_field_tag :observation
+
+          -else
+            = link_to "Manage", admin_cruise_path(cruise), class: 'btn btn-primary btn-small'

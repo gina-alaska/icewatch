@@ -5,6 +5,8 @@
       Icebox
     = stylesheet_link_tag    "application", :media => "all"
     = javascript_include_tag "admin"
+    = javascript_include_tag "http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js"
+    
     = csrf_meta_tags
   %body
     = render 'shared/header'
@@ -32,12 +34,12 @@
               -# %i.icon-tasks
               Observations
             %li=link_to "Approve", admin_observations_path
-            
-            %li.nav-header
-              -# %i.icon-upload
-              Imports
+            -# 
+            -# %li.nav-header
+            -#   -# %i.icon-upload
+            -#   Imports
             %li=link_to "Fix", admin_imports_path
-  
+            %li=link_to "Import", admin_cruises_path
             %li.nav-header
               -# %i.icon-user
               Users
