@@ -29,7 +29,7 @@
         %legend
         =f.submit "Attempt Import", class: 'btn btn-primary'  
     #raw_observation.tab-pane
-      #editor.span12
+      #editor
         = JSON.pretty_generate(@observation.as_json)
         
 :javascript

@@ -33,12 +33,16 @@
             %li.nav-header
               -# %i.icon-tasks
               Observations
-            %li=link_to "Approve", admin_observations_path
-            -# 
-            -# %li.nav-header
-            -#   -# %i.icon-upload
-            -#   Imports
-            %li=link_to "Fix", admin_imports_path
+            %li
+              = link_to admin_observations_path do
+                Approve
+                %span.badge
+                  = Observation.pending.count
+            %li
+              = link_to admin_imports_path do
+                Fix
+                %span.badge
+                  = ImportObservation.count
             %li=link_to "Import", admin_cruises_path
             %li.nav-header
               -# %i.icon-user
