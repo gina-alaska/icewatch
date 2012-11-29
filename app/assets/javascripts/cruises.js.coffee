@@ -4,14 +4,6 @@
 
 
 $(document).ready ->
-  # $(".obs-upload").fileupload
-  #   dataType: "json",
-  #   done: (e,data) ->
-  #     console.log(e,data,arguments);  
-  #     $(data.result.cruise['_id']).html("WAHOO");
-  #   add: (e,data) ->
-  #     console.log("FOO!")
-  #     $(data).submit();
   $(".obs-upload").fileupload
     datatype: "html"
     add: (e,data) ->

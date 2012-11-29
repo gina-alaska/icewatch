@@ -8,7 +8,7 @@ gem 'rails', '3.2.8'
 #gem 'sqlite3'
 gem "mongoid", "~> 3.0.0"
 
-#gem "bootstrap-sass"
+gem "bootstrap-sass"
 gem "bootstrap-datepicker-rails"
 
 gem "haml"
@@ -27,6 +27,10 @@ gem 'sidekiq'
 gem 'kiqstand'
 gem 'sprockets'
 
+#TODO: Update to latest version when bug #118 is fixed
+gem 'turbolinks', '0.5.1' 
+
+
 gem 'assist-shared', git: 'http://github.com/gina-alaska/iceobs-shared', require: 'assist_shared'
 #gem 'assist-shared', path: '~/workspace/iceobs-shared', require: 'assist_shared'
 
@@ -41,7 +45,7 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
-  gem 'bootstrap-sass-rails', git: 'https://github.com/yabawock/bootstrap-sass-rails'
+  #gem 'bootstrap-sass-rails', git: 'https://github.com/yabawock/bootstrap-sass-rails'
 
   gem 'uglifier', '>= 1.0.3'
 end

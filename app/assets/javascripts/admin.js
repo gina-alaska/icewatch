@@ -12,17 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require twitter/bootstrap
 //= require bootstrap-datepicker
 //= require jquery-file-upload/js/vendor/jquery.ui.widget
 //= require jquery-file-upload/js/jquery.iframe-transport
 //= require jquery-file-upload/js/jquery.fileupload
 //= require datatables/media/js/jquery.dataTables
 //= require cruises
-//= require jquery.pjax
+//= require turbolinks
 
 $(document).ready(function() {
-  $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content');
   $(".datefield").datepicker({"format": "yyyy-mm-dd", "autoclose": true});
   
   $('body').on('click', '.btn[data-form]', function() {

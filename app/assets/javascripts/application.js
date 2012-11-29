@@ -28,10 +28,9 @@
 //= require datatables/media/js/jquery.dataTables
 //= require_tree ./map
 //= require cruises
-//= require jquery.pjax
+//= require turbolinks
 
 
 $(document).ready(function() {
-  $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content');
   $(".datefield").datepicker({"format": "yyyy-mm-dd", "weekStart": 1, "autoclose": true});
 });
