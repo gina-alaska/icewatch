@@ -3,7 +3,7 @@ module CruisesHelper
     
     ice_obs = observations.collect(&:ice_observations).flatten
     
-    ice_obs.collect!{|i| [i.ice_lookup.try(:name).try(:html_safe), i.partial_concentration] }        
+    ice_obs.collect!{|i| [i.ice_lookup.try(:name).try(:html_safe), i.partial_concentration.to_i] }        
         
     result = ice_obs.inject(Hash.new(0)) do |h,i|
       # i = [ ice_lookup, partial_concentration ]
@@ -23,7 +23,7 @@ module CruisesHelper
   end
   
   def total_concentration_grouped_by_time observations
-    observations.collect{|o| [o.obs_datetime.to_i * 1000, o.ice.total_concentration]} 
+    observations.collect{|o| [o.obs_datetime.to_i * 1000, o.ice.total_concentration.to_i]} 
   end
   
   
@@ -33,7 +33,7 @@ module CruisesHelper
       obs.ice_observations.each do |i|
         next if i.obs_type.nil?
         groups[i.obs_type.to_sym] ||= []
-        groups[i.obs_type.to_sym].push([obs.obs_datetime.to_i * 1000, i.partial_concentration])
+        groups[i.obs_type.to_sym].push([obs.obs_datetime.to_i * 1000, i.partial_concentration.to_i])
       end
     end
 

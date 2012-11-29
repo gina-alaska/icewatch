@@ -34,3 +34,9 @@
 $(document).ready(function() {
   $(".datefield").datepicker({"format": "yyyy-mm-dd", "weekStart": 1, "autoclose": true});
 });
+
+$(document).on('page:change', function() {
+  var map = new IceMap
+  map.init("#map")
+  console.log("DOOM")
+})
