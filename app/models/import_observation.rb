@@ -78,7 +78,7 @@ class ImportObservation
       if key =~ /lookup_id$/ and not v.nil?
         table = key.gsub(/^thi(n|ck)_ice_lookup_id$/,"ice_lookup_id")
         lookup = table.chomp("_id").camelcase.constantize.where(code: v).first
-        raise InvalidLookupException if lookup.nil?
+        raise InvalidLookupException, "Unknown Lookup Id -- #{key}: #{v.inspect}" if lookup.nil?
         v = lookup.id
       end
       
@@ -113,8 +113,8 @@ class ImportObservation
             val << {firstname: el.first, lastname: el.last}
           end
         else
-          logger.info("#{k}=#{row[v]} - #{row[v].class}")
           val = row.include?(v) ? row[v] : v
+          val = nil if val.blank?
         end
         data[k] = val
       when "Hash"
@@ -128,7 +128,6 @@ class ImportObservation
   
   def self.hexcode_string obs = {}
     begin
-      logger.info(obs.inspect)
       code = "#{obs['obs_datetime']}#{obs['latitude']}#{obs['longitude']}#{obs['primary_observer']['first_name']} #{obs['primary_observer']['last_name']}"
     rescue
       code = ""

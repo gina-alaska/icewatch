@@ -5,6 +5,12 @@ class Observation
   
   before_validation :check_imported_as_cruise_id
   
+  before_create do |obs|
+    begin
+      obs.uuid = SecureRandom.uuid
+    end while Observation.where(uuid: obs.uuid).any?
+  end
+  
   validates_presence_of :cruise_id
   validate :absence_of_imported_as_cruise_id
   

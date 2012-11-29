@@ -17,8 +17,8 @@ class Admin::ImportsController < AdminController
     begin
       @observation = @import.to_observation
       @observation.valid?
-    rescue ImportObservation::InvalidLookupException
-      flash[:error] = "This record contains an invalid lookup code. Import is not possible at this time."
+    rescue ImportObservation::InvalidLookupException => ex
+      flash[:error] = "#{ex.message}. Import is not possible at this time."
     end
   end
   
