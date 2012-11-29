@@ -3,10 +3,7 @@
     %h2
       ="Editing Observation"
       =link_to "Delete", admin_import_url(@import), method: :delete, class: 'btn btn-danger pull-right', confirm: 'Permanently destroy this observation. Are you sure?'
-- if flash[:error] 
-  .alert.alert-error
-    =flash[:error]
-- else
+-unless flash[:error]
   %ul.nav.nav-tabs
     %li.active
       =link_to "Edit", "#correction_form", data: {toggle: 'tab'}

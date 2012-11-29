@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require twitter/bootstrap
+//= require bootstrap
 //= require bootstrap-datepicker
 //= require gina-map-layers/gina-openlayers
 //= require nvd3/lib/d3.v2

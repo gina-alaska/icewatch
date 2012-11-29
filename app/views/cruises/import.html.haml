@@ -1,0 +1,13 @@
+- if @imported.any?
+  .alert.alert-info
+    = "#{@imported.count} records imported"
+- if @errors.any?
+  .alert.alert-error
+    = "#{@errors.count} records had errors"
+
+.nav
+  .nav-inner
+    %ul.pull-right
+      %li
+        =link_to @cruise.ship, cruises_url(@cruise)
+      

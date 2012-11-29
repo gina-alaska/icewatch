@@ -49,7 +49,7 @@
               %td= ymd cruise.end_date
               %td
                 -if cruise.approved?
-                  =form_tag import_cruise_observations_url(cruise), class: 'obs-upload' do 
+                  =form_tag import_cruise_observations_url(cruise), class: 'obs-upload', multipart: true do 
                     =hidden_field_tag :cruise_id, cruise.id
                     .btn.btn-primary.btn-mini.fileinput-button
                       =file_field_tag :observation

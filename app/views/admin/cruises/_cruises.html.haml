@@ -1,7 +1,7 @@
 .page-header
   %h3
     = title.capitalize
-%table.table.dataTable.table-striped
+%table.table.table-striped
   %thead
     %tr
       %th.span3= "Ship"
@@ -23,15 +23,17 @@
           %span.badge{class: cruise.observations.pending.count > 0 ? 'badge-warning' : ''}
             = cruise.observations.pending.count
         %td.span3
-          -if cruise.approved?
-            .btn-group
-              = link_to "Manage", admin_cruise_path(cruise), class: 'btn btn-primary btn-small'
+          .btn-group
+            = link_to "Manage", admin_cruise_path(cruise), class: 'btn btn-primary btn-small'
+            -if cruise.approved?
               .btn.btn-primary.btn-small{data: {form: cruise.id}}
                 %i.icon-list.icon-white
-                Import              
-            = form_tag import_cruise_observations_url(cruise), class: 'obs-upload hide', id: cruise.id do           
+                Import  
+            -else
+              .btn.btn-primary.btn-small.disabled
+                %i.icon-remove.icon-white
+                Pending
+          -if cruise.approved?
+            = form_tag import_cruise_observations_url(cruise), class: 'obs-upload hide', id: cruise.id, multipart: true do           
               = hidden_field_tag :cruise_id, cruise.id
-              =file_field_tag :observation
-
-          -else
-            = link_to "Manage", admin_cruise_path(cruise), class: 'btn btn-primary btn-small'
+              = file_field_tag :observation

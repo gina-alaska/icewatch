@@ -7,6 +7,9 @@ Icebox::Application.routes.draw do
         post :import
       end
     end
+    collection do 
+      get :import
+    end
   end
 
   resources :users do

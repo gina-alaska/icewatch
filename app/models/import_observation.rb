@@ -27,14 +27,18 @@ class ImportObservation
   def self.from_zip file, params={}
     imports = []
     Zip::ZipFile.open(file) do |z|
+      observations = nil
       if(z.file.exists?("METADATA"))
         md = YAML.load((z.file.read("METADATA")))
-        file = md[:assist_version] == "1.0" ? "aorlich_summer_2012.observations.json" : md[:observations]
+        observations = md[:assist_version] == "1.0" ? "aorlich_summer_2012.observations.json" : md[:observations]
       elsif(z.file.exists?("observation.json"))
-        file = "observation.json"
+        observations = "observation.json"
       end
-      data = ::JSON.parse(z.file.read(file))
-      imports = self.from_json(data, params)
+      logger.info(z.file.inspect)
+      unless observations.nil?
+        data = ::JSON.parse(z.file.read(observations))
+        imports = self.from_json(data, params)
+      end
     end
     imports
   end
@@ -98,10 +102,12 @@ class ImportObservation
       when "String"
         case k
         when :primary_observer
+          row[v] ||= ""
           el = row[v].split(" ")
           val = {firstname: el.first, lastname: el.last}
         when :additional_observers
           val = []
+          row[v] ||= ""
           row[v].split(":").each do |name|
             el = name.split(" ")
             val << {firstname: el.first, lastname: el.last}

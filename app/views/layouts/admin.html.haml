@@ -14,24 +14,21 @@
       .row
         .span12
           #flash
-            =render partial: 'shared/alert', alert: 'info', message: flash[:notice] if flash[:notice]
-            =render partial: 'shared/alert', alert: 'error', message: flash[:error] if flash[:error]
+            =render(partial: 'shared/alert', locals: { level: 'info', message: flash[:notice]}) if flash[:notice]
+            =render(partial: 'shared/alert', locals: { level: 'error', message: flash[:error]}) if flash[:error]
       .row
         .span3
           %ul#page-nav.nav.nav-list
             %li.nav-header
-              -# %i.icon-briefcase
               Admin
             %li=link_to "Dashboard", admin_dashboard_path
             
             %li.nav-header
-              -# %i.icon-road
               Cruises
             %li=link_to "Manage", admin_cruises_path
             %li=link_to "Add", new_admin_cruise_path
                 
             %li.nav-header
-              -# %i.icon-tasks
               Observations
             %li
               = link_to admin_observations_path do
@@ -45,7 +42,6 @@
                   = ImportObservation.count
             %li=link_to "Import", admin_cruises_path
             %li.nav-header
-              -# %i.icon-user
               Users
             %li=link_to "Manage", admin_users_path
   

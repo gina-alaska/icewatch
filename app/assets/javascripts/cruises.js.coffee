@@ -3,11 +3,5 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 
-$(document).ready ->
-  $(".obs-upload").fileupload
-    datatype: "html"
-    add: (e,data) ->
-      $("#import-modal").modal('show')
-      $(data).submit()
-    done: (e,data) ->
-      $("#import-modal .modal-body").html(data.result)
+$(document).on 'change', ".obs-upload", ->
+  $(this).submit();

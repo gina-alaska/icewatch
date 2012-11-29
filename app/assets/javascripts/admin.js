@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap
 //= require bootstrap-datepicker
 //= require jquery-file-upload/js/vendor/jquery.ui.widget
 //= require jquery-file-upload/js/jquery.iframe-transport
@@ -23,7 +24,7 @@
 $(document).ready(function() {
   $(".datefield").datepicker({"format": "yyyy-mm-dd", "autoclose": true});
   
-  $('body').on('click', '.btn[data-form]', function() {
+  $(document).on('click', '.btn[data-form]', function() {
     var form_id = $(this).attr('data-form');
     $("#" + form_id).find('input[type=file]').trigger('click');
   });

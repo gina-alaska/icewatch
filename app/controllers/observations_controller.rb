@@ -18,7 +18,7 @@ class ObservationsController < ApplicationController
         if observation.save
           @imported << observation
         else
-          @errors << import
+          @imported << import
           import.save
         end
       rescue ImportObservation::InvalidLookupException
@@ -27,14 +27,16 @@ class ObservationsController < ApplicationController
       end
     end
     
+    if @imported.any?
+      flash[:notice] = "#{@imported.count} records imported"
+    end
+    if @errors.any?
+      flash[:error] = "#{@errors.count} records had errors"
+    end
+    flash[:doom] = "Something went wrong"
+    
     respond_to do |format|
-      if request.xhr?
-        # format.html {render @cruise, layout: false }
-        # format.json {render json: @results, layout: false}
-        format.js { render layout: false }
-      else
-        format.html { redirect_to cruise_url(@cruise) }
-      end
+        format.html { redirect_to :back, flash: flash }
     end
   end
   
