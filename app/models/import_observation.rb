@@ -2,100 +2,120 @@ class ImportObservation
   class InvalidLookupException < Exception;end
   include Mongoid::Document
 
-  def to_observation
-    observation_attributes = lookup_code_to_id(self.attributes)
-    observation_attributes.delete("_id")
-    Observation.new observation_attributes
+  attr_accessor :file, :cruise_id
+
+  def persisted?
+    false
   end
   
-  
-  def self.from_file file, params={}
-    imports = case params[:content_type]
-    when "application/zip"
-      self.from_zip file, params
-    when "application/json"
-      data = JSON.parse(File.read(file))
-      self.from_json data, params
-    when "text/csv"
-      self.from_csv file, params
+  def save
+    if imported_observations.map(&:valid?).all?
+      imported_observations.each(&:save) 
+      true
     else
-      
-    end
-    imports
-  end
-  
-  def self.from_zip file, params={}
-    imports = []
-    Zip::ZipFile.open(file) do |z|
-      observations = nil
-      if(z.file.exists?("METADATA"))
-        md = YAML.load((z.file.read("METADATA")))
-        observations = md[:assist_version] == "1.0" ? "aorlich_summer_2012.observations.json" : md[:observations]
-      elsif(z.file.exists?("observation.json"))
-        observations = "observation.json"
+      imported_observations.each_with_index do |obs, index|
+        obs.errors.full_messages.each do |message|
+          errors.add :base, "Row #{index+2}: #{message}"
+        end
       end
-      logger.info(z.file.inspect)
-      unless observations.nil?
-        data = ::JSON.parse(z.file.read(observations))
-        imports = self.from_json(data, params)
-      end
-    end
-    imports
+      false
+    end 
   end
-  
-  def self.from_json data, params={}
-    imports = []
-    data.each do |obs|
-      obs = JSON.parse(obs) if obs.is_a? String
-      obs[:imported_as_cruise_id] = params[:cruise_id] unless params[:cruise_id].nil?
-      imports << ImportObservation.new(obs)
-    end
-    imports
-  end
-  
-  def self.from_csv file, params={}
-    imports = []
-    import_map_filename = Rails.root.join("vendor", "csv", "#{params[:filename].split(".").first}.yml")
-    import_map_file = ::YAML.load_file(import_map_filename)
-  
-    csv_data = ::CSV.open(file,{headers: true, return_headers: false, converters: :all})
     
-    csv_data.each do |row|
-      obs = ImportObservation.new(csv_to_hash(row, import_map_file)) 
-      obs[:cruise_id] = params[:cruise_id]
-      obs[:ship_name] = Cruise.where(id: params[:cruise_id]).first.try(:ship)
-      obs[:hexcode] = Digest::MD5.hexdigest(hexcode_string(obs))
-      imports << obs
+  def imported_observations
+    @imported_observations ||= load_imported_observations
+  end
+  
+  def load_imported_observations
+    imports = open_file.flatten
+  end
+  
+  
+  def open_file
+    case File.extname(file.original_filename) 
+    when ".zip"
+      from_zip
+    when ".csv"
+      from_csv
+    when ".json"
+      from_json
+    else raise "Unknown filetype: #{file.original_filename}"
+    end
+  end
+  
+  
+  def create_observation(obs)
+    begin
+      o = Observation.new(lookup_code_to_id(obs)) 
+      #Handle csv that doesn't have hexcodes
+      if o.hexcode.nil?
+        o.hexcode = Digest::MD5.hexdigest("#{o.obs_datetime}#{o.latitude}#{o.longitude}#{o.primary_observer.try(&:first_and_last_name)}")
+      end
+      
+      o.cruise_id = cruise_id
+    rescue InvalidLookupException => ex
+      o = Observation.new
+      o.errors.add :base, "Invalid Lookup Code #{ex.inspect}"
+    end
+    o
+  end
+  
+  def from_json
+    imports = []
+    raw_data = ::JSON.parse(::File.read(file.path))
+    
+    raw_data.each do |obs|
+      obs = JSON.parse(obs) if obs.is_a? String
+      imports << create_observation(obs)
     end
     imports
   end 
   
-  private
-  def lookup_code_to_id attrs
-    attrs.inject(Hash.new) do |h,(k,v)|
-      key = k.to_s.gsub(/lookup_code$/, "lookup_id")
-      #TODO - Why is ThickIceLookup getting called sometimes for as_json?
-      if key =~ /lookup_id$/ and not v.nil?
-        table = key.gsub(/^thi(n|ck)_ice_lookup_id$/,"ice_lookup_id")
-        lookup = table.chomp("_id").camelcase.constantize.where(code: v).first
-        raise InvalidLookupException, "Unknown Lookup Id -- #{key}: #{v.inspect}" if lookup.nil?
-        v = lookup.id
-      end
-      
-      case v.class.to_s
-      when "Hash"
-        h[key] = lookup_code_to_id(v)
-      when "Array"
-        h[key] = v.collect{|el| el.is_a?(Hash) ? lookup_code_to_id(el) : el}
-      else
-        h[key] = v
-      end
-  
-      h
+  def from_csv
+    imports = []
+    import_map_path = Rails.root.join("vendor","csv")
+    import_map_filename = "#{file.original_filename.split(".").first}.yml"
+    unless File.exists?(import_map_path.join(import_map_filename))
+      import_map_filename = "assist_2012.yml" 
     end
+    import_map = ::YAML.load_file(import_map_path.join(import_map_filename))
+    
+    raw_data = ::CSV.open(file.tempfile, {headers: true, return_headers: false, converters: :all})
+    
+    raw_data.each do |row|
+      imports << create_observation(csv_to_hash(row, import_map))
+    end
+    imports
   end
   
-  def self.csv_to_hash(row, mapping)
+  def from_zip 
+    imports = []
+    Zip::ZipFile.open(file.tempfile) do |z|
+      obs_file = nil
+      if(z.file.exists?("METADATA"))
+        md = YAML.load((z.file.read("METADATA")))
+        obs_file = case md[:assist_version]
+        when "1.0"
+          "aorlich_summer_2012.observations.json"
+        else
+          md[:observations]
+        end
+      elsif z.file.exists?("observations.json")
+        obs_file = "observations.json"
+      end
+         
+      unless obs_file.nil?
+        raw_data = ::JSON.parse(z.read(obs_file))
+        raw_data.each do |obs|
+          obs = JSON.parse(obs) if obs.is_a? String
+          imports << create_observation(obs)
+        end
+      end
+    end
+    imports
+  end
+
+  def csv_to_hash(row, mapping)
     data = Hash.new
     mapping.each do |k,v|
       case v.class.to_s
@@ -125,13 +145,29 @@ class ImportObservation
     end
     data
   end
+    
+  private
+  def lookup_code_to_id attrs
+    attrs.inject(Hash.new) do |h,(k,v)|
+      key = k.to_s.gsub(/lookup_code$/, "lookup_id")
+
+      if key =~ /lookup_id$/ and not v.nil?
+        table = key.gsub(/^thi(n|ck)_ice_lookup_id$/,"ice_lookup_id")
+        lookup = table.chomp("_id").camelcase.constantize.where(code: v).first
+        raise InvalidLookupException, "Unknown Lookup Id -- #{key}: #{v.inspect}" if lookup.nil?
+        v = lookup.id
+      end
+      
+      case v.class.to_s
+      when "Hash"
+        h[key] = lookup_code_to_id(v)
+      when "Array"
+        h[key] = v.collect{|el| el.is_a?(Hash) ? lookup_code_to_id(el) : el}
+      else
+        h[key] = v
+      end
   
-  def self.hexcode_string obs = {}
-    begin
-      code = "#{obs['obs_datetime']}#{obs['latitude']}#{obs['longitude']}#{obs['primary_observer']['first_name']} #{obs['primary_observer']['last_name']}"
-    rescue
-      code = ""
+      h
     end
-    code
-  end
+  end  
 end

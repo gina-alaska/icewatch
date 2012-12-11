@@ -9,7 +9,7 @@ class User
   field :admin, :type => Boolean, default: false
   field :approved, :type => Boolean, default: false
   
-  attr_accessible :provider, :uid, :name, :email, :admin, :approved, :affiliation
+  attr_accessible :provider, :uid, :name, :email, :admin, :approved, :affiliation, :firstname, :lastname
   
   has_many :cruises
   

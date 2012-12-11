@@ -9,6 +9,10 @@ class Observation
     begin
       obs.uuid = SecureRandom.uuid
     end while Observation.where(uuid: obs.uuid).any?
+    
+    if obs.primary_observer.unknown?
+      obs.primary_observer = Person.new(firstname: "Unknown", lastname: "Observer")
+    end
   end
   
   validates_presence_of :cruise_id
@@ -18,7 +22,12 @@ class Observation
   field :accepted, type: Boolean, default: false
   field :is_valid, type: Boolean, default: false
   field :hexcode, type: String
+  field :latitude, type: Float
+  field :longitude, type: Float
+  field :uuid, type: String
   
+  embeds_one :primary_observer, class_name: "Person"
+  embeds_many :additional_observers, class_name: "Person"
   embeds_one :ice
   embeds_one :meteorology
   embeds_many :ice_observations do
@@ -75,7 +84,7 @@ class Observation
   end
   
   def absence_of_imported_as_cruise_id
-    errors.add(:cruise_id, "Cruise ID's do not match") if self.attributes.has_key? "imported_as_cruise_id"
+    errors.add(:base, "Cruise ID's do not match") if self.attributes.has_key? "imported_as_cruise_id"
   end
 
   def lookup_id_to_code(hash) 
