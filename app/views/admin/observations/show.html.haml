@@ -9,13 +9,5 @@
           %i.icon-remove.icon-white
           Reject
   .row-fluid
-    #editor.span12
-      = JSON.pretty_generate(@observation.as_json)
-
-
-:javascript
-  var editor = ace.edit("editor");
-  editor.setTheme("ace/theme/github");
-  editor.setReadOnly(true);
-  editor.getSession().setMode("ace/mode/json");
-  editor.resize();
+    #raw.span12
+      = CodeRay.scan(::JSON.pretty_generate(@observation.as_json), :json).div(css: :class).html_safe

@@ -30,6 +30,9 @@ gem 'sprockets'
 #TODO: Update to latest version when bug #118 is fixed
 gem 'turbolinks', '0.5.1' 
 
+#Syntax Highlighting
+gem 'coderay'
+gem 'RedCloth', require: 'redcloth'
 
 gem 'assist-shared', git: 'http://github.com/gina-alaska/iceobs-shared', require: 'assist_shared'
 #gem 'assist-shared', path: '~/workspace/iceobs-shared', require: 'assist_shared'

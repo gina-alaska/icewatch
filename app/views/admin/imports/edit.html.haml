@@ -29,9 +29,3 @@
       #editor
         = JSON.pretty_generate(@observation.as_json)
         
-:javascript
-  var editor = ace.edit("editor");
-  editor.setTheme("ace/theme/github");
-  editor.setReadOnly(true);
-  editor.getSession().setMode("ace/mode/json");
-  editor.resize();

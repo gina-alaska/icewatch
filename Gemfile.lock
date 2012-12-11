@@ -7,6 +7,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    RedCloth (4.2.9)
     actionmailer (3.2.8)
       actionpack (= 3.2.8)
       mail (~> 2.4.4)
@@ -46,6 +47,7 @@ GEM
     celluloid (0.12.3)
       facter (>= 1.6.12)
       timers (>= 1.0.0)
+    coderay (1.0.8)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -179,10 +181,12 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  RedCloth
   assist-shared!
   bootstrap-datepicker-rails
   bootstrap-kaminari-views
   bootstrap-sass
+  coderay
   coffee-rails (~> 3.2.1)
   dragonfly (~> 0.9.12)
   haml
