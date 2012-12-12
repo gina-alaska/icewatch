@@ -1,7 +1,0 @@
-%ul
-  -@observations.each do |obs|    
-    %li
-      =link_to edit_admin_import_url(obs) do 
-        =obs[:ship_name] || "UNKNOWN SHIP"
-        = "-"
-        =obs[:obs_datetime] || "No Date/Time specified"

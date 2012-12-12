@@ -23,7 +23,6 @@ Icebox::Application.routes.draw do
     resources :observations, except: :new 
     resources :cruises
     resources :users 
-    resources :imports
   end
   
   

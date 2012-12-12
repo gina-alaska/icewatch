@@ -34,11 +34,6 @@
                 Approve
                 %span.badge
                   = Observation.pending.count
-            %li
-              = link_to admin_imports_path do
-                Fix
-                %span.badge
-                  = ImportObservation.count
             %li=link_to "Import", admin_cruises_path
             %li.nav-header
               Users
