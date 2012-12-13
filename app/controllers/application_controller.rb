@@ -12,8 +12,12 @@ class ApplicationController < ActionController::Base
   end
 
   def logged_in?
-    current_user.approved?
-  end  
+    !current_user.guest?
+  end
   
-  helper_method :current_user, :logged_in?
+  def user_approved?
+    logged_in? and current_user.approved?
+  end
+  
+  helper_method :current_user, :logged_in?, :user_approved?
 end

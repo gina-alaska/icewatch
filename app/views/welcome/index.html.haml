@@ -19,12 +19,13 @@
       %h2
         Cruises
     
-      - if @cruises.present? and !@cruises.empty?
+      - if @cruises.present? and @cruises.count > 0
         = render 'cruises', cruises: @cruises
       - else
+        = @cruises.count
         %p.lead 
           No cruises have been created
-        - if !current_user.nil? and current_user.admin?
+        - if logged_in? and current_user.approved?
           = link_to new_cruise_path, class: 'btn btn-primary btn-large btn-success btn-block' do
             %i.icon-plus.icon-white
             Create a new cruise

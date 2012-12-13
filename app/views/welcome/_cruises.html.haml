@@ -9,4 +9,5 @@
     %dd=ymd cruise.start_date
     %dt="End Date: "
     %dd=ymd cruise.end_date
-    %dt="Last Observation:     %dd=ymd(cruise.observations.recent(1).first.try(:obs_datetime)) || "No Observations Reported"
+    %dt="Last Observation: "
+    %dd=ymd(cruise.observations.recent(1).first.try(:obs_datetime)) || "No Observations Reported"
