@@ -1,8 +1,12 @@
 class Admin::CruisesController < AdminController
   respond_to :html
-  
   def index
-    
+    @all_cruises = Cruise.only(:start_date)
+    @cruises = Cruise.desc(:approved).desc(:start_date,:end_date)
+    if params[:year]
+      year = Time.new(params[:year])
+      @cruises = @cruises.between(start_date: [year, year+1.year])
+    end
   end
   
   def new

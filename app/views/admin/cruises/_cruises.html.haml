@@ -1,6 +1,3 @@
-.page-header
-  %h3
-    = title.capitalize
 %table.table.table-striped
   %thead
     %tr
@@ -9,11 +6,13 @@
       %th.span2= "End Date"
       %th.span1= "Observations"
       %th.span1= "Pending"
-      %th.span3 
+      %th.span2
+      %th.span1 
   %tbody
-    -cruises.each do |cruise|
+    -@cruises.each do |cruise|
       %tr
-        %td.span3=cruise.ship 
+        %td.span3
+          =link_to cruise.ship, admin_cruise_path(cruise)
         %td.span2=ymd(cruise.start_date)
         %td.span2=ymd(cruise.end_date)
         %td.span1
@@ -24,15 +23,18 @@
             = cruise.observations.pending.count
         %td.span3
           .btn-group
-            = link_to "Manage", admin_cruise_path(cruise), class: 'btn btn-primary btn-small'
-            -if cruise.approved?
-              .btn.btn-primary.btn-small{data: {form: cruise.id}}
-                %i.icon-list.icon-white
+            - if cruise.approved?
+              .btn.btn-small{data: {form: cruise.id}}
+                %i.icon-list
                 Import  
             -else
-              .btn.btn-primary.btn-small.disabled
+              = link_to approve_cruise_path(id: cruise.id, value: 'yes'), class: 'btn btn-success btn-small' do
+                %i.icon-check.icon-white
+                Approve
+              = link_to approve_cruise_path(id: cruise.id, value: 'no'), class: 'btn btn-danger btn-small' do
                 %i.icon-remove.icon-white
-                Pending
+                Reject
+
           -if cruise.approved?
             = form_tag import_cruise_observations_url(cruise), class: 'obs-upload hide', id: cruise.id, multipart: true do           
               = hidden_field_tag :cruise_id, cruise.id

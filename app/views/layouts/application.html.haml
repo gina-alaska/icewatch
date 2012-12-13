@@ -9,7 +9,10 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    = render 'shared/header'
+    .navbar{data: {'no-turbolink' => true}}
+      .navbar-inner
+        .container-fluid
+          = render 'shared/header'
     .container
       .row
         .span12

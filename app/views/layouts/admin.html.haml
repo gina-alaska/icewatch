@@ -8,37 +8,29 @@
     
     = csrf_meta_tags
   %body
-    = render 'shared/header'
-    .container
-      .row
+    .navbar.navbar-static-top.navbar-inverse{data: {'no-turbolink' => true}}
+      .navbar-inner
+        .container-fluid
+          = render 'shared/header'
+    .navbar.navbar-static-top
+      .navbar-inner
+        %ul.nav
+          %li
+            =link_to "Cruises", admin_cruises_path
+          %li
+            =link_to "Observations", admin_observations_path
+          %li
+            =link_to "Users", admin_users_path
+          %li
+            =link_to "Lookup Tables", admin_users_path
+      
+            
+    .container-fluid
+      .row-fluid
         .span12
           #flash
             =render(partial: 'shared/alert', locals: { level: 'info', message: flash[:notice]}) if flash[:notice]
             =render(partial: 'shared/alert', locals: { level: 'error', message: flash[:error]}) if flash[:error]
-      .row
-        .span3
-          %ul#page-nav.nav.nav-list
-            %li.nav-header
-              Admin
-            %li=link_to "Dashboard", admin_dashboard_path
-            
-            %li.nav-header
-              Cruises
-            %li=link_to "Manage", admin_cruises_path
-            %li=link_to "Add", new_admin_cruise_path
-                
-            %li.nav-header
-              Observations
-            %li
-              = link_to admin_observations_path do
-                Approve
-                %span.badge
-                  = Observation.pending.count
-            %li=link_to "Import", admin_cruises_path
-            %li.nav-header
-              Users
-            %li=link_to "Manage", admin_users_path
-  
-            %li.nav-header="Lookup Tables"
-        #content.span9
+      .row-fluid
+        .span12
           = yield 

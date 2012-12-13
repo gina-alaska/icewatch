@@ -1,12 +1,21 @@
-=render partial: 'cruises', locals: {cruises: Cruise.active, title: "Active"} if Cruise.active.any?
-=render partial: 'cruises', locals: {cruises: Cruise.upcoming, title: "Upcoming"} if Cruise.upcoming.any?
-=render partial: 'cruises', locals: {cruises: Cruise.ended, title: "Finished"} if Cruise.ended.any?
-=render partial: 'cruises', locals: {cruises: Cruise.archived, title: "Archived"} if Cruise.archived.any?
-
-
-#import-modal.modal.hide
-  .modal-body
-  .modal-footer
-    %button.btn.disabled{data:{dismiss: 'modal'}, disabled: true}
-      Dismiss
-                  
+.container-fluid
+  .row-fluid
+    .span2
+      =link_to new_cruise_url, class: "btn btn-large btn-success btn-block" do
+        %i.icon-white.icon-plus
+        New Cruise            
+      %h4 
+        Summary
+      %ul.unstyled.summary.well.well-small
+        %li
+          %strong 
+            =link_to "Total", admin_cruises_path
+          %span.label.pull-right
+            =@all_cruises.count
+        -@all_cruises.group_by{|c| c.start_date.year}.each do |year, cruises|
+          %li
+            =link_to year, admin_cruises_path(year: year)
+            %span.label.pull-right
+              =cruises.count
+    .span10      
+      =render 'cruises'        

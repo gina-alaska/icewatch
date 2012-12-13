@@ -13,6 +13,15 @@
               Import 
       
 -if @cruise.approved?
+  %dl
+    %dt Captain
+    %dd= @cruise.captain
+    %dt Primary Observer
+    %dd= @cruise.primary_observer
+    %dt Chief Scientist
+    %dd= @cruise.chief_scientist
+    %dt Objective
+    %dd= @cruise.objective
   #import_notice 
   - if @pending.any?
     .row-fluid
