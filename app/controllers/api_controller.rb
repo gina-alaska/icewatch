@@ -6,9 +6,9 @@ class ApiController < ApplicationController
   private
   def set_year    
     if params[:year]
-      @year = Time.new(params[:year].to_i)
+      @year = Time.zone.new(params[:year].to_i)
     else
-      @year = Time.now.beginning_of_year
+      @year = Time.zone.now.beginning_of_year
     end
   end
 

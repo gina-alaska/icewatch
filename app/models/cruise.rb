@@ -33,10 +33,10 @@ class Cruise
   
   belongs_to :user
   
-  scope :active, ->(){where(:start_date.lte => Time.now).where(:end_date.gte => Time.now)}
+  scope :active, ->(){where(:start_date.lte => Time.zone.now).where(:end_date.gte => Time.zone.now)}
   scope :archived, ->(){where(:archived => true)}
-  scope :upcoming, ->(){where(:start_date.gte => Time.now)}
-  scope :ended, ->(){where(:end_date.lte => Time.now)}
+  scope :upcoming, ->(){where(:start_date.gte => Time.zone.now)}
+  scope :ended, ->(){where(:end_date.lte => Time.zone.now)}
   
   def ship_with_date
     "#{self.ship}: #{ymd(start_date)}-#{ymd(end_date)}"
@@ -45,9 +45,9 @@ class Cruise
   def status
     s = if archived?
       "archived"
-    elsif start_date >= Time.now
+    elsif start_date >= Time.zone.now
       "upcoming"
-    elsif end_date  <= Time.now
+    elsif end_date  <= Time.zone.now
       "ended"
     else
       "active"

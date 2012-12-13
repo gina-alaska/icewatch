@@ -11,7 +11,7 @@ class WelcomeController < ApplicationController
   private
   def set_year    
     if params[:year]
-      @year = Time.zone.new(params[:year].to_i).beginning_of_year
+      @year = Time.utc(params[:year].to_i).beginning_of_year
     else
       @year = Time.zone.now.beginning_of_year
     end
@@ -21,7 +21,7 @@ class WelcomeController < ApplicationController
     cruise = Cruise.only(:start_date).asc(:start_date).first
     unless cruise.nil?
       first_year = cruise.start_date.year
-      @available_years = (first_year..Time.now.year).to_a
+      @available_years = (first_year..Time.zone.now.year).to_a
     end
   end
   
