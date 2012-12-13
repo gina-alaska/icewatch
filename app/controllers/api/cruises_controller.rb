@@ -1,9 +1,12 @@
 class Api::CruisesController < ApiController
   respond_to :json, :geojson#, :csv
+  
  
   def index
     @cruises = Cruise.where(archived: false)
-          
+    @cruises = @cruises.between(start_date: [@year,@year+1.year]).or.between(end_date: [@year,@year+1.year])
+    
+    
     respond_to do |format|
       format.json { render json: @cruises }
       format.geojson { render json: {

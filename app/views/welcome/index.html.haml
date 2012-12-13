@@ -1,15 +1,24 @@
 .container-fluid
   .row-fluid
+    .page-header
+      %h1
+        Yearly Activity
+        .btn-group
+          .btn
+            =@year.year
+          .btn.dropdown-toggle{data: {toggle: 'dropdown'}}
+            %span.caret
+          %ul.dropdown-menu
+            -@available_years.each do |year|
+              =list_item_for_year year           
+  .row-fluid
     .span6{style:'height: 500px; overflow-y: scroll'}
       .page-header
-        %h1
-          Active Cruises
-          =link_to cruises_url, class: 'btn pull-right' do
-            %i.icon-globe
-            Browse All
+        %h2
+          Cruises
       -@cruises.each do |cruise|
         .page-header
-          %h3
+          %h4
             .text-overflow=cruise.ship
             %small.pull-right
               =link_to "View Observations", cruise_url(cruise), class: 'btn'
@@ -23,20 +32,14 @@
 
     .span6
       .page-header
-        %h1
-          Yearly Activity
-          -# =link_to root_url, class: 'btn pull-right' do
-          -#   %i.icon-globe
-          -#   Explore
-      #map{data: {url: api_cruises_url(:geojson)}}
+        %h2
+          Ship Locations
+      #map{data: {url: api_cruises_url(:year => @year.year, format: :geojson)}}
   .row
     .span12
       .page-header
-        %h1
+        %h2
           Ice Concentration
-          =link_to chart_url, class: "btn pull-right" do
-            %i.icon-tasks
-            Browse
       =render 'charts/cruises_tc_chart'
 
 :javascript

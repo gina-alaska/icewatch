@@ -16,5 +16,6 @@
           #flash
             =render(partial: 'shared/alert', locals: { level: 'info', message: flash[:notice]}) if flash[:notice]
             =render(partial: 'shared/alert', locals: { level: 'error', message: flash[:error]}) if flash[:error]
-      #content.span12
-        = yield 
+      .row
+        .span12
+          = yield 
