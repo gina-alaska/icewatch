@@ -8,7 +8,7 @@ class ApiController < ApplicationController
     if params[:year]
       @year = Time.new(params[:year].to_i)
     else
-      @year = Time.now
+      @year = Time.now.beginning_of_year
     end
   end
 

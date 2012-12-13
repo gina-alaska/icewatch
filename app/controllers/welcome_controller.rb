@@ -6,6 +6,7 @@ class WelcomeController < ApplicationController
 
   def index
     @cruises = Cruise.asc(:start_date).includes(:observations).between(start_date: [@year,@year+1.year]).or.between(end_date: [@year,@year+1.year])
+    logger.info(@cruises)
   end
   
   private
@@ -13,7 +14,7 @@ class WelcomeController < ApplicationController
     if params[:year]
       @year = Time.new(params[:year].to_i)
     else
-      @year = Time.now
+      @year = Time.now.beginning_of_year
     end
   end
   
