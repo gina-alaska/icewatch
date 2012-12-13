@@ -5,15 +5,15 @@ class WelcomeController < ApplicationController
   before_filter :set_available_years
 
   def index
-    @cruises = Cruise.asc(:start_date).includes(:observations).between(start_date: [@year,@year+1.year]).or.between(end_date: [@year,@year+1.year])
+    @cruises = Cruise.asc(:start_date).includes(:observations).between(start_date: [@year,@year.end_of_year]).or.between(end_date: [@year,@year.end_of_year])
   end
   
   private
   def set_year    
     if params[:year]
-      @year = Time.new(params[:year].to_i)
+      @year = Time.zone.new(params[:year].to_i).beginning_of_year
     else
-      @year = Time.now.beginning_of_year
+      @year = Time.zone.now.beginning_of_year
     end
   end
   
