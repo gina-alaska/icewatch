@@ -12,6 +12,22 @@ class Admin::ImportsController < AdminController
     end
   end
   
+  def new
+    @observation = UploadedObservation.new(uploaded_observation_params)
+    if @observation.save
+      ImportWorker.async_perform(@observation.id)
+      respond_to do |format|
+        format.html 
+        format.json { render {success: true}}
+      end
+    else
+      respond_to do |format|
+        format.html
+        format.json {render {success: false}}
+      end
+    end
+  end
+  
   def edit  
     @import = ImportObservation.where(id: params[:id]).first
     begin
@@ -51,6 +67,10 @@ class Admin::ImportsController < AdminController
   
   private
   def observation_params
-    params[:observation] || {}
+    params[:import] || {}
+  end
+  
+  def uploaded_observation_params
+    params[:import] || {}
   end
 end

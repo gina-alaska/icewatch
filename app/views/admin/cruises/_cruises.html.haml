@@ -36,6 +36,6 @@
                 Reject
 
           -if cruise.approved?
-            = form_tag import_cruise_observations_url(cruise), class: 'obs-upload hide', id: cruise.id, multipart: true do           
-              = hidden_field_tag :cruise_id, cruise.id
-              = file_field_tag :observation
+            = form_for UplaodedObservation.new, admin_import_path(cruise), class: 'obs-upload hide', id: cruise.id, multipart: true do |f|      
+              = f.hidden_field :cruise_id, cruise.id
+              = f.file_field :observations

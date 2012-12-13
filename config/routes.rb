@@ -21,6 +21,7 @@ Icebox::Application.routes.draw do
   namespace :admin do
     resource :dashboard, only: :show
     resources :observations, except: :new 
+    resources :imports
     resources :cruises
     resources :users 
   end
