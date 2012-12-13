@@ -6,7 +6,6 @@ class WelcomeController < ApplicationController
 
   def index
     @cruises = Cruise.asc(:start_date).includes(:observations).between(start_date: [@year,@year+1.year]).or.between(end_date: [@year,@year+1.year])
-    logger.info(@cruises)
   end
   
   private
@@ -19,8 +18,11 @@ class WelcomeController < ApplicationController
   end
   
   def set_available_years
-    first_year = Cruise.only(:start_date).asc(:start_date).first.start_date.year
-    @available_years = (first_year..Time.now.year).to_a
+    cruise = Cruise.only(:start_date).asc(:start_date).first
+    unless cruise.nil?
+      first_year = cruise.start_date.year
+      @available_years = (first_year..Time.now.year).to_a
+    end
   end
   
 end

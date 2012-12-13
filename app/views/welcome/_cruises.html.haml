@@ -1,0 +1,12 @@
+-cruises.each do |cruise|
+  .page-header
+    %h4
+      .text-overflow=cruise.ship
+      %small.pull-right
+        =link_to "View Observations", cruise_url(cruise), class: 'btn'
+  %dl.dl-horizontal
+    %dt="Start Date: "
+    %dd=ymd cruise.start_date
+    %dt="End Date: "
+    %dd=ymd cruise.end_date
+    %dt="Last Observation:     %dd=ymd(cruise.observations.recent(1).first.try(:obs_datetime)) || "No Observations Reported"
