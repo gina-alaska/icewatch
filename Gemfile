@@ -23,7 +23,7 @@ gem 'omniauth-openid'
 #Sidekiq
 gem 'slim'
 gem 'sinatra', :require => nil
-gem 'sidekiq'
+gem 'sidekiq', git: "http://github.com/mperham/sidekiq"
 gem 'kiqstand'
 gem 'sprockets'
 
