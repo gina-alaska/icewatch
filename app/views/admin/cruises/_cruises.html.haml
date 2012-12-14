@@ -6,6 +6,7 @@
       %th.span2= "End Date"
       %th.span1= "Observations"
       %th.span1= "Pending"
+      %th.span1= "Uploaded"
       %th.span2 Status
   %tbody
     -@cruises.each do |cruise|
@@ -20,6 +21,9 @@
         %td.span1
           %span.badge{class: cruise.observations.pending.count > 0 ? 'badge-warning' : ''}
             = cruise.observations.pending.count
+        %td.span1
+          %span.badge{class: cruise.uploaded_observations.count > 0 ? 'badge-important' : ''}
+            = cruise.uploaded_observations.count
         %td
           -if cruise.approved?
             %span.label.label-info

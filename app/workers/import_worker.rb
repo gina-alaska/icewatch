@@ -9,7 +9,7 @@ class ImportWorker
     if imports.save
       uploaded_obs.destroy
     else
-      uploaded_obs.errors = imports.errors.full_messages
+      uploaded_obs.import_errors = imports.errors.full_messages
       uploaded_obs.save
     end    
   end

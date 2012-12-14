@@ -1,43 +1,47 @@
-.page-header
-  %h1
-    =@cruise.ship
-    %small
-      ="#{ymd(@cruise.start_date)} to #{ymd(@cruise.end_date)}"
- 
-.row-fluid
-  .span3
-    %h4
-      Actions
+#cruise_info
+  .page-header
+    %h1
+      =@cruise.ship
+      %small
+        ="#{ymd(@cruise.start_date)} to #{ymd(@cruise.end_date)}"
+   
+  .row-fluid
+    .span3
+      %h4
+        Actions
       =render 'upload_observations_form', cruise: @cruise
-    -if @cruise.approved?
-      .btn.btn-block.btn-warning
-        Archive
-    -else
-      =link_to approve_cruise_path(id: @cruise.id, value: 'yes'), class: 'btn btn-block btn-success' do
-        %i.icon-ok.icon-white
-        Approve
-      =link_to approve_cruise_path(id: @cruise.id, value: 'no'), class: 'btn btn-block btn-danger', 
-            confirm: 'This will permanently delete this cruise and any associated observations. Are you sure?' do
-        %i.icon-remove.icon-white
-        Reject
-  .span9
-    %dl
-      %dt Captain
-      %dd= @cruise.captain
-      %dt Primary Observer
-      %dd= @cruise.primary_observer
-      %dt Chief Scientist
-      %dd= @cruise.chief_scientist
-      %dt Objective
-      %dd= @cruise.objective
-    #import_notice 
-    - if @pending.any?
-      .row-fluid
-        #pending.span12
-          .page-header
-            %h3 
-              Pending=Observations 
-              =link_to approve_cruise_observations_path(@cruise.id), class: 'btn btn-primary' do
-                %i.icon-ok.icon-white
-                Accept All
-          =render partial: 'admin/observations/pending', locals: { observations: @pending}
+      -if @cruise.approved?
+        .btn.btn-block.btn-warning
+          Archive
+      -else
+        =link_to approve_cruise_path(id: @cruise.id, value: 'yes'), class: 'btn btn-block btn-success' do
+          %i.icon-ok.icon-white
+          Approve
+        =link_to approve_cruise_path(id: @cruise.id, value: 'no'), class: 'btn btn-block btn-danger', 
+              confirm: 'This will permanently delete this cruise and any associated observations. Are you sure?' do
+          %i.icon-remove.icon-white
+          Reject
+    .span9
+      %dl
+        %dt Captain
+        %dd= @cruise.captain
+        %dt Primary Observer
+        %dd= @cruise.primary_observer
+        %dt Chief Scientist
+        %dd= @cruise.chief_scientist
+        %dt Objective
+        %dd= @cruise.objective
+      - if @pending.any?
+        .row-fluid
+          #pending.span12
+            .page-header
+              %h3 
+                Pending Observations 
+                =link_to approve_cruise_observations_path(@cruise.id), class: 'btn btn-primary' do
+                  %i.icon-ok.icon-white
+                  Accept All
+            = render partial: 'admin/observations/pending', locals: { observations: @pending}
+      .page-header
+        %h3
+          Uploaded Observations
+      = render partial: 'admin/uploaded_observations/uploaded_observations', locals: {uploaded_observations: @cruise.uploaded_observations}

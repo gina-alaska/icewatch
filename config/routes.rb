@@ -22,9 +22,8 @@ Icebox::Application.routes.draw do
     resource :dashboard, only: :show
     resources :observations, except: :new 
     resources :imports
-    resources :cruises do
-      resources :uploaded_observations
-    end
+    resources :cruises
+    resources :uploaded_observations
     resources :users 
   end
   

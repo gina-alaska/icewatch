@@ -17,6 +17,11 @@ class Admin::CruisesController < AdminController
     @cruise = Cruise.where(id: params[:id]).first
     @pending = @cruise.observations.where(accepted: false)
     @observations = @cruise.observations
+    @uploaded_observation = UploadedObservation.new
+    
+    respond_to do |format|
+      format.html { render layout: false if request.xhr?}
+    end
   end
   
   def create 

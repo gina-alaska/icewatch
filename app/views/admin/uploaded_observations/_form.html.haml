@@ -5,7 +5,6 @@
         %i.icon-upload
         Upload Observations
         =f.file_field :observations
-      =f.hidden_field :cruise_id, value: @cruise.id
     #upload_status{style:"display:none;"}
       .row-fluid
         .span12
@@ -31,12 +30,11 @@
         data.context.find('.bar').text('Finished');
         data.context.find('.bar').addClass('bar-success');
 
-        if ($('#attachment_list').data('updateTimer')) {
-          clearTimeout($('#cruise_info').data('updateTimer'))
+        if ($('#import_errors').data('updateTimer')) {
+          clearTimeout($('#import_errors').data('updateTimer'))
         }
-
-        $('#cruise_info').data('updateTimer', setTimeout(function() {
-          $('#cruise_info').load('#{admin_cruise_path(@cruise)}');
+        $('#import_errors').data('updateTimer', setTimeout(function() {
+          $('#import_errors').load('#{admin_uploaded_observation_path(@uploaded_observation)}');
         }, 1000));
       },
       fail: function(e, data) {

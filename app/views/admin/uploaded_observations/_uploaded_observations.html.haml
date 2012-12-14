@@ -1,0 +1,11 @@
+-if uploaded_observations.any?
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Cruise
+        %th Filename
+        %th Uploaded At
+        %th Error Count
+        %th 
+    %tbody
+      =render partial: 'admin/uploaded_observations/uploaded_observation', collection: uploaded_observations

@@ -1,0 +1,9 @@
+%tr
+  %td= uploaded_observation.cruise.ship
+  %td= "#{uploaded_observation.observations.basename}.#{uploaded_observation.observations.ext}"
+  %td= uploaded_observation.updated_at
+  %td= uploaded_observation.import_errors.count
+  %td
+    =link_to admin_uploaded_observation_path(uploaded_observation), class: 'btn btn-small' do
+      %i.icon-edit
+      View
