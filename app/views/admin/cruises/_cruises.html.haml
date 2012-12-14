@@ -1,13 +1,12 @@
 %table.table.table-striped
   %thead
     %tr
-      %th.span3= "Ship"
+      %th.span4= "Ship"
       %th.span2= "Start Date"
       %th.span2= "End Date"
       %th.span1= "Observations"
       %th.span1= "Pending"
-      %th.span2
-      %th.span1 
+      %th.span2 Status
   %tbody
     -@cruises.each do |cruise|
       %tr
@@ -21,21 +20,10 @@
         %td.span1
           %span.badge{class: cruise.observations.pending.count > 0 ? 'badge-warning' : ''}
             = cruise.observations.pending.count
-        %td.span3
-          .btn-group
-            - if cruise.approved?
-              .btn.btn-small{data: {form: cruise.id}}
-                %i.icon-list
-                Import  
-            -else
-              = link_to approve_cruise_path(id: cruise.id, value: 'yes'), class: 'btn btn-success btn-small' do
-                %i.icon-check.icon-white
-                Approve
-              = link_to approve_cruise_path(id: cruise.id, value: 'no'), class: 'btn btn-danger btn-small' do
-                %i.icon-remove.icon-white
-                Reject
-
+        %td
           -if cruise.approved?
-            = form_for UplaodedObservation.new, admin_import_path(cruise), class: 'obs-upload hide', id: cruise.id, multipart: true do |f|      
-              = f.hidden_field :cruise_id, cruise.id
-              = f.file_field :observations
+            %span.label.label-info
+              Approved
+          -else
+            %span.label.label-warning
+              Pending Approval

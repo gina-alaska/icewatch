@@ -32,6 +32,7 @@ class Cruise
   end
   
   belongs_to :user
+  has_many :uploaded_observations
   
   scope :active, ->(){where(:start_date.lte => Time.now).where(:end_date.gte => Time.now)}
   scope :archived, ->(){where(:archived => true)}
