@@ -32,14 +32,14 @@ class ImportObservation
   
   
   def open_file
-    case File.extname(file.original_filename) 
+    case File.extname(file) 
     when ".zip"
       from_zip
     when ".csv"
       from_csv
     when ".json"
       from_json
-    else raise "Unknown filetype: #{file.original_filename}"
+    else raise "Unknown filetype: #{::File.basename(file)}"
     end
   end
   
@@ -62,7 +62,7 @@ class ImportObservation
   
   def from_json
     imports = []
-    raw_data = ::JSON.parse(::File.read(file.path))
+    raw_data = ::JSON.parse(::File.read(file))
     
     raw_data.each do |obs|
       obs = JSON.parse(obs) if obs.is_a? String
@@ -74,13 +74,13 @@ class ImportObservation
   def from_csv
     imports = []
     import_map_path = Rails.root.join("vendor","csv")
-    import_map_filename = "#{file.original_filename.split(".").first}.yml"
+    import_map_filename = "#{::File.basename(file).split(".").first}.yml"
     unless File.exists?(import_map_path.join(import_map_filename))
       import_map_filename = "assist_2012.yml" 
     end
     import_map = ::YAML.load_file(import_map_path.join(import_map_filename))
     
-    raw_data = ::CSV.open(file.tempfile, {headers: true, return_headers: false, converters: :all})
+    raw_data = ::CSV.open(file, {headers: true, return_headers: false, converters: :all})
     
     raw_data.each do |row|
       imports << create_observation(csv_to_hash(row, import_map))
@@ -90,7 +90,7 @@ class ImportObservation
   
   def from_zip 
     imports = []
-    Zip::ZipFile.open(file.tempfile) do |z|
+    Zip::ZipFile.open(file) do |z|
       obs_file = nil
       if(z.file.exists?("METADATA"))
         md = YAML.load((z.file.read("METADATA")))
