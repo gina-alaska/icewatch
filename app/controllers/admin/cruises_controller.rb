@@ -4,8 +4,8 @@ class Admin::CruisesController < AdminController
     @all_cruises = Cruise.only(:start_date)
     @cruises = Cruise.desc(:approved).desc(:start_date,:end_date)
     if params[:year]
-      year = Time.new(params[:year])
-      @cruises = @cruises.between(start_date: [year, year+1.year])
+      year = Time.utc(params[:year])
+      @cruises = @cruises.between(start_date: [year, year.end_of_year])
     end
   end
   

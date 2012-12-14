@@ -31,11 +31,19 @@ class User
     end
   end  
   
+  def approve!
+    self.update_attribute(:approved, true)
+  end
+  
   def admin?
     self.admin
   end
   
+  def guest?
+    self.new_record?
+  end
+  
   def approved?
-    self.approved
+    self.approved or self.admin?
   end
 end
