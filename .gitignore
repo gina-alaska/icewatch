@@ -16,3 +16,5 @@
 /imports
 /public/system
 /config/mongoid.yml
+
+*.rdb
