@@ -1,6 +1,6 @@
 require 'dragonfly'
 
-app = Dragonfly[:observation]
+app = Dragonfly[:images]
 
 app.configure_with(:rails)
 app.content_disposition = :attachment
