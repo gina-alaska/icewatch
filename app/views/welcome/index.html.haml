@@ -23,7 +23,7 @@
       - else
         %p.lead 
           = "No cruises found for #{@year.year}"
-        - if logged_in? and current_user.approved?
+        - if logged_in? and current_user.approved? and @year.year == Time.zone.now.year
           = link_to new_cruise_path, class: 'btn btn-primary btn-large btn-success btn-block' do
             %i.icon-plus.icon-white
             Create a new cruise
