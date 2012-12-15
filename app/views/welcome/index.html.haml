@@ -22,7 +22,6 @@
       - if @cruises.present? and @cruises.count > 0
         = render 'cruises', cruises: @cruises
       - else
-        = @cruises.count
         %p.lead 
           No cruises have been created
         - if logged_in? and current_user.approved?
