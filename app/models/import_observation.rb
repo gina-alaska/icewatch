@@ -132,6 +132,12 @@ class ImportObservation
             el = name.split(" ")
             val << {firstname: el.first, lastname: el.last}
           end
+        when :obs_datetime
+          begin
+            val = DateTime.parse(row[v])
+          rescue
+            val = nil
+          end
         else
           val = row.include?(v) ? row[v] : v
           val = nil if val.blank?
@@ -154,7 +160,7 @@ class ImportObservation
       if key =~ /lookup_id$/ and not v.nil?
         table = key.gsub(/^thi(n|ck)_ice_lookup_id$/,"ice_lookup_id")
         lookup = table.chomp("_id").camelcase.constantize.where(code: v).first
-        raise InvalidLookupException, "Unknown Lookup Id -- #{key}: #{v.inspect}" if lookup.nil?
+        raise InvalidLookupException, "Unknown Lookup Id -- #{table}: #{v.inspect}" if lookup.nil?
         v = lookup.id
       end
       
