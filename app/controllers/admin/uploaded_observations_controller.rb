@@ -52,7 +52,7 @@ class Admin::UploadedObservationsController < AdminController
     
     #TODO: Clear out any Sidekiq jobs
     if(@uploaded_observation.destroy)
-      redirect_to uploaded_observations_path
+      redirect_to admin_uploaded_observations_path
     else
       render :show
     end
