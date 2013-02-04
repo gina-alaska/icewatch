@@ -25,6 +25,7 @@ Icebox::Application.routes.draw do
     resources :cruises
     resources :uploaded_observations
     resources :users 
+    resources :lookups
   end
   
   

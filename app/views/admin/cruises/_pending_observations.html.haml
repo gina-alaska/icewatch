@@ -1,0 +1,14 @@
+.row-fluid
+  #pending.span12
+    .page-header
+      %h3 
+        Pending Observations 
+    .btn-toolbar
+      .btn-group
+        =link_to approve_cruise_observations_path(@cruise.id), class: 'btn btn-primary' do
+          %i.icon-ok.icon-white
+          Accept All
+    - if @pending.any?
+      = render partial: 'admin/observations/pending', locals: { observations: @pending}
+    - else
+      No observations pending acceptance
