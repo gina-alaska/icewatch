@@ -43,6 +43,30 @@ class Observation
     def tertiary
       obs_type 'tertiary'
     end
+    
+    def ice_type range
+      self.in(ice_lookup_id: IceLookup.between(code: range).collect(&:id))
+    end
+    
+    def new_ice
+      ice_type IceLookup::NEW_ICE
+    end
+    def first_year_ice
+      ice_type IceLookup::FIRST_YEAR_ICE
+    end
+    def old_ice
+      ice_type IceLookup::OLD_ICE
+    end
+    
+    def new_ice_concentration
+      new_ice.inject(0){|sum,v| sum + v.partial_concentration.to_i}
+    end
+    def old_ice_concentration
+      old_ice.inject(0){|sum,v| sum + v.partial_concentration.to_i}
+    end
+    def first_year_ice_concentration
+      first_year_ice.inject(0){|sum,v| sum + v.partial_concentration.to_i}
+    end
   end
   
   embeds_many :photos
@@ -107,6 +131,6 @@ class Observation
       end
       h
     end
-  end         
-      
+  end 
+        
 end

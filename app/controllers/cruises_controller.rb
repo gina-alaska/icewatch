@@ -30,12 +30,12 @@ class CruisesController < ApplicationController
   
   def show
     @cruise = Cruise.where(id: params[:id]).includes(:observations).first
-    
+    @observations = @cruise.observations.asc(:obs_datetime)
     respond_to do |format|
       format.html
     end
   end
-  
+
   def new
     @cruise = Cruise.new
   end

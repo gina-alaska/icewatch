@@ -22,6 +22,20 @@ module CruisesHelper
     result 
   end
   
+  def concentration_grouped_by_ice_age observations     
+    groups = Hash.new    
+    observations.each do |obs|
+      %w{new first_year old}.each do |type|
+        groups[type] ||= []
+        groups[type] << [obs.obs_datetime.to_i * 1000, obs.ice_observations.send("#{type}_ice_concentration") ]
+      end
+    end
+    
+    groups.inject([]) do |arr, (k,v)|
+      arr << {key: "#{k.humanize} Ice", values: v}
+    end
+  end
+  
   def total_concentration_grouped_by_time observations
     observations.collect{|o| [o.obs_datetime.to_i * 1000, o.ice.total_concentration.to_i]} 
   end

@@ -22,25 +22,23 @@
         %h2 
           Observations
           %small
-            Ice Concentration
+            Ice Types
       %table.table.table-striped
         %thead
           %tr
             %th="Date"
             %th="Time"
-            %th="Total"
-            %th="Primary"
-            %th="Secondary"
-            %th="Tertiary"
+            %th="New"
+            %th="First year"
+            %th="Old"
         %tbody
-          - @cruise.observations.where(accepted: true).each do |o|
+          - @observations.where(accepted: true).each do |o|
             %tr
-              %td= o.obs_datetime.strftime("%y/%m/%d")
+              %td= o.obs_datetime.strftime("%Y/%m/%d")
               %td= o.obs_datetime.strftime("%H:%M")
-              %td= o.ice.total_concentration
-              %td= o.ice_observations[0].try(:partial_concentration)
-              %td= o.ice_observations[1].try(:partial_concentration)            
-              %td= o.ice_observations[2].try(:partial_concentration)
+              %td= o.ice_observations.new_ice_concentration
+              %td= o.ice_observations.first_year_ice_concentration          
+              %td= o.ice_observations.old_ice_concentration
     .span6
       .page-header
         %h2

@@ -31,16 +31,7 @@
         %dd= @cruise.chief_scientist
         %dt Objective
         %dd= @cruise.objective
-      - if @pending.any?
-        .row-fluid
-          #pending.span12
-            .page-header
-              %h3 
-                Pending Observations 
-                =link_to approve_cruise_observations_path(@cruise.id), class: 'btn btn-primary' do
-                  %i.icon-ok.icon-white
-                  Accept All
-            = render partial: 'admin/observations/pending', locals: { observations: @pending}
+      = render 'pending_observations'
       .page-header
         %h3
           Uploaded Observations
