@@ -28,7 +28,6 @@
 //= require datatables/media/js/jquery.dataTables
 //= require_tree ./map
 //= require cruises
-//= require turbolinks
 
 
 $(document).ready(function() {

@@ -19,7 +19,6 @@
 //= require jquery-file-upload/js/jquery.fileupload
 //= require datatables/media/js/jquery.dataTables
 //= require cruises
-//= require turbolinks
 
 $(document).ready(function() {
   $(".datefield").datepicker({"format": "yyyy-mm-dd", "autoclose": true});

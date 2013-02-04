@@ -27,7 +27,7 @@ gem 'sidekiq'
 gem 'kiqstand'
 gem 'sprockets'
 
-gem 'turbolinks' 
+#gem 'turbolinks' 
 
 #Syntax Highlighting
 gem 'coderay'
