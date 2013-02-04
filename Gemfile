@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.11'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -23,12 +23,11 @@ gem 'omniauth-openid'
 #Sidekiq
 gem 'slim'
 gem 'sinatra', :require => nil
-gem 'sidekiq', git: "http://github.com/mperham/sidekiq"
+gem 'sidekiq'
 gem 'kiqstand'
 gem 'sprockets'
 
-#TODO: Update to latest version when bug #118 is fixed
-gem 'turbolinks', '0.5.1' 
+gem 'turbolinks' 
 
 #Syntax Highlighting
 gem 'coderay'
