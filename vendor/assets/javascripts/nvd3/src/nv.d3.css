@@ -93,7 +93,7 @@
 
 
 .nvd3 svg text {
-  font: normal 12px sans-serif;
+  font: normal 12px Arial;
 }
 
 .nvd3 svg .title {
@@ -101,7 +101,8 @@
 }
 
 .nvd3 .nv-background {
-  fill: none;
+  fill: white;
+  fill-opacity: 0;
   /*
   pointer-events: none;
   */
@@ -109,7 +110,7 @@
 
 .nvd3.nv-noData {
   font-size: 18px;
-  font-weight: bolf;
+  font-weight: bold;
 }
 
 
@@ -153,6 +154,10 @@
   stroke-opacity: .75;
 }
 
+.nvd3 .nv-axis.nv-x path.domain {
+  stroke-opacity: 0;
+}
+
 .nvd3 .nv-axis line {
   fill: none;
   stroke: #000;
@@ -167,6 +172,13 @@
 .nvd3 .nv-axis .nv-axisMaxMin text {
   font-weight: bold;
 }
+
+.nvd3 .x  .nv-axis .nv-axisMaxMin text,
+.nvd3 .x2 .nv-axis .nv-axisMaxMin text,
+.nvd3 .x3 .nv-axis .nv-axisMaxMin text {
+  text-anchor: middle
+}
+
 
 
 /**********
@@ -186,12 +198,10 @@
 
 .nvd3 .nv-bars .negative rect {
     zfill: brown;
-    cursor: pointer;
 }
 
 .nvd3 .nv-bars rect {
   zfill: steelblue;
-  cursor: pointer;
   fill-opacity: .75;
 
   transition: fill-opacity 250ms linear;
@@ -213,10 +223,6 @@
 
 .nvd3 .nv-bars .hover text {
   fill: rgba(0,0,0,1);
-}
-
-.nvd3 .nv-x.nv-axis text {
-  transform: rotate(90);
 }
 
 
@@ -291,10 +297,10 @@
 .nvd3 .nv-groups path.nv-line {
   fill: none;
   stroke-width: 2.5px;
+  /*
   stroke-linecap: round;
   shape-rendering: geometricPrecision;
 
-  /*
   transition: stroke-width 250ms linear;
   -moz-transition: stroke-width 250ms linear;
   -webkit-transition: stroke-width 250ms linear;
@@ -307,10 +313,10 @@
 
 .nvd3 .nv-groups path.nv-area {
   stroke: none;
+  /*
   stroke-linecap: round;
   shape-rendering: geometricPrecision;
 
-  /*
   stroke-width: 2.5px;
   transition: stroke-width 250ms linear;
   -moz-transition: stroke-width 250ms linear;
@@ -339,8 +345,8 @@
 }
 
 .nvd3.nv-scatter.nv-single-point .nv-groups .nv-point {
-  fill-opacity: .5;
-  stroke-opacity: .5;
+  fill-opacity: .5 !important;
+  stroke-opacity: .5 !important;
 }
 
 
@@ -386,9 +392,11 @@
 *  Scatter
 */
 
+/* **Attempting to remove this for useVoronoi(false), need to see if it's required anywhere
 .nvd3 .nv-groups .nv-point {
   pointer-events: none;
 }
+*/
 
 .nvd3 .nv-groups .nv-point.hover {
   stroke-width: 20px;
@@ -474,29 +482,43 @@
 *  Bullet
 */
 
-.nvd3.nv-bullet { font: 10px sans-serif; cursor: pointer; }
-.nvd3.nv-bullet rect { fill-opacity: .6; }
-.nvd3.nv-bullet rect:hover { fill-opacity: 1; }
+.nvd3.nv-bullet { font: 10px sans-serif; }
+.nvd3.nv-bullet .nv-measure { fill-opacity: .8; }
+.nvd3.nv-bullet .nv-measure:hover { fill-opacity: 1; }
 .nvd3.nv-bullet .nv-marker { stroke: #000; stroke-width: 2px; }
 .nvd3.nv-bullet .nv-markerTriangle { stroke: #000; fill: #fff; stroke-width: 1.5px; }
 .nvd3.nv-bullet .nv-tick line { stroke: #666; stroke-width: .5px; }
 .nvd3.nv-bullet .nv-range.nv-s0 { fill: #eee; }
 .nvd3.nv-bullet .nv-range.nv-s1 { fill: #ddd; }
 .nvd3.nv-bullet .nv-range.nv-s2 { fill: #ccc; }
-.nvd3.nv-bullet .nv-measure.nv-s0 { fill: steelblue; }
-.nvd3.nv-bullet .nv-measure.nv-s1 { fill: darkblue; }
 .nvd3.nv-bullet .nv-title { font-size: 14px; font-weight: bold; }
 .nvd3.nv-bullet .nv-subtitle { fill: #999; }
 
 
+.nvd3.nv-bullet .nv-range {
+  fill: #999;
+  fill-opacity: .4;
+}
+.nvd3.nv-bullet .nv-range:hover {
+  fill-opacity: .7;
+}
+
 
 
 /**********
-* Sparkline plus
+* Sparkline
 */
 
+.nvd3.nv-sparkline path {
+  fill: none;
+}
+
+.nvd3.nv-sparklineplus g.nv-hoverValue {
+  pointer-events: none;
+}
+
 .nvd3.nv-sparklineplus .nv-hoverValue line {
-  stroke: #f44;
+  stroke: #333;
   stroke-width: 1.5px;
  }
 
@@ -512,8 +534,11 @@
 
 .nvd3.nv-sparklineplus .nv-xValue,
 .nvd3.nv-sparklineplus .nv-yValue {
+  /*
   stroke: #666;
-  font-size: .5em;
+  */
+  stroke-width: 0;
+  font-size: .9em;
   font-weight: normal;
 }
 
@@ -521,6 +546,24 @@
   stroke: #f66;
 }
 
+.nvd3.nv-sparklineplus .nv-maxValue {
+  stroke: #2ca02c;
+  fill: #2ca02c;
+}
+
+.nvd3.nv-sparklineplus .nv-minValue {
+  stroke: #d62728;
+  fill: #d62728;
+}
+
+.nvd3.nv-sparklineplus .nv-currentValue {
+  /*
+  stroke: #444;
+  fill: #000;
+  */
+  font-weight: bold;
+  font-size: 1.1em;
+}
 
 /**********
 * historical stock

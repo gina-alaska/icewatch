@@ -1,18 +1,17 @@
-
-nv.models.multiBarChart = function() {
+nv.models.multiBarTimeSeriesChart = function() {
 
   //============================================================
   // Public Variables with Default Settings
   //------------------------------------------------------------
 
-  var multibar = nv.models.multiBar()
+  var multibar = nv.models.multiBarTimeSeries()
     , xAxis = nv.models.axis()
     , yAxis = nv.models.axis()
     , legend = nv.models.legend()
     , controls = nv.models.legend()
     ;
 
-  var margin = {top: 30, right: 20, bottom: 30, left: 60}
+  var margin = {top: 30, right: 20, bottom: 50, left: 60}
     , width = null
     , height = null
     , color = nv.utils.defaultColor()
@@ -27,9 +26,8 @@ nv.models.multiBarChart = function() {
       }
     , x //can be accessed via chart.xScale()
     , y //can be accessed via chart.yScale()
-    , state = { stacked: false }
     , noData = "No Data Available."
-    , dispatch = d3.dispatch('tooltipShow', 'tooltipHide', 'stateChange', 'changeState')
+    , dispatch = d3.dispatch('tooltipShow', 'tooltipHide')
     ;
 
   multibar
@@ -40,7 +38,6 @@ nv.models.multiBarChart = function() {
     .tickPadding(7)
     .highlightZero(false)
     .showMaxMin(false)
-    .tickFormat(function(d) { return d })
     ;
   yAxis
     .orient('left')
@@ -199,7 +196,7 @@ nv.models.multiBarChart = function() {
 
       xAxis
         .scale(x)
-        .ticks( availableWidth / 100 )
+        .ticks(availableWidth / 100)        
         .tickSize(-availableHeight, 0);
 
       g.select('.nv-x.nv-axis')
@@ -226,9 +223,6 @@ nv.models.multiBarChart = function() {
             .selectAll('text')
             .attr('transform', function(d,i,j) { return 'rotate('+rotateLabels+' 0,0)' })
             .attr('text-transform', rotateLabels > 0 ? 'start' : 'end');
-
-      g.select('.nv-x.nv-axis').selectAll('g.nv-axisMaxMin text')
-          .style('opacity', 1);
 
       yAxis
         .scale(y)
@@ -257,9 +251,6 @@ nv.models.multiBarChart = function() {
           });
         }
 
-        state.disabled = data.map(function(d) { return !!d.disabled });
-        dispatch.stateChange(state);
-
         selection.transition().call(chart);
       });
 
@@ -280,33 +271,11 @@ nv.models.multiBarChart = function() {
             break;
         }
 
-        state.stacked = multibar.stacked();
-        dispatch.stateChange(state);
-
         selection.transition().call(chart);
       });
 
       dispatch.on('tooltipShow', function(e) {
         if (tooltips) showTooltip(e, that.parentNode)
-      });
-
-      // Update chart from a state object passed to event handler
-      dispatch.on('changeState', function(e) {
-
-        if (typeof e.disabled !== 'undefined') {
-          data.forEach(function(series,i) {
-            series.disabled = e.disabled[i];
-          });
-
-          state.disabled = e.disabled;
-        }
-
-        if (typeof e.stacked !== 'undefined') {
-          multibar.stacked(e.stacked);
-          state.stacked = e.stacked;
-        }
-
-        selection.call(chart);
       });
 
       //============================================================
@@ -420,12 +389,6 @@ nv.models.multiBarChart = function() {
     return chart;
   };
 
-  chart.state = function(_) {
-    if (!arguments.length) return state;
-    state = _;
-    return chart;
-  };
-
   chart.noData = function(_) {
     if (!arguments.length) return noData;
     noData = _;
@@ -437,3 +400,4 @@ nv.models.multiBarChart = function() {
 
   return chart;
 }
+
