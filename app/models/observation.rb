@@ -45,7 +45,7 @@ class Observation
     end
     
     def ice_type range
-      self.in(ice_lookup_id: IceLookup.between(code: range).collect(&:id))
+      self.in(ice_lookup_id: IceLookup.in(code: range).collect(&:id))
     end
     
     def new_ice
@@ -57,16 +57,10 @@ class Observation
     def old_ice
       ice_type IceLookup::OLD_ICE
     end
-    
-    def new_ice_concentration
-      new_ice.inject(0){|sum,v| sum + v.partial_concentration.to_i}
+    def other_ice
+      ice_type IceLookup::OTHER 
     end
-    def old_ice_concentration
-      old_ice.inject(0){|sum,v| sum + v.partial_concentration.to_i}
-    end
-    def first_year_ice_concentration
-      first_year_ice.inject(0){|sum,v| sum + v.partial_concentration.to_i}
-    end
+
   end
   
   embeds_many :photos
@@ -77,7 +71,7 @@ class Observation
 
   accepts_nested_attributes_for :ice, :ice_observations, :meteorology, :photos, :comments
   
-  default_scope desc(:obs_datetime).where(accepted: true )
+  default_scope asc(:obs_datetime).where(accepted: true )
   
   scope :has_errors, where(:is_valid => false)
   scope :pending, where(:accepted => false)
@@ -90,7 +84,14 @@ class Observation
         type: "Point",
         coordinates: [self.longitude, self.latitude]
       },
-      attributes: self.as_json
+      properties: {
+        new_ice_concentration: self.new_ice_concentration * 10,
+        old_ice_concentration: self.old_ice_concentration * 10,
+        first_year_ice_concentration: self.first_year_ice_concentration * 10,
+        total_concentration: self.ice.total_concentration,
+        color: self.concentration_color,
+        dominant_ice_type: self.dominant_ice_type.to_s
+      }
     }
   end
 
@@ -132,5 +133,44 @@ class Observation
       h
     end
   end 
-        
+  
+  def concentrations 
+    { 
+      old: self.old_ice_concentration,
+      new: self.new_ice_concentration,
+      first_year: self.first_year_ice_concentration,
+      other: self.other_ice_concentration
+    }
+  end
+  
+  def concentration type
+    type.inject(0){|sum,v| sum + v.partial_concentration.to_i}
+  end
+  def new_ice_concentration
+    concentration(ice_observations.new_ice)
+  end
+  def old_ice_concentration
+    concentration(ice_observations.old_ice)
+  end
+  def first_year_ice_concentration
+    concentration(ice_observations.first_year_ice)
+  end
+  def other_ice_concentration
+    concentration(ice_observations.other_ice)
+  end
+  
+  def dominant_ice_type
+    concentrations.max{|a,b| a[1] <=> b[1] }.first
+  end
+   
+  def concentration_color
+    case dominant_ice_type
+    when :old
+      "#50BBD4"
+    when :new
+      "#D9D9D9"
+    when :first_year 
+      "#BFD7D3"     
+    end
+  end      
 end

@@ -42,8 +42,12 @@
 }
 
 .chart {
-  height: 400px;
+  height: 420px;
+  .nv-x {
+    padding-bottom: 10px;
+  }
 }
+
 td form {
   margin-bottom: 0px;
   input {

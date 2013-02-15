@@ -1,5 +1,5 @@
-.container
-  .row
+.container-fluid
+  .row-fluid
     .span12
       .page-header
         %h1
@@ -16,14 +16,14 @@
                   =link_to "JSON", api_cruise_observations_url(@cruise, :json), class: 'btn'
                   =link_to "GeoJSON", api_cruise_observations_url(@cruise, :geojson), class: 'btn'
                   =#link_to "Shp", api_cruise_observations_url(@cruise, :shp), class: 'btn disabled'
-  .row
-    .span6{style:'height: 500px; overflow-y: scroll'}
+  .row-fluid
+    .span6
       .page-header
         %h2 
           Observations
           %small
             Ice Types
-      %table.table.table-striped
+      %table.table.table-striped.dataTable
         %thead
           %tr
             %th="Date"
@@ -36,22 +36,19 @@
             %tr
               %td= o.obs_datetime.strftime("%Y/%m/%d")
               %td= o.obs_datetime.strftime("%H:%M")
-              %td= o.ice_observations.new_ice_concentration
-              %td= o.ice_observations.first_year_ice_concentration          
-              %td= o.ice_observations.old_ice_concentration
+              %td= "#{o.new_ice_concentration * 10}%"
+              %td= "#{o.first_year_ice_concentration * 10}%"        
+              %td= "#{o.old_ice_concentration * 10}%"
     .span6
       .page-header
         %h2
           Cruise Activity
       #map{data: {url: api_cruise_observations_url(@cruise, :geojson)}}
-  .row
+  .row-fluid
     .span12
       .page-header
         %h2
           Ice Concentration
-          -# =link_to chart_url, class: "btn pull-right" do
-          -#   %i.icon-tasks
-          -#   Browse
       =render 'charts/cruise_ice_chart'
       =render 'charts/cruise_primary_ice_type'
 :javascript

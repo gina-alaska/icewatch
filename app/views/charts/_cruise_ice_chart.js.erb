@@ -1,9 +1,9 @@
 nv.addGraph(function() {
   var series = <%= concentration_grouped_by_ice_age(@observations).to_json.html_safe %>
-  console.log(series)
+
   var chart = nv.models.multiBarChart()
               .x(function(d){return d[0]})
-              .y(function(d){return d[1] * 10}).clipEdge(true);
+              .y(function(d){return d[1] * 10});
 
   chart.xAxis.axisLabel('Date/Time').tickFormat(function(d){ 
     return d3.time.format('%x %H:%M')(new Date(d));
@@ -11,7 +11,8 @@ nv.addGraph(function() {
 
   chart.yAxis.axisLabel('Total Concentration').tickFormat(d3.format(',f'));
   chart.forceY([0,100]);
-  chart.stacked(true);
+
+  chart.color(d3.scale.icecategory().range())
   
   d3.select('#<%= chart_id %> svg')
     .datum(series)

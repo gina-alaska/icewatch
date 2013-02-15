@@ -13,13 +13,18 @@ class @IceMap
     @map = @div.OpenLayers('getmap')[0];
     @map.zoomTo(3);     
 
- 
-    trackLayer = new OpenLayers.Layer.Vector("track");
+    trackLayer = new OpenLayers.Layer.Vector("track", {
+      styleMap: new OpenLayers.StyleMap({
+        pointRadius: "${total_concentration}"
+        fillColor: "${color}"
+      })
+    });
     parser = new OpenLayers.Format.GeoJSON;
     $.getJSON @datasource, (data) =>
       features = parser.read(data);
       for feature in features
         feature.geometry.transform(@map.displayProjection, @map.getProjectionObject());
+
       trackLayer.addFeatures(features);
     
     @map.addLayer(trackLayer);
