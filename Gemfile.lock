@@ -1,12 +1,13 @@
 GIT
   remote: http://github.com/gina-alaska/iceobs-shared
-  revision: 4d360c1500bc46edc12a88c8843f803233357a56
+  revision: 3881c10694695619b8876bc59136f385fba2cda7
   specs:
-    assist-shared (0.0.9)
+    assist-shared (0.0.10)
 
 GEM
   remote: https://rubygems.org/
   specs:
+    BlueCloth (1.0.1)
     RedCloth (4.2.9)
     RedCloth (4.2.9-java)
     actionmailer (3.2.11)
@@ -185,6 +186,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  BlueCloth
   RedCloth
   assist-shared!
   bootstrap-datepicker-rails
@@ -210,4 +212,5 @@ DEPENDENCIES
   slim
   sprockets
   therubyracer
+  tilt
   uglifier (>= 1.0.3)
