@@ -12,6 +12,7 @@ gem "bootstrap-sass"
 gem "bootstrap-datepicker-rails"
 
 gem "haml"
+gem "coffee-filter"
 gem "tilt"
 gem "BlueCloth", require: 'bluecloth'
 gem "simple_form"
