@@ -38,6 +38,7 @@ class Cruise
   scope :archived, ->(){where(:archived => true)}
   scope :upcoming, ->(){where(:start_date.gte => Time.zone.now)}
   scope :ended, ->(){where(:end_date.lte => Time.zone.now)}
+  scope :year, ->(year){between(start_date: [year,year.end_of_year]).or.between(end_date: [year,year.end_of_year])}
   
   def ship_with_date
     "#{self.ship}: #{ymd(start_date)}-#{ymd(end_date)}"
@@ -77,7 +78,16 @@ class Cruise
         type: "Point",
         coordinates: [observation.try(:longitude), observation.try(:latitude)]
       },
-      attributes: self.as_json
+      properties: {
+        cruise_id: self.id
+        # ship: self.ship,
+        # observations_count: self.observations.count,
+        # start_date: self.start_date,
+        # end_date: self.end_date,
+        # primary_observer: self.primary_observer,
+        # chief_scientist: self.chief_scientist,
+        # objective: self.objective
+      }
     }   
   end  
   

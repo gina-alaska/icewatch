@@ -17,7 +17,7 @@
  
 @import "bootstrap";
 
-#map {
+#map-container {
   min-width: 460px;
   height: 460px;
   width: 100%;
@@ -54,6 +54,10 @@ td form {
     margin-bottom: 0px;
   }
 }
+
+body {
+  padding-bottom: 20px;
+}
 .fileinput {
   position: relative;
   overflow: hidden;
@@ -79,9 +83,4 @@ td form {
 
 tr.error {
   @extend .alert-error;
-}
-
-#editor {
-  min-height: 500px;
-  height: 100%;
 }

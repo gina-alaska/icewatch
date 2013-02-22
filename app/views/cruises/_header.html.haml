@@ -1,0 +1,21 @@
+.navbar
+  .navbar-inner
+    %ul.nav
+      %li
+        =link_to "Map", cruise_path(@cruise)
+      %li
+        =link_to "Data", "#"
+      %li
+        =link_to "Visualize", visualize_cruise_path(@cruise)
+    %ul.nav.pull-right
+      %li.active
+        =link_to "#" do
+          %i.icon-download
+          Download
+      %li.divider-vertical
+      %li
+        =link_to "CSV", api_cruise_observations_path(@cruise, :csv)
+      %li
+        =link_to "JSON", api_cruise_observations_path(@cruise, :json)
+      %li
+        =link_to "GeoJSON", api_cruise_observations_path(@cruise, :geojson)

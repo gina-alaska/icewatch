@@ -1,0 +1,12 @@
+-# .row-fluid
+-#   .span12
+-#     .page-header
+-#       %h2
+-#         Cruise Activity
+#map-container{data: {url: api_cruise_observations_url(@cruise, :geojson)}}
+
+:coffeescript
+  map = new IceMap
+  map.init("#map-container")
+  map.addAmsrData("amsr2_test_ice")
+  map.addTrack("#{api_cruise_observations_url(@cruise,:geojson)}")

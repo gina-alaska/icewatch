@@ -30,3 +30,14 @@ var d3_icewatch_category = [
   "#50BBD4", //Old
   "#92A9C4"  //Other
 ];
+
+var d3_icewatch_cruise = [
+  "#DCF900",
+  "#FF8900",
+	"#ABBC2E",
+  "#C07D2F",
+	"#90A300",
+	"#EDFE6A",
+  "#A75A00",
+  "#FFBA6B"
+]

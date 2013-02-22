@@ -483,7 +483,6 @@ nv.models.axis = function() {
             .attr('text-anchor', 'middle')
             .attr('y', xLabelMargin);
           var w = (scale.range().length==2) ? scale.range()[1] : (scale.range()[scale.range().length-1]+(scale.range()[1]-scale.range()[0]));
-          console.log(w)
           axisLabel
               .attr('x', w/2);
           if (showMaxMin) {

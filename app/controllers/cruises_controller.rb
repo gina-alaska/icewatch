@@ -1,15 +1,11 @@
 class CruisesController < ApplicationController
   before_filter :logged_in?, except: [:index,:show]
   
-  
   def create
     @cruise = Cruise.new cruiseParams
     #Load the observations from 
     @cruise.user_id = current_user.id
     if @cruise.save
-      flash[:notice] = "Cruise has been created. Please wait a few minutes for ASSIST to be available for this cruise."
-      #Generate ASSIST for this cruise
-      AssistWorker.perform_async(@cruise.id)
       if request.xhr?
         render @cruise, layout: false
       else
@@ -21,7 +17,7 @@ class CruisesController < ApplicationController
   end
   
   def index
-    @cruises = Cruise.all
+    @cruises = Cruise.year(@year)
     
     respond_to do |format|
       format.html
@@ -31,17 +27,22 @@ class CruisesController < ApplicationController
   def show
     @cruise = Cruise.where(id: params[:id]).includes(:observations).first
     @observations = @cruise.observations.asc(:obs_datetime)
-    respond_to do |format|
-      format.html
-    end
+    
+    render layout: !request.xhr?
+  end
+  
+  def visualize
+    @cruise = Cruise.where(id: params[:id]).includes(:observations).first
+    @observations = @cruise.observations.asc(:obs_datetime)
   end
 
   def new
     @cruise = Cruise.new
   end
 
-protected
+  private
   def cruiseParams
     params[:cruise].slice(:ship, :start_date, :end_date, :captain, :objective, :chief_scientist, :primary_observer)
   end
+  
 end

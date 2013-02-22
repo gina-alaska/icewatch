@@ -1,56 +1,13 @@
+=render 'header'
+
 .container-fluid
   .row-fluid
     .span12
-      .page-header
+      .apage-header
         %h1
           =@cruise.ship
           %small
             = "#{ymd(@cruise.start_date)} to #{ymd(@cruise.end_date)}"
-            .pull-right
-              .btn-toolbar
-                .btn-group
-                  .btn.btn-primary.disabled
-                    %i.icon-download.icon-white
-                    Download:
-                  =link_to "CSV", api_cruise_observations_url(@cruise, :csv), class: 'btn'
-                  =link_to "JSON", api_cruise_observations_url(@cruise, :json), class: 'btn'
-                  =link_to "GeoJSON", api_cruise_observations_url(@cruise, :geojson), class: 'btn'
-                  =#link_to "Shp", api_cruise_observations_url(@cruise, :shp), class: 'btn disabled'
-  .row-fluid
-    .span6
-      .page-header
-        %h2 
-          Observations
-          %small
-            Ice Types
-      %table.table.table-striped.dataTable
-        %thead
-          %tr
-            %th="Date"
-            %th="Time"
-            %th="New"
-            %th="First year"
-            %th="Old"
-        %tbody
-          - @observations.where(accepted: true).each do |o|
-            %tr
-              %td= o.obs_datetime.strftime("%Y/%m/%d")
-              %td= o.obs_datetime.strftime("%H:%M")
-              %td= "#{o.new_ice_concentration * 10}%"
-              %td= "#{o.first_year_ice_concentration * 10}%"        
-              %td= "#{o.old_ice_concentration * 10}%"
-    .span6
-      .page-header
-        %h2
-          Cruise Activity
-      #map{data: {url: api_cruise_observations_url(@cruise, :geojson)}}
-  .row-fluid
-    .span12
-      .page-header
-        %h2
-          Ice Concentration
-      =render 'charts/cruise_ice_chart'
-      =render 'charts/cruise_primary_ice_type'
-:javascript
-  var map = new IceMap
-  map.init("#map")
+          
+  =render "map"
+  =render "data"
