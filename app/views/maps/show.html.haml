@@ -1,0 +1,26 @@
+#map-container
+
+:coffeescript
+  map = new IceMap
+  map.init("#map-container")   
+  
+  amsrLayer = new OpenLayers.Layer.WMS("Shire", "http://shire.gina.alaska.edu", {
+    layers: "amsr2_test_ice"
+  },{
+    isBaseLayer: false,
+    singleTile: true
+  })
+  
+  trackLayer = new OpenLayers.Layer.Vector "track"
+    
+  $.getJSON "#{api_cruises_path(:geojson, year: @year.year)}", (data) =>
+    parser = new OpenLayers.Format.GeoJSON;
+    features = parser.read(data);
+  
+    for feature in features
+      feature.geometry.transform(map.getMap().displayProjection, map.getMap().getProjectionObject());
+  
+    trackLayer.addFeatures(features);
+    
+  map.getMap().addLayers([amsrLayer,trackLayer]);    
+  
