@@ -4,7 +4,7 @@ class Api::CruisesController < ApiController
  
   def index
     @cruises = Cruise.where(archived: false)
-    #@cruises = @cruises.between(start_date: [@year,@year+1.year]).or.between(end_date: [@year,@year+1.year])
+    @cruises = @cruises.between(start_date: [@year,@year+1.year]).or.between(end_date: [@year,@year+1.year])
     
     
     respond_to do |format|
