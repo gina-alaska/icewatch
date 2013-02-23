@@ -1,13 +1,4 @@
 =render 'header'
 
-.container-fluid
-  .row-fluid
-    .span12
-      .apage-header
-        %h1
-          =@cruise.ship
-          %small
-            = "#{ymd(@cruise.start_date)} to #{ymd(@cruise.end_date)}"
-          
-  =render "map"
-  =render "data"
+=render "map"
+=render "data"

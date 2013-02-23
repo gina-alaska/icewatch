@@ -70,25 +70,28 @@ class Cruise
   end
   
   def as_geojson opts={}
-    observation = self.observations.where(accepted:true).last
-    return nil if observation.nil? 
-    {
+    #observation = self.observations.where(accepted:true).last
+    return nil if self.observations.empty? 
+    coordinates = self.observations.collect{|obs| [obs.try(:longitude), obs.try(:latitude)]}
+    [{
       type: "Feature",
       geometry: {
-        type: "Point",
-        coordinates: [observation.try(:longitude), observation.try(:latitude)]
+        type: "LineString",
+        coordinates: coordinates
       },
       properties: {
         cruise_id: self.id
-        # ship: self.ship,
-        # observations_count: self.observations.count,
-        # start_date: self.start_date,
-        # end_date: self.end_date,
-        # primary_observer: self.primary_observer,
-        # chief_scientist: self.chief_scientist,
-        # objective: self.objective
-      }
-    }   
+      }     
+    },{
+      type: "Feature",
+      geometry: {
+        type: "MultiPoint",
+        coordinates: coordinates
+      },      
+      properties: {
+        cruise_id: self.id
+      } 
+    }]  
   end  
   
   def as_json opts={}

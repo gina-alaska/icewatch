@@ -31,7 +31,7 @@ class CruisesController < ApplicationController
     render layout: !request.xhr?
   end
   
-  def visualize
+  def graph
     @cruise = Cruise.where(id: params[:id]).includes(:observations).first
     @observations = @cruise.observations.asc(:obs_datetime)
   end

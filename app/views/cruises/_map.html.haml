@@ -3,7 +3,8 @@
 -#     .page-header
 -#       %h2
 -#         Cruise Activity
-#map-container{data: {url: api_cruise_observations_url(@cruise, :geojson)}}
+#map-container
+=render 'shared/amsr_credits'
 
 :coffeescript
   map = new IceMap

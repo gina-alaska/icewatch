@@ -11,7 +11,7 @@ Icebox::Application.routes.draw do
       get :import
     end
     member do
-      get :visualize
+      get :graph
     end
   end
   

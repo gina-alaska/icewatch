@@ -42,11 +42,9 @@
 }
 
 .chart {
-  height: 420px;
-  .nv-x {
-    padding-bottom: 10px;
-  }
+  height: 400px;
 }
+
 
 td form {
   margin-bottom: 0px;
@@ -83,4 +81,11 @@ body {
 
 tr.error {
   @extend .alert-error;
+}
+
+#highlighted-cruise {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: "#CCCCCC"
 }

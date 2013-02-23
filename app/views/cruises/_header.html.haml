@@ -1,17 +1,19 @@
+%h1
+  =@cruise.ship
+  %small
+    = "#{ymd(@cruise.start_date)} to #{ymd(@cruise.end_date)}"
 .navbar
   .navbar-inner
     %ul.nav
-      %li
+      %li{class: current_page?(cruise_path(@cruise)) ? 'active' : ''}
         =link_to "Map", cruise_path(@cruise)
-      %li
-        =link_to "Data", "#"
-      %li
-        =link_to "Visualize", visualize_cruise_path(@cruise)
+      %li{class: current_page?(visualize_cruise_path(@cruise)) ? 'active' : ''}
+        =link_to "Graphs", graph_cruise_path(@cruise)
     %ul.nav.pull-right
       %li.active
         =link_to "#" do
           %i.icon-download
-          Download
+          Download Data
       %li.divider-vertical
       %li
         =link_to "CSV", api_cruise_observations_path(@cruise, :csv)

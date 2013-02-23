@@ -41,3 +41,4 @@ $(document).on('page:change', function() {
   map.init("#map")
   console.log("DOOM")
 })
+

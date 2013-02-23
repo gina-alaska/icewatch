@@ -1,0 +1,12 @@
+=render 'header'
+%ul.nav.nav-pills#charts
+  %li.active
+    =link_to "Ice Concentration","#ice_concentration", data: {toggle: 'pill'}
+  %li
+    =link_to "Ice Types", "#ice_types", data: {toggle: 'pill'}
+    
+#chart.tab-content
+  #ice_concentration.tab-pane.active  
+    =render "charts/cruise_ice_chart"
+  #ice_types.tab-pane
+    =render "charts/cruise_primary_ice_type"

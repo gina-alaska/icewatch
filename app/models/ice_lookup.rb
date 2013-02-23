@@ -10,4 +10,6 @@ class IceLookup
   OLD_ICE = [75,85]
   OTHER = (0..100).to_a - [NEW_ICE, FIRST_YEAR_ICE, OLD_ICE].flatten
   ORDERED_CODES = [NEW_ICE, FIRST_YEAR_ICE, OLD_ICE, OTHER].flatten
+  
+  scope :ice_type, ->(type){ self.in(code: "IceLookup::#{type.upcase}_ICE".constantize)}
 end

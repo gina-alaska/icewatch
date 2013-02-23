@@ -1,3 +1,9 @@
+.well
+  %h2
+    Welcome to IceWatch
+  %p.lead
+    Access current and archive ice observations TEMPORARY TEXT
+
 .container-fluid
   .row-fluid
     .span4
@@ -15,7 +21,7 @@
                 -if @cruises.any?
                   -@cruises.each do |cruise|
                     %li
-                      = link_to cruise.ship, cruise_path(cruise)
+                      = link_to cruise.ship, cruise_path(cruise), id: cruise.id
                 -else
                   %p.lead No cruises found
 
@@ -29,58 +35,17 @@
                   %li{class: "#{year == @year.year ? 'active' : ''}"}
                     =link_to year, cruises_path(year: year)
 
-      -# %ul.nav.nav-list
-      -#   %li.nav-header
-      -#     = "#{@year.year} Cruises"
-      -#   -if @cruises.any?
-      -#     -@cruises.each do |cruise|
-      -#       %li  
-      -#         = link_to cruise.ship, cruise_path(cruise)
-      -#   -else
-      -#     %p.lead No cruises found
-      -#     - if logged_in? and current_user.approved? and @year.year == Time.zone.now.year
-      -#       = link_to new_cruise_path, class: 'btn btn-primary btn-success btn-block' do
-      -#         %i.icon-plus.icon-white
-      -#         Create a new cruise
-      -#   %li.nav-header
-      -#     Other Years
-      -#   - #@available_years.each do |year|
-      -#   - (2000..2013).each do |year|
-      -#     %li
-      -#       =link_to year, cruises_path(year: year)
-      -# 
     .span8
       #map-container
-  -# .row-fluid
-  -#   .span12
-  -#     - if @cruises.any?
-  -#       %table.table.table-striped
-  -#         %thead
-  -#           %tr
-  -#             %th= "Ship"
-  -#             %th= "Start Date"
-  -#             %th= "End Date"
-  -#             %th= "Cruise Status"
-  -#             %th= "Observations"
-  -#             %th
-  -#         %tbody
-  -#           -@cruises.each do |c|
-  -#             %tr
-  -#               %td= c.ship
-  -#               %td= c.start_date.to_date.to_s(:db)
-  -#               %td= c.end_date.to_date.to_s(:db)
-  -#               %td= c.status
-  -#               %td    
-  -#                 %span.badge{class: c.observations.count == 0 ? '' : 'badge-info'}
-  -#                   =c.observations.count
-  -#               %td
-  -#                 =link_to cruise_url(c), class: 'btn btn-small' do 
-  -#                   %i.icon-eye-open
-#cruise-info
+      #highlighted-cruise
+        %p.lead  
 
+      =render 'shared/amsr_credits'
 :coffeescript
   map = new IceMap
   map.init("#map-container")
   map.addAmsrData("amsr2_test_ice")
   map.addCruise("#{api_cruises_path(:geojson, year: @year.year)}")
+
+
   

@@ -5,19 +5,40 @@
 -#         Observations
 -#         %small
 -#           Ice Types
-%table.table.table-striped.dataTable
+%table.table.table-striped.dataTable#obs-data
   %thead
     %tr
-      %th="Date"
-      %th="Time"
-      %th="New"
-      %th="First year"
-      %th="Old"
+      %th.span2="Date"
+      %th.span2="Time"
+      %th.span2="Latitude"
+      %th.span2="Longitude"
+      %th.span1="New"
+      %th.span1="First year"
+      %th.span1="Old"
   %tbody
     - @observations.where(accepted: true).each do |o|
-      %tr
+      %tr{id: o.id}
         %td= o.obs_datetime.strftime("%Y/%m/%d")
         %td= o.obs_datetime.strftime("%H:%M")
+        %td= o.latitude
+        %td= o.longitude
         %td= "#{o.new_ice_concentration * 10}%"
         %td= "#{o.first_year_ice_concentration * 10}%"        
         %td= "#{o.old_ice_concentration * 10}%"
+.row-fluid
+  .span12
+    %blockquote
+      %dl
+        %dt
+          New Ice
+        %dd
+          = IceLookup.ice_type("new").collect(&:name).join(",")
+        %dt
+          First Year Ice
+        %dd
+          = IceLookup.ice_type("first_year").collect(&:name).join(",")
+        %dt
+          Old Ice
+        %dd
+          = IceLookup.ice_type("old").collect(&:name).join(",")
+          

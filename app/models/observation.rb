@@ -90,7 +90,8 @@ class Observation
         first_year_ice_concentration: self.first_year_ice_concentration * 10,
         total_concentration: self.ice.total_concentration,
         color: self.concentration_color,
-        dominant_ice_type: self.dominant_ice_type.to_s
+        dominant_ice_type: self.dominant_ice_type.to_s,
+        observation_id: self.id
       }
     }
   end
