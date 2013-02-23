@@ -17,6 +17,7 @@ class @IceMap
 
   addCruise: (url) ->
     layer = new OpenLayers.Layer.Vector "track",
+      rendererOptions: {zIndexing: true}, 
       styleMap: new OpenLayers.StyleMap
         default: 
           fillColor: "#DDDDDD",
@@ -57,6 +58,7 @@ class @IceMap
     
   addTrack: (url) ->
     layer = new OpenLayers.Layer.Vector "track", 
+      rendererOptions: {zIndexing: true},
       styleMap: new OpenLayers.StyleMap
         default: 
           pointRadius: "${total_concentration}"
