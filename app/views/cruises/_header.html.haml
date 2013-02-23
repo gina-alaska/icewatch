@@ -7,7 +7,7 @@
     %ul.nav
       %li{class: current_page?(cruise_path(@cruise)) ? 'active' : ''}
         =link_to "Map", cruise_path(@cruise)
-      %li{class: current_page?(visualize_cruise_path(@cruise)) ? 'active' : ''}
+      %li{class: current_page?(graph_cruise_path(@cruise)) ? 'active' : ''}
         =link_to "Graphs", graph_cruise_path(@cruise)
     %ul.nav.pull-right
       %li.active
