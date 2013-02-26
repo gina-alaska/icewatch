@@ -1,4 +1,4 @@
-%tr
+%tr{class: uploaded_observation.import_errors.any? ? 'error' : ''}
   %td= uploaded_observation.cruise.ship
   %td= "#{uploaded_observation.observations.basename}.#{uploaded_observation.observations.ext}"
   %td= uploaded_observation.updated_at

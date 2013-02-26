@@ -17,7 +17,6 @@ class @IceMap
 
   addCruise: (url) ->
     layer = new OpenLayers.Layer.Vector "track",
-      rendererOptions: {zIndexing: true}, 
       styleMap: new OpenLayers.StyleMap
         default: 
           fillColor: "#DDDDDD",
@@ -36,7 +35,7 @@ class @IceMap
           feature = e.feature
           $("#highlighted-cruise p").text($("##{feature.attributes.cruise_id}").text()).show()  
         featureunhighlighted: (e) ->
-          $("#highlighted-cruise p").fadeOut 1500, ->
+          $("#highlighted-cruise p").fadeOut 2000, ->
             $(@).text ""
    
     selectControl = new OpenLayers.Control.SelectFeature layer,
@@ -58,7 +57,6 @@ class @IceMap
     
   addTrack: (url) ->
     layer = new OpenLayers.Layer.Vector "track", 
-      rendererOptions: {zIndexing: true},
       styleMap: new OpenLayers.StyleMap
         default: 
           pointRadius: "${total_concentration}"

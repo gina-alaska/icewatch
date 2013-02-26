@@ -82,15 +82,3 @@ body {
 tr.error {
   @extend .alert-error;
 }
-
-#highlighted-cruise {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background-color: "#CCCCCC"
-}
-
-circle:hover {
-  fill: #171D48;
-  z-index: 100;
-}
