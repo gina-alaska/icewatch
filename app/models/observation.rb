@@ -3,20 +3,34 @@ class Observation
   include AssistShared::Validations::Observation
   include AssistShared::CSV::Observation
   
-  before_validation :check_imported_as_cruise_id
-  
   before_create do |obs|
     begin
       obs.uuid = SecureRandom.uuid
     end while Observation.where(uuid: obs.uuid).any?
-    
     if obs.primary_observer.unknown?
       obs.primary_observer = Person.new(firstname: "Unknown", lastname: "Observer")
     end
+
   end
+
+  before_validation do |obs|
+    obs.ice = Ice.new if obs.ice.nil?
+    obs.meteorology = Meteorology.new if obs.meteorology.nil?
+    %w(primary secondary tertiary).each do |obs_type|
+      if(obs.ice_observations.obs_type(obs_type).nil?)
+        obs.ice_observations << IceObservation.new(:obs_type => obs_type)
+      end
+    end
+  end 
   
   validates_presence_of :cruise_id
-  validate :absence_of_imported_as_cruise_id
+
+
+  
+  def check_for_errors_or_valid?
+    return false if self.errors.any?
+    valid?
+  end
   
   field :obs_datetime, type: Time
   field :accepted, type: Boolean, default: false
@@ -101,16 +115,6 @@ class Observation
     
     data = lookup_id_to_code(data)
     data
-  end
-
-  def check_imported_as_cruise_id
-    if self.attributes.has_key? "imported_as_cruise_id"
-      self.attributes.delete("imported_as_cruise_id") if self.attributes["imported_as_cruise_id"] == self.cruise_id.to_s
-    end
-  end
-  
-  def absence_of_imported_as_cruise_id
-    errors.add(:base, "Cruise ID's do not match") if self.attributes.has_key? "imported_as_cruise_id"
   end
 
   def lookup_id_to_code(hash) 

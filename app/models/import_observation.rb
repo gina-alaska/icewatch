@@ -9,7 +9,7 @@ class ImportObservation
   end
   
   def save
-    if imported_observations.map(&:valid?).all?
+    if imported_observations.map(&:check_for_errors_or_valid?).all?
       imported_observations.each(&:save) 
       true
     else
@@ -55,7 +55,7 @@ class ImportObservation
       o.cruise_id = cruise_id
     rescue InvalidLookupException => ex
       o = Observation.new
-      o.errors.add :base, "Invalid Lookup Code #{ex.inspect}"
+      o.errors.add :base, "Invalid Lookup Code #{ex.message}"
     end
     o
   end
@@ -139,8 +139,8 @@ class ImportObservation
             val = nil
           end
         else
-          val = row.include?(v) ? row[v] : v
-          val = nil if val.blank?
+          val = row.include?(v) ? row[v] : nil
+          val = nil if val.blank?  #Handle empty string
         end
         data[k] = val
       when "Hash"
@@ -154,6 +154,7 @@ class ImportObservation
     
   private
   def lookup_code_to_id attrs
+
     attrs.inject(Hash.new) do |h,(k,v)|
       key = k.to_s.gsub(/lookup_code$/, "lookup_id")
 

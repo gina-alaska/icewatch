@@ -19,4 +19,9 @@ class IceObservation
   belongs_to :ice_lookup
   belongs_to :biota_lookup
   belongs_to :sediment_lookup
+  
+  before_validation do |obs|
+    obs.topography = Topography.new if obs.topography.nil?
+    obs.melt_pond = MeltPond.new if obs.melt_pond.nil?
+  end
 end

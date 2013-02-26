@@ -21,9 +21,17 @@ class Meteorology
     end
   end
   accepts_nested_attributes_for :clouds
-  
+
   belongs_to :weather_lookup
   belongs_to :visibility_lookup
+  
+  before_validation do |met|
+    %w(high medium low).each do |cloud_type|
+      if(met.clouds.cloud_type(cloud_type).nil?)
+        met.clouds << Cloud.new(cloud_type: cloud_type)
+      end
+    end
+  end
   
   
 end
