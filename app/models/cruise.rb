@@ -25,12 +25,14 @@ class Cruise
   validates_presence_of :ship, :start_date, :end_date, :primary_observer, :objective
   validates_length_of :objective, {maximum: 300}
   
+  
   has_many :observations, order: 'obs_datetime DESC'  do
     def recent count
       desc(:obs_datetime).limit(count)
     end
   end
-  
+  has_many :photos
+   
   belongs_to :user
   has_many :uploaded_observations
   

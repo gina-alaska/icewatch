@@ -25,8 +25,6 @@ class Observation
   
   validates_presence_of :cruise_id
 
-
-  
   def check_for_errors_or_valid?
     return false if self.errors.any?
     valid?
@@ -77,12 +75,12 @@ class Observation
 
   end
   
-  embeds_many :photos
   embeds_many :comments
   embeds_one :additional_data
   
   belongs_to :cruise
-
+  has_many :photos, autosave: true
+  
   accepts_nested_attributes_for :ice, :ice_observations, :meteorology, :photos, :comments
   
   default_scope asc(:obs_datetime).where(accepted: true )

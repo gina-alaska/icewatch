@@ -61,7 +61,7 @@ GEM
       execjs
     coffee-script-source (1.4.0)
     connection_pool (1.0.0)
-    dragonfly (0.9.13)
+    dragonfly (0.9.14)
       multi_json (~> 1.0)
       rack
     erubis (2.7.0)
@@ -198,7 +198,7 @@ DEPENDENCIES
   coderay
   coffee-filter
   coffee-rails (~> 3.2.1)
-  dragonfly (~> 0.9.12)
+  dragonfly (~> 0.9.14)
   haml
   jquery-rails
   kaminari
