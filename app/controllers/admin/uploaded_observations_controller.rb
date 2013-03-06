@@ -6,7 +6,6 @@ class Admin::UploadedObservationsController < AdminController
   def show
     @uploaded_observation = UploadedObservation.where(id: params[:id]).first
     
-    logger.info("-------- #{request.xhr?}")
     respond_to do |format|
       format.html {render layout: false if request.xhr?}
     end

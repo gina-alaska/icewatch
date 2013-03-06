@@ -64,7 +64,7 @@ class ImportObservation
     imports = []
     raw_data = ::JSON.parse(::File.read(file))
     
-    raw_data.each do |obs|
+    Array.wrap(raw_data).each do |obs|
       obs = JSON.parse(obs) if obs.is_a? String
       imports << create_observation(obs)
     end
