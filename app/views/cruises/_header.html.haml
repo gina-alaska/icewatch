@@ -5,6 +5,10 @@
 .navbar
   .navbar-inner
     %ul.nav
+      %li
+        =link_to cruises_path({year: @year.year}) do 
+          %i.icon-circle-arrow-left
+          = @year.year
       %li{class: current_page?(cruise_path(@cruise)) ? 'active' : ''}
         =link_to "Map", cruise_path(@cruise)
       %li{class: current_page?(graph_cruise_path(@cruise)) ? 'active' : ''}
