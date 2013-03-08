@@ -1,6 +1,10 @@
 class ObservationsController < ApplicationController
   respond_to :html, :json
       
+  def show
+    @observation = Observation.where(id: params[:id]).first
+  end    
+      
   def import
     @cruise = Cruise.where(id: params[:cruise_id], user_id: current_user).first
     

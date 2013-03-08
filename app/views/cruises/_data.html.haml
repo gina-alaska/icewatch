@@ -15,6 +15,7 @@
       %th.span1="New"
       %th.span1="First year"
       %th.span1="Old"
+      %th.span1
   %tbody
     - @observations.where(accepted: true).each do |o|
       %tr{id: o.id}
@@ -25,6 +26,9 @@
         %td= "#{o.new_ice_concentration * 10}%"
         %td= "#{o.first_year_ice_concentration * 10}%"        
         %td= "#{o.old_ice_concentration * 10}%"
+        %td
+          = link_to cruise_observation_path(@cruise,o), class: 'btn btn-small' do
+            %i.icon-eye-open
 .row-fluid
   .span12
     %blockquote

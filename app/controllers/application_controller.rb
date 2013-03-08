@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   layout "application"
  
-  before_filter :set_year, only: :index
+  before_filter :set_year
   before_filter :set_available_years
 
   

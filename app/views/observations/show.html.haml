@@ -1,0 +1,30 @@
+.navbar
+  .navbar-inner
+    %ul.nav
+      %li
+        =link_to cruise_path(@observation.cruise) do
+          %i.icon-arrow-left
+          Back
+      %li.active
+        =link_to @observation.cruise.ship, cruise_path(@observation.cruise)
+
+%p
+  Primary Observer:
+  = @observation.primary_observer.first_and_last_name
+%p
+  Additional Observers:
+  = @observation.additional_observers.collect(&:first_and_last_name).join(",") if @observation.additional_observers.any?
+  
+%p
+  Total Ice Concentration
+  = @observation.ice.total_concentration
+  
+- @observation.photos.each do |photo|
+  = link_to image_tag(photo.preview.url), photo.photo.url
+  
+- @observation.comments.each do |comment|
+  .alert.alert-info
+    %strong
+      =comment.user_attributes.values.join(" ")
+    %p
+      =comment.data

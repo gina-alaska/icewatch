@@ -1,6 +1,10 @@
 %blockquote
-  %p.lead
-    AMSR2 Data from 
+  %p
+    -if @year.year >= 2012
+      AMSR2 Data from 
+    -else
+      AMSR-E Data from 
     =link_to "University of Bremen", "http://www.iup.uni-bremen.de/seaice/amsr/"
-  %cite
+  %small
     Spreen, G., L. Kaleschke, and G.Heygster(2008), Sea ice remote sensing using AMSR-E 89 GHz channels J. Geophys. Res.,vol. 113, C02S03, doi:10.1029/2005JC003384.
+  

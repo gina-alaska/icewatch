@@ -51,7 +51,7 @@
 :coffeescript
   map = new IceMap
   map.init("#map-container")
-  map.addAmsrData("amsr2_test_ice")
+  map.addAmsrData("ice_watch_#{@year.year}")
   map.addCruise("#{api_cruises_path(:geojson, year: @year.year)}")
 
 

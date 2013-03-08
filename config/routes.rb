@@ -7,6 +7,7 @@ Icebox::Application.routes.draw do
         post :import
       end
     end
+    resources :photos
     collection do 
       get :import
     end
@@ -14,8 +15,6 @@ Icebox::Application.routes.draw do
       get :graph
     end
   end
-  
-  resource :map, only: :show
   
   resources :users do
   end
@@ -31,6 +30,7 @@ Icebox::Application.routes.draw do
     resources :uploaded_observations
     resources :users 
     resources :lookups
+    resources :photos, only: [:create, :destroy]
   end
   
   

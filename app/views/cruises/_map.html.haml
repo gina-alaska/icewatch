@@ -1,13 +1,18 @@
--# .row-fluid
--#   .span12
--#     .page-header
--#       %h2
--#         Cruise Activity
+%p
+  %strong
+    Points on the map represent observations made during this cruise. 
+  Size is determined by total concentration of the ice, and 
+  color shows the dominant ice type (Gray = New Ice, Light Turquoise(?) = First Year Ice, Blue = Old Ice, Purple = Other)
+
+
 #map-container
+%p.lead
+  Placeholder text - Color Scale goes here
+  
 =render 'shared/amsr_credits'
 
 :coffeescript
   map = new IceMap
   map.init("#map-container")
-  map.addAmsrData("amsr2_test_ice")
+  map.addAmsrData("ice_watch_#{@year.year}")
   map.addTrack("#{api_cruise_observations_url(@cruise,:geojson)}")
