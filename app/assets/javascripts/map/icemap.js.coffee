@@ -100,9 +100,9 @@ class @IceMap
           feature.attributes.color = cruiseColors[feature.attributes.cruise_id]
         
         feature.geometry.transform(@map.displayProjection, @map.getProjectionObject());
-    
       layer.addFeatures(features);
-      @map.zoomToExtent(layer.getDataExtent())
+      if features.length > 0
+        @map.zoomToExtent(layer.getDataExtent())
     #end getJSON
     @map.addLayer(layer)
 
