@@ -4,10 +4,12 @@
   Size is determined by total concentration of the ice, and 
   color shows the dominant ice type (Gray = New Ice, Light Turquoise(?) = First Year Ice, Blue = Old Ice, Purple = Other)
 
-
-#map-container
-%p.lead
-  Placeholder text - Color Scale goes here
+.row-fluid
+  .span10
+    #map-container
+  .span2
+    #legend
+      =get_legend "ice_watch_#{@year.year}"
   
 =render 'shared/amsr_credits'
 
@@ -16,3 +18,5 @@
   map.init("#map-container")
   map.addAmsrData("ice_watch_#{@year.year}")
   map.addTrack("#{api_cruise_observations_url(@cruise,:geojson)}")
+
+  

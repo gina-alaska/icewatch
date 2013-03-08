@@ -16,7 +16,6 @@
 .container-fluid
   .row-fluid
     .span4
-
       #cruise-nav.accordion
         .accordion-group
           .accordion-heading
@@ -44,6 +43,8 @@
     .span8
       #map
         #map-container
+        #legend.bottom
+          =get_legend "ice_watch_#{@year.year}"
         #highlighted-cruise
           %p.lead  
 

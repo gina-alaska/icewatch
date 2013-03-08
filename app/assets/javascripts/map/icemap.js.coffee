@@ -116,7 +116,14 @@ class @IceMap
       singleTile: true
     }
     
+    @amsrLayer.events.on 
+      'tileerror': (evt) =>
+        @map.removeLayer(@amsrLayer)
+        alert("Sea Ice Minimum not available for this year")
+      
     @map.addLayer(@amsrLayer)
+    
+    #$("#legend").load("http://shire.gina.alaska.edu/?SERVICE=legend&LAYERS=#{layer}")
   #end addAmsrData
     
   # selectControl = new OpenLayers.Control.SelectFeature map.trackLayer,

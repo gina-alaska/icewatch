@@ -82,3 +82,11 @@ body {
 tr.error {
   @extend .alert-error;
 }
+
+
+#legend.bottom {
+  ul li {
+    @extend .pull-left;
+    padding-right: 3px;
+  }
+}
