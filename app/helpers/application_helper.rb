@@ -6,7 +6,13 @@ module ApplicationHelper
 
   def get_legend layer
     url = URI.parse("http://shire.gina.alaska.edu/?SERVICE=legend&LAYERS=#{layer}")
-    Net::HTTP.get_response(url).body.html_safe
+    response = Net::HTTP.get_response(url)
+    
+    if response.code == 200
+      response.body.html_safe
+    else
+      ""
+    end
   end
 
 end
