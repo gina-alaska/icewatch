@@ -49,6 +49,7 @@ GEM
     celluloid (0.12.4)
       facter (>= 1.6.12)
       timers (>= 1.0.0)
+    chunky_png (1.2.6)
     coderay (1.0.8)
     coffee-filter (0.1.3)
       coffee-script (>= 2.2.0)
@@ -60,6 +61,12 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
+    compass (0.12.2)
+      chunky_png (~> 1.2)
+      fssm (>= 0.2.7)
+      sass (~> 3.1)
+    compass-rails (1.0.3)
+      compass (>= 0.12.2, < 0.14)
     connection_pool (1.0.0)
     dragonfly (0.9.14)
       multi_json (~> 1.0)
@@ -68,6 +75,7 @@ GEM
     execjs (1.4.0)
       multi_json (~> 1.0)
     facter (1.6.17)
+    fssm (0.2.9)
     haml (3.1.7)
     hashie (1.2.0)
     hike (1.2.1)
@@ -198,6 +206,7 @@ DEPENDENCIES
   coderay
   coffee-filter
   coffee-rails (~> 3.2.1)
+  compass-rails
   dragonfly (~> 0.9.14)
   haml
   jquery-rails

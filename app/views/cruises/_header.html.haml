@@ -13,6 +13,8 @@
         =link_to "Map", cruise_path(@cruise)
       %li{class: current_page?(graph_cruise_path(@cruise)) ? 'active' : ''}
         =link_to "Graphs", graph_cruise_path(@cruise)
+      %li{class: current_page?(photo_cruise_path(@cruise)) ? 'active' : ''}
+        =link_to "Photos", photo_cruise_path(@cruise)
     %ul.nav.pull-right
       %li.active
         =link_to "#" do

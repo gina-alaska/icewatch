@@ -61,9 +61,12 @@ class @IceMap
         default: 
           pointRadius: "${total_concentration}"
           fillColor: "${color}"
+          strokeColor: "${strokeColor}"
         select: 
           pointRadius: 15,
           fillColor: "${color}"
+          strokeColor: "${strokeColor}"
+
           
     selectControl = new OpenLayers.Control.SelectFeature layer,
       hover: true,

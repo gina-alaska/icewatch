@@ -35,6 +35,9 @@ class CruisesController < ApplicationController
     @cruise = Cruise.where(id: params[:id]).includes(:observations).first
     @observations = @cruise.observations.asc(:obs_datetime)
   end
+  def photo
+    @cruise = Cruise.where(id: params[:id]).includes(:photos).first
+  end
 
   def new
     @cruise = Cruise.new

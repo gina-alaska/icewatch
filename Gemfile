@@ -53,6 +53,7 @@ group :assets do
   #gem 'bootstrap-sass-rails', git: 'https://github.com/yabawock/bootstrap-sass-rails'
 
   gem 'uglifier', '>= 1.0.3'
+  gem 'compass-rails'
 end
 
 gem 'jquery-rails'

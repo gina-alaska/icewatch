@@ -8,7 +8,7 @@ module ApplicationHelper
     url = URI.parse("http://shire.gina.alaska.edu/?SERVICE=legend&LAYERS=#{layer}")
     response = Net::HTTP.get_response(url)
     
-    if response.code == 200
+    if response.code.to_i == 200
       response.body.html_safe
     else
       ""
