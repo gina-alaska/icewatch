@@ -8,16 +8,26 @@
       %li.active
         =link_to @observation.cruise.ship, cruise_path(@observation.cruise)
 
-%p
-  Primary Observer:
-  = @observation.primary_observer.first_and_last_name
-%p
-  Additional Observers:
-  = @observation.additional_observers.collect(&:first_and_last_name).join(",") if @observation.additional_observers.any?
-  
-%p
-  Total Ice Concentration
-  = @observation.ice.total_concentration
+%dl
+  %dt
+    Primary Observer:
+  %dd= @observation.primary_observer.first_and_last_name
+  %dt
+    Additional Observers:
+  %dd= @observation.additional_observers.collect(&:first_and_last_name).join(",") if @observation.additional_observers.any?
+  %dt
+    Observation Date/Time:
+  %dd= @observation.obs_datetime
+  %dt
+    Latitude:
+  %dd= @observation.latitude
+  %dt
+    Longitude:
+  %dd= @observation.longitude 
+
+  %dt
+    Total Ice Concentration
+  %dd= @observation.ice.total_concentration
   
 - @observation.photos.each do |photo|
   = link_to image_tag(photo.preview.url), photo.photo.url

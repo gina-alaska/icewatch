@@ -7,12 +7,12 @@ Icebox::Application.routes.draw do
         post :import
       end
     end
-    resources :photos
     collection do 
       get :import
     end
     member do
       get :graph
+      get :photo
     end
   end
   

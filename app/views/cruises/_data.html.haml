@@ -17,7 +17,7 @@
       %th.span1="Old"
       %th.span1
   %tbody
-    - @observations.where(accepted: true).each do |o|
+    - @observations.each do |o|
       %tr{id: o.id}
         %td= o.obs_datetime.strftime("%Y/%m/%d")
         %td= o.obs_datetime.strftime("%H:%M")

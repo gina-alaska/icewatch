@@ -43,8 +43,9 @@
     .span8
       #map
         #map-container
-        #legend.bottom
-          =get_legend "ice_watch_#{@year.year}"
+        #legend
+          =render 'amsr_legend'
+        
         #highlighted-cruise
           %p.lead  
 

@@ -83,7 +83,7 @@ class Observation
   
   accepts_nested_attributes_for :ice, :ice_observations, :meteorology, :photos, :comments
   
-  default_scope asc(:obs_datetime).where(accepted: true )
+  default_scope asc(:obs_datetime)
   
   scope :has_errors, where(:is_valid => false)
   scope :pending, where(:accepted => false)
@@ -102,6 +102,7 @@ class Observation
         first_year_ice_concentration: self.first_year_ice_concentration * 10,
         total_concentration: self.ice.total_concentration,
         color: self.concentration_color,
+        strokeColor: self.stroke_color,
         dominant_ice_type: self.dominant_ice_type.to_s,
         observation_id: self.id
       }
@@ -174,6 +175,13 @@ class Observation
       "#D9D9D9"
     when :first_year 
       "#BFD7D3"     
+    when :other
+      "#92A9C4"
     end
-  end      
+  end  
+  
+  def stroke_color
+    accepted ? "#000" : "#D00"
+  end
+      
 end
