@@ -39,6 +39,4 @@ $(document).ready(function() {
 $(document).on('page:change', function() {
   var map = new IceMap
   map.init("#map")
-  console.log("DOOM")
-})
-
+});

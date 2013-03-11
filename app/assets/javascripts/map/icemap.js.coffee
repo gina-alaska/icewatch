@@ -134,7 +134,6 @@ class @IceMap
   #   clickOut: true,
   #   onSelect: (feature) ->
   #     $("#cruise-info").load "#{cruises_path}/" + feature.attributes.cruise_id, ->
-  #       console.log("Done!")       
   # 
   #   eventListeners: 
   #     featurehighlighted: (feature) ->
