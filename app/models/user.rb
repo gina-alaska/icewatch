@@ -12,6 +12,7 @@ class User
   attr_accessible :provider, :uid, :name, :email, :admin, :approved, :affiliation, :firstname, :lastname
   
   has_many :cruises
+  has_many :uploaded_observations
   
   scope :pending_approval, ->(){where(:approved => false)}
   

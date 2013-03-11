@@ -24,6 +24,8 @@
 //= require_tree ./map
 //= require gina_nvd3
 //= require cruises
+//= require spin.min
+//= require spinner
 
 
 

@@ -3,6 +3,7 @@ class UploadedObservation
   include Mongoid::Timestamps
   
   belongs_to :cruise
+  belongs_to :user
   
   field :import_errors, type: Array, default: []
   field :observations_uid

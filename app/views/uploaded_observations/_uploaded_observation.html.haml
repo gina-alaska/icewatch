@@ -1,0 +1,31 @@
+.row-fluid.upload-error
+  .span4
+    = uploaded_observation.cruise.try(:ship)
+  .span4
+    = uploaded_observation.observations.name
+  .span3
+    - if uploaded_observation.import_errors.any? 
+      = uploaded_observation.import_errors.count
+    - else
+      .status
+
+  .span1
+    - if uploaded_observation.import_errors.any?
+      =link_to "##{uploaded_observation.id}", class: 'toggle-errors' do 
+        %i.icon-chevron-down
+  .row-fluid.hide{id: "#{uploaded_observation.id}"}
+    .btn-toolbar
+      .btn-group
+        =link_to user_uploaded_observation_url(current_user, uploaded_observation), 
+        method: :delete, confirm: "Are you sure?", class: 'btn btn-small btn-danger' do
+          %i.icon-remove
+          Delete    
+    - uploaded_observation.import_errors.each do |error|
+      .alert.alert-error
+        = error.inspect
+      
+:javascript
+  $(".toggle-errors").on('click', function(evt) {
+    $($(this).attr('href')).removeClass("hide")
+  });
+  $(".status").spin();

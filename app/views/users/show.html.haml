@@ -1,59 +1,127 @@
-.container
-  .row
-    .span12
-      .page-header 
-        %h1
-          =@user.name
-          %small
-            =@user.email
-          .pull-right
-            =link_to "Edit", edit_user_path(@user), class: 'btn btn-primary'    
-  .row
-    .span6
-      ="Affiliation: #{@user.affiliation}"
-  .row
-    .span12
-      .page-header
-        %h1
-          My Cruises
-          .btn-toolbar.pull-right
-            .btn-group
-              =link_to new_cruise_url, class: 'btn' do
-                %i.icon-plus
-                New Cruise
-                   
-  .row
-    .span12
-      %table.table.table-striped
-        %thead
-          %tr
-            %td= "ASSIST"
-            %td= "Cruise"
-            %td= "Start Date"
-            %td= "End Date"
-            %td= "Data"
-        %tbody
-          -@cruises.each do |cruise|
-            %tr{class: cruise.approved? ? "" : "info"}
-              %td
-                -if cruise.assist
-                  .btn-group
-                    .btn.btn-primary.btn-mini
-                      Download
-                -else
-                  .spinner
-                    ASSIST is being generated
-                  
-              %td= cruise.ship
-              %td= ymd cruise.start_date
-              %td= ymd cruise.end_date
-              %td
-                -if cruise.approved?
-                  =form_tag import_cruise_observations_url(cruise), class: 'obs-upload', multipart: true do 
-                    =hidden_field_tag :cruise_id, cruise.id
-                    .btn.btn-primary.btn-mini.fileinput-button
-                      =file_field_tag :observation
-                      %i.icon-list.icon-white
-                      Import 
-                -else  
-                  Pending Approval  
+.row-fluid
+  .span3
+    %ul.nav.nav-list.menu
+      %li 
+        =link_to "#user" do
+          User
+          %i.icon-chevron-right.pull-right
+      %li
+        =link_to "#assist" do
+          %i.icon-chevron-right.pull-right
+          ASSIST
+      %li
+        =link_to "#cruises" do
+          %i.icon-chevron-right.pull-right
+          Cruises
+      %li
+        =link_to "#uploads" do
+          %i.icon-chevron-right.pull-right
+          Uploaded Obs
+      %li
+        #upload_status{style:"display:none;"}
+          .row-fluid
+            .span12
+              %h5 Upload status
+          .row-fluid
+            #upload_messages.span10.offset1
+  .span9
+    #user.page-header 
+      %h1
+        =@user.name
+        %small
+          =@user.email
+        .pull-right
+          =link_to "Edit", edit_user_path(@user), class: 'btn'    
+    %dl.dl-horizontal
+      %dt
+        Affiliation
+      %dd= @user.affiliation
+    
+    #assist.page-header
+      %h3
+        ASSIST
+    Download Assist
+    Download CSV Headers
+    Download Excel spreadsheet 
+    
+    #cruises.page-header
+      %h3
+        My Cruises
+        .btn-toolbar.pull-right
+          .btn-group
+            =link_to new_cruise_url, class: 'btn btn-success' do
+              %i.icon-plus.icon-white
+              New Cruise
+                     
+    %table.table.table-striped
+      %thead
+        %tr
+          %td= "Cruise"
+          %td= "Start Date"
+          %td= "End Date"
+          %td= "Data"
+      %tbody
+        -@cruises.each do |cruise|
+          %tr{class: cruise.approved? ? "" : "info"}
+            %td= cruise.ship
+            %td= ymd cruise.start_date
+            %td= ymd cruise.end_date
+            %td
+              -if cruise.approved?
+                =form_for [current_user, UploadedObservation.new], html: {class: 'fileupload form-inline', style: 'margin: 0' } do |f|
+                  .btn.btn-block.btn-mini.fileinput-button
+                    %i.icon-upload
+                    Upload Observations
+                    =f.file_field :observations
+                  =f.hidden_field :cruise_id, value: cruise.id
+              -else  
+                Pending Approval  
+    .page-header
+      %h3
+        Uploaded Observations
+    #uploads
+      =render partial: 'uploaded_observations/uploaded_observation', collection: current_user.uploaded_observations
+
+      
+  
+
+:javascript
+  $(document).ready(function() {
+
+    // Initialize the jQuery File Upload widget:
+    $('.fileupload').fileupload({
+      dataType: 'json',
+      add: function (e, data) {
+        $('#upload_status').show();
+
+        data.context = $('<div class="progress" />').appendTo($('#upload_messages'))
+        $('<div class="bar" style="width:0%" />').text('Uploading').appendTo($(data.context));
+
+        data.submit();
+      },
+      done: function (e, data) {
+        data.context.find('.bar').text('Finished');
+        data.context.find('.bar').addClass('bar-success');
+
+        if ($('#attachment_list').data('updateTimer')) {
+          clearTimeout($('#cruise_info').data('updateTimer'))
+        }
+
+        $('#cruise_info').data('updateTimer', setTimeout(function() {
+          $('#uploads').load('#{user_uploaded_observations_path(current_user)}');
+          $("#uploads").scrollspy('refresh');
+        }, 1000));
+      },
+      fail: function(e, data) {
+        data.context.find('.bar').text('Failed')
+        data.context.find('.bar').addClass('bar-danger')
+      },
+      progress: function (e, data) {
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        data.context.find('.bar').css(
+          'width',
+          progress + '%'
+        );
+      }
+    });
+  });
