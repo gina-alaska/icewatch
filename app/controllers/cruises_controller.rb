@@ -27,6 +27,7 @@ class CruisesController < ApplicationController
   def show
     @cruise = Cruise.where(id: params[:id]).includes(:observations).first
     @observations = @cruise.observations.asc(:obs_datetime)
+    @year = @cruise.start_date.beginning_of_year
     
     render layout: !request.xhr?
   end
