@@ -2,7 +2,7 @@
   %h2
     Welcome to Ice Watch
   %p.lead
-    Access current and archive ice observations TEMPORARY TEXT
+    Access current and archive ice observations
   - if logged_in? and current_user.approved? #and @year.year == Time.zone.now.year
     .btn-toolbar
       .btn-group
@@ -10,9 +10,8 @@
           %i.icon-plus.icon-white
           Register a new cruise
       .btn-group
-        =link_to "#", class: 'btn btn-large' do
-          %i.icon-download
-          Download ASSIST
+        =link_to_assist "Download ASSIST", class: 'btn btn-large'
+
 .container-fluid
   .row-fluid
     .span4

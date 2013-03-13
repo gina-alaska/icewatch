@@ -14,5 +14,9 @@ module ApplicationHelper
       ""
     end
   end
+  
+  def link_to_assist text="ASSIST", opts={}
+    link_to text,  "/ASSIST_20130131.zip", class: opts[:class]
+  end
 
 end

@@ -57,4 +57,20 @@ module CruisesHelper
     end
     result
   end
+  
+  
+  def ice_type_definitions
+    content_tag :blockquote do
+      content_tag :dl do
+        ice_types = []
+        %w{new first_year old}.each do |type|
+          ice_types <<  [
+            content_tag(:dt, "#{type.humanize} Ice"),
+            content_tag(:dd, IceLookup.ice_type(type).collect(&:name).join(","))
+          ].join
+        end
+        raw(ice_types.join)
+      end
+    end
+  end
 end

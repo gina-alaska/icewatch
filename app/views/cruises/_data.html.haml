@@ -31,18 +31,5 @@
             %i.icon-eye-open
 .row-fluid
   .span12
-    %blockquote
-      %dl
-        %dt
-          New Ice
-        %dd
-          = IceLookup.ice_type("new").collect(&:name).join(",")
-        %dt
-          First Year Ice
-        %dd
-          = IceLookup.ice_type("first_year").collect(&:name).join(",")
-        %dt
-          Old Ice
-        %dd
-          = IceLookup.ice_type("old").collect(&:name).join(",")
+    =ice_type_definitions
           
