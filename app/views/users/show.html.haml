@@ -39,10 +39,14 @@
     
     #assist.page-header
       %h3
-        ASSIST
-    Download Assist
-    Download CSV Headers
-    Download Excel spreadsheet 
+        Download ASSIST
+    .row-fluid
+      .span4
+        =link_to "ASSIST", "/ASSIST_20130131.zip", class: 'btn btn-block btn-large'
+      .span4
+        =link_to "CSV Headers", "/assistobsheet.csv", class: "btn btn-block btn-large"
+      .span4
+        =link_to "Excel Obs", "/assistobsheet.xls", class: "btn btn-block btn-large"
     
     #cruises.page-header
       %h3
