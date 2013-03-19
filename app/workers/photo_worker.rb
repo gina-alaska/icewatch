@@ -22,12 +22,21 @@ class PhotoWorker
   def save! uploaded_photo
     md5 = Digest::MD5.hexdigest(File.read(uploaded_photo.file.path))
     
+    #Try to find the photo by md5sum first
     photo = Photo.where(checksum_id: md5).first || Photo.new(checksum_id: md5)
-    
+
+    #If that fails, try to match the filename to an observation
+    if photo.new_record? and !uploaded_photo.taken_at.nil?
+      obs = Observation.where(obs_datetime: uploaded_photo.taken_at)
+      photo.observation = obs unless obs.nil?
+    end
+  
+    puts uploaded_photo.file_name
+  
     photo.cruise_id = uploaded_photo.cruise_id
-    
     photo.photo = File.new uploaded_photo.file.path
-    
+    photo.photo_name = uploaded_photo.file_name
+    puts photo.photo_name
     if photo.save!
       uploaded_photo.destroy
     end

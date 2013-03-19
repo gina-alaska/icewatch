@@ -19,6 +19,7 @@ Icebox::Application.routes.draw do
   resources :users do
     resources :uploaded_observations
   end
+  resources :photos, only: [:edit, :update]
 
   resource :chart, only: :show
   resource :map, only: :show

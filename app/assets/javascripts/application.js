@@ -26,6 +26,7 @@
 //= require cruises
 //= require spin.min
 //= require spinner
+//= require select2/select2
 
 
 

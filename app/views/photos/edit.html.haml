@@ -1,0 +1,20 @@
+.row-fluid
+  .span4.offset4
+    = image_tag @photo.preview.url, class: 'img-polaroid'
+    
+.row-fluid
+  .span6.offset3
+    =form_for @photo do |f|
+      =f.label :observation_id, "Observation"
+      =f.select :observation_id, options_for_select(@photo.cruise.observations.collect{|o| [o.obs_datetime,o.id ]})
+      =f.label :on_boat_location_lookup_id, "Taken from"
+      =f.select :on_boat_location_lookup_id, options_for_select(OnBoatLocationLookup.all.collect{|o| [o.name, o.id]})
+      =f.label :note
+      =f.text_field :note
+      =f.submit "Update", class: 'btn btn-primary'
+
+:javascript
+  $("select").select2({
+      allowClear: true,
+      width: '400px'
+  });

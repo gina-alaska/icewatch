@@ -11,7 +11,7 @@ class Photo
   
   file_accessor :photo do |a|
     copy_to(:preview) do |a|
-      a.encode(:jpg).thumb('240x160')
+      a.encode(:jpg).thumb('300x200#')
     end
   end
   file_accessor :preview do |a|

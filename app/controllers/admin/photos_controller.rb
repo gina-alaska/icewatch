@@ -1,7 +1,7 @@
 class Admin::PhotosController < AdminController
   def create
     @photo = UploadedPhoto.new(uploaded_photo_params)
-    
+
     if @photo.save
       PhotoWorker.perform_async(@photo.id)
       respond_to do |format|
