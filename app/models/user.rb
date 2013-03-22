@@ -9,9 +9,10 @@ class User
   field :admin, :type => Boolean, default: false
   field :approved, :type => Boolean, default: false
   
-  attr_accessible :provider, :uid, :name, :email, :admin, :approved, :affiliation
+  attr_accessible :provider, :uid, :name, :email, :admin, :approved, :affiliation, :firstname, :lastname
   
   has_many :cruises
+  has_many :uploaded_observations
   
   scope :pending_approval, ->(){where(:approved => false)}
   
@@ -31,11 +32,19 @@ class User
     end
   end  
   
+  def approve!
+    self.update_attribute(:approved, true)
+  end
+  
   def admin?
     self.admin
   end
   
+  def guest?
+    self.new_record?
+  end
+  
   def approved?
-    self.approved
+    self.approved or self.admin?
   end
 end

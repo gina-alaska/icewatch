@@ -5,7 +5,10 @@
   %td= observation.latitude
   %td= observation.longitude
   %td
-    =link_to approve_observation_url(observation, :yes), class: 'btn btn-small btn-success' do 
-      %i.icon-ok.icon-white
-    =link_to approve_observation_url(observation, :no), class: 'btn btn-small btn-danger' do 
-      %i.icon-remove.icon-white
+    .btn-group
+      =link_to admin_observation_path(observation), class: 'btn btn-small btn-primary' do
+        %i.icon-list.icon-white
+      =link_to approve_observation_url(observation, :yes), class: 'btn btn-small btn-success' do 
+        %i.icon-ok.icon-white
+      =link_to approve_observation_url(observation, :no), class: 'btn btn-small btn-danger' do 
+        %i.icon-remove.icon-white

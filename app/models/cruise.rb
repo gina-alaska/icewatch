@@ -1,7 +1,9 @@
 class Cruise
   include Mongoid::Document
   
-  mount_uploader :assist, AssistUploader
+  #ASSIST
+  field :assist_uid
+  file_accessor :assist
   
   #Cruise metatdata
   field :ship, type: String
@@ -23,18 +25,22 @@ class Cruise
   validates_presence_of :ship, :start_date, :end_date, :primary_observer, :objective
   validates_length_of :objective, {maximum: 300}
   
+  
   has_many :observations, order: 'obs_datetime DESC'  do
     def recent count
       desc(:obs_datetime).limit(count)
     end
   end
-  
+  has_many :photos
+   
   belongs_to :user
+  has_many :uploaded_observations
   
-  scope :active, ->(){where(:start_date.lte => Time.now).where(:end_date.gte => Time.now)}
+  scope :active, ->(){where(:start_date.lte => Time.zone.now).where(:end_date.gte => Time.zone.now)}
   scope :archived, ->(){where(:archived => true)}
-  scope :upcoming, ->(){where(:start_date.gte => Time.now)}
-  scope :ended, ->(){where(:end_date.lte => Time.now)}
+  scope :upcoming, ->(){where(:start_date.gte => Time.zone.now)}
+  scope :ended, ->(){where(:end_date.lte => Time.zone.now)}
+  scope :year, ->(year){between(start_date: [year,year.end_of_year]).or.between(end_date: [year,year.end_of_year])}
   
   def ship_with_date
     "#{self.ship}: #{ymd(start_date)}-#{ymd(end_date)}"
@@ -43,9 +49,9 @@ class Cruise
   def status
     s = if archived?
       "archived"
-    elsif start_date >= Time.now
+    elsif start_date >= Time.zone.now
       "upcoming"
-    elsif end_date  <= Time.now
+    elsif end_date  <= Time.zone.now
       "ended"
     else
       "active"
@@ -66,16 +72,28 @@ class Cruise
   end
   
   def as_geojson opts={}
-    observation = self.observations.where(accepted:true).last
-    return nil if observation.nil? 
-    {
+    #observation = self.observations.where(accepted:true).last
+    return nil if self.observations.empty? 
+    coordinates = self.observations.collect{|obs| [obs.try(:longitude), obs.try(:latitude)]}
+    [{
       type: "Feature",
       geometry: {
-        type: "Point",
-        coordinates: [observation.try(:longitude), observation.try(:latitude)]
+        type: "LineString",
+        coordinates: coordinates
       },
-      attributes: self.as_json
-    }   
+      properties: {
+        cruise_id: self.id
+      }     
+    },{
+      type: "Feature",
+      geometry: {
+        type: "MultiPoint",
+        coordinates: coordinates
+      },      
+      properties: {
+        cruise_id: self.id
+      } 
+    }]  
   end  
   
   def as_json opts={}

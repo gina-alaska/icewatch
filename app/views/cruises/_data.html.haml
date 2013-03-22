@@ -1,0 +1,35 @@
+-# .row-fluid
+-#   .span12
+-#     .page-header
+-#       %h2 
+-#         Observations
+-#         %small
+-#           Ice Types
+%table.table.table-striped.dataTable#obs-data
+  %thead
+    %tr
+      %th.span2="Date"
+      %th.span2="Time"
+      %th.span2="Latitude"
+      %th.span2="Longitude"
+      %th.span1="New"
+      %th.span1="First year"
+      %th.span1="Old"
+      %th.span1
+  %tbody
+    - @observations.each do |o|
+      %tr{id: o.id}
+        %td= o.obs_datetime.strftime("%Y/%m/%d")
+        %td= o.obs_datetime.strftime("%H:%M")
+        %td= o.latitude
+        %td= o.longitude
+        %td= "#{o.new_ice_concentration * 10}%"
+        %td= "#{o.first_year_ice_concentration * 10}%"        
+        %td= "#{o.old_ice_concentration * 10}%"
+        %td
+          = link_to cruise_observation_path(@cruise,o), class: 'btn btn-small' do
+            %i.icon-eye-open
+.row-fluid
+  .span12
+    =ice_type_definitions
+          

@@ -1,52 +1,64 @@
 
 nv.models.sparkline = function() {
-  var margin = {top: 0, right: 0, bottom: 0, left: 0},
-      width = 400,
-      height = 32,
-      animate = true,
-      getX = function(d) { return d.x },
-      getY = function(d) { return d.y },
-      color = nv.utils.defaultColor(),
-      xDomain, yDomain;
 
-  var x = d3.scale.linear(),
-      y = d3.scale.linear();
+  //============================================================
+  // Public Variables with Default Settings
+  //------------------------------------------------------------
+
+  var margin = {top: 2, right: 0, bottom: 2, left: 0}
+    , width = 400
+    , height = 32
+    , animate = true
+    , x = d3.scale.linear()
+    , y = d3.scale.linear()
+    , getX = function(d) { return d.x }
+    , getY = function(d) { return d.y }
+    , color = nv.utils.getColor(['#000'])
+    , xDomain
+    , yDomain
+    ;
+
+  //============================================================
+
 
   function chart(selection) {
     selection.each(function(data) {
       var availableWidth = width - margin.left - margin.right,
-          availableHeight = height - margin.top - margin.bottom;
+          availableHeight = height - margin.top - margin.bottom,
+          container = d3.select(this);
 
+
+      //------------------------------------------------------------
+      // Setup Scales
 
       x   .domain(xDomain || d3.extent(data, getX ))
           .range([0, availableWidth]);
 
-      y   .domain(yDomain || d3.extent(data,getY ))
+      y   .domain(yDomain || d3.extent(data, getY ))
           .range([availableHeight, 0]);
 
-
-      var wrap = d3.select(this).selectAll('g.nv-wrap.nv-sparkline').data([data]);
-
-      var gEnter = wrap.enter().append('g').attr('class', 'nvd3 nv-wrap nv-sparkline');
-      //var gEnter = svg.enter().append('svg').append('g');
-      //gEnter.append('g').attr('class', 'sparkline')
-      gEnter
-          .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-          .style('stroke', function(d,i) { return d.color || color(d, i) });
-
-/*
-      d3.select(this)
-          .attr('width', width)
-          .attr('height', height);
-         */
+      //------------------------------------------------------------
 
 
-      //var paths = gEnter.select('.sparkline').selectAll('path')
-      var paths = gEnter.selectAll('path')
+      //------------------------------------------------------------
+      // Setup containers and skeleton of chart
+
+      var wrap = container.selectAll('g.nv-wrap.nv-sparkline').data([data]);
+      var wrapEnter = wrap.enter().append('g').attr('class', 'nvd3 nv-wrap nv-sparkline');
+      var gEnter = wrapEnter.append('g');
+      var g = wrap.select('g');
+
+      wrap.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+
+      //------------------------------------------------------------
+
+
+      var paths = wrap.selectAll('path')
           .data(function(d) { return [d] });
       paths.enter().append('path');
       paths.exit().remove();
       paths
+          .style('stroke', function(d,i) { return d.color || color(d, i) })
           .attr('d', d3.svg.line()
             .x(function(d,i) { return x(getX(d,i)) })
             .y(function(d,i) { return y(getY(d,i)) })
@@ -54,25 +66,49 @@ nv.models.sparkline = function() {
 
 
       // TODO: Add CURRENT data point (Need Min, Mac, Current / Most recent)
-      var points = gEnter.selectAll('circle.nv-point')
-          .data(function(d) { return d.filter(function(p,i) { return y.domain().indexOf(getY(p,i)) != -1 || getX(p,i) == x.domain()[1]  }) });
-      points.enter().append('circle').attr('class', 'nv-point');
+      var points = wrap.selectAll('circle.nv-point')
+          .data(function(data) {
+              var yValues = data.map(function(d, i) { return getY(d,i); });
+              function pointIndex(index) {
+                  if (index != -1) {
+	              var result = data[index];
+                      result.pointIndex = index;
+                      return result;
+                  } else {
+                      return null;
+                  }
+              }
+              var maxPoint = pointIndex(yValues.lastIndexOf(y.domain()[1])),
+                  minPoint = pointIndex(yValues.indexOf(y.domain()[0])),
+                  currentPoint = pointIndex(yValues.length - 1);
+              return [minPoint, maxPoint, currentPoint].filter(function (d) {return d != null;});
+          });
+      points.enter().append('circle');
       points.exit().remove();
       points
-          .attr('cx', function(d,i) { return x(getX(d,i)) })
-          .attr('cy', function(d,i) { return y(getY(d,i)) })
+          .attr('cx', function(d,i) { return x(getX(d,d.pointIndex)) })
+          .attr('cy', function(d,i) { return y(getY(d,d.pointIndex)) })
           .attr('r', 2)
-          .style('stroke', function(d,i) { return d.x == x.domain()[1] ? '#444' : d.y == y.domain()[0] ? '#d62728' : '#2ca02c' })
-          .style('fill', function(d,i) { return d.x == x.domain()[1] ? '#444' : d.y == y.domain()[0] ? '#d62728' : '#2ca02c' });
+          .attr('class', function(d,i) {
+            return getX(d, d.pointIndex) == x.domain()[1] ? 'nv-point nv-currentValue' :
+                   getY(d, d.pointIndex) == y.domain()[0] ? 'nv-point nv-minValue' : 'nv-point nv-maxValue'
+          });
     });
 
     return chart;
   }
 
 
+  //============================================================
+  // Expose Public Variables
+  //------------------------------------------------------------
+
   chart.margin = function(_) {
     if (!arguments.length) return margin;
-    margin = _;
+    margin.top    = typeof _.top    != 'undefined' ? _.top    : margin.top;
+    margin.right  = typeof _.right  != 'undefined' ? _.right  : margin.right;
+    margin.bottom = typeof _.bottom != 'undefined' ? _.bottom : margin.bottom;
+    margin.left   = typeof _.left   != 'undefined' ? _.left   : margin.left;
     return chart;
   };
 
@@ -100,6 +136,18 @@ nv.models.sparkline = function() {
     return chart;
   };
 
+  chart.xScale = function(_) {
+    if (!arguments.length) return x;
+    x = _;
+    return chart;
+  };
+
+  chart.yScale = function(_) {
+    if (!arguments.length) return y;
+    y = _;
+    return chart;
+  };
+
   chart.xDomain = function(_) {
     if (!arguments.length) return xDomain;
     xDomain = _;
@@ -117,6 +165,15 @@ nv.models.sparkline = function() {
     animate = _;
     return chart;
   };
+
+  chart.color = function(_) {
+    if (!arguments.length) return color;
+    color = nv.utils.getColor(_);
+    return chart;
+  };
+
+  //============================================================
+
 
   return chart;
 }

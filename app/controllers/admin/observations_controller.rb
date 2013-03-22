@@ -8,13 +8,24 @@ class Admin::ObservationsController < AdminController
     end
   end
   
+  def show
+    @observation = Observation.where(accepted: false,id: params[:id]).first
+    
+    respond_to do |format|
+      format.html
+    end
+  end
+  
   def approve
     @observation = Observation.where(accepted: false, id: params[:id]).first
         
     if(@observation)
-      @observation.accepted = accepted_params
-      @observation.save
-
+      if accepted?
+        @observation.accepted = true
+        @observation.save
+      else
+        @observation.delete
+      end
     end
     redirect_to admin_observations_url 
   end
@@ -38,7 +49,7 @@ class Admin::ObservationsController < AdminController
   end
   
   private
-  def accepted_params
+  def accepted?
     params[:value] == "yes" ? true : false
   end
 end

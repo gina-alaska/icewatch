@@ -1,29 +1,33 @@
-.page-header
-  %h3
-    = title.capitalize
-%table.table.dataTable.table-striped
+%table.table.table-striped
   %thead
     %tr
-      %th= "Ship"
-      %th= "Start Date"
-      %th= "End Date"
-      %th= "Observations"
-      %th= "Pending"
-      %th 
+      %th.span4= "Ship"
+      %th.span2= "Start Date"
+      %th.span2= "End Date"
+      %th.span1= "Observations"
+      %th.span1= "Pending"
+      %th.span1= "Uploaded"
+      %th.span2 Status
   %tbody
-    -cruises.each do |cruise|
+    -@cruises.each do |cruise|
       %tr
-        %td=cruise.ship 
-        %td=ymd(cruise.start_date)
-        %td=ymd(cruise.end_date)
-        %td
+        %td.span3
+          =link_to cruise.ship, admin_cruise_path(cruise)
+        %td.span2=ymd(cruise.start_date)
+        %td.span2=ymd(cruise.end_date)
+        %td.span1
           %span.badge{class: cruise.observations.count > 0 ? 'badge-info' : ''}
             = cruise.observations.count
-        %td
+        %td.span1
           %span.badge{class: cruise.observations.pending.count > 0 ? 'badge-warning' : ''}
             = cruise.observations.pending.count
+        %td.span1
+          %span.badge{class: cruise.uploaded_observations.count > 0 ? 'badge-important' : ''}
+            = cruise.uploaded_observations.count
         %td
-          = link_to "Manage", admin_cruise_path(cruise), class: 'btn btn-primary'
-  
-              
-  
+          -if cruise.approved?
+            %span.label.label-info
+              Approved
+          -else
+            %span.label.label-warning
+              Pending Approval

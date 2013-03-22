@@ -1,0 +1,28 @@
+#import_errors.row-fluid
+  .span3
+    %h4
+      Actions
+    =link_to @uploaded_observation.observations.url, class: 'btn btn-block' do
+      %i.icon-download
+      Download
+    = render 'form'
+    =link_to admin_uploaded_observation_path(@uploaded_observation), method: :delete,
+      confirm: "Are you sure?", class: 'btn btn-block btn-danger' do
+      %i.icon-remove
+      Delete
+    =render 'upload_help'
+  .span9
+    - if @uploaded_observation.import_errors.any?
+      = render partial: 'import_error', collection: @uploaded_observation.import_errors 
+    - else
+      .alert.alert-info
+        Still attempting import. Please wait.
+:javascript
+  if('#{@uploaded_observation.import_errors.any?}' == "false") {
+    if ($('#import_errors').data('updateTimer')) {
+      clearTimeout($('#import_errors').data('updateTimer'))
+    }
+    $('#import_errors').data('updateTimer', setTimeout(function() {
+      $('#import_errors').load('#{admin_uploaded_observation_path(@uploaded_observation)}');
+    }, 1000));
+  }

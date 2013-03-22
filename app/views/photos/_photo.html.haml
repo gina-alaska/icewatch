@@ -1,0 +1,15 @@
+%li.span4
+  .thumbnail
+    =link_to image_tag(photo.preview.url), photo.photo.url
+    .caption
+      %h3{style: 'overflow: hidden; text-overflow: ellipsis; white-space: nowrap;'}
+        = photo.photo_name
+      %p
+        - if photo.observation
+          =link_to "View Observation", cruise_observation_path(photo.cruise, photo.observation)
+        - else
+          Not part of an observation
+        =photo.note
+        =photo.on_boat_location_lookup.try(:name)
+      -if editable? photo.cruise   
+        =link_to "Edit", edit_photo_path(photo), class: 'btn btn-block'

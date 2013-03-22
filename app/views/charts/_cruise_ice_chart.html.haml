@@ -1,4 +1,12 @@
 #cruise-ice-chart.nvd3.chart
   %svg
+
+.well
+  %p.lead
+    Ice Concentration  
+  %p
+    Percent of ice contentration, grouped by ice type (old, new, first year, other)
+    = ice_type_definitions
+    
 :javascript
   #{render 'charts/cruise_ice_chart.js.erb', {chart_id: 'cruise-ice-chart'}}

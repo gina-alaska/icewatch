@@ -1,0 +1,13 @@
+.container-fluid
+  .row-fluid
+    .span12
+      .btn-group.pull-right
+        =link_to approve_observation_url(@observation, :yes), class: 'btn btn-small btn-success' do 
+          %i.icon-ok.icon-white
+          Approve
+        =link_to approve_observation_url(@observation, :no), class: 'btn btn-small btn-danger' do 
+          %i.icon-remove.icon-white
+          Reject
+  .row-fluid
+    #raw.span12
+      = CodeRay.scan(::JSON.pretty_generate(@observation.as_json), :json).div(css: :class).html_safe

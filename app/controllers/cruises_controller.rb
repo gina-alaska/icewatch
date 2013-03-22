@@ -1,7 +1,6 @@
 class CruisesController < ApplicationController
   before_filter :logged_in?, except: [:index,:show]
   
-  
   def create
     @cruise = Cruise.new cruiseParams
     #Load the observations from 
@@ -10,7 +9,7 @@ class CruisesController < ApplicationController
       if request.xhr?
         render @cruise, layout: false
       else
-        redirect_to cruises_url
+        redirect_to user_url(current_user.id)
       end
     else
       render action: :new
@@ -18,7 +17,7 @@ class CruisesController < ApplicationController
   end
   
   def index
-    @cruises = Cruise.all
+    @cruises = Cruise.year(@year)
     
     respond_to do |format|
       format.html
@@ -27,18 +26,27 @@ class CruisesController < ApplicationController
   
   def show
     @cruise = Cruise.where(id: params[:id]).includes(:observations).first
+    @observations = @cruise.observations.asc(:obs_datetime)
+    @year = @cruise.start_date.beginning_of_year
     
-    respond_to do |format|
-      format.html
-    end
+    render layout: !request.xhr?
   end
   
+  def graph
+    @cruise = Cruise.where(id: params[:id]).includes(:observations).first
+    @observations = @cruise.observations.asc(:obs_datetime)
+  end
+  def photo
+    @cruise = Cruise.where(id: params[:id]).includes(:photos).first
+  end
+
   def new
     @cruise = Cruise.new
   end
 
-protected
+  private
   def cruiseParams
     params[:cruise].slice(:ship, :start_date, :end_date, :captain, :objective, :chief_scientist, :primary_observer)
   end
+  
 end

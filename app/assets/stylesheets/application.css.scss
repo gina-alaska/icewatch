@@ -13,11 +13,14 @@
  *= require bootstrap-datepicker
  *= require nvd3/src/nv.d3
  *= require datatables/media/css/jquery.dataTables
+ *= require select2/select2
  */
+ 
+@import "compass";
+@import "bootstrap";
 
-@import "twitter/bootstrap";
 
-#map {
+#map-container {
   min-width: 460px;
   height: 460px;
   width: 100%;
@@ -44,13 +47,19 @@
 .chart {
   height: 400px;
 }
+
+
 td form {
   margin-bottom: 0px;
   input {
     margin-bottom: 0px;
   }
 }
-.fileinput-button {
+
+body {
+  padding-bottom: 20px;
+}
+.fileinput {
   position: relative;
   overflow: hidden;
   float: left;
@@ -75,5 +84,86 @@ td form {
 
 tr.error {
   @extend .alert-error;
+}
+
+#legend {
+  .wax-legend .legend-title {
+    text-align: left;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 90%;
+    }
+  .wax-legend .legend-scale ul {
+    margin: 0;
+    padding: 0;
+    float: left;
+    list-style: none;
+    }
+  .wax-legend .legend-scale ul li {
+    display: block;
+    float: left;
+    width: 45px;
+    margin-bottom: 6px;
+    text-align: center;
+    font-size: 80%;
+    list-style: none;
+    }
+  .wax-legend ul.legend-labels li span {
+    display: block;
+    float: left;
+    height: 15px;
+    width: 45px;
+    }
+  .wax-legend .legend-source {
+    font-size: 70%;
+    color: #999;
+    clear: both;
+    }
+  .wax-legend a {
+    color: #777;
+  }
+
+  .observed {
+    .wax-legend ul.legend-labels li span {
+      display: block;
+      float: none;
+      height: 25px;
+      width: 25px;
+      margin: 0 auto;      
+      @include border-radius(25px);
+    }
+    .wax-legend .legend-scale ul li {
+      width: 50px;
+    }
+  }
+}
+
+ul.nav.nav-list.menu {
+  margin: 30px 0 0;
+  position: fixed;
+  min-width: 160px;
+  @include border-radius(6px);
+  @include box-shadow(#000, 0px, 1px, 4px);
+  a {
+    padding: 8px 14px;
+    border: 1px solid #efefef;
+  }
+  i {
+    margin-top: 2px;
+    margin-right: -6px;
+    opacity: 0.25;
+  }
+}
+.status {
+  float: left;
+  padding-top: 18px;
+  padding-left: 15px;
+}
+.row-fluid.upload-error {
+  
+  padding: 10px 10px 0 10px;
+  border: solid 1px #e0e0e0;
+  @include border-radius(6px);
+  
 }
 

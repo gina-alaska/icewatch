@@ -1,26 +1,59 @@
-- if current_user && current_user.approved?
-  = link_to new_cruise_url, class: "btn pull-right" do
-    %i.icon-plus
-    New Cruise
-%table.table.table-striped
-  %thead
-    %tr
-      %th= "Ship"
-      %th= "Start Date"
-      %th= "End Date"
-      %th= "Observations"
-      %th= "Cruise Status"
-      %th
-  %tbody
-    -@cruises.each do |c|
-      %tr
-        %td= c.ship
-        %td= c.start_date
-        %td= c.end_date
-        %td= c.observations.count
-        %td= c.status
-        %td
-          =link_to cruise_url(c), class: 'btn btn-small' do 
-            %i.icon-plus
-            Browse Observations
-          
+.well
+  %h2
+    Welcome to Ice Watch
+  %p.lead
+    Access current and archive ice observations
+  - if logged_in? and current_user.approved? #and @year.year == Time.zone.now.year
+    .btn-toolbar
+      .btn-group
+        = link_to new_cruise_path, class: 'btn btn-success btn-large' do
+          %i.icon-plus.icon-white
+          Register a new cruise
+      .btn-group
+        =link_to_assist "Download ASSIST", class: 'btn btn-large'
+
+.container-fluid
+  .row-fluid
+    .span4
+      #cruise-nav.accordion
+        .accordion-group
+          .accordion-heading
+            =link_to "#{@year.year} Cruises", "#active-year", class: 'accordion-toggle', data: {toggle: "collapse", parent: "#cruise-nav"}
+          #active-year.accordion-body.collapse.in 
+            .accordion-inner
+              %ul.nav.nav-list
+                -if @cruises.any?
+                  -@cruises.each do |cruise|
+                    %li
+                      = link_to cruise.ship, cruise_path(cruise), id: cruise.id
+                -else
+                  %p.lead No cruises found
+
+        .accordion-group
+          .accordion-heading
+            =link_to "Other Years", "#other-years", class: 'accordion-toggle', data: {toggle: "collapse", parent: "#cruise-nav"}
+          #other-years.accordion-body.collapse
+            .accordion-inner
+              %ul.nav.nav-list
+                - @available_years.each do |year|
+                  %li{class: "#{year == @year.year ? 'active' : ''}"}
+                    =link_to year, cruises_path(year: year)
+
+    .span8
+      #map
+        #map-container
+        #legend
+          =render 'amsr_legend'
+        
+        #highlighted-cruise
+          %p.lead  
+
+      =render 'shared/amsr_credits'
+:coffeescript
+  map = new IceMap
+  map.init("#map-container")
+  map.addAmsrData("ice_watch_#{@year.year}")
+  map.addCruise("#{api_cruises_path(:geojson, year: @year.year)}")
+
+
+  

@@ -1,0 +1,9 @@
+.container-fluid
+  .row-fluid
+    .span2
+      %h4
+        Lookup Tables
+      %ul.unstyled.well.well-small
+        - LOOKUP_TABLES.each do |lookup|
+          %li= link_to lookup.chomp("Lookup"), admin_lookup_path(lookup)
+

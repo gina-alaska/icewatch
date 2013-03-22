@@ -1,8 +1,12 @@
 class Admin::CruisesController < AdminController
   respond_to :html
-  
   def index
-    
+    @all_cruises = Cruise.only(:start_date)
+    @cruises = Cruise.desc(:approved).desc(:start_date,:end_date)
+    if params[:year]
+      year = Time.utc(params[:year])
+      @cruises = @cruises.between(start_date: [year, year.end_of_year])
+    end
   end
   
   def new
@@ -13,7 +17,13 @@ class Admin::CruisesController < AdminController
     @cruise = Cruise.where(id: params[:id]).first
     @pending = @cruise.observations.where(accepted: false)
     @observations = @cruise.observations
+    @uploaded_observation = UploadedObservation.new
+    
+    respond_to do |format|
+      format.html { render layout: false if request.xhr?}
+    end
   end
+  
   def create 
     @cruise = Cruise.new cruise_params
     
@@ -28,8 +38,15 @@ class Admin::CruisesController < AdminController
     @cruise = Cruise.find(params[:id])
     
     if @cruise
-      @cruise.approved = approve_params
-      if @cruise.save
+      if approved?
+        @cruise.approved = true
+        if @cruise.save
+          respond_to do |format|
+            format.html { redirect_to admin_cruises_url }
+          end
+        end
+      else
+        @cruise.delete
         respond_to do |format|
           format.html { redirect_to admin_cruises_url }
         end
@@ -43,7 +60,7 @@ protected
     params.slice(:cruise)
   end
   
-  def approve_params
+  def approved?
     params[:value] == "yes" ? true : false
   end
 

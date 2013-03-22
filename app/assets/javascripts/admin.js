@@ -12,18 +12,19 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require twitter/bootstrap
+//= require bootstrap
 //= require bootstrap-datepicker
 //= require jquery-file-upload/js/vendor/jquery.ui.widget
 //= require jquery-file-upload/js/jquery.iframe-transport
 //= require jquery-file-upload/js/jquery.fileupload
 //= require datatables/media/js/jquery.dataTables
 //= require cruises
-//= require jquery.pjax
 
 $(document).ready(function() {
-
-
-  $('a:not([data-remote]):not([data-behavior]):not([data-skip-pjax])').pjax('#content');
   $(".datefield").datepicker({"format": "yyyy-mm-dd", "autoclose": true});
+  
+  $(document).on('click', '.btn[data-form]', function() {
+    var form_id = $(this).attr('data-form');
+    $("#" + form_id).find('input[type=file]').trigger('click');
+  });
 });

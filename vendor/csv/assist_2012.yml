@@ -1,0 +1,100 @@
+---
+:obs_datetime: Date
+:primary_observer: PO
+:additional_observers: AO
+:latitude: LAT
+:longitude: LON
+:ice_attributes:
+  :total_concentration: TC
+  :thick_ice_lookup_code: TH
+  :thin_ice_lookup_code: OT
+  :open_water_lookup_code: OW
+:ice_observations_attributes:
+  -
+    :obs_type: primary
+    :partial_concentration: PPC
+    :ice_lookup_code: PT
+    :thickness: PZ
+    :floe_size_lookup_code: PF
+    :topography_attributes:
+      :topography_lookup_code: PTop
+      :old: POld
+      :consolidated: PCs
+      :snow_covered: PSC
+      :concentration: PC
+      :ridge_height: PRH
+    :sediment_lookup_code: PSD
+    :biota_lookup_code: PA
+    :snow_lookup_code: PSY
+    :snow_thickness: PSH
+    :melt_pond_attributes:
+      :surface_coverage: PMPC
+      :max_depth_lookup_code: PMPD
+      :pattern_lookup_code: PMPP
+      :surface_lookup_code: PMPT
+      :freeboard: PMPF
+  -
+    :obs_type: secondary
+    :partial_concentration: SPC
+    :ice_lookup_code: ST
+    :thickness: SZ
+    :floe_size_lookup_code: SF
+    :topography_attributes:
+      :topography_lookup_code: STop
+      :old: SOld
+      :consolidated: SCs
+      :snow_covered: SSC
+      :concentration: SC
+      :ridge_height: SRH
+    :sediment_lookup_code: SSD
+    :biota_lookup_code: SA
+    :snow_lookup_code: SSY
+    :snow_thickness: SSH
+    :melt_pond_attributes:
+      :surface_coverage: SMPC
+      :max_depth_lookup_code: SMPD
+      :pattern_lookup_code: SMPP
+      :surface_lookup_code: SMPT
+      :freeboard: SMPF
+  -
+    :obs_type: tertiary
+    :partial_concentration: TPC
+    :ice_lookup_code: TT
+    :thickness: TZ
+    :floe_size_lookup_code: TF
+    :topography_attributes:
+      :topography_lookup_code: TTop
+      :old: TOld
+      :consolidated: TCs
+      :snow_covered: TSC
+      :concentration: TC
+      :ridge_height: TRH
+    :sediment_lookup_code: TSD
+    :biota_lookup_code: TA
+    :snow_lookup_code: TSY
+    :snow_thickness: TSH
+    :melt_pond_attributes:
+      :surface_coverage: TMPC
+      :max_depth_lookup_code: TMPD
+      :pattern_lookup_code: TMPP
+      :surface_lookup_code: TMPT
+      :freeboard: TMPF
+:meteorology_attributes:
+  :visibility_lookup_code: V
+  :weather_lookup_code: WX
+  :clouds_attributes:
+    -
+      :cloud_type: high
+      :cover: HV
+      :height: HH
+      :cloud_lookup_code: HY
+    -
+      :cloud_type: medium
+      :cover: MV
+      :height: MH
+      :cloud_lookup_code: MY
+    -
+      :cloud_type: low
+      :cover: LV
+      :height: LH
+      :cloud_lookup_code: LY

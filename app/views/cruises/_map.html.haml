@@ -1,0 +1,11 @@
+#map-container
+#legend
+  =render 'amsr_legend'
+  =render 'obs_legend'
+=render 'shared/amsr_credits'
+
+:coffeescript
+  map = new IceMap
+  map.init("#map-container")
+  map.addAmsrData("ice_watch_#{@year.year}")
+  map.addTrack("#{api_cruise_observations_url(@cruise,:geojson)}")

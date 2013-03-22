@@ -3,14 +3,10 @@
     .page-header
       %h2
         =cruise.ship
-        %small="#{ymd(cruise.start_date)}-#{ymd(cruise.end_date)}"
-
-    -# .btn-toolbar
-    -#   .btn-group
-    -#     .btn="Upload Observations"
-    -#   .btn-group
-    -#     .btn="Download"
-    -#     .btn="CSV"
-    -#     .btn="JSON"
-    -#     .btn="GeoJSON" 
-    -#     .btn="SHP"     
+        %small.pull-right="#{ymd(cruise.start_date)} to #{ymd(cruise.end_date)}"
+.row-fluid
+  .span12
+    .btn-toolbar
+      .btn-group
+        .btn
+          Upload

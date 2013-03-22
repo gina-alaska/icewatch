@@ -1,0 +1,60 @@
+.row-fluid
+  .span12
+    =form_for [:admin, @uploaded_observation], html: {class: 'fileupload form-inline', style: 'margin: 0' } do |f|
+      .btn.btn-block.fileinput-button
+        %i.icon-upload
+        Upload Observations
+        =f.file_field :observations
+      =f.hidden_field :cruise_id, value: @cruise.id
+    =form_for [:admin, Photo.new], html: {class: 'fileupload form-inline', style: 'margin: 0' } do |f|
+      .btn.btn-block.fileinput-button
+        %i.icon-upload
+        Upload Photos
+        =f.file_field :file
+      =f.hidden_field :cruise_id, value: @cruise.id
+    #upload_status{style:"display:none;"}
+      .row-fluid
+        .span12
+          %h5 Upload status
+      .row-fluid
+        #upload_messages.span10.offset1
+
+
+:javascript
+  $(document).ready(function() {
+    // Initialize the jQuery File Upload widget:
+    $('.fileupload').fileupload({
+      dataType: 'json',
+      add: function (e, data) {
+        $('#upload_status').show();
+
+        data.context = $('<div class="progress" />').appendTo($('#upload_messages'))
+        $('<div class="bar" style="width:0%" />').text('Uploading').appendTo($(data.context));
+
+        data.submit();
+      },
+      done: function (e, data) {
+        data.context.find('.bar').text('Finished');
+        data.context.find('.bar').addClass('bar-success');
+
+        if ($('#attachment_list').data('updateTimer')) {
+          clearTimeout($('#cruise_info').data('updateTimer'))
+        }
+
+        $('#cruise_info').data('updateTimer', setTimeout(function() {
+          $('#cruise_info').load('#{admin_cruise_path(@cruise)}');
+        }, 1000));
+      },
+      fail: function(e, data) {
+        data.context.find('.bar').text('Failed')
+        data.context.find('.bar').addClass('bar-danger')
+      },
+      progress: function (e, data) {
+        var progress = parseInt(data.loaded / data.total * 100, 10);
+        data.context.find('.bar').css(
+          'width',
+          progress + '%'
+        );
+      }
+    });
+  });

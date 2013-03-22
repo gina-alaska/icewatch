@@ -9,8 +9,16 @@
     = javascript_include_tag "application"
     = csrf_meta_tags
   %body
-    = render 'shared/header'
-    
-  .container
-    #content.span12
-      = yield 
+    .navbar{data: {'no-turbolink' => true}}
+      .navbar-inner
+        .container-fluid
+          = render 'shared/header'
+    .container
+      .row
+        .span12
+          #flash
+            =render(partial: 'shared/alert', locals: { level: 'info', message: flash[:notice]}) if flash[:notice]
+            =render(partial: 'shared/alert', locals: { level: 'error', message: flash[:error]}) if flash[:error]
+      .row
+        .span12
+          = yield 

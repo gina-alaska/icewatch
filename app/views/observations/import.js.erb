@@ -1,0 +1,5 @@
+<%- div = render partial: 'shared/alert', locals: { message: "#{@imported.count} records imported.", level: 'success' } %>
+$("#flash").append("<%= raw(div.gsub("\n","")) %>")
+<%- div = render partial: 'shared/alert', locals: { message: "#{@errors.count} records had errors.", level: 'error' } %>
+$("#flash").append("<%= raw(div.gsub("\n","")) %>")
+

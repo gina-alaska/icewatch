@@ -1,0 +1,11 @@
+.navbar
+  .navbar-inner
+    %ul.nav
+      %li
+        =link_to cruise_url(@cruise) do 
+          %i.icon-arrow-left
+          Back
+      %li.active
+        =link_to @cruise.ship, cruise_url(@cruise)
+- @cruise.photos.each do |photo|
+  = image_tag photo.preview.url

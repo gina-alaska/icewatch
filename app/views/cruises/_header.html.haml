@@ -1,0 +1,29 @@
+%h1
+  =@cruise.ship
+  %small
+    = "#{ymd(@cruise.start_date)} to #{ymd(@cruise.end_date)}"
+.navbar
+  .navbar-inner
+    %ul.nav
+      %li
+        =link_to cruises_path({year: @year.year}) do 
+          %i.icon-circle-arrow-left
+          = @year.year
+      %li{class: current_page?(cruise_path(@cruise)) ? 'active' : ''}
+        =link_to "Map", cruise_path(@cruise)
+      %li{class: current_page?(graph_cruise_path(@cruise)) ? 'active' : ''}
+        =link_to "Graphs", graph_cruise_path(@cruise)
+      %li{class: current_page?(photo_cruise_path(@cruise)) ? 'active' : ''}
+        =link_to "Photos", photo_cruise_path(@cruise)
+    %ul.nav.pull-right
+      %li.active
+        =link_to "#" do
+          %i.icon-download
+          Download Data
+      %li.divider-vertical
+      %li
+        =link_to "CSV", api_cruise_observations_path(@cruise, :csv)
+      %li
+        =link_to "JSON", api_cruise_observations_path(@cruise, :json)
+      %li
+        =link_to "GeoJSON", api_cruise_observations_path(@cruise, :geojson)

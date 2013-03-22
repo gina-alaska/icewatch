@@ -1,34 +1,38 @@
-.page-header
-  %h1
-    =@cruise.ship
-    %small
-      ="#{ymd(@cruise.start_date)} to #{ymd(@cruise.end_date)}"
-      -if @cruise.approved? 
-        .pull-right
-          =form_tag import_cruise_observations_url(@cruise) do 
-            =hidden_field_tag :cruise_id, @cruise.id
-            .btn.btn-primary.fileinput-button
-              =file_field_tag :observation, class: 'obs-upload'
-              %i.icon-list.icon-white
-              Import 
-      
--if @cruise.approved? 
-  - if @pending.any?
-    .row-fluid
-      .span12
-        .page-header
-          %h3 
-            Pending Observations 
-            =link_to approve_cruise_observations_path(@cruise.id), class: 'btn btn-primary' do
-              %i.icon-ok.icon-white
-              Accept All
-        =render partial: 'admin/observations/pending', locals: { observations: @pending}
--else
-  .alert.alert-info
-    This cruise hasn't been approved yet.  
-  =link_to approve_cruise_path(id: @cruise.id, value: 'yes'), class: 'btn btn-success' do
-    %i.icon-check
-    Approve
-  =link_to approve_cruise_path(id: @cruise.id, value: 'no'), class: 'btn btn-danger' do
-    %i.icon-remove
-    Reject
+#cruise_info
+  .page-header
+    %h1
+      =@cruise.ship
+      %small
+        ="#{ymd(@cruise.start_date)} to #{ymd(@cruise.end_date)}"
+   
+  .row-fluid
+    .span3
+      %h4
+        Actions
+      =render 'upload_observations_form', cruise: @cruise
+      -if @cruise.approved?
+        .btn.btn-block.btn-warning
+          Archive
+      -else
+        =link_to approve_cruise_path(id: @cruise.id, value: 'yes'), class: 'btn btn-block btn-success' do
+          %i.icon-ok.icon-white
+          Approve
+        =link_to approve_cruise_path(id: @cruise.id, value: 'no'), class: 'btn btn-block btn-danger', 
+              confirm: 'This will permanently delete this cruise and any associated observations. Are you sure?' do
+          %i.icon-remove.icon-white
+          Reject
+    .span9
+      %dl
+        %dt Captain
+        %dd= @cruise.captain
+        %dt Primary Observer
+        %dd= @cruise.primary_observer
+        %dt Chief Scientist
+        %dd= @cruise.chief_scientist
+        %dt Objective
+        %dd= @cruise.objective
+      = render 'pending_observations'
+      .page-header
+        %h3
+          Uploaded Observations
+      = render partial: 'admin/uploaded_observations/uploaded_observations', locals: {uploaded_observations: @cruise.uploaded_observations}

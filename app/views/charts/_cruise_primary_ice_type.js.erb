@@ -7,7 +7,8 @@ nv.addGraph(function() {
     key: 'Ice Type',
     values: [] 
   };
-  
+  chart.showLabels(false);
+  chart.color(d3.scale.icewatch().range())
   <%- grouped_ice_obs =  observations_grouped_by_ice_type(@cruise.observations).as_json %>
   
   <%- grouped_ice_obs.each do |code, count| %>

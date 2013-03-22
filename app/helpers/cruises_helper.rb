@@ -1,17 +1,16 @@
 module CruisesHelper
   def observations_grouped_by_ice_type observations
-    
-    ice_obs = observations.collect(&:ice_observations).flatten
-    
-    ice_obs.collect!{|i| [i.ice_lookup.try(:name).try(:html_safe), i.partial_concentration] }        
-        
-    result = ice_obs.inject(Hash.new(0)) do |h,i|
-      # i = [ ice_lookup, partial_concentration ]
-      # Only add values if there was an observation made
-      unless i.first.nil?
-        h[i.first] += i.last.to_i
+    #ice_codes = IceLookup.asc(:code).collect{|i| i.name.html_safe}
+    ice_codes = IceLookup.in(code: IceLookup::ORDERED_CODES).collect{|i| i.name.html_safe}
+    ice_obs = observations.collect(&:ice_observations).flatten.group_by{|o| o.ice_lookup.try(:name)}
+
+    result = ice_codes.inject(Hash.new(0)) do |hash, code|
+      hash[code] = 0
+      ice_obs.each do |name, obs|
+        next unless name == code
+        hash[code] = obs.inject(0){|sum, o| sum += o.partial_concentration.to_i }
       end
-      h
+      hash
     end
 
     concentration = observations.count * 10;
@@ -22,8 +21,22 @@ module CruisesHelper
     result 
   end
   
+  def concentration_grouped_by_ice_age observations     
+    groups = Hash.new    
+    observations.each do |obs|
+      %w{new first_year old other}.each do |type|
+        groups[type] ||= []
+        groups[type] << [obs.obs_datetime.to_i * 1000, obs.send("#{type}_ice_concentration") ]
+      end
+    end
+    
+    groups.inject([]) do |arr, (k,v)|
+      arr << {key: "#{k.humanize}", values: v}
+    end
+  end
+  
   def total_concentration_grouped_by_time observations
-    observations.collect{|o| [o.obs_datetime.to_i * 1000, o.ice.total_concentration]} 
+    observations.collect{|o| [o.obs_datetime.to_i * 1000, o.ice.total_concentration.to_i]} 
   end
   
   
@@ -33,7 +46,7 @@ module CruisesHelper
       obs.ice_observations.each do |i|
         next if i.obs_type.nil?
         groups[i.obs_type.to_sym] ||= []
-        groups[i.obs_type.to_sym].push([obs.obs_datetime.to_i * 1000, i.partial_concentration])
+        groups[i.obs_type.to_sym].push([obs.obs_datetime.to_i * 1000, i.partial_concentration.to_i])
       end
     end
 
@@ -43,5 +56,21 @@ module CruisesHelper
       arr
     end
     result
+  end
+  
+  
+  def ice_type_definitions
+    content_tag :blockquote do
+      content_tag :dl do
+        ice_types = []
+        %w{new first_year old}.each do |type|
+          ice_types <<  [
+            content_tag(:dt, "#{type.humanize} Ice"),
+            content_tag(:dd, IceLookup.ice_type(type).collect(&:name).join(","))
+          ].join
+        end
+        raw(ice_types.join)
+      end
+    end
   end
 end

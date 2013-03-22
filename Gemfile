@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.11'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -8,10 +8,13 @@ gem 'rails', '3.2.8'
 #gem 'sqlite3'
 gem "mongoid", "~> 3.0.0"
 
-#gem "bootstrap-sass"
+gem "bootstrap-sass"
 gem "bootstrap-datepicker-rails"
 
 gem "haml"
+gem "coffee-filter"
+gem "tilt"
+gem "BlueCloth", require: 'bluecloth'
 gem "simple_form"
 gem "kaminari"
 gem "bootstrap-kaminari-views"
@@ -27,15 +30,19 @@ gem 'sidekiq'
 gem 'kiqstand'
 gem 'sprockets'
 
+#gem 'turbolinks' 
+
+#Syntax Highlighting
+gem 'coderay'
+gem 'RedCloth', require: 'redcloth'
+
 gem 'assist-shared', git: 'http://github.com/gina-alaska/iceobs-shared', require: 'assist_shared'
 #gem 'assist-shared', path: '~/workspace/iceobs-shared', require: 'assist_shared'
 
 group :development do
   gem "quiet_assets"
+  gem "better_errors"
 end
-
-gem 'carrierwave'
-gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -44,12 +51,16 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platforms => :ruby
-  gem 'bootstrap-sass-rails', git: 'https://github.com/yabawock/bootstrap-sass-rails'
+  #gem 'bootstrap-sass-rails', git: 'https://github.com/yabawock/bootstrap-sass-rails'
 
   gem 'uglifier', '>= 1.0.3'
+  gem 'compass-rails'
 end
 
 gem 'jquery-rails'
+
+gem 'rack-cache', require: 'rack/cache'
+gem 'dragonfly', '~>0.9.14'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

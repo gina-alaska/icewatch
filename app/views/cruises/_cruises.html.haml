@@ -1,0 +1,18 @@
+%table.table.table-striped
+  %thead
+    %tr
+      %th= "Ship"
+      %th= "Start Date"
+      %th= "End Date"
+      %th= "Observations"
+      %th
+  %tbody
+    -@cruises.each do |c|
+      %tr
+        %td= c.ship
+        %td= c.start_date
+        %td= c.end_date
+        %td= c.observations.count
+        %td
+          =link_to cruise_url(c), class: 'btn btn-small' do 
+            %i.icone-eye

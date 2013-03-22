@@ -1,44 +1,72 @@
 .container-fluid
   .row-fluid
-    .span6{style:'height: 500px; overflow-y: scroll'}
-      .page-header
-        %h1
+    .span3
+      %ul.nav.nav-list
+        %li.nav-header
           Active Cruises
-          =link_to cruises_url, class: 'btn pull-right' do
-            %i.icon-globe
-            Browse All
-      -@cruises.each do |cruise|
-        .page-header
-          %h3
-            .text-overflow=cruise.ship
-            %small.pull-right
-              =link_to "View Observations", cruise_url(cruise), class: 'btn'
-        %dl.dl-horizontal
-          %dt="Start Date: "
-          %dd=ymd cruise.start_date
-          %dt="End Date: "
-          %dd=ymd cruise.end_date
-          %dt="Last Observation: "
-          %dd=ymd(cruise.observations.recent(1).first.try(:obs_datetime)) || "No Observations Reported"
+        -if @cruises.any?
+          -@cruises.each do |cruise|
+            %li  
+              = link_to cruise.ship, cruise_path(cruise)
+        -else
+          %p.lead No active cruises
+          - if logged_in? and current_user.approved? and @year.year == Time.zone.now.year
+            = link_to new_cruise_path, class: 'btn btn-primary btn-success btn-block' do
+              %i.icon-plus.icon-white
+              Create a new cruise
+          %li.nav-header
+            Past Cruises
+          - @available_years.each do |year|
+            %li
+              =link_to year, cruises_path(year: year)
+  
+    .span9
+      = #render "map/map"
+      #map-container
 
-    .span6
-      .page-header
-        %h1
-          Yearly Activity
-          -# =link_to root_url, class: 'btn pull-right' do
-          -#   %i.icon-globe
-          -#   Explore
-      #map{data: {url: api_cruises_url(:geojson)}}
-  .row
-    .span12
-      .page-header
-        %h1
-          Ice Concentration
-          =link_to chart_url, class: "btn pull-right" do
-            %i.icon-tasks
-            Browse
-      =render 'charts/cruises_tc_chart'
+-# .container-fluid
+-#   .row-fluid
+-#     .page-header
+-#       %h1
+-#         Yearly Activity
+-#         .btn-group
+-#           .btn
+-#             = @year.year
+-#           .btn.dropdown-toggle{data: {toggle: 'dropdown'}}
+-#             %span.caret
+-#           %ul.dropdown-menu
+-#             - if @available_years.present?
+-#               - @available_years.each do |year|
+-#                 =list_item_for_year year        
+-#             - else
+-#               %li No previous years available
+-#   
+-#   .row-fluid
+-#   
+-#     .span6{style:'height: 500px; overflow-y: scroll'}
+-#       %h2
+-#         Cruises
+-#       - if @cruises.present? and @cruises.count > 0
+-#         = render 'cruises', cruises: @cruises
+-#       - else
+-#         %p.lead 
+-#           = "No cruises found for #{@year.year}"
+-#         - if logged_in? and current_user.approved? and @year.year == Time.zone.now.year
+-#           = link_to new_cruise_path, class: 'btn btn-primary btn-large btn-success btn-block' do
+-#             %i.icon-plus.icon-white
+-#             Create a new cruise
+-# 
+-#     .span6
+-#       %h2
+-#         Ship Locations
+-#       #map-container{data: {url: api_cruises_url(:year => @year.year, format: :geojson)}}
+-#   .row
+-#     .span12
+-#       .page-header
+-#         %h2
+-#           Ice Concentration
+-#       =render 'charts/cruises_tc_chart'
 
 :javascript
   var map = new IceMap
-  map.init("#map")
+  map.init("#map-container")

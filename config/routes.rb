@@ -7,10 +7,19 @@ Icebox::Application.routes.draw do
         post :import
       end
     end
+    collection do 
+      get :import
+    end
+    member do
+      get :graph
+      get :photo
+    end
   end
-
+  
   resources :users do
+    resources :uploaded_observations
   end
+  resources :photos, only: [:edit, :update]
 
   resource :chart, only: :show
   resource :map, only: :show
@@ -18,9 +27,12 @@ Icebox::Application.routes.draw do
   namespace :admin do
     resource :dashboard, only: :show
     resources :observations, except: :new 
-    resources :cruises
-    resources :users 
     resources :imports
+    resources :cruises
+    resources :uploaded_observations
+    resources :users 
+    resources :lookups
+    resources :photos, only: [:create, :destroy]
   end
   
   
@@ -102,7 +114,7 @@ Icebox::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  root :to => 'welcome#index'
+  root :to => 'cruises#index'
 
   # See how all your routes lay out with "rake routes"
 
