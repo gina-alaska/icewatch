@@ -24,5 +24,4 @@ class Cloud
     end
     
   end
-  
 end
