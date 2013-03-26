@@ -12,6 +12,19 @@
               %h5 Upload status
           .row-fluid
             #upload_messages.span10.offset1
+    #success-message.message.hide.alert.alert-success
+      %p
+        .lead= 'Uploaded: '
+        Your data has been successfully uploaded to be quality control checked by Ice Watch Team Administration. 
+        Currently your data is available to be viewed on the
+        = link_to('home page.', root_path)
+        Check the status of your data upload under "My Cruises". 
+    #failure-message.message.hide.alert.alert-error
+      %p
+        .lead= 'Failed: '
+        The upload attempt has failed. 
+        Please contact Ice Watch Team Administration for support at assist@iarc.uaf.edu
+            
   .span9
     #user.page-header 
       %h1
@@ -73,9 +86,6 @@
         =link_to "CSV Headers", "/assistobsheet.csv", class: "btn btn-block btn-large"
       .span4
         =link_to "Excel Obs", "/assistobsheet.xls", class: "btn btn-block btn-large"
-  
-  
-
 :javascript
   $(document).ready(function() {
 
@@ -84,10 +94,9 @@
       dataType: 'json',
       add: function (e, data) {
         $('#upload_status').show();
-
         data.context = $('<div class="progress" />').appendTo($('#upload_messages'))
         $('<div class="bar" style="width:0%" />').text('Uploading').appendTo($(data.context));
-
+        $("li.messages").hide();
         data.submit();
       },
       done: function (e, data) {
@@ -106,6 +115,10 @@
       fail: function(e, data) {
         data.context.find('.bar').text('Failed')
         data.context.find('.bar').addClass('bar-danger')
+        $("#failure-message").show();
+      },
+      success: function(e, data) {
+        $("#success-message").show();
       },
       progress: function (e, data) {
         var progress = parseInt(data.loaded / data.total * 100, 10);
