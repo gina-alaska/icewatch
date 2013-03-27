@@ -74,6 +74,14 @@
       %h3
         Uploaded Observations
     #uploads
+      .row-fluid.upload-error
+        .span4
+          %b Cruise
+        .span4
+          %b Document
+        .span3
+          %b Error Count
+
       =render partial: 'uploaded_observations/uploaded_observation', collection: current_user.uploaded_observations
 
     #assist.page-header
