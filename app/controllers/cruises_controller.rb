@@ -16,6 +16,23 @@ class CruisesController < ApplicationController
     end
   end
   
+  def update
+    @cruise = Cruise.where(id:params[:id]).first
+    unless current_user.admin? or @cruise.user_id == current_user.id 
+      redirect_to root_url 
+    end
+    
+    if @cruise.update_attributes cruiseParams
+      redirect_to cruise_path(@cruise)
+    else
+      render action: :edit
+    end
+  end
+  
+  def edit
+    @cruise = Cruise.where(id: params[:id]).first
+  end
+  
   def index
     @cruises = Cruise.year(@year)
     

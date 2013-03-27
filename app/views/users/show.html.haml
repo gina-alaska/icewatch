@@ -54,6 +54,7 @@
           %td= "Start Date"
           %td= "End Date"
           %td= "Data"
+          %td= "Actions"
       %tbody
         -@cruises.each do |cruise|
           %tr{class: cruise.approved? ? "" : "info"}
@@ -69,7 +70,9 @@
                     =f.file_field :observations
                   =f.hidden_field :cruise_id, value: cruise.id
               -else  
-                Pending Approval  
+                Pending Approval 
+            %td
+              =link_to "Edit", edit_cruise_path(cruise)
     .page-header
       %h3
         Uploaded Observations

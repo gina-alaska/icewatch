@@ -13,5 +13,7 @@
       =f.input :chief_scientist, placeholder: "Chief Scientist"
     .row-fluid
       .span12
-        =f.submit "Add Cruise", class: 'btn btn-primary pull-right'
-          
+        - if @cruise.new_record?
+          =f.submit "Add Cruise", class: 'btn btn-primary pull-right'
+        - else
+          =f.submit "Save Cruise", class: 'btn btn-primary pull-right'
