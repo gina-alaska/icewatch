@@ -13,7 +13,8 @@
     - if uploaded_observation.import_errors.any?
       =link_to "##{uploaded_observation.id}", class: 'toggle-errors' do 
         %i.icon-chevron-down
-  .row-fluid.hide{id: "#{uploaded_observation.id}"}
+        %i.icon-chevron-up{style: 'display: none;'}
+  .row-fluid{id: "#{uploaded_observation.id}", style: "display: none;"}
     .btn-toolbar
       .btn-group
         =link_to user_uploaded_observation_url(current_user, uploaded_observation), 
@@ -23,9 +24,3 @@
     - uploaded_observation.import_errors.each do |error|
       .alert.alert-error
         = error.inspect
-      
-:javascript
-  $(".toggle-errors").on('click', function(evt) {
-    $($(this).attr('href')).removeClass("hide")
-  });
-  $(".status").spin();

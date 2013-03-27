@@ -36,7 +36,13 @@ $(document).ready(function() {
     bFilter: false,
     iDisplayLength: 15,
     bLengthChange: false
-  })
+  });
+  
+  $(".toggle-errors").click(function(evt) {
+    $(this).find("i").toggle();
+    $($(this).attr('href')).toggle();
+  });
+  $(".status").spin();
 });
 
 $(document).on('page:change', function() {
