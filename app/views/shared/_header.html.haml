@@ -12,10 +12,14 @@
       = link_to admin_cruises_path do 
         %i.icon-briefcase
         Admin
+  -if logged_in? and current_user.approved?
+    %li
+      = link_to user_path(current_user) do
+        %i.icon-user
+        My Home
   %li.dropdown
     -if logged_in?
       = link_to '#', class: 'dropdown-toggle', "data-toggle" => "dropdown" do
-        %i.icon-user
         - if current_user
           = "Welcome #{current_user.name}"
         - else
