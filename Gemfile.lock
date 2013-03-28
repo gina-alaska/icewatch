@@ -1,8 +1,8 @@
 GIT
   remote: http://github.com/gina-alaska/iceobs-shared
-  revision: 3881c10694695619b8876bc59136f385fba2cda7
+  revision: 41965dd673f718f399c27cbcd9b09659cfb307a3
   specs:
-    assist-shared (0.0.10)
+    assist-shared (0.1.1)
 
 GEM
   remote: https://rubygems.org/
@@ -202,7 +202,7 @@ PLATFORMS
 DEPENDENCIES
   BlueCloth
   RedCloth
-  assist-shared!
+  assist-shared (>= 0.1.1)!
   better_errors
   bootstrap-datepicker-rails
   bootstrap-kaminari-views
