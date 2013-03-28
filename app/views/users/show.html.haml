@@ -58,7 +58,7 @@
       %tbody
         -@cruises.each do |cruise|
           %tr{class: cruise.approved? ? "" : "info"}
-            %td= cruise.ship
+            %td= link_to cruise.ship, cruise_path(cruise)
             %td= ymd cruise.start_date
             %td= ymd cruise.end_date
             %td
