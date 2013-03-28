@@ -3,7 +3,7 @@ class ImportObservation
   include Mongoid::Document
 
   attr_accessor :file, :cruise_id
-
+  
   def persisted?
     false
   end
@@ -81,7 +81,6 @@ class ImportObservation
     import_map = ::YAML.load_file(import_map_path.join(import_map_filename))
     
     raw_data = ::CSV.open(file, {headers: true, return_headers: false, converters: :all})
-    
     raw_data.each do |row|
       imports << create_observation(csv_to_hash(row, import_map))
     end
@@ -139,7 +138,16 @@ class ImportObservation
             val = nil
           end
         else
-          val = row.include?(v) ? row[v] : nil
+          #Some csv mappings are metadata,  identified by lowercase strings
+          # This handles that fun case where csv doesn't include metadata
+          if row.include?(v)
+            val = row[v]
+          elsif /[[:lower:]]/.match(v.first)
+            val = v
+          else
+            val = nil
+          end
+#          val = row.include?(v) ? row[v] : nil
           val = nil if val.blank?  #Handle empty string
         end
         data[k] = val
