@@ -1,9 +1,9 @@
 ---
-  - :code: 1
+  - :code: 0
     :name: "0%"
-  - :code: 2
+  - :code: 1
     :name: "<30%"
-  - :code: 3
+  - :code: 2
     :name: "<60%"
-  - :code: 4
+  - :code: 3
     :name: ">60%"

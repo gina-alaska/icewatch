@@ -9,15 +9,15 @@
     :code: 20
   - :name: Pancakes
     :code: 30
-  - :name: "Young Grey Ice 0.1-0.15m"
+  - :name: "Young Grey Ice 10-15cm"
     :code: 40
-  - :name: "Young Grey-White Ice 0.15-0.3m"
+  - :name: "Young Grey-White Ice 15-30cm"
     :code: 50
-  - :name: "First year < 0.7m"
+  - :name: "First year < 70cm"
     :code: 60
-  - :name: "First year 0.7-1.2m"
+  - :name: "First year 70-120cm"
     :code: 70
-  - :name: "First year >1.2m"
+  - :name: "First year > 120cm"
     :code: 80
   - :name: "Second year"
     :code: 75
