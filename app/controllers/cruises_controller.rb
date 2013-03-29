@@ -52,9 +52,13 @@ class CruisesController < ApplicationController
   def graph
     @cruise = Cruise.where(id: params[:id]).includes(:observations).first
     @observations = @cruise.observations.asc(:obs_datetime)
+    @year = @cruise.start_date.beginning_of_year
+    
   end
   def photo
     @cruise = Cruise.where(id: params[:id]).includes(:photos).first
+    @year = @cruise.start_date.beginning_of_year
+    
   end
 
   def new
