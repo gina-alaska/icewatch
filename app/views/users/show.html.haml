@@ -125,7 +125,6 @@
 
         $('#cruise_info').data('updateTimer', setTimeout(function() {
           $('#uploads').load('#{user_uploaded_observations_path(current_user)}');
-          $("#uploads").scrollspy('refresh');
         }, 1000));
       },
       fail: function(e, data) {
