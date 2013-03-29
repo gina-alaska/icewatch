@@ -8,33 +8,42 @@
       %li.active
         =link_to @observation.cruise.ship, cruise_path(@observation.cruise)
 
-%dl
-  %dt
-    Primary Observer:
-  %dd= @observation.primary_observer.first_and_last_name
-  %dt
-    Additional Observers:
-  %dd= @observation.additional_observers.collect(&:first_and_last_name).join(",") if @observation.additional_observers.any?
-  %dt
-    Observation Date/Time:
-  %dd= @observation.obs_datetime
-  %dt
-    Latitude:
-  %dd= @observation.latitude
-  %dt
-    Longitude:
-  %dd= @observation.longitude 
+%ul.nav.nav-pills
+  %li.active
+    =link_to "Observation", "#observation", {data: {toggle: 'pill'}}
+  %li
+    =link_to "Raw", "#raw", {data: {toggle: 'pill'}}
+#obs.tab-content
+  #observation.tab-pane.active
+    %dl
+      %dt
+        Primary Observer:
+      %dd= @observation.primary_observer.first_and_last_name
+      %dt
+        Additional Observers:
+      %dd= @observation.additional_observers.collect(&:first_and_last_name).join(",") if @observation.additional_observers.any?
+      %dt
+        Observation Date/Time:
+      %dd= @observation.obs_datetime
+      %dt
+        Latitude:
+      %dd= @observation.latitude
+      %dt
+        Longitude:
+      %dd= @observation.longitude 
 
-  %dt
-    Total Ice Concentration
-  %dd= "#{@observation.ice.total_concentration * 10}%"
+      %dt
+        Total Ice Concentration
+      %dd= "#{@observation.ice.total_concentration * 10}%"
 
-%ul.thumbnails  
-  = render partial: 'photos/photo', collection: @observation.photos
+    %ul.thumbnails  
+      = render partial: 'photos/photo', collection: @observation.photos
   
-- @observation.comments.each do |comment|
-  .alert.alert-info
-    %strong
-      =comment.user_attributes.values.join(" ")
-    %p
-      =comment.data
+    - @observation.comments.each do |comment|
+      .alert.alert-info
+        %strong
+          =comment.user_attributes.values.join(" ")
+        %p
+          =comment.data
+  #raw.tab-pane
+    =CodeRay.scan(::JSON.pretty_generate(@observation.as_json), :json).div(css: :class).html_safe
