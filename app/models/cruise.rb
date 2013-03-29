@@ -11,6 +11,7 @@ class Cruise
   field :end_date, type: Time
   field :primary_observer, type: String
   field :objective, type: String
+  field :cruise_name, type: String
   
   field :chief_scientist, type: String
   field :captain, type: String
@@ -22,7 +23,7 @@ class Cruise
 
   attr_accessible :approved, :ship, :start_date, :end_date, :captain, :primary_observer, :chief_scientist, :objective, :archived, :user_id
 
-  validates_presence_of :ship, :start_date, :end_date, :primary_observer, :objective
+  validates_presence_of :ship, :start_date, :end_date, :primary_observer, :objective, :cruise_name
   validates_length_of :objective, {maximum: 300}
   
   

@@ -3,6 +3,7 @@
     %fieldset
       %legend= "Cruise Information"
       =f.input :ship, placeholder: "Ship Name"
+      =f.input :cruise_name, placeholder: "Cruise ID"
       =f.input :start_date, placeholder: "Cruise Start", input_html: {class: 'datefield'}, 'data-date-format' => 'yyyy.mm.dd'
       =f.input :end_date, placeholder: "Cruise End", input_html: {class: 'datefield'}, 'data-date-format' => 'yyyy.mm.dd'
       =f.input :primary_observer, placeholder: "Primary Observer"
