@@ -16,7 +16,7 @@ module ApplicationHelper
   end
   
   def link_to_assist text="ASSIST", opts={}
-    link_to text, "/ASSIST_20130329.zip", class: opts[:class]
+    link_to text, "/ASSIST__20130405.zip", class: opts[:class]
   end
 
   def editable? cruise
