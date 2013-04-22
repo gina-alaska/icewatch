@@ -67,7 +67,7 @@ class CruisesController < ApplicationController
 
   private
   def cruiseParams
-    params[:cruise].slice(:ship, :start_date, :end_date, :captain, :objective, :chief_scientist, :primary_observer)
+    params[:cruise].slice(:ship, :start_date, :end_date, :captain, :objective, :chief_scientist, :primary_observer, :cruise_name)
   end
   
 end

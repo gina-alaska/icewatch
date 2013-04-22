@@ -21,7 +21,7 @@ class Cruise
   field :user_id, type: Integer
   field :approved, type: Boolean, default: false
 
-  attr_accessible :approved, :ship, :start_date, :end_date, :captain, :primary_observer, :chief_scientist, :objective, :archived, :user_id
+  attr_accessible :approved, :ship, :start_date, :end_date, :captain, :primary_observer, :chief_scientist, :objective, :archived, :user_id, :cruise_name
 
   validates_presence_of :ship, :start_date, :end_date, :primary_observer, :objective, :cruise_name
   validates_length_of :objective, {maximum: 300}
