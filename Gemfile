@@ -34,7 +34,7 @@ gem 'sprockets'
 gem 'coderay'
 gem 'RedCloth', require: 'redcloth'
 
-gem 'assist-shared', '= 0.1.4', git: 'http://github.com/gina-alaska/iceobs-shared', require: 'assist_shared'
+gem 'assist-shared', '= 0.1.5', git: 'http://github.com/gina-alaska/iceobs-shared', require: 'assist_shared'
 
 group :development do
   gem "quiet_assets"
