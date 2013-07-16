@@ -30,7 +30,9 @@ class ApplicationController < ActionController::Base
     if params[:year]
       @year = Time.utc(params[:year].to_i).beginning_of_year
     else
-      @year = Cruise.desc.first.start_date.beginning_of_year#Time.zone.now.beginning_of_year
+      #Mongo issue - Doing a count on queries with where clause that return a large number
+      # of datasets can cause queries to take multiple seconds. 
+      @year = Cruise.desc(:start_date).select{|c| c.observations.exists?}.first.start_date.beginning_of_year
     end
   end
   
