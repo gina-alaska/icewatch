@@ -7,7 +7,7 @@
     :code: 300
   - :name: "Cake ice <20m"
     :code: 400
-  - :name: "Small floes 20-100"
+  - :name: "Small floes 20-100m"
     :code: 500
   - :name: "Medium floes 100-500m"
     :code: 600
