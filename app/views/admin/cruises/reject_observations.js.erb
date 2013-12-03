@@ -1,0 +1,5 @@
+<% @ids.each do |id| %>
+  $("#observation_id_<%=id%>").addClass("error").fadeOut(1000, function() {
+    $(this).remove();
+  });
+<% end %>

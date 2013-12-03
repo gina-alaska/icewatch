@@ -2,11 +2,11 @@ class ObservationsController < ApplicationController
   respond_to :html, :json
       
   def show
-    @observation = Observation.where(id: params[:id]).first
+    @observation = observation.where(id: params[:id]).first
   end    
       
   def import
-    @cruise = Cruise.where(id: params[:cruise_id], user_id: current_user).first
+    @cruise = cruise.where(id: params[:cruise_id], user_id: current_user).first
     
     if @cruise.nil?
       flash[:error] = "You don't have permission to do that"

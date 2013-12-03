@@ -7,7 +7,7 @@
 %ul.nav.pull-right        
   %li
     = link_to "About", about_pages_path 
-  - if logged_in? && current_user.admin?
+  - if admin?
     %li
       = link_to admin_cruises_path do 
         %i.icon-briefcase
@@ -32,3 +32,5 @@
           %li= link_to 'Logout', logout_path
     -else
       = link_to 'Login / Register', login_path
+
+  

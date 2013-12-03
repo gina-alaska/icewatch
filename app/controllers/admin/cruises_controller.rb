@@ -53,6 +53,19 @@ class Admin::CruisesController < AdminController
       end
     end
   end
+  
+  def accept_observations
+    @cruise = cruise.where(id: params[:id]).first
+    @observations = observation.where(cruise_id: @cruise.id).in(id: params[:observation_ids])
+    
+    @observations.update_all(accepted: true)
+  end
+  def reject_observations
+    @cruise = cruise.where(id: params[:id]).first
+    @observations = observation.where(cruise_id: @cruise.id).in(id: params[:observation_ids])
+    @ids = @observations.collect(&:id)
+    @observations.destroy_all
+  end
 
 
 protected

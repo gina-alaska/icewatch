@@ -1,7 +1,7 @@
 class Admin::ObservationsController < AdminController
   respond_to :html
   def index
-    @observations = Observation.where(accepted: false).all
+    @observations = observation.where(accepted: false).all
     
     respond_to do |format|
       format.html { render :index }
@@ -9,7 +9,7 @@ class Admin::ObservationsController < AdminController
   end
   
   def show
-    @observation = Observation.where(accepted: false,id: params[:id]).first
+    @observation = observation.where(accepted: false,id: params[:id]).first
     
     respond_to do |format|
       format.html
@@ -17,7 +17,7 @@ class Admin::ObservationsController < AdminController
   end
   
   def approve
-    @observation = Observation.where(accepted: false, id: params[:id]).first
+    @observation = observation.where(accepted: false, id: params[:id]).first
         
     if(@observation)
       if accepted?
@@ -30,7 +30,27 @@ class Admin::ObservationsController < AdminController
     redirect_to admin_observations_url 
   end
   
-  def approve_all
+  def accept
+    @observation = observation.where(accepted: false, id: params[:id]).first
+    
+    if @observation.update_attribute(accepted: true)
+      redirect_to admin_observations_url
+    else
+      
+    end
+  end
+  
+  def reject
+    @observation = observation.where(accepted: false, id: params[:id]).first
+    
+    if @observation.delete
+      redirect_to 
+    else
+      
+    end
+  end
+  
+  def approve_selected
     @observations = Observation.where(accepted: false)
   
     if params[:cruise_id]

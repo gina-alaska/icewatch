@@ -3,9 +3,8 @@ class Api::CruisesController < ApiController
   
  
   def index
-    @cruises = Cruise.where(archived: false)
+    @cruises = cruise.where(archived: false)
     @cruises = @cruises.between(start_date: [@year,@year+1.year]).or.between(end_date: [@year,@year+1.year])
-    
     
     respond_to do |format|
       format.json { render json: @cruises }
@@ -16,8 +15,10 @@ class Api::CruisesController < ApiController
     end
   end
   
-  def show
-    @cruise = Cruise.where(cruise_id: params[:cruise_id])
+  def show    
+    @cruise = cruise.where(id: params[:id])
+    Rails.logger.info(@cruise.count)
+    @cruise = filter_cruises(@cruise)
     
     respond_to do |format|
       format.json { render json: @cruise }
@@ -29,7 +30,7 @@ class Api::CruisesController < ApiController
   end
   
   def all
-    @cruises = Cruise.all
+    @cruises = cruise.all
     
     respond_to do |format|
       format.json { render json: @cruises }

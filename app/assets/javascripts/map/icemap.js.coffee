@@ -103,6 +103,7 @@ class @IceMap
           feature.attributes.color = cruiseColors[feature.attributes.cruise_id]
         
         feature.geometry.transform(@map.displayProjection, @map.getProjectionObject());
+      
       layer.addFeatures(features);
       if features.length > 0
         @map.zoomToExtent(layer.getDataExtent())
@@ -122,7 +123,8 @@ class @IceMap
     @amsrLayer.events.on 
       'tileerror': (evt) =>
         @map.removeLayer(@amsrLayer)
-        alert("Sea Ice Minimum not available for this year")
+        $("#no-minimum-warning").show();
+        #alert("Sea Ice Minimum not available for this year")
       
     @map.addLayer(@amsrLayer)
     

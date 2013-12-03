@@ -1,4 +1,5 @@
-%tr
+%tr{id: "observation_id_#{observation.id}"}
+  %td= check_box_tag "observation_id[]", observation.id, false, class: "observation_id"
   %td= observation.obs_datetime
   %td= observation.cruise.ship
   %td= first_and_last_name(observation.primary_observer)
@@ -6,9 +7,10 @@
   %td= observation.longitude
   %td
     .btn-group
-      =link_to admin_observation_path(observation), class: 'btn btn-small btn-primary' do
-        %i.icon-list.icon-white
-      =link_to approve_observation_url(observation, :yes), class: 'btn btn-small btn-success' do 
-        %i.icon-ok.icon-white
-      =link_to approve_observation_url(observation, :no), class: 'btn btn-small btn-danger' do 
-        %i.icon-remove.icon-white
+      =link_to admin_observation_path(observation), class: 'btn btn-small' do
+        %i.icon-list.icon-black
+        View Details
+      / =link_to accept_admin_observation_path(observation), class: 'btn btn-small btn-success' do 
+      /   %i.icon-ok.icon-white
+      / =link_to reject_admin_observation_path(observation), class: 'btn btn-small btn-danger' do 
+      /   %i.icon-remove.icon-white

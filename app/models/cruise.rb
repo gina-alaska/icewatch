@@ -43,6 +43,8 @@ class Cruise
   scope :ended, ->(){where(:end_date.lte => Time.zone.now)}
   scope :year, ->(year){between(start_date: [year,year.end_of_year]).or.between(end_date: [year,year.end_of_year])}
   
+  default_scope ->{where(approved: true).asc(:start_date)}
+  
   def ship_with_date
     "#{self.ship}: #{ymd(start_date)}-#{ymd(end_date)}"
   end

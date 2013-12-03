@@ -9,7 +9,7 @@ class Api::LookupsController < ApiController
 
   
     respond_to do |format|
-      format.json { render json: @lookups, except: [:_id, :version] }
+      format.json { render json: @lookups, except: [:_id, :version, :versions] }
     end
   end
   

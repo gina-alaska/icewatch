@@ -2,7 +2,6 @@ class ApiController < ApplicationController
   layout false
   
   before_filter :set_year
-  
   private
   def set_year    
     if params[:year]
