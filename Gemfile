@@ -69,7 +69,10 @@ gem 'dragonfly', '~>0.9.14'
 gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano', '~> 3.0'
+gem 'capistrano-chruby'
+gem 'capistrano-bundler'
+gem 'capistrano-rails'
 
 # To use debugger
 # gem 'debugger'

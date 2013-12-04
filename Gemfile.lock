@@ -49,6 +49,19 @@ GEM
     bootstrap-sass (2.2.2.0)
       sass (~> 3.2)
     builder (3.0.4)
+    capistrano (3.0.1)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 0.0.23)
+    capistrano-bundler (1.1.1)
+      capistrano (~> 3.0)
+      sshkit (>= 1.2.0)
+    capistrano-chruby (0.1.0)
+      capistrano (~> 3.0)
+      sshkit (~> 1.2.0)
+    capistrano-rails (1.1.0)
+      capistrano (>= 3.0.0)
+      capistrano-bundler (>= 1.0.0)
     celluloid (0.12.4)
       facter (>= 1.6.12)
       timers (>= 1.0.0)
@@ -109,6 +122,9 @@ GEM
       tzinfo (~> 0.3.22)
     moped (1.3.2)
     multi_json (1.5.0)
+    net-scp (1.1.2)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.7.0)
     omniauth (1.1.1)
       hashie (~> 1.2)
       rack
@@ -182,13 +198,20 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
+    sshkit (1.2.0)
+      net-scp (>= 1.1.2)
+      net-ssh
+      term-ansicolor
     temple (0.5.5)
+    term-ansicolor (1.2.2)
+      tins (~> 0.8)
     therubyracer (0.11.3)
       libv8 (~> 3.11.8.12)
       ref
     thor (0.17.0)
     tilt (1.3.3)
     timers (1.1.0)
+    tins (0.13.1)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
@@ -213,6 +236,10 @@ DEPENDENCIES
   bootstrap-datepicker-rails
   bootstrap-kaminari-views
   bootstrap-sass
+  capistrano (~> 3.0)
+  capistrano-bundler
+  capistrano-chruby
+  capistrano-rails
   coderay
   coffee-filter
   coffee-rails (~> 3.2.1)
