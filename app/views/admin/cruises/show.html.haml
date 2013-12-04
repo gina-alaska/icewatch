@@ -10,10 +10,7 @@
       %h4
         Actions
       =render 'upload_observations_form', cruise: @cruise
-      -if @cruise.approved?
-        .btn.btn-block.btn-warning
-          Archive
-      -else
+      -unless @cruise.approved?
         =link_to approve_cruise_path(id: @cruise.id, value: 'yes'), class: 'btn btn-block btn-success' do
           %i.icon-ok.icon-white
           Approve
