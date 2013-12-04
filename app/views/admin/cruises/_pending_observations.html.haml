@@ -1,14 +1,30 @@
 .row-fluid
   #pending.span12
-    .page-header
-      %h3 
-        Pending Observations 
-    .btn-toolbar
-      .btn-group
-        =link_to approve_cruise_observations_path(@cruise.id), class: 'btn btn-primary' do
-          %i.icon-ok.icon-white
-          Accept All
     - if @pending.any?
-      = render partial: 'admin/observations/pending', locals: { observations: @pending}
+      .page-header
+        %h3 Pending Observations 
+      .btn-toolbar
+        .btn-group
+          = link_to accept_observations_admin_cruise_path(@cruise.id), class: 'btn btn-success mass-obs', remote: true, method: :post do
+            %i.icon-ok.icon-white
+            Accept Selected
+          = link_to reject_observations_admin_cruise_path(@cruise.id), class: 'btn btn-danger mass-obs', id: "reject-selected", remote: true, method: :post do
+            %i.icon-remove.icon-white
+            Reject Selected
+      = render partial: 'admin/observations/pending', locals: {observations: @pending}
     - else
-      No observations pending acceptance
+      .page-header
+        %h3 No observations pending acceptance
+
+
+:javascript
+  $("#reject-selected").on("click", function(e) {
+    var check = confirm("This will delete all selected observations, proceed?");
+    
+    return check;
+  })
+  $("a.mass-obs").on("ajax:before", function(e,xhr,settings) {
+    ids = $(".observation_id[type='checkbox']:checked").map(function(){ return $(this).val() }).get()
+
+    $(this).data("params", $.param({"observation_ids": ids}, false))
+  });

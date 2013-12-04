@@ -1,7 +1,7 @@
 class Admin::ObservationsController < AdminController
   respond_to :html
   def index
-    @observations = Observation.where(accepted: false).all
+    @observations = observation.where(accepted: false).all
     
     respond_to do |format|
       format.html { render :index }
@@ -9,42 +9,44 @@ class Admin::ObservationsController < AdminController
   end
   
   def show
-    @observation = Observation.where(accepted: false,id: params[:id]).first
+    @observation = observation.where(accepted: false,id: params[:id]).first
     
     respond_to do |format|
       format.html
     end
   end
-  
-  def approve
-    @observation = Observation.where(accepted: false, id: params[:id]).first
-        
-    if(@observation)
-      if accepted?
-        @observation.accepted = true
-        @observation.save
+
+  def accept
+    @observation = observation.where(accepted: false, id: params[:id]).first
+
+    if @observation and @observation.update_attribute(:accepted, true)
+      flash[:notice] = "Accepted observation"
+      redirect_to admin_cruise_path(@observation.cruise)
+    else
+      if @observation.nil?
+        flash[:error] = "Unable to find observation or observation has already been approved"
+        redirect_to admin_cruises_path
       else
-        @observation.delete
+        flash[:error] = "Unable to update observation"
+        redirect_to admin_cruise_path(@observation.cruise)
       end
     end
-    redirect_to admin_observations_url 
   end
   
-  def approve_all
-    @observations = Observation.where(accepted: false)
-  
-    if params[:cruise_id]
-      @observations = @observations.where(cruise_id: params[:cruise_id])
-    end
-    #Todo: Figure out why update_all isnt' working
-    #@observations.update_all(accepted: true)
+  def reject
+    @observation = observation.where(accepted: false, id: params[:id]).first
     
-    @observations.each{|obs| obs.update_attributes(accepted: true)}
-    
-    if params[:cruise_id]
-      redirect_to admin_cruise_url(params[:cruise_id])
+    if @observation and @observation.delete
+      flash[:notice] = "Rejected observation"
+      redirect_to admin_cruise_path(@observation.cruise)
     else
-      redirect_to admin_observations_url
+      if @observation.nil?
+        flash[:error] = "Unable to find observation or observation has already been approved"
+        redirect_to admin_cruises_path
+      else
+        flash[:error] = "Something went wrong"
+        redirect_to admin_cruise_path(@observation.cruise)  
+      end
     end
   end
   

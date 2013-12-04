@@ -83,7 +83,7 @@ class Observation
   
   accepts_nested_attributes_for :ice, :ice_observations, :meteorology, :photos, :comments
   
-  default_scope asc(:obs_datetime)
+  default_scope ->{ where(accepted: true).asc(:obs_datetime) }
   
   scope :has_errors, where(:is_valid => false)
   scope :pending, where(:accepted => false)

@@ -22,7 +22,19 @@ class ApplicationController < ActionController::Base
     logged_in? and current_user.approved?
   end
   
-  helper_method :current_user, :logged_in?, :user_approved?
+  def admin?
+    logged_in? and current_user.admin?
+  end
+
+  def cruise
+    admin? ? Cruise.unscoped : Cruise
+  end
+  
+  def observation
+    admin? ? Observation.unscoped : Observation
+  end
+  
+  helper_method :current_user, :logged_in?, :user_approved?, :admin?
   
   protected
   
@@ -43,4 +55,5 @@ class ApplicationController < ActionController::Base
       @available_years = (first_year..Time.zone.now.year).to_a
     end
   end
+  
 end

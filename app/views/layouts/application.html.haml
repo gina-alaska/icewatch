@@ -14,6 +14,14 @@
         .container-fluid
           = render 'shared/header'
     .container
+      - if admin?
+        .alert.alert-info
+          %strong
+            You are currently logged in as a site administrator. 
+          This will allow you to see cruises and observations that have not been approved.  
+          To view the site as a normal user, you will need to log out.  
+    
+          Future updates will allow you to toggle this behavior without logging out.
       .row
         .span12
           #flash

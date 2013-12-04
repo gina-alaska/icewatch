@@ -34,7 +34,8 @@ class CruisesController < ApplicationController
   end
   
   def index
-    @cruises = Cruise.year(@year)
+    @cruises = cruise.year(@year)
+    @observations = observation.where(accepted: true).where(cruise_id: @cruises)
     
     respond_to do |format|
       format.html
@@ -42,23 +43,22 @@ class CruisesController < ApplicationController
   end
   
   def show
-    @cruise = Cruise.where(id: params[:id]).includes(:observations).first
-    @observations = @cruise.observations.asc(:obs_datetime)
+    @cruise = cruise.where(id: params[:id]).includes(:observations).first
+    @observations = observation.where(cruise_id: @cruise.id).asc(:obs_datetime)
     @year = @cruise.start_date.beginning_of_year
     
     render layout: !request.xhr?
   end
   
   def graph
-    @cruise = Cruise.where(id: params[:id]).includes(:observations).first
+    @cruise = cruise.where(id: params[:id]).includes(:observations).first
     @observations = @cruise.observations.asc(:obs_datetime)
     @year = @cruise.start_date.beginning_of_year
-    
   end
+  
   def photo
-    @cruise = Cruise.where(id: params[:id]).includes(:photos).first
+    @cruise = cruise.where(id: params[:id]).includes(:photos).first
     @year = @cruise.start_date.beginning_of_year
-    
   end
 
   def new

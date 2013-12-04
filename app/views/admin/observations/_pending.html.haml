@@ -1,6 +1,7 @@
 %table.table.table-striped
   %thead
     %tr
+      %th= check_box_tag "toggle-all-observations", "toggle-all-observations", false
       %th= "Observed At"
       %th= "Cruise"
       %th= "Primary Observer"
@@ -9,3 +10,10 @@
       %th
   %tbody
     =render partial: "admin/observations/pending_observations", collection: observations, as: :observation
+
+
+:javascript
+  $("#toggle-all-observations").on('click', function(e){
+    var checked = $(this).prop("checked")
+    $(this).parents("table").find("input[type='checkbox']").prop("checked", checked);
+  });

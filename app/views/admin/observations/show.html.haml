@@ -2,10 +2,10 @@
   .row-fluid
     .span12
       .btn-group.pull-right
-        =link_to approve_observation_url(@observation, :yes), class: 'btn btn-small btn-success' do 
+        =link_to accept_admin_observation_url(@observation), class: 'btn btn-small btn-success', method: :post do 
           %i.icon-ok.icon-white
           Approve
-        =link_to approve_observation_url(@observation, :no), class: 'btn btn-small btn-danger' do 
+        =link_to reject_admin_observation_url(@observation), class: 'btn btn-small btn-danger', method: :post do 
           %i.icon-remove.icon-white
           Reject
   .row-fluid

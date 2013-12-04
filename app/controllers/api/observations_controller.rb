@@ -1,8 +1,8 @@
 class Api::ObservationsController < ApiController
-  respond_to :json, :geojson#, :csv
+  respond_to :json, :geojson
 
   def index
-    @observations = Observation.where(cruise_id: params[:cruise_id])
+    @observations = observation.where(cruise_id: params[:cruise_id])
 
     respond_to do |format|
       format.json { render json: @observations }
@@ -15,7 +15,7 @@ class Api::ObservationsController < ApiController
   end
 
   def show
-    @observation = Observation.where(id: params[:id])
+    @observation = observation.where(id: params[:id])
     
     respond_to do |format|
       format.json { render json: @observation }
@@ -23,7 +23,6 @@ class Api::ObservationsController < ApiController
       format.csv { render text: @observation.inspect }
     end
   end
-
 
 private
   def generate_csv observations
@@ -35,4 +34,5 @@ private
       end
     end
   end
+  
 end
