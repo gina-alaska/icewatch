@@ -1,9 +1,0 @@
-[submodule "vendor/assets/jquery-file-upload"]
-	path = vendor/assets/jquery-file-upload
-	url = https://github.com/blueimp/jQuery-File-Upload
-[submodule "vendor/assets/datatables"]
-	path = vendor/assets/datatables
-	url = http://github.com/DataTables/DataTables.git
-[submodule "vendor/assets/javascripts/gina-map-layers"]
-	path = vendor/assets/javascripts/gina-map-layers
-	url = http://github.com/gina-alaska/gina-map-layers.git
