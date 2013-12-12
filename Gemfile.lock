@@ -1,5 +1,5 @@
 GIT
-  remote: http://github.com/gina-alaska/iceobs-shared
+  remote: https://github.com/gina-alaska/iceobs-shared
   revision: 26b795e889930c6b9d85c585e3c51b2b19b197f0
   specs:
     assist-shared (0.1.5)
