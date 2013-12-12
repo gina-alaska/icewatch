@@ -34,7 +34,7 @@ gem 'sprockets'
 gem 'coderay'
 gem 'RedCloth', require: 'redcloth'
 
-gem 'assist-shared', '= 0.1.5', git: 'http://github.com/gina-alaska/iceobs-shared', require: 'assist_shared'
+gem 'assist-shared', '= 0.1.5', git: 'https://github.com/gina-alaska/iceobs-shared', require: 'assist_shared'
 
 group :development do
   gem "quiet_assets"
@@ -69,7 +69,10 @@ gem 'dragonfly', '~>0.9.14'
 gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano', '~> 3.0'
+gem 'capistrano-chruby'
+gem 'capistrano-bundler'
+gem 'capistrano-rails'
 
 # To use debugger
 # gem 'debugger'
