@@ -60,6 +60,11 @@ class Admin::UsersController < AdminController
     end
   end
   
+  def toggle_environment
+    cookies[:icewatch_environment] = cookies[:icewatch_environment] == "Live" ? "Development" : "Live"
+    redirect_to root_url
+  end
+  
 
 protected
   def authorization_attributes
