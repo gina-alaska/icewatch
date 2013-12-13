@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
  
   before_filter :set_year
   before_filter :set_available_years
-
   
   def current_user
     @current_user ||= User.where(id: session[:user_id]).first || User.new
@@ -33,8 +32,12 @@ class ApplicationController < ActionController::Base
   def observation
     admin? ? Observation.unscoped : Observation
   end
+
+  def current_environment
+    cookies[:icewatch_environment] || "Live"
+  end
   
-  helper_method :current_user, :logged_in?, :user_approved?, :admin?
+  helper_method :current_user, :logged_in?, :user_approved?, :admin?, :current_environment
   
   protected
   
@@ -60,5 +63,4 @@ class ApplicationController < ActionController::Base
       @available_years = (first_year..Time.zone.now.year).to_a
     end
   end
-  
 end

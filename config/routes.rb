@@ -41,7 +41,11 @@ Icebox::Application.routes.draw do
       end
     end
     resources :uploaded_observations
-    resources :users 
+    resources :users do
+      collection do
+        post :toggle_environment
+      end
+    end
     resources :lookups
     resources :photos, only: [:create, :destroy]
   end

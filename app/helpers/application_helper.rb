@@ -22,4 +22,8 @@ module ApplicationHelper
   def editable? cruise
     logged_in? and (current_user.admin? or current_user == cruise.user) 
   end
+  
+  def current_environment_btn
+    current_environment == "Live" ? "btn-primary" : "btn-danger"
+  end
 end
