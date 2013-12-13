@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
  
   before_filter :set_year
   before_filter :set_available_years
-  
+  before_filter :set_development
+    
   def current_user
     @current_user ||= User.where(id: session[:user_id]).first || User.new
   end
@@ -62,5 +63,9 @@ class ApplicationController < ActionController::Base
       first_year = cruise.start_date.year
       @available_years = (first_year..Time.zone.now.year).to_a
     end
+  end
+  
+  def set_development
+    cookies[:icewatch_environment] = "Development" if params[:BETA].present?
   end
 end
