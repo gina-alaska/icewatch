@@ -84,6 +84,7 @@ GEM
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
     connection_pool (1.0.0)
+    dalli (2.6.4)
     dragonfly (0.9.14)
       multi_json (~> 1.0)
       rack
@@ -244,6 +245,7 @@ DEPENDENCIES
   coffee-filter
   coffee-rails (~> 3.2.1)
   compass-rails
+  dalli
   dragonfly (~> 0.9.14)
   haml
   jquery-rails
