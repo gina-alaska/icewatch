@@ -54,6 +54,7 @@ group :assets do
   gem 'compass-rails'
 end
 
+gem 'dalli'
 gem 'jquery-rails'
 
 gem 'rack-cache', require: 'rack/cache'
