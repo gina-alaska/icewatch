@@ -1,12 +1,15 @@
 class SessionsController < ApplicationController
+  skip_before_filter :verify_authenticity_token, only: [:create]
   
   def create
-    user = User.where(:provider => auth_hash['provider'], 
-                      :uid => auth_hash['uid']).first || User.create_with_omniauth(auth_hash)
-    session[:user_id] = user.id
+    unless @auth = Authorization.find_from_hash(auth_hash)
+      @auth = Authorization.create_from_hash(auth_hash, current_user)
+    end
     
+    self.current_user = @auth.user
+
     flash[:success] = 'Signed in!'
-    redirect_to user_url(user)
+    redirect_to user_url(current_user.id)
   end
   
   def destroy

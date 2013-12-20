@@ -68,7 +68,7 @@ class UploadedObservationsController < ApplicationController
   end
   
   def verify_user
-    unless logged_in? and current_user == User.where(id: params[:user_id]).first
+    unless logged_in? and current_user == Authorization.where(id: params[:user_id]).first
       redirect_to root_url
     end
   end

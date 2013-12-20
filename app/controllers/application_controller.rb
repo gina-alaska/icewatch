@@ -7,7 +7,12 @@ class ApplicationController < ActionController::Base
   before_filter :set_development
     
   def current_user
-    @current_user ||= User.where(id: session[:user_id]).first || User.new
+    @current_user ||= User.where(id: session[:current_user_id]).first || User.new
+  end
+  
+  def current_user= user
+    session[:current_user_id] = user.id
+    @current_user = user
   end
   
   def auth_hash
@@ -66,6 +71,9 @@ class ApplicationController < ActionController::Base
   end
   
   def set_development
-    cookies[:icewatch_environment] = "Development" if params[:BETA].present?
+    if params[:BETA].present?
+      cookies[:icewatch_environment] = "Development" 
+      redirect_to root_path
+    end
   end
 end
