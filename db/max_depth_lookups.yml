@@ -1,4 +1,6 @@
 ---
+  - :name: "Unknown"
+    :code: -9
   - :name: "0-10cm"
     :code: 1
   - :name: "10-30cm"
