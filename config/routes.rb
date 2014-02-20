@@ -61,6 +61,12 @@ Icebox::Application.routes.draw do
     resources :lookups, only: [:index, :show]
   end
   
+  namespace :sigrid3 do
+    resources :cruises, only: [:show] do
+      resources :observations, only: [:show]
+    end
+  end
+  
   resource :pages, only: [] do 
     collection do
       get 'about'
