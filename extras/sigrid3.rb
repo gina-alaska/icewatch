@@ -167,15 +167,11 @@ class Sigrid3
     
     def has_brash_ice_with_thickness(ice_observations)
       #Group ice observations by ice_lookup_code and thickness
-      brash_obs = Array(ice_observations).collect{|i| [i.ice_type_lookup.try(:code), i.thickness]}
+      brash_obs = Array(ice_observations).collect{|i| [i.ice_lookup.try(:code), i.thickness]}
       #Select any that have both code of 90 and thickness is not nil
       brash_obs.select{|b| b.first == 90 and !b.last.nil? }.any?
     end
-    
-    def brash_attributes(observation) 
-      obs = brash_observation(observation)
-    end
-    
+        
     def brash_observation(observation)
       %w{primary secondary tertiary}.each do |type|
         ice_obs = observation.ice_observation.obs_type(type)

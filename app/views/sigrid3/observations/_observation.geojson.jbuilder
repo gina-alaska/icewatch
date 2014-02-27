@@ -19,12 +19,19 @@ json.properties do |prop|
   prop.EM  ice_thickness
   prop.EO  "1" if !ice_thickness.nil? and ice_thickness > 0
 
-  if has_brash_ice_with_thickness(observation.ice_observations)
-    code, thickness = brash_attributes(observation.ice_observations)
-    prop.send(code) = thickness
+  if Sigrid3.has_brash_ice_with_thickness(observation.ice_observations)
+    obs = Sigrid3.brash_observation(observation)
+    if obs.thickness >= 400
+      prop.AV = obs.thickness
+    elsif 200 <= obs.thickness < 400
+      prop.AK = obs.thickness
+    elsif 100 <= obs.thickness < 200
+      prop.AM = obs.thickness
+    else
+      prop.AT = obs.thickness
+    end
   end
-  
-  #prop.??  Sigrid3.brash_thickness(observation)
+
   prop.SW  Sigrid3.water_coverage_area(observation)
   
   prop.SA  Sigrid3.stage_of_development(
