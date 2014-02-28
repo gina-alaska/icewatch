@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  heading: 1
+  power: 1
+  speed: 1
+
+two:
+  heading: 1
+  power: 1
+  speed: 1
