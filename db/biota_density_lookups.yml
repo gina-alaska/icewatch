@@ -1,0 +1,9 @@
+---
+  - :code: 1
+    :name: "Traces"
+  - :code: 2
+    :name: "Light"
+  - :code: 3
+    :name: "Medium"
+  - :code: 4
+    :name: "Strong"
