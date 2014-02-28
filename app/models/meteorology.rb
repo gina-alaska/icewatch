@@ -24,6 +24,14 @@ class Meteorology
 
   belongs_to :weather_lookup
   belongs_to :visibility_lookup
+
+  field :total_cloud_cover, type: Integer
+  field :wind_speed, type: Integer
+  field :wind_direction, type: String
+  field :air_temperature, type: Integer
+  field :water_temperature, type: Integer
+  field :relative_humidity, type: Integer
+  field :air_pressure, type: Integer
   
   before_validation do |met|
     %w(high medium low).each do |cloud_type|

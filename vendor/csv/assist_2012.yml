@@ -4,6 +4,14 @@
 :additional_observers: AO
 :latitude: LAT
 :longitude: LON
+:ship_attributes:
+  :power: ShP
+  :speed: ShS
+  :heading: ShH
+  :ship_activity_lookup_code: ShA
+:faunas_attributes:
+  :name: FN
+  :count: FC
 :ice_attributes:
   :total_concentration: TC
   :thick_ice_lookup_code: TH
@@ -21,7 +29,7 @@
       :old: POld
       :consolidated: PCs
       :snow_covered: PSC
-      :concentration: PC
+      :concentration: PTopC
       :ridge_height: PRH
     :sediment_lookup_code: PSD
     :biota_lookup_code: PA
@@ -44,7 +52,7 @@
       :old: SOld
       :consolidated: SCs
       :snow_covered: SSC
-      :concentration: SC
+      :concentration: STopC
       :ridge_height: SRH
     :sediment_lookup_code: SSD
     :biota_lookup_code: SA
@@ -67,7 +75,7 @@
       :old: TOld
       :consolidated: TCs
       :snow_covered: TSC
-      :concentration: TC
+      :concentration: TTopC
       :ridge_height: TRH
     :sediment_lookup_code: TSD
     :biota_lookup_code: TA
@@ -82,6 +90,12 @@
 :meteorology_attributes:
   :visibility_lookup_code: V
   :weather_lookup_code: WX
+  :total_cloud_cover: TCC
+  :wind_speed: WS
+  :air_temperature: AT
+  :water_temperature: WT
+  :relative_humidity: RelH
+  :air_pressure: AP
   :clouds_attributes:
     -
       :cloud_type: high
