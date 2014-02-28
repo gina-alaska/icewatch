@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  code: 1
-  name: MyString
+  heading: 1
+  power: 1
+  speed: 1
 
 two:
-  code: 1
-  name: MyString
+  heading: 1
+  power: 1
+  speed: 1
