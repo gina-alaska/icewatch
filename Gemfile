@@ -1,14 +1,14 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '~> 3.2.0'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 #gem 'sqlite3'
-gem "mongoid", "~> 3.0.0"
+gem "mongoid", "~> 3.1.0"
 
-gem "bootstrap-sass"
+gem "bootstrap-sass", "~> 2.0"
 gem "bootstrap-datepicker-rails"
 
 gem "haml"
@@ -19,7 +19,8 @@ gem "simple_form"
 gem "kaminari"
 gem "bootstrap-kaminari-views"
 
-gem 'rubyzip', require: 'zip/zipfilesystem'
+gem 'rubyzip', '>= 1.0.0', require: 'zip/zipfilesystem'
+gem 'zip-zip' #Compatability
 
 gem 'omniauth-openid'
 
@@ -34,7 +35,7 @@ gem 'sprockets'
 gem 'coderay'
 gem 'RedCloth', require: 'redcloth'
 
-gem 'assist-shared', '= 0.1.5', git: 'https://github.com/gina-alaska/iceobs-shared', require: 'assist_shared'
+gem 'assist-shared', '~> 0.2.0', git: 'https://github.com/gina-alaska/iceobs-shared', require: 'assist_shared'
 
 group :development do
   gem "quiet_assets"
