@@ -152,7 +152,21 @@ class ImportObservation
         end
         data[k] = val
       when "Hash"
-        data[k] = self.csv_to_hash(row, v)
+        case k
+        when :faunas_attributes
+          names = row[v[:name]].split("//") if row.include?(v[:name])
+          counts = row[v[:count]].split("//") if row.include?(v[:count])
+          faunas = []
+          unless names.nil? or counts.nil?
+            names.zip(counts).each do |fauna|
+              faunas << {name: fauna.first, count: fauna.last}
+              Rails.logger.info(faunas.last.inspect)
+            end
+          end
+          data[k] = faunas
+        else
+          data[k] = self.csv_to_hash(row, v)
+        end
       when "Array"
         data[k] = v.collect{|i| self.csv_to_hash(row, i) }
       end
