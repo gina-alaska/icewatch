@@ -19,7 +19,7 @@ class Admin::UploadedObservationsController < AdminController
     @observation = UploadedObservation.new(uploaded_observation_params)
     
     if @observation.save
-      ImportWorker.perform_async(@observation.id)
+      ImportWorker.perform_async(@observation.id.to_s)
       respond_to do |format|
         format.html 
         format.json { render json: {success: true}}
@@ -37,7 +37,7 @@ class Admin::UploadedObservationsController < AdminController
     @uploaded_observation.import_errors = []
 
     if(@uploaded_observation.update_attributes(uploaded_observation_params))
-      ImportWorker.perform_async(@uploaded_observation.id)
+      ImportWorker.perform_async(@uploaded_observation.id.to_s)
       respond_to do |format|
         format.html
         format.json {render json: {success: true}}
