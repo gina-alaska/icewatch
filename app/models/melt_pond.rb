@@ -7,8 +7,10 @@ class MeltPond
   
   field :surface_coverage, type: Integer
   field :freeboard, type: Integer
+
   belongs_to :max_depth_lookup
   belongs_to :surface_lookup
   belongs_to :pattern_lookup
-
+  belongs_to :bottom_type_lookup
+  
 end
