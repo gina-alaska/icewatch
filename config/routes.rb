@@ -1,13 +1,13 @@
 Icebox::Application.routes.draw do
   # The priority is based upon order of creation:
   # first created -> highest priority.
-  resources :cruises do 
+  resources :cruises do
     resources :observations do
       collection do
         post :import
       end
     end
-    collection do 
+    collection do
       get :import
     end
     member do
@@ -15,7 +15,7 @@ Icebox::Application.routes.draw do
       get :photo
     end
   end
-  
+
   resources :users do
     resources :uploaded_observations
   end
@@ -36,7 +36,7 @@ Icebox::Application.routes.draw do
     resources :cruises do
       member do
         post :approve #Approve cruise
-        post :accept_observations 
+        post :accept_observations
         post :reject_observations
       end
     end
@@ -49,34 +49,34 @@ Icebox::Application.routes.draw do
     resources :lookups
     resources :photos, only: [:create, :destroy]
   end
-  
-  
-  namespace :api do 
+
+
+  namespace :api do
     resources :cruises, only: [:index, :show] do
       resources :observations, only: [:index, :show]
-      collection do 
+      collection do
         get :all
       end
     end
     resources :lookups, only: [:index, :show]
   end
-  
+
   namespace :sigrid3 do
-    resources :cruises, only: [:show] do
-      resources :observations, only: [:show]
-    end
+    resources :cruises, only: [:show] #do
+    #   resources :observations, only: [:show]
+    # end
   end
-  
-  resource :pages, only: [] do 
+
+  resource :pages, only: [] do
     collection do
       get 'about'
     end
   end
-  
+
   require "admin_constraint"
   require 'sidekiq/web'
   mount Sidekiq::Web => '/admin/jobs', :constraints => AdminConstraint.new
-  
+
   match '/admin/users/:id/approve/:value', to: 'admin/users#approve', as: 'approve_user'
   match '/admin/cruises/:id/approve/:value', to: 'admin/cruises#approve', as: 'approve_cruise'
   match '/auth/:provider/callback', to: 'sessions#create'
