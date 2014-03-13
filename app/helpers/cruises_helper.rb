@@ -14,32 +14,32 @@ module CruisesHelper
     end
 
     concentration = observations.count * 10;
-    result["Water"] = concentration - result.values.inject(&:+).to_i 
+    result["Water"] = concentration - result.values.inject(&:+).to_i
     #Scale the values to be between 0 and 1
-    result.each{|k,v| result[k] = v.to_f / concentration.to_f}    
-    
-    result 
+    result.each{|k,v| result[k] = v.to_f / concentration.to_f}
+
+    result
   end
-  
-  def concentration_grouped_by_ice_age observations     
-    groups = Hash.new    
+
+  def concentration_grouped_by_ice_age observations
+    groups = Hash.new
     observations.each do |obs|
       %w{new first_year old other}.each do |type|
         groups[type] ||= []
         groups[type] << [obs.obs_datetime.to_i * 1000, obs.send("#{type}_ice_concentration") ]
       end
     end
-    
+
     groups.inject([]) do |arr, (k,v)|
       arr << {key: "#{k.humanize}", values: v}
     end
   end
-  
+
   def total_concentration_grouped_by_time observations
-    observations.collect{|o| [o.obs_datetime.to_i * 1000, o.ice.total_concentration.to_i]} 
+    observations.collect{|o| [o.obs_datetime.to_i * 1000, o.ice.total_concentration.to_i]}
   end
-  
-  
+
+
   def concentration_grouped_by_type observations
     groups = Hash.new()
     observations.each do |obs|
@@ -50,15 +50,15 @@ module CruisesHelper
       end
     end
 
-    
+
     result = groups.inject([]) do |arr,(k,v)|
       arr << {key: "#{k.capitalize} Concentration", values: v}
       arr
     end
     result
   end
-  
-  
+
+
   def ice_type_definitions
     content_tag :blockquote do
       content_tag :dl do
@@ -72,5 +72,9 @@ module CruisesHelper
         raw(ice_types.join)
       end
     end
+  end
+
+  def ogre_url(jsonUrl, zipName = nil)
+    "http://ogr2ogr.gina.alaska.edu/convertJson?jsonUrl=#{jsonUrl}&outputName=#{zipName}"
   end
 end
