@@ -75,6 +75,6 @@ module CruisesHelper
   end
 
   def ogre_url(jsonUrl, zipName = nil)
-    redirect_to "http://ogr-web0.x.gina.alaska.edu/convertJson?jsonUrl=#{jsonUrl}&outputName=#{zipName}"
+    "http://ogr2ogr.gina.alaska.edu/convertJson?jsonUrl=#{jsonUrl}&outputName=#{zipName}"
   end
 end
