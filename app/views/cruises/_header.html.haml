@@ -27,4 +27,4 @@
           %li
             =link_to "JSON", api_cruise_observations_path(@cruise, :json)
           %li
-            =link_to "Sigrid3 (beta)", ogre_url(sigrid3_cruise_url(@cruise, :geojson), "#{@cruise.to_s}.zip")
+            =link_to "Sigrid3 (beta)", ogre_url(sigrid3_cruise_url(@cruise, :geojson), "#{@cruise.to_s}.zip"), method: :post
