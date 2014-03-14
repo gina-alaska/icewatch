@@ -27,4 +27,15 @@
           %li
             =link_to "JSON", api_cruise_observations_path(@cruise, :json)
           %li
-            =link_to "Sigrid3 (beta)", ogre_url(sigrid3_cruise_url(@cruise, :geojson), "#{@cruise.to_s}.zip"), method: :post
+            =link_to "Sigrid3 (beta)", "#", id: "sigrid-data-submit"
+
+
+=form_tag ogre_url, id: 'sigrid-form' do
+  = hidden_field_tag :jsonUrl, sigrid3_cruise_url(@cruise, :geojson)
+  = hidden_field_tag :outputName, "#{@cruise.to_s}.zip"
+
+:javascript
+  $("#sigrid-data-submit").on("click", function(e) {
+    e.preventDefault();
+    $("#sigrid-form").submit();
+  });
