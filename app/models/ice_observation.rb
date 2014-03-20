@@ -2,13 +2,13 @@ class IceObservation
   include Mongoid::Document
   include AssistShared::Validations::IceObservation
   include AssistShared::CSV::IceObservation
-  embedded_in :observation 
-  
+  embedded_in :observation
+
   embeds_one :melt_pond
   embeds_one :topography
-  
+
   accepts_nested_attributes_for :melt_pond,:topography
-  
+
   field :partial_concentration, type: Integer
   field :thickness, type: Integer
   field :snow_thickness, type: Integer
@@ -18,8 +18,10 @@ class IceObservation
   belongs_to :snow_lookup
   belongs_to :ice_lookup
   belongs_to :biota_lookup
+  belongs_to :biota_density_lookup
+  belongs_to :biota_location_lookup
   belongs_to :sediment_lookup
-  
+
   before_validation do |obs|
     obs.topography = Topography.new if obs.topography.nil?
     obs.melt_pond = MeltPond.new if obs.melt_pond.nil?
