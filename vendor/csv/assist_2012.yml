@@ -125,3 +125,10 @@
       :cover: LV
       :height: LH
       :cloud_lookup_code: LY
+:notes_attributes:
+  -
+    :text: note0
+  -
+    :text: note1
+  -
+    :text: note2
