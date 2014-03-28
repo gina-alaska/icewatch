@@ -5,8 +5,8 @@ class Meteorology
 
 
   embedded_in :observation
-  
-  embeds_many :clouds do 
+
+  embeds_many :clouds do
     def cloud_type type
       where(cloud_type: type).first
     end
@@ -28,11 +28,11 @@ class Meteorology
   field :total_cloud_cover, type: Integer
   field :wind_speed, type: Integer
   field :wind_direction, type: String
-  field :air_temperature, type: Integer
-  field :water_temperature, type: Integer
+  field :air_temperature, type: Float
+  field :water_temperature, type: Float
   field :relative_humidity, type: Integer
   field :air_pressure, type: Integer
-  
+
   before_validation do |met|
     %w(high medium low).each do |cloud_type|
       if(met.clouds.cloud_type(cloud_type).nil?)
@@ -40,6 +40,6 @@ class Meteorology
       end
     end
   end
-  
-  
+
+
 end
