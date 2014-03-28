@@ -2,7 +2,7 @@ class Observation
   include Mongoid::Document
   include AssistShared::Validations::Observation
   include AssistShared::CSV::Observation
-  
+
   before_create do |obs|
     begin
       obs.uuid = SecureRandom.uuid
@@ -21,15 +21,15 @@ class Observation
         obs.ice_observations << IceObservation.new(:obs_type => obs_type)
       end
     end
-  end 
-  
+  end
+
   validates_presence_of :cruise_id
 
   def check_for_errors_or_valid?
     return false if self.errors.any?
     valid?
   end
-  
+
   field :obs_datetime, type: Time
   field :accepted, type: Boolean, default: false
   field :is_valid, type: Boolean, default: false
@@ -37,11 +37,19 @@ class Observation
   field :latitude, type: Float
   field :longitude, type: Float
   field :uuid, type: String
-  
+
   embeds_one :primary_observer, class_name: "Person"
   embeds_many :additional_observers, class_name: "Person"
   embeds_one :ice
   embeds_one :meteorology
+  embeds_many :comments
+  embeds_many :notes
+  embeds_many :faunas
+  embeds_one :ship
+
+  embeds_one :additional_data
+
+
   embeds_many :ice_observations do
     def obs_type type
       where(obs_type: type).first
@@ -55,11 +63,11 @@ class Observation
     def tertiary
       obs_type 'tertiary'
     end
-    
+
     def ice_type range
       self.in(ice_lookup_id: IceLookup.in(code: range).collect(&:id))
     end
-    
+
     def new_ice
       ice_type IceLookup::NEW_ICE
     end
@@ -70,24 +78,22 @@ class Observation
       ice_type IceLookup::OLD_ICE
     end
     def other_ice
-      ice_type IceLookup::OTHER 
+      ice_type IceLookup::OTHER
     end
 
   end
-  
-  embeds_many :comments
-  embeds_one :additional_data
-  
+
   belongs_to :cruise
   has_many :photos, autosave: true
-  
-  accepts_nested_attributes_for :ice, :ice_observations, :meteorology, :photos, :comments
-  
+
+  accepts_nested_attributes_for :ice, :ice_observations, :meteorology,
+                                :photos, :comments, :notes, :faunas, :ship
+
   default_scope ->{ where(accepted: true).asc(:obs_datetime) }
-  
+
   scope :has_errors, where(:is_valid => false)
   scope :pending, where(:accepted => false)
-  
+
 
   def as_geojson opts={}
     {
@@ -111,12 +117,12 @@ class Observation
 
   def as_json opts={}
     data = super except: [:_id, :hexcode, :accepted, :cruise_id, :is_valid]
-    
+
     data = lookup_id_to_code(data)
     data
   end
 
-  def lookup_id_to_code(hash) 
+  def lookup_id_to_code(hash)
     hash.inject(Hash.new) do |h, (k,v)|
       key = k.gsub(/lookup_id$/, "lookup_code")
 
@@ -124,7 +130,7 @@ class Observation
       when "Hash"
         h[key] = lookup_id_to_code(v)
       when "Array"
-        h[key] = v.collect{|item| item.is_a?(Hash) ? lookup_id_to_code(item) : item } 
+        h[key] = v.collect{|item| item.is_a?(Hash) ? lookup_id_to_code(item) : item }
       else
         if(key =~ /lookup_code$/ and !!v)
           table = key.gsub(/^thi(n|ck)_ice_lookup/,"ice_lookup")
@@ -136,17 +142,17 @@ class Observation
       end
       h
     end
-  end 
-  
-  def concentrations 
-    { 
+  end
+
+  def concentrations
+    {
       old: self.old_ice_concentration,
       new: self.new_ice_concentration,
       first_year: self.first_year_ice_concentration,
       other: self.other_ice_concentration
     }
   end
-  
+
   def concentration type
     type.inject(0){|sum,v| sum + v.partial_concentration.to_i}
   end
@@ -162,26 +168,26 @@ class Observation
   def other_ice_concentration
     concentration(ice_observations.other_ice)
   end
-  
+
   def dominant_ice_type
     concentrations.max{|a,b| a[1] <=> b[1] }.first
   end
-   
+
   def concentration_color
     case dominant_ice_type
     when :old
       "#50BBD4"
     when :new
       "#D9D9D9"
-    when :first_year 
-      "#BFD7D3"     
+    when :first_year
+      "#BFD7D3"
     when :other
       "#92A9C4"
     end
-  end  
-  
+  end
+
   def stroke_color
     accepted ? "#000" : "#D00"
   end
-      
+
 end

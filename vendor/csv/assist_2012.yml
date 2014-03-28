@@ -33,6 +33,8 @@
       :ridge_height: PRH
     :sediment_lookup_code: PSD
     :biota_lookup_code: PA
+    :biota_density_lookup_code: PAD
+    :biota_location_lookup_code: PAL
     :snow_lookup_code: PSY
     :snow_thickness: PSH
     :melt_pond_attributes:
@@ -41,6 +43,8 @@
       :pattern_lookup_code: PMPP
       :surface_lookup_code: PMPT
       :freeboard: PMPF
+      :dried_ice: PMDI
+      :rotten_ice: PMRI
   -
     :obs_type: secondary
     :partial_concentration: SPC
@@ -56,6 +60,8 @@
       :ridge_height: SRH
     :sediment_lookup_code: SSD
     :biota_lookup_code: SA
+    :biota_density_lookup_code: SAD
+    :biota_location_lookup_code: SAL
     :snow_lookup_code: SSY
     :snow_thickness: SSH
     :melt_pond_attributes:
@@ -64,6 +70,8 @@
       :pattern_lookup_code: SMPP
       :surface_lookup_code: SMPT
       :freeboard: SMPF
+      :dried_ice: SMDI
+      :rotten_ice: SMRI
   -
     :obs_type: tertiary
     :partial_concentration: TPC
@@ -79,6 +87,8 @@
       :ridge_height: TRH
     :sediment_lookup_code: TSD
     :biota_lookup_code: TA
+    :biota_density_lookup_code: TAD
+    :biota_location_lookup_code: TAL
     :snow_lookup_code: TSY
     :snow_thickness: TSH
     :melt_pond_attributes:
@@ -87,11 +97,14 @@
       :pattern_lookup_code: TMPP
       :surface_lookup_code: TMPT
       :freeboard: TMPF
+      :dried_ice: SMDI
+      :rotten_ice: SMRI
 :meteorology_attributes:
   :visibility_lookup_code: V
   :weather_lookup_code: WX
   :total_cloud_cover: TCC
   :wind_speed: WS
+  :wind_direction: WD
   :air_temperature: AT
   :water_temperature: WT
   :relative_humidity: RelH
@@ -112,3 +125,10 @@
       :cover: LV
       :height: LH
       :cloud_lookup_code: LY
+:notes_attributes:
+  -
+    :text: note0
+  -
+    :text: note1
+  -
+    :text: note2
