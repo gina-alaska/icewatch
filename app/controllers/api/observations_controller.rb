@@ -1,5 +1,5 @@
 class Api::ObservationsController < ApiController
-  respond_to :json, :geojson
+  respond_to :json, :geojson, :csv
 
   def index
     @observations = observation.where(cruise_id: params[:cruise_id])
@@ -10,7 +10,7 @@ class Api::ObservationsController < ApiController
         type: 'FeatureCollection',
         features: @observations.collect(&:as_geojson).compact
       }}
-      format.csv { render text: generate_csv(@observations) }
+      format.csv { render text: generate_csv }
     end
   end
 
@@ -25,11 +25,10 @@ class Api::ObservationsController < ApiController
   end
 
 private
-  def generate_csv observations
-    observations = [observations].flatten
+  def generate_csv
     ::CSV.generate({:headers => true}) do |csv|
       csv << Observation.headers
-      observations.each do |o|
+      Array(@observations).each do |o|
         csv << o.as_csv
       end
     end
