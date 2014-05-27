@@ -8,7 +8,7 @@ class MeltPond
   field :surface_coverage, type: Integer
   field :freeboard, type: Integer
   field :dried_ice, type: Boolean
-  field :rotton_ice, type: Boolean
+  field :rotten_ice, type: Boolean
 
   belongs_to :max_depth_lookup
   belongs_to :surface_lookup
