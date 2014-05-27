@@ -36,6 +36,7 @@ gem 'coderay'
 gem 'RedCloth', require: 'redcloth'
 
 gem 'assist-shared', '~> 0.2.0', git: 'https://github.com/gina-alaska/iceobs-shared', require: 'assist_shared'
+#gem 'assist-shared', path: '../iceobs-shared', require: 'assist_shared'
 
 group :development do
   gem "quiet_assets"
