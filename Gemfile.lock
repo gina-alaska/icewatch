@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/gina-alaska/iceobs-shared
-  revision: 905641b3a2987212751239c522f0e28b801ba08f
+  revision: 80451760156273cc8f39a131660ce45ea8e73975
   specs:
-    assist-shared (0.2.21)
+    assist-shared (0.2.22)
 
 GEM
   remote: https://rubygems.org/
