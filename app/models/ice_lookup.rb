@@ -5,5 +5,6 @@ class IceLookup
   field :code, type: Integer
   field :name, type: String
 
-  scope :ice_type, ->(type){ self.in(code: "IceLookup::#{type.upcase}_ICE".constantize)}
+  scope :ice_type, ->(type){ self.in(code: self.const_get("#{type.upcase}_ICE"))}
+
 end
