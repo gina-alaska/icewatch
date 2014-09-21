@@ -1,0 +1,54 @@
+- providers ||= %w{ google gina github }
+:css
+  #google-btn {
+    display: inline-block;
+    background: #dd4b39;
+    color: white;
+    width: 100%;
+    border-radius: 5px;
+    white-space: nowrap;
+  }
+  #google-btn:hover {
+    text-decoration: none;
+    background: #e74b37;
+    cursor: hand;
+  }
+  #google-btn span.label {
+    font-weight: bold;
+  }
+  .login-btn {
+    padding: 0;
+    text-align: left;
+  }
+  .login-btn > div.icon {
+    text-align: center;
+    display: inline-block;
+    height: 40px;
+    padding: 0 10px;
+    font-weight: bold;
+    line-height: 40px;
+    font-size: 25px;
+    border-right: #afafaf 1px solid;
+  }
+  .login-btn > div.buttonText {
+    text-align: left;
+    vertical-align: middle;
+    height: 40px;
+    padding-left: 60px;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: bold;
+    /* Use the Roboto font that is loaded in the <head> */
+    font-family: 'Roboto',arial,sans-serif;
+  }
+#login-modal.modal.fade
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{ data: { dismiss: 'modal' } } &times;
+        %h4.modal-title Select a method to login into browse.alaskamapped.org
+      .modal-body
+        .row
+          - providers.each do |provider|
+            .col-lg-4
+              = render "gina_authentication/#{provider}_button"

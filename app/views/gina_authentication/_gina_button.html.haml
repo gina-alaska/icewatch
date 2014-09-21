@@ -1,0 +1,5 @@
+- disabled ||= false
+= link_to "/auth/gina#{disabled ? '/disable' : '' }", class: 'btn btn-primary btn-block login-btn' do
+  %div.icon.pull-left
+    %i.fa.fa-globe
+  %div.buttonText GINA::ID

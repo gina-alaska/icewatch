@@ -1,0 +1,5 @@
+- disabled ||= false
+= link_to "/auth/google#{disabled ? '/disable' : '' }", class: 'btn btn-danger btn-block login-btn', data: { disabled: disabled } do
+  %div.icon.pull-left
+    %i.fa.fa-google-plus
+  %div.buttonText Google

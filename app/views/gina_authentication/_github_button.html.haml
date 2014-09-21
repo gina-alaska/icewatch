@@ -1,0 +1,5 @@
+- disabled ||= false
+= link_to "/auth/github#{disabled ? '/disable' : '' }", class: 'btn btn-default btn-block login-btn' do
+  %div.icon.pull-left
+    %i.fa.fa-github
+  %div.buttonText Github
