@@ -40,10 +40,19 @@ gem 'unicorn'
 
 
 gem "haml"
-gem "bower-tools", github: "gina-alaska/bower-tools"
+gem "bower-rails"
 gem "pg"
 gem "omniauth"
 gem "omniauth-github"
 gem "omniauth-google-oauth2"
 gem "omniauth-openid"
 gem "google-api-client"
+
+gem 'friendly_id'
+gem 'nested_form'
+gem 'bootstrap_form'
+gem 'cancancan'
+
+gem 'better_errors', group: :development
+gem 'shoulda', group: :test
+
