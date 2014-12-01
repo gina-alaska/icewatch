@@ -1,0 +1,43 @@
+<h1>Listing meteorologies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Observation</th>
+      <th>Weather lookup</th>
+      <th>Visibility lookup</th>
+      <th>Total cloud cover</th>
+      <th>Wind speed</th>
+      <th>Wind direction</th>
+      <th>Air temperature</th>
+      <th>Water temperature</th>
+      <th>Realtive humidity</th>
+      <th>Air pressure</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @meteorologies.each do |meteorology| %>
+      <tr>
+        <td><%= meteorology.observation_id %></td>
+        <td><%= meteorology.weather_lookup_id %></td>
+        <td><%= meteorology.visibility_lookup_id %></td>
+        <td><%= meteorology.total_cloud_cover %></td>
+        <td><%= meteorology.wind_speed %></td>
+        <td><%= meteorology.wind_direction %></td>
+        <td><%= meteorology.air_temperature %></td>
+        <td><%= meteorology.water_temperature %></td>
+        <td><%= meteorology.realtive_humidity %></td>
+        <td><%= meteorology.air_pressure %></td>
+        <td><%= link_to 'Show', meteorology %></td>
+        <td><%= link_to 'Edit', edit_meteorology_path(meteorology) %></td>
+        <td><%= link_to 'Destroy', meteorology, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Meteorology', new_meteorology_path %>

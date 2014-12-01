@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cruise_id: 1
+  observed_at: 2014-09-21 14:39:51
+  latitude: 1.5
+  longitude: 1.5
+  uuid: MyString
+
+two:
+  cruise_id: 1
+  observed_at: 2014-09-21 14:39:51
+  latitude: 1.5
+  longitude: 1.5
+  uuid: MyString

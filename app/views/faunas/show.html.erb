@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @fauna.name %>
+</p>
+
+<p>
+  <strong>Count:</strong>
+  <%= @fauna.count %>
+</p>
+
+<p>
+  <strong>Observation:</strong>
+  <%= @fauna.observation_id %>
+</p>
+
+<%= link_to 'Edit', edit_fauna_path(@fauna) %> |
+<%= link_to 'Back', faunas_path %>

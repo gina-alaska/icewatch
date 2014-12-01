@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Ice observation:</strong>
+  <%= @melt_pond.ice_observation_id %>
+</p>
+
+<p>
+  <strong>Max depth lookup:</strong>
+  <%= @melt_pond.max_depth_lookup_id %>
+</p>
+
+<p>
+  <strong>Surface lookup:</strong>
+  <%= @melt_pond.surface_lookup_id %>
+</p>
+
+<p>
+  <strong>Pattern lookup:</strong>
+  <%= @melt_pond.pattern_lookup_id %>
+</p>
+
+<p>
+  <strong>Bottom type lookup:</strong>
+  <%= @melt_pond.bottom_type_lookup_id %>
+</p>
+
+<p>
+  <strong>Surface coverage:</strong>
+  <%= @melt_pond.surface_coverage %>
+</p>
+
+<p>
+  <strong>Freeboard:</strong>
+  <%= @melt_pond.freeboard %>
+</p>
+
+<p>
+  <strong>Dried ice:</strong>
+  <%= @melt_pond.dried_ice %>
+</p>
+
+<p>
+  <strong>Rotten ice:</strong>
+  <%= @melt_pond.rotten_ice %>
+</p>
+
+<%= link_to 'Edit', edit_melt_pond_path(@melt_pond) %> |
+<%= link_to 'Back', melt_ponds_path %>

@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ice_observation_id: 1
+  max_depth_lookup_id: 1
+  surface_lookup_id: 1
+  pattern_lookup_id: 1
+  bottom_type_lookup_id: 1
+  surface_coverage: 1
+  freeboard: 1
+  dried_ice: false
+  rotten_ice: false
+
+two:
+  ice_observation_id: 1
+  max_depth_lookup_id: 1
+  surface_lookup_id: 1
+  pattern_lookup_id: 1
+  bottom_type_lookup_id: 1
+  surface_coverage: 1
+  freeboard: 1
+  dried_ice: false
+  rotten_ice: false

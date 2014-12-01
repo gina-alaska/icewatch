@@ -1,0 +1,41 @@
+<%= form_for(@topography) do |f| %>
+  <% if @topography.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@topography.errors.count, "error") %> prohibited this topography from being saved:</h2>
+
+      <ul>
+      <% @topography.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ice_observation_id %><br>
+    <%= f.number_field :ice_observation_id %>
+  </div>
+  <div class="field">
+    <%= f.label :old %><br>
+    <%= f.check_box :old %>
+  </div>
+  <div class="field">
+    <%= f.label :snow_covered %><br>
+    <%= f.check_box :snow_covered %>
+  </div>
+  <div class="field">
+    <%= f.label :concentration %><br>
+    <%= f.number_field :concentration %>
+  </div>
+  <div class="field">
+    <%= f.label :ridge_height %><br>
+    <%= f.number_field :ridge_height %>
+  </div>
+  <div class="field">
+    <%= f.label :topography_lookup_id %><br>
+    <%= f.number_field :topography_lookup_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

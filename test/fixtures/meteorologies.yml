@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  observation_id: 1
+  weather_lookup_id: 1
+  visibility_lookup_id: 1
+  total_cloud_cover: 1
+  wind_speed: 1
+  wind_direction: MyString
+  air_temperature: 1.5
+  water_temperature: 1.5
+  realtive_humidity: 1
+  air_pressure: 1
+
+two:
+  observation_id: 1
+  weather_lookup_id: 1
+  visibility_lookup_id: 1
+  total_cloud_cover: 1
+  wind_speed: 1
+  wind_direction: MyString
+  air_temperature: 1.5
+  water_temperature: 1.5
+  realtive_humidity: 1
+  air_pressure: 1

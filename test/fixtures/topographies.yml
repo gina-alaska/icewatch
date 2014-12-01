@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ice_observation_id: 1
+  old: false
+  snow_covered: false
+  concentration: 1
+  ridge_height: 1
+  topography_lookup_id: 1
+
+two:
+  ice_observation_id: 1
+  old: false
+  snow_covered: false
+  concentration: 1
+  ridge_height: 1
+  topography_lookup_id: 1

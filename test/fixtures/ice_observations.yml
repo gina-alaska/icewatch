@@ -1,0 +1,43 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+primary:
+  observation_id: 1
+  floe_size_lookup_id: 1
+  snow_lookup_id: 1
+  ice_lookup_id: 1
+  algae_lookup_id: 1
+  algae_density_lookup_id: 1
+  algae_density_lookup_id: 1
+  sediment_lookup_id: 1
+  partial_concentration: 1
+  thickness: 1
+  snow_thickness: 1
+  type: primary
+
+secondary:
+  observation_id: 1
+  floe_size_lookup_id: 1
+  snow_lookup_id: 1
+  ice_lookup_id: 1
+  algae_lookup_id: 1
+  algae_density_lookup_id: 1
+  algae_density_lookup_id: 1
+  sediment_lookup_id: 1
+  partial_concentration: 1
+  thickness: 1
+  snow_thickness: 1
+  type: secondary
+
+tertiary:
+  observation_id: 1
+  floe_size_lookup_id: 1
+  snow_lookup_id: 1
+  ice_lookup_id: 1
+  algae_lookup_id: 1
+  algae_density_lookup_id: 1
+  algae_density_lookup_id: 1
+  sediment_lookup_id: 1
+  partial_concentration: 1
+  thickness: 1
+  snow_thickness: 1
+  type: tertiary

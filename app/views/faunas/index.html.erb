@@ -1,0 +1,29 @@
+<h1>Listing faunas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Count</th>
+      <th>Observation</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @faunas.each do |fauna| %>
+      <tr>
+        <td><%= fauna.name %></td>
+        <td><%= fauna.count %></td>
+        <td><%= fauna.observation_id %></td>
+        <td><%= link_to 'Show', fauna %></td>
+        <td><%= link_to 'Edit', edit_fauna_path(fauna) %></td>
+        <td><%= link_to 'Destroy', fauna, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Fauna', new_fauna_path %>

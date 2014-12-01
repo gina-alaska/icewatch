@@ -1,0 +1,53 @@
+<%= form_for(@melt_pond) do |f| %>
+  <% if @melt_pond.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@melt_pond.errors.count, "error") %> prohibited this melt_pond from being saved:</h2>
+
+      <ul>
+      <% @melt_pond.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :ice_observation_id %><br>
+    <%= f.number_field :ice_observation_id %>
+  </div>
+  <div class="field">
+    <%= f.label :max_depth_lookup_id %><br>
+    <%= f.number_field :max_depth_lookup_id %>
+  </div>
+  <div class="field">
+    <%= f.label :surface_lookup_id %><br>
+    <%= f.number_field :surface_lookup_id %>
+  </div>
+  <div class="field">
+    <%= f.label :pattern_lookup_id %><br>
+    <%= f.number_field :pattern_lookup_id %>
+  </div>
+  <div class="field">
+    <%= f.label :bottom_type_lookup_id %><br>
+    <%= f.number_field :bottom_type_lookup_id %>
+  </div>
+  <div class="field">
+    <%= f.label :surface_coverage %><br>
+    <%= f.number_field :surface_coverage %>
+  </div>
+  <div class="field">
+    <%= f.label :freeboard %><br>
+    <%= f.number_field :freeboard %>
+  </div>
+  <div class="field">
+    <%= f.label :dried_ice %><br>
+    <%= f.check_box :dried_ice %>
+  </div>
+  <div class="field">
+    <%= f.label :rotten_ice %><br>
+    <%= f.check_box :rotten_ice %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

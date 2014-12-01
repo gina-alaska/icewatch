@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Observation:</strong>
+  <%= @meteorology.observation_id %>
+</p>
+
+<p>
+  <strong>Weather lookup:</strong>
+  <%= @meteorology.weather_lookup_id %>
+</p>
+
+<p>
+  <strong>Visibility lookup:</strong>
+  <%= @meteorology.visibility_lookup_id %>
+</p>
+
+<p>
+  <strong>Total cloud cover:</strong>
+  <%= @meteorology.total_cloud_cover %>
+</p>
+
+<p>
+  <strong>Wind speed:</strong>
+  <%= @meteorology.wind_speed %>
+</p>
+
+<p>
+  <strong>Wind direction:</strong>
+  <%= @meteorology.wind_direction %>
+</p>
+
+<p>
+  <strong>Air temperature:</strong>
+  <%= @meteorology.air_temperature %>
+</p>
+
+<p>
+  <strong>Water temperature:</strong>
+  <%= @meteorology.water_temperature %>
+</p>
+
+<p>
+  <strong>Realtive humidity:</strong>
+  <%= @meteorology.realtive_humidity %>
+</p>
+
+<p>
+  <strong>Air pressure:</strong>
+  <%= @meteorology.air_pressure %>
+</p>
+
+<%= link_to 'Edit', edit_meteorology_path(@meteorology) %> |
+<%= link_to 'Back', meteorologies_path %>

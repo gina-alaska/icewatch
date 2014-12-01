@@ -1,0 +1,2 @@
+module MeltPondsHelper
+end

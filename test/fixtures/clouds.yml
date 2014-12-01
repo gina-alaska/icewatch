@@ -1,0 +1,22 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+low:
+  meteorology_id: 1
+  cloud_lookup_id: 1
+  cover: 1
+  height: 1
+  type: low
+
+medium:
+  meteorology_id: 1
+  cloud_lookup_id: 1
+  cover: 1
+  height: 1
+  type: medium
+
+high:
+  meteorology_id: 1
+  cloud_lookup_id: 1
+  cover: 1
+  height: 1
+  type: high

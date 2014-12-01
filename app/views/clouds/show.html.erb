@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Meteorology:</strong>
+  <%= @cloud.meteorology_id %>
+</p>
+
+<p>
+  <strong>Cloud lookup:</strong>
+  <%= @cloud.cloud_lookup_id %>
+</p>
+
+<p>
+  <strong>Cover:</strong>
+  <%= @cloud.cover %>
+</p>
+
+<p>
+  <strong>Height:</strong>
+  <%= @cloud.height %>
+</p>
+
+<p>
+  <strong>Cloud type:</strong>
+  <%= @cloud.cloud_type %>
+</p>
+
+<%= link_to 'Edit', edit_cloud_path(@cloud) %> |
+<%= link_to 'Back', clouds_path %>
