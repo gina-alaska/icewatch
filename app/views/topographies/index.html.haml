@@ -1,0 +1,25 @@
+%h1 Listing topographies
+%table
+  %thead
+    %tr
+      %th Ice observation
+      %th Old
+      %th Snow covered
+      %th Concentration
+      %th Ridge height
+      %th Topography lookup
+      %th{:colspan => "3"}
+  %tbody
+    - @topographies.each do |topography|
+      %tr
+        %td= topography.ice_observation_id
+        %td= topography.old
+        %td= topography.snow_covered
+        %td= topography.concentration
+        %td= topography.ridge_height
+        %td= topography.topography_lookup_id
+        %td= link_to 'Show', topography
+        %td= link_to 'Edit', edit_topography_path(topography)
+        %td= link_to 'Destroy', topography, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Topography', new_topography_path

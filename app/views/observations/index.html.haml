@@ -1,0 +1,23 @@
+%h1 Listing observations
+%table
+  %thead
+    %tr
+      %th Cruise
+      %th Observed at
+      %th Latitude
+      %th Longitude
+      %th Uuid
+      %th{:colspan => "3"}
+  %tbody
+    - @observations.each do |observation|
+      %tr
+        %td= observation.cruise_id
+        %td= observation.observed_at
+        %td= observation.latitude
+        %td= observation.longitude
+        %td= observation.uuid
+        %td= link_to 'Show', observation
+        %td= link_to 'Edit', edit_observation_path(observation)
+        %td= link_to 'Destroy', observation, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Observation', new_observation_path

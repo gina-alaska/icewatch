@@ -1,0 +1,23 @@
+%h1 Listing clouds
+%table
+  %thead
+    %tr
+      %th Meteorology
+      %th Cloud lookup
+      %th Cover
+      %th Height
+      %th Cloud type
+      %th{:colspan => "3"}
+  %tbody
+    - @clouds.each do |cloud|
+      %tr
+        %td= cloud.meteorology_id
+        %td= cloud.cloud_lookup_id
+        %td= cloud.cover
+        %td= cloud.height
+        %td= cloud.cloud_type
+        %td= link_to 'Show', cloud
+        %td= link_to 'Edit', edit_cloud_path(cloud)
+        %td= link_to 'Destroy', cloud, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Cloud', new_cloud_path

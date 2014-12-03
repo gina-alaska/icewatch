@@ -1,0 +1,23 @@
+= form_for(@fauna) do |f|
+  - if @fauna.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@fauna.errors.count, "error")
+        prohibited this fauna from being saved:
+      %ul
+        - @fauna.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :name
+    %br/
+    = f.text_field :name
+  .field
+    = f.label :count
+    %br/
+    = f.number_field :count
+  .field
+    = f.label :observation_id
+    %br/
+    = f.number_field :observation_id
+  .actions
+    = f.submit

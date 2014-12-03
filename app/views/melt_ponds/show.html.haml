@@ -1,0 +1,31 @@
+%p#notice= notice
+%p
+  %strong Ice observation:
+  = @melt_pond.ice_observation_id
+%p
+  %strong Max depth lookup:
+  = @melt_pond.max_depth_lookup_id
+%p
+  %strong Surface lookup:
+  = @melt_pond.surface_lookup_id
+%p
+  %strong Pattern lookup:
+  = @melt_pond.pattern_lookup_id
+%p
+  %strong Bottom type lookup:
+  = @melt_pond.bottom_type_lookup_id
+%p
+  %strong Surface coverage:
+  = @melt_pond.surface_coverage
+%p
+  %strong Freeboard:
+  = @melt_pond.freeboard
+%p
+  %strong Dried ice:
+  = @melt_pond.dried_ice
+%p
+  %strong Rotten ice:
+  = @melt_pond.rotten_ice
+= link_to 'Edit', edit_melt_pond_path(@melt_pond)
+|
+\#{link_to 'Back', melt_ponds_path}

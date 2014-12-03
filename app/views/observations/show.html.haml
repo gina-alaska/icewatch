@@ -1,0 +1,19 @@
+%p#notice= notice
+%p
+  %strong Cruise:
+  = @observation.cruise_id
+%p
+  %strong Observed at:
+  = @observation.observed_at
+%p
+  %strong Latitude:
+  = @observation.latitude
+%p
+  %strong Longitude:
+  = @observation.longitude
+%p
+  %strong Uuid:
+  = @observation.uuid
+= link_to 'Edit', edit_observation_path(@observation)
+|
+\#{link_to 'Back', observations_path}

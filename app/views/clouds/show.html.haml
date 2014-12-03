@@ -1,0 +1,19 @@
+%p#notice= notice
+%p
+  %strong Meteorology:
+  = @cloud.meteorology_id
+%p
+  %strong Cloud lookup:
+  = @cloud.cloud_lookup_id
+%p
+  %strong Cover:
+  = @cloud.cover
+%p
+  %strong Height:
+  = @cloud.height
+%p
+  %strong Cloud type:
+  = @cloud.cloud_type
+= link_to 'Edit', edit_cloud_path(@cloud)
+|
+\#{link_to 'Back', clouds_path}

@@ -1,0 +1,22 @@
+%p#notice= notice
+%p
+  %strong Ice observation:
+  = @topography.ice_observation_id
+%p
+  %strong Old:
+  = @topography.old
+%p
+  %strong Snow covered:
+  = @topography.snow_covered
+%p
+  %strong Concentration:
+  = @topography.concentration
+%p
+  %strong Ridge height:
+  = @topography.ridge_height
+%p
+  %strong Topography lookup:
+  = @topography.topography_lookup_id
+= link_to 'Edit', edit_topography_path(@topography)
+|
+\#{link_to 'Back', topographies_path}

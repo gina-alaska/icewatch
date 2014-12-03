@@ -1,0 +1,27 @@
+= form_for(@lookup) do |f|
+  - if @lookup.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@lookup.errors.count, "error")
+        prohibited this lookup from being saved:
+      %ul
+        - @lookup.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :code
+    %br/
+    = f.number_field :code
+  .field
+    = f.label :name
+    %br/
+    = f.text_field :name
+  .field
+    = f.label :type
+    %br/
+    = f.text_field :type
+  .field
+    = f.label :comment
+    %br/
+    = f.text_field :comment
+  .actions
+    = f.submit

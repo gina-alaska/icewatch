@@ -1,0 +1,34 @@
+%p#notice= notice
+%p
+  %strong Observation:
+  = @meteorology.observation_id
+%p
+  %strong Weather lookup:
+  = @meteorology.weather_lookup_id
+%p
+  %strong Visibility lookup:
+  = @meteorology.visibility_lookup_id
+%p
+  %strong Total cloud cover:
+  = @meteorology.total_cloud_cover
+%p
+  %strong Wind speed:
+  = @meteorology.wind_speed
+%p
+  %strong Wind direction:
+  = @meteorology.wind_direction
+%p
+  %strong Air temperature:
+  = @meteorology.air_temperature
+%p
+  %strong Water temperature:
+  = @meteorology.water_temperature
+%p
+  %strong Realtive humidity:
+  = @meteorology.realtive_humidity
+%p
+  %strong Air pressure:
+  = @meteorology.air_pressure
+= link_to 'Edit', edit_meteorology_path(@meteorology)
+|
+\#{link_to 'Back', meteorologies_path}

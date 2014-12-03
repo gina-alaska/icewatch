@@ -1,0 +1,16 @@
+%p#notice= notice
+%p
+  %strong Starts at:
+  = @cruise.starts_at
+%p
+  %strong Ends at:
+  = @cruise.ends_at
+%p
+  %strong Objective:
+  = @cruise.objective
+%p
+  %strong Approved:
+  = @cruise.approved
+= link_to 'Edit', edit_cruise_path(@cruise)
+|
+\#{link_to 'Back', cruises_path}

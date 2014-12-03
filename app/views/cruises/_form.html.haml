@@ -1,0 +1,27 @@
+= form_for(@cruise) do |f|
+  - if @cruise.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@cruise.errors.count, "error")
+        prohibited this cruise from being saved:
+      %ul
+        - @cruise.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :starts_at
+    %br/
+    = f.datetime_select :starts_at
+  .field
+    = f.label :ends_at
+    %br/
+    = f.datetime_select :ends_at
+  .field
+    = f.label :objective
+    %br/
+    = f.text_field :objective
+  .field
+    = f.label :approved
+    %br/
+    = f.check_box :approved
+  .actions
+    = f.submit

@@ -1,0 +1,31 @@
+%h1 Listing melt_ponds
+%table
+  %thead
+    %tr
+      %th Ice observation
+      %th Max depth lookup
+      %th Surface lookup
+      %th Pattern lookup
+      %th Bottom type lookup
+      %th Surface coverage
+      %th Freeboard
+      %th Dried ice
+      %th Rotten ice
+      %th{:colspan => "3"}
+  %tbody
+    - @melt_ponds.each do |melt_pond|
+      %tr
+        %td= melt_pond.ice_observation_id
+        %td= melt_pond.max_depth_lookup_id
+        %td= melt_pond.surface_lookup_id
+        %td= melt_pond.pattern_lookup_id
+        %td= melt_pond.bottom_type_lookup_id
+        %td= melt_pond.surface_coverage
+        %td= melt_pond.freeboard
+        %td= melt_pond.dried_ice
+        %td= melt_pond.rotten_ice
+        %td= link_to 'Show', melt_pond
+        %td= link_to 'Edit', edit_melt_pond_path(melt_pond)
+        %td= link_to 'Destroy', melt_pond, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Melt pond', new_melt_pond_path

@@ -1,0 +1,13 @@
+%p#notice= notice
+%p
+  %strong Name:
+  = @fauna.name
+%p
+  %strong Count:
+  = @fauna.count
+%p
+  %strong Observation:
+  = @fauna.observation_id
+= link_to 'Edit', edit_fauna_path(@fauna)
+|
+\#{link_to 'Back', faunas_path}

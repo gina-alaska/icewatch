@@ -1,0 +1,19 @@
+%h1 Listing faunas
+%table
+  %thead
+    %tr
+      %th Name
+      %th Count
+      %th Observation
+      %th{:colspan => "3"}
+  %tbody
+    - @faunas.each do |fauna|
+      %tr
+        %td= fauna.name
+        %td= fauna.count
+        %td= fauna.observation_id
+        %td= link_to 'Show', fauna
+        %td= link_to 'Edit', edit_fauna_path(fauna)
+        %td= link_to 'Destroy', fauna, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Fauna', new_fauna_path

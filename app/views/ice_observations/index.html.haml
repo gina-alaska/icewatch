@@ -1,0 +1,37 @@
+%h1 Listing ice_observations
+%table
+  %thead
+    %tr
+      %th Observation
+      %th Floe size lookup
+      %th Snow lookup
+      %th Ice lookup
+      %th Algae lookup
+      %th Algae density lookup
+      %th Algae density lookup
+      %th Sediment lookup
+      %th Partial concentration
+      %th Thickness
+      %th Snow thickness
+      %th Obs type
+      %th{:colspan => "3"}
+  %tbody
+    - @ice_observations.each do |ice_observation|
+      %tr
+        %td= ice_observation.observation_id
+        %td= ice_observation.floe_size_lookup_id
+        %td= ice_observation.snow_lookup_id
+        %td= ice_observation.ice_lookup_id
+        %td= ice_observation.algae_lookup_id
+        %td= ice_observation.algae_density_lookup_id
+        %td= ice_observation.algae_density_lookup_id
+        %td= ice_observation.sediment_lookup_id
+        %td= ice_observation.partial_concentration
+        %td= ice_observation.thickness
+        %td= ice_observation.snow_thickness
+        %td= ice_observation.obs_type
+        %td= link_to 'Show', ice_observation
+        %td= link_to 'Edit', edit_ice_observation_path(ice_observation)
+        %td= link_to 'Destroy', ice_observation, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Ice observation', new_ice_observation_path

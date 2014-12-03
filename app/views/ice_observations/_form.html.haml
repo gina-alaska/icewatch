@@ -1,0 +1,59 @@
+= form_for(@ice_observation) do |f|
+  - if @ice_observation.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@ice_observation.errors.count, "error")
+        prohibited this ice_observation from being saved:
+      %ul
+        - @ice_observation.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :observation_id
+    %br/
+    = f.number_field :observation_id
+  .field
+    = f.label :floe_size_lookup_id
+    %br/
+    = f.number_field :floe_size_lookup_id
+  .field
+    = f.label :snow_lookup_id
+    %br/
+    = f.number_field :snow_lookup_id
+  .field
+    = f.label :ice_lookup_id
+    %br/
+    = f.number_field :ice_lookup_id
+  .field
+    = f.label :algae_lookup_id
+    %br/
+    = f.number_field :algae_lookup_id
+  .field
+    = f.label :algae_density_lookup_id
+    %br/
+    = f.number_field :algae_density_lookup_id
+  .field
+    = f.label :algae_density_lookup_id
+    %br/
+    = f.number_field :algae_density_lookup_id
+  .field
+    = f.label :sediment_lookup_id
+    %br/
+    = f.number_field :sediment_lookup_id
+  .field
+    = f.label :partial_concentration
+    %br/
+    = f.number_field :partial_concentration
+  .field
+    = f.label :thickness
+    %br/
+    = f.number_field :thickness
+  .field
+    = f.label :snow_thickness
+    %br/
+    = f.number_field :snow_thickness
+  .field
+    = f.label :obs_type
+    %br/
+    = f.text_field :obs_type
+  .actions
+    = f.submit

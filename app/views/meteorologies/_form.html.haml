@@ -1,0 +1,51 @@
+= form_for(@meteorology) do |f|
+  - if @meteorology.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@meteorology.errors.count, "error")
+        prohibited this meteorology from being saved:
+      %ul
+        - @meteorology.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :observation_id
+    %br/
+    = f.number_field :observation_id
+  .field
+    = f.label :weather_lookup_id
+    %br/
+    = f.number_field :weather_lookup_id
+  .field
+    = f.label :visibility_lookup_id
+    %br/
+    = f.number_field :visibility_lookup_id
+  .field
+    = f.label :total_cloud_cover
+    %br/
+    = f.number_field :total_cloud_cover
+  .field
+    = f.label :wind_speed
+    %br/
+    = f.number_field :wind_speed
+  .field
+    = f.label :wind_direction
+    %br/
+    = f.text_field :wind_direction
+  .field
+    = f.label :air_temperature
+    %br/
+    = f.text_field :air_temperature
+  .field
+    = f.label :water_temperature
+    %br/
+    = f.text_field :water_temperature
+  .field
+    = f.label :realtive_humidity
+    %br/
+    = f.number_field :realtive_humidity
+  .field
+    = f.label :air_pressure
+    %br/
+    = f.number_field :air_pressure
+  .actions
+    = f.submit

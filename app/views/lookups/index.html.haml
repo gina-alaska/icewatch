@@ -1,0 +1,21 @@
+%h1 Listing lookups
+%table
+  %thead
+    %tr
+      %th Code
+      %th Name
+      %th Type
+      %th Comment
+      %th{:colspan => "3"}
+  %tbody
+    - @lookups.each do |lookup|
+      %tr
+        %td= lookup.code
+        %td= lookup.name
+        %td= lookup.type
+        %td= lookup.comment
+        %td= link_to 'Show', lookup
+        %td= link_to 'Edit', edit_lookup_path(lookup)
+        %td= link_to 'Destroy', lookup, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Lookup', new_lookup_path

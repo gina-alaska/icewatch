@@ -1,0 +1,40 @@
+%p#notice= notice
+%p
+  %strong Observation:
+  = @ice_observation.observation_id
+%p
+  %strong Floe size lookup:
+  = @ice_observation.floe_size_lookup_id
+%p
+  %strong Snow lookup:
+  = @ice_observation.snow_lookup_id
+%p
+  %strong Ice lookup:
+  = @ice_observation.ice_lookup_id
+%p
+  %strong Algae lookup:
+  = @ice_observation.algae_lookup_id
+%p
+  %strong Algae density lookup:
+  = @ice_observation.algae_density_lookup_id
+%p
+  %strong Algae density lookup:
+  = @ice_observation.algae_density_lookup_id
+%p
+  %strong Sediment lookup:
+  = @ice_observation.sediment_lookup_id
+%p
+  %strong Partial concentration:
+  = @ice_observation.partial_concentration
+%p
+  %strong Thickness:
+  = @ice_observation.thickness
+%p
+  %strong Snow thickness:
+  = @ice_observation.snow_thickness
+%p
+  %strong Obs type:
+  = @ice_observation.obs_type
+= link_to 'Edit', edit_ice_observation_path(@ice_observation)
+|
+\#{link_to 'Back', ice_observations_path}

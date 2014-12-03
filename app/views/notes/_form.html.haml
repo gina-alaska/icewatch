@@ -1,0 +1,19 @@
+= form_for(@note) do |f|
+  - if @note.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@note.errors.count, "error")
+        prohibited this note from being saved:
+      %ul
+        - @note.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :text
+    %br/
+    = f.text_field :text
+  .field
+    = f.label :observation_id
+    %br/
+    = f.number_field :observation_id
+  .actions
+    = f.submit

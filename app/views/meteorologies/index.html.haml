@@ -1,0 +1,33 @@
+%h1 Listing meteorologies
+%table
+  %thead
+    %tr
+      %th Observation
+      %th Weather lookup
+      %th Visibility lookup
+      %th Total cloud cover
+      %th Wind speed
+      %th Wind direction
+      %th Air temperature
+      %th Water temperature
+      %th Realtive humidity
+      %th Air pressure
+      %th{:colspan => "3"}
+  %tbody
+    - @meteorologies.each do |meteorology|
+      %tr
+        %td= meteorology.observation_id
+        %td= meteorology.weather_lookup_id
+        %td= meteorology.visibility_lookup_id
+        %td= meteorology.total_cloud_cover
+        %td= meteorology.wind_speed
+        %td= meteorology.wind_direction
+        %td= meteorology.air_temperature
+        %td= meteorology.water_temperature
+        %td= meteorology.realtive_humidity
+        %td= meteorology.air_pressure
+        %td= link_to 'Show', meteorology
+        %td= link_to 'Edit', edit_meteorology_path(meteorology)
+        %td= link_to 'Destroy', meteorology, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Meteorology', new_meteorology_path
