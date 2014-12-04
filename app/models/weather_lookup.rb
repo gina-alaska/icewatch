@@ -1,0 +1,2 @@
+class WeatherLookup < Lookup
+end

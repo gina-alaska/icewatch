@@ -1,0 +1,2 @@
+class PatternLookup < Lookup
+end

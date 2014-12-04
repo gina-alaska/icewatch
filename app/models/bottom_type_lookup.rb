@@ -1,0 +1,2 @@
+class BottomTypeLookup < Lookup
+end

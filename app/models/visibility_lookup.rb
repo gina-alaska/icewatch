@@ -1,0 +1,2 @@
+class VisibilityLookup < Lookup
+end

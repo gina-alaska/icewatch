@@ -1,0 +1,2 @@
+class IceLookup < Lookup
+end

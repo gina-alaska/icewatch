@@ -1,0 +1,2 @@
+class OnBoatLocationLookup < Lookup
+end

@@ -1,0 +1,2 @@
+class ShipActivityLookup < Lookup
+end

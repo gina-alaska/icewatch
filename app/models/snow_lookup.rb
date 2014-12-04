@@ -1,0 +1,2 @@
+class SnowLookup < Lookup
+end

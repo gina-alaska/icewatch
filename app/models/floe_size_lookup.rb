@@ -1,0 +1,2 @@
+class FloeSizeLookup < Lookup
+end

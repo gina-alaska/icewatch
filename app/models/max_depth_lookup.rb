@@ -1,0 +1,2 @@
+class MaxDepthLookup < Lookup
+end

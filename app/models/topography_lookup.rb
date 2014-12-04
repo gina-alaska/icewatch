@@ -1,0 +1,2 @@
+class TopographyLookup < Lookup
+end

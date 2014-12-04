@@ -1,0 +1,2 @@
+class SedimentLookup < Lookup
+end

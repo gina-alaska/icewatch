@@ -1,0 +1,2 @@
+class OpenWaterLookup < Lookup
+end

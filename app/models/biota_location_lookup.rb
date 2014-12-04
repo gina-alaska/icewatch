@@ -1,0 +1,2 @@
+class BiotaLocationLookup < Lookup
+end

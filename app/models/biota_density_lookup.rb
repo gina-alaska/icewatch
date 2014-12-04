@@ -1,0 +1,2 @@
+class BiotaDensityLookup < Lookup
+end
