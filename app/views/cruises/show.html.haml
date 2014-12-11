@@ -1,15 +1,17 @@
-= render 'breadcrumbs'
-.btn-group
-  .btn.btn-primary Download Data
-  .btn.btn-primary.dropdown-toggle{data: {toggle: 'dropdown'}}
-    %span.caret
-  %ul.dropdown-menu
-    %li= link_to "CSV", "#"
-    %li= link_to "JSON", "#"
-    %li= link_to "Sigrid3(Beta)", "#"
-
+.panel.panel-default
+  .panel-body
+    %strong= @cruise.ship
 .row
-  .col-md-2.col
+  .col-md-2
+    %ul.list-group
+      %li.list-group-item.active
+        %strong Download Data
+      %li.list-group-item
+        =link_to "CSV", "#"
+      %li.list-group-item
+        = link_to "JSON", "#"
+      %li.list-group-item
+        = link_to "Sigrid3(Beta)", "#"
     %ul.nav.nav-pills.nav-stacked
       %li.active= link_to "Map", "#"
       %li= link_to "Graphs", "#"

@@ -1,5 +1,23 @@
 = render 'breadcrumbs'
+-#
+-# .panel.panel-primary
+-#   .panel-heading
+-#     Welcome to IceWatch
+-#   .panel-body
+-#     Access current and archive ice observations
+-#   .panel-footer
+-#     .btn.btn-primary
+-#       =link_to "Download ASSIST", "#"
+-#     .btn.btn-default
+-#       =link_to "Register new cruise", "#"
 
-%ul
-- @cruises.each do |cruise|
-  = link_to cruise.ship, cruise_path(cruise)
+.row
+  .col-md-2
+    %ul.list-group
+      %li.list-group-item.active
+        %strong= "#{current_year} Cruises"
+      - @cruises.each do |cruise|
+        %li.list-group-item
+          = link_to cruise.ship, cruise_path(cruise)
+          %span.badge
+            =cruise.observations.count
