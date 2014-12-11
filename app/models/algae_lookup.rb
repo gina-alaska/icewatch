@@ -1,0 +1,2 @@
+class AlgaeLookup < Lookup
+end

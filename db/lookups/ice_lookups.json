@@ -1,0 +1,58 @@
+[
+  {
+    "code": 10,
+    "name": "Frazil"
+  },
+  {
+    "code": 11,
+    "name": "Shuga"
+  },
+  {
+    "code": 12,
+    "name": "Grease"
+  },
+  {
+    "code": 20,
+    "name": "Nilas"
+  },
+  {
+    "code": 30,
+    "name": "Pancakes"
+  },
+  {
+    "code": 40,
+    "name": "Young Grey Ice 10-15cm"
+  },
+  {
+    "code": 50,
+    "name": "Young Grey-White Ice 15-30cm"
+  },
+  {
+    "code": 60,
+    "name": "First year < 70cm"
+  },
+  {
+    "code": 70,
+    "name": "First year 70-120cm"
+  },
+  {
+    "code": 80,
+    "name": "First year > 120cm"
+  },
+  {
+    "code": 75,
+    "name": "Second year"
+  },
+  {
+    "code": 85,
+    "name": "Multiyear"
+  },
+  {
+    "code": 90,
+    "name": "Brash"
+  },
+  {
+    "code": 95,
+    "name": "Fast ice"
+  }
+]

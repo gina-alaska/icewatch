@@ -1,0 +1,62 @@
+[
+  {
+    "code": "St",
+    "group": "Low",
+    "height": "Surface-600M",
+    "name": "Stratus"
+  },
+  {
+    "code": "S",
+    "group": "Low",
+    "height": "300-1500M",
+    "name": "Stratocumulus"
+  },
+  {
+    "code": "Ns",
+    "group": "Low",
+    "height": "Nimbostratus",
+    "name": "Nimbostratus"
+  },
+  {
+    "code": "Cu",
+    "group": "Low",
+    "height": "300-1500M",
+    "name": "Cumulus"
+  },
+  {
+    "code": "Cn",
+    "group": "Low",
+    "height": "600-1500M",
+    "name": "Cumulonimbus"
+  },
+  {
+    "code": "As",
+    "group": "Medium",
+    "height": "Surface-3000M",
+    "name": "Altostratus"
+  },
+  {
+    "code": "Ac",
+    "group": "Medium",
+    "height": "2000-6000",
+    "name": "AltoCumulus"
+  },
+  {
+    "code": "Ci",
+    "group": "High",
+    "height": "6000-12000M",
+    "name": "Cirrus"
+  },
+  {
+    "code": "Cs",
+    "group": "High",
+    "height": "6000-12000M",
+    "name": "Cirrostratus"
+  },
+  {
+    "code": "Cc",
+    "group": "High",
+    "height": "6000-12000M",
+    "name": "Cirrocumulus"
+  }
+]

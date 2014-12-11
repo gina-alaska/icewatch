@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.6'
+gem 'rails', '4.1.8'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use SCSS for stylesheets
@@ -53,6 +53,9 @@ gem 'nested_form'
 gem 'bootstrap_form'
 gem 'cancancan'
 
-gem 'better_errors', group: :development
-gem 'shoulda', group: :test
+group :development do
+  gem 'better_errors'
+  gem 'httparty'
+end
 
+gem 'shoulda', group: :test

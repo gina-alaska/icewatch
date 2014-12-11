@@ -1,4 +1,5 @@
 class Person < ActiveRecord::Base
-  belongs_to :observation
+  has_many :person_observations
+  has_many :observations, through: :person_observations
 
 end

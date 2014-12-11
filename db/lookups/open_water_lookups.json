@@ -1,0 +1,46 @@
+[
+  {
+    "code": 0,
+    "name": "No openings"
+  },
+  {
+    "code": 1,
+    "name": "Small cracks"
+  },
+  {
+    "code": 2,
+    "name": "Very narrow breaks <50m"
+  },
+  {
+    "code": 3,
+    "name": "Narrow breaks, 50-200m"
+  },
+  {
+    "code": 4,
+    "name": "Wide breaks, 200-500m"
+  },
+  {
+    "code": 5,
+    "name": "Very wide breaks, >500m"
+  },
+  {
+    "code": 6,
+    "name": "Leads"
+  },
+  {
+    "code": 7,
+    "name": "Polynya"
+  },
+  {
+    "code": 8,
+    "name": "Water broken only by scattered floes"
+  },
+  {
+    "code": 9,
+    "name": "Open Sea"
+  },
+  {
+    "code": 10,
+    "name": "Stripes and Patches"
+  }
+]

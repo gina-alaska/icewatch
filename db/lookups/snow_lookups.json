@@ -1,0 +1,50 @@
+[
+  {
+    "code": 0,
+    "name": "No snow observation"
+  },
+  {
+    "code": 1,
+    "name": "No snow, no ice or brash"
+  },
+  {
+    "code": 2,
+    "name": "Cold new snow, <1 day old"
+  },
+  {
+    "code": 3,
+    "name": "Cold old snow"
+  },
+  {
+    "code": 4,
+    "name": "Cold wind-packed snow"
+  },
+  {
+    "code": 5,
+    "name": "New melting snow (wet new snow)"
+  },
+  {
+    "code": 6,
+    "name": "Old melting snow"
+  },
+  {
+    "code": 7,
+    "name": "Glaze"
+  },
+  {
+    "code": 8,
+    "name": "Melt slush"
+  },
+  {
+    "code": 9,
+    "name": "Melt puddles"
+  },
+  {
+    "code": 10,
+    "name": "Saturated snow"
+  },
+  {
+    "code": 11,
+    "name": "Sastrugi"
+  }
+]

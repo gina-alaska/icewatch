@@ -1,0 +1,22 @@
+[
+  {
+    "code": 100,
+    "name": "Level Ice"
+  },
+  {
+    "code": 200,
+    "name": "Rafted Pancakes"
+  },
+  {
+    "code": 300,
+    "name": "Cemented Pancakes"
+  },
+  {
+    "code": 400,
+    "name": "Rafting"
+  },
+  {
+    "code": 500,
+    "name": "Ridges"
+  }
+]

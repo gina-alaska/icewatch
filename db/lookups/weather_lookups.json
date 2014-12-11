@@ -1,0 +1,377 @@
+[
+  {
+    "code": 37,
+    "comment": "Blowing or drifting snow",
+    "name": "Drifting snow below eye level, heavy"
+  },
+  {
+    "code": 39,
+    "comment": "Blowing or drifting snow",
+    "name": "Blowing snow, above eye level, heavy"
+  },
+  {
+    "code": 36,
+    "comment": "Blowing or drifting snow",
+    "name": "Drifting snow below eye level, slight/moderate"
+  },
+  {
+    "code": 38,
+    "comment": "Blowing or drifting snow",
+    "name": "Blowing snow, above eye level, slight/moderate"
+  },
+  {
+    "code": 40,
+    "comment": "Blowing or drifting snow",
+    "name": "Fog at a distance but not at ship in past hour**Visibility may be greater than 1⁄2 naut. mi."
+  },
+  {
+    "code": 41,
+    "comment": "Fog/Mist",
+    "name": "Fog in patches"
+  },
+  {
+    "code": 49,
+    "comment": "Fog/Mist",
+    "name": "Fog depositing rime, sky not discernable"
+  },
+  {
+    "code": 50,
+    "comment": "Precipitation as drizzle",
+    "name": "Slight drizzle, intermittent"
+  },
+  {
+    "code": 51,
+    "comment": "Precipitation as drizzle",
+    "name": "Slight drizzle, continuous"
+  },
+  {
+    "code": 52,
+    "comment": "Precipitation as drizzle",
+    "name": "Moderate drizzle, intermittent"
+  },
+  {
+    "code": 53,
+    "comment": "Precipitation as drizzle",
+    "name": "Moderate drizzle, continuous"
+  },
+  {
+    "code": 54,
+    "comment": "Precipitation as drizzle",
+    "name": "Dense drizzle, intermittent"
+  },
+  {
+    "code": 55,
+    "comment": "Precipitation as drizzle",
+    "name": "Dense drizzle, continuous"
+  },
+  {
+    "code": 56,
+    "comment": "Precipitation as drizzle",
+    "name": "Freezing drizzle, slight"
+  },
+  {
+    "code": 57,
+    "comment": "Precipitation as drizzle",
+    "name": "Freezing drizzle, moderate or dense"
+  },
+  {
+    "code": 58,
+    "comment": "Precipitation as drizzle",
+    "name": "Drizzle and rain, slight"
+  },
+  {
+    "code": 60,
+    "comment": "Precipitation as rain, not showers",
+    "name": "Slight rain, intermittent"
+  },
+  {
+    "code": 61,
+    "comment": "Precipitation as rain, not showers",
+    "name": "Slight rain, continuous"
+  },
+  {
+    "code": 62,
+    "comment": "Precipitation as rain, not showers",
+    "name": "Moderate rain, intermittent"
+  },
+  {
+    "code": 63,
+    "comment": "Precipitation as rain, not showers",
+    "name": "Moderate rain, continuous"
+  },
+  {
+    "code": 64,
+    "comment": "Precipitation as rain, not showers",
+    "name": "Heavy rain, intermittent"
+  },
+  {
+    "code": 65,
+    "comment": "Precipitation as rain, not showers",
+    "name": "Heavy rain, continuous"
+  },
+  {
+    "code": 66,
+    "comment": "Precipitation as rain, not showers",
+    "name": "Freezing rain, slight"
+  },
+  {
+    "code": 67,
+    "comment": "Precipitation as rain, not showers",
+    "name": "Freezing rain, moderate or heavy"
+  },
+  {
+    "code": 68,
+    "comment": "Precipitation as rain, not showers",
+    "name": "Rain or drizzle and snow, slight"
+  },
+  {
+    "code": 69,
+    "comment": "Precipitation as rain, not showers",
+    "name": "Rain or drizzle and snow, moderate/heavy"
+  },
+  {
+    "code": 70,
+    "comment": "Frozen precipitation, not showers",
+    "name": "Slight fall of snow flakes, intermittent"
+  },
+  {
+    "code": 71,
+    "comment": "Frozen precipitation, not showers",
+    "name": "Slight fall of snow flakes, continuous"
+  },
+  {
+    "code": 72,
+    "comment": "Frozen precipitation, not showers",
+    "name": "Moderate fall of snow flakes, intermittent"
+  },
+  {
+    "code": 73,
+    "comment": "Frozen precipitation, not showers",
+    "name": "Moderate fall of snow flakes, continuous"
+  },
+  {
+    "code": 75,
+    "comment": "Frozen precipitation, not showers",
+    "name": "Heavy fall of snow flakes, continuous"
+  },
+  {
+    "code": 76,
+    "comment": "Frozen precipitation, not showers",
+    "name": "Ice prisms, with/without fog"
+  },
+  {
+    "code": 77,
+    "comment": "Frozen precipitation, not showers",
+    "name": "Snow grains, with/without fog"
+  },
+  {
+    "code": 78,
+    "comment": "Frozen precipitation, not showers",
+    "name": "Isolated star like crystals"
+  },
+  {
+    "code": 81,
+    "comment": "Precipitation as showers",
+    "name": "Moderate or heavy rain showers"
+  },
+  {
+    "code": 83,
+    "comment": "Precipitation as showers",
+    "name": "Slight showers of rain and snow"
+  },
+  {
+    "code": 84,
+    "comment": "Precipitation as showers",
+    "name": "Moderate/heavy showers of rain and snow"
+  },
+  {
+    "code": 85,
+    "comment": "Precipitation as showers",
+    "name": "Slight snow showers"
+  },
+  {
+    "code": 86,
+    "comment": "Precipitation as showers",
+    "name": "Moderate or heavy snow showers"
+  },
+  {
+    "code": 87,
+    "comment": "Precipitation as showers",
+    "name": "Slight showers of soft or small hail"
+  },
+  {
+    "code": 88,
+    "comment": "Precipitation as showers",
+    "name": "Moderate/heavy showers of soft/small hail"
+  },
+  {
+    "code": 89,
+    "comment": "Precipitation as showers",
+    "name": "Slight showers of hail"
+  },
+  {
+    "code": 90,
+    "comment": "Precipitation as showers",
+    "name": "Moderate or heavy showers of hail"
+  },
+  {
+    "code": 0,
+    "comment": "Cloud development",
+    "name": "Clouds not observable/observed"
+  },
+  {
+    "code": 1,
+    "comment": "Cloud development",
+    "name": "Clouds dissolving or becoming less developed"
+  },
+  {
+    "code": 2,
+    "comment": "Cloud development",
+    "name": "State of sky as a whole unchanged"
+  },
+  {
+    "code": 3,
+    "comment": "Cloud development",
+    "name": "Clouds forming or developing"
+  },
+  {
+    "code": 10,
+    "comment": "",
+    "name": "Mist (Visibility 1⁄2 Nautical mi. or more)"
+  },
+  {
+    "code": 11,
+    "comment": "",
+    "name": "Shallow fog in patches"
+  },
+  {
+    "code": 12,
+    "comment": "",
+    "name": "Shallow fog - more or less continuous"
+  },
+  {
+    "code": 14,
+    "comment": "",
+    "name": "Precipitation in sight, not reaching surface"
+  },
+  {
+    "code": 15,
+    "comment": "",
+    "name": "Precip. beyond 3 naut. mi. — reaching surface"
+  },
+  {
+    "code": 16,
+    "comment": "",
+    "name": "Precip. within 3 naut. mi. — reaching surface"
+  },
+  {
+    "code": 20,
+    "comment": "Fog/Precipitation during past hour but not at time of obs",
+    "name": "Drizzle not freezing or snow grains"
+  },
+  {
+    "code": 21,
+    "comment": "Fog/Precipitation during past hour but not at time of obs",
+    "name": "Rain not freezing or snow grains"
+  },
+  {
+    "code": 22,
+    "comment": "Fog/Precipitation during past hour but not at time of obs",
+    "name": "Snow not freezing or snow grains"
+  },
+  {
+    "code": 23,
+    "comment": "Fog/Precipitation during past hour but not at time of obs",
+    "name": "Rain and snow or ice pellets"
+  },
+  {
+    "code": 24,
+    "comment": "Fog/Precipitation during past hour but not at time of obs",
+    "name": "Drizzle or rain, freezing"
+  },
+  {
+    "code": 25,
+    "comment": "Fog/Precipitation during past hour but not at time of obs",
+    "name": "Showers of rain"
+  },
+  {
+    "code": 26,
+    "comment": "Fog/Precipitation during past hour but not at time of obs",
+    "name": "Showers of snow, or of rain and snow"
+  },
+  {
+    "code": 27,
+    "comment": "Fog/Precipitation during past hour but not at time of obs",
+    "name": "Showers of hail, or of rain and hail"
+  },
+  {
+    "code": 28,
+    "comment": "Fog/Precipitation during past hour but not at time of obs",
+    "name": "Fog in past hour, not at present"
+  },
+  {
+    "code": 29,
+    "comment": "",
+    "name": "Thunderstorm, with or without precipitation"
+  },
+  {
+    "code": 42,
+    "comment": "Fog/Mist",
+    "name": "Fog thinning in last hour, sky discernable"
+  },
+  {
+    "code": 43,
+    "comment": "Fog/Mist",
+    "name": "Fog thinning in last hour, sky not discernable"
+  },
+  {
+    "code": 44,
+    "comment": "Fog/Mist",
+    "name": "Fog unchanged in last hour, sky discernable"
+  },
+  {
+    "code": 45,
+    "comment": "Fog/Mist",
+    "name": "Fog unchanged in last hour, sky not discernable"
+  },
+  {
+    "code": 46,
+    "comment": "Fog/Mist",
+    "name": "Fog beginning/thickening in last hour, sky discernable"
+  },
+  {
+    "code": 47,
+    "comment": "Fog/Mist",
+    "name": "Fog beginning/thickening in last hour, sky not discernable"
+  },
+  {
+    "code": 48,
+    "comment": "Fog/Mist",
+    "name": "Fog depositing rime, sky discernable"
+  },
+  {
+    "code": 59,
+    "comment": "Precipitation as drizzle",
+    "name": "Drizzle and rain, moderate or dense"
+  },
+  {
+    "code": 74,
+    "comment": "Frozen precipitation, not showers",
+    "name": "Heavy fall of snow flakes, intermittent"
+  },
+  {
+    "code": 79,
+    "comment": "Frozen precipitation, not showers",
+    "name": "Ice pellets"
+  },
+  {
+    "code": 80,
+    "comment": "Precipitation as showers",
+    "name": "Slight rain showers"
+  },
+  {
+    "code": 82,
+    "comment": "Precipitation as showers",
+    "name": "Violent rain showers"
+  }
+]

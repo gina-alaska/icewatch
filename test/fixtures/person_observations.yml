@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  primary: false
+  observation_id: 1
+  person_id: 1
+
+two:
+  primary: false
+  observation_id: 1
+  person_id: 1

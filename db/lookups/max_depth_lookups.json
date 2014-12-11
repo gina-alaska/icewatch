@@ -1,0 +1,22 @@
+[
+  {
+    "code": 1,
+    "name": "0-10cm"
+  },
+  {
+    "code": 2,
+    "name": "10-30cm"
+  },
+  {
+    "code": 3,
+    "name": "30-50cm"
+  },
+  {
+    "code": 4,
+    "name": ">50cm"
+  },
+  {
+    "code": -9,
+    "name": "Unknown"
+  }
+]

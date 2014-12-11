@@ -1,2 +1,0 @@
-class BiotaDensityLookup < Lookup
-end
