@@ -1,21 +1,5 @@
-%h1 Listing cruises
-%table
-  %thead
-    %tr
-      %th Starts at
-      %th Ends at
-      %th Objective
-      %th Approved
-      %th{:colspan => "3"}
-  %tbody
-    - @cruises.each do |cruise|
-      %tr
-        %td= cruise.starts_at
-        %td= cruise.ends_at
-        %td= cruise.objective
-        %td= cruise.approved
-        %td= link_to 'Show', cruise
-        %td= link_to 'Edit', edit_cruise_path(cruise)
-        %td= link_to 'Destroy', cruise, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
-= link_to 'New Cruise', new_cruise_path
+= render 'breadcrumbs'
+
+%ul
+- @cruises.each do |cruise|
+  = link_to cruise.ship, cruise_path(cruise)

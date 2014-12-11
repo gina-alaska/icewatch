@@ -1,27 +1,28 @@
 Rails.application.routes.draw do
+  # resources :lookups
+  #
+  # resources :faunas
+  #
+  # resources :notes
+  #
+  # resources :comments
+  #
+  # resources :clouds
+  #
+  # resources :meteorologies
+  #
+  # resources :topographies
+  #
+  # resources :melt_ponds
+  #
+  # resources :ice_observations
+  #
+  # resources :people
+  #
+  resources :cruises, shallow: true do
+    resources :observations
+  end
   resources :lookups
-
-  resources :faunas
-
-  resources :notes
-
-  resources :comments
-
-  resources :clouds
-
-  resources :meteorologies
-
-  resources :topographies
-
-  resources :melt_ponds
-
-  resources :ice_observations
-
-  resources :people
-
-  resources :cruises
-
-  resources :observations
 
   get '/logout', to: 'sessions#destroy'
   get '/login', to: 'sessions#new'
@@ -38,7 +39,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'cruises#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

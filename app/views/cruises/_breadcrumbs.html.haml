@@ -1,0 +1,5 @@
+- content_for :breadcrumb do
+  %li= link_to "Cruises", cruises_path
+  %li= link_to current_year, cruises_path
+  - if @cruise.present?
+    %li= @cruise.ship
