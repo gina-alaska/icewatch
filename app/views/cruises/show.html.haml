@@ -1,6 +1,7 @@
-.panel.panel-default
-  .panel-body
-    %strong= @cruise.ship
+%h1
+  = @cruise.ship
+  %small
+    = "#{ymd(@cruise.starts_at)} to #{ymd(@cruise.ends_at)}"
 .row
   .col-md-2
     %ul.list-group
@@ -18,5 +19,12 @@
       %li= link_to "Photos", "#"
       %li= link_to "Observations", "#"
   .col-md-10
-    #map
-      THIS IS A MAP
+    .panel.panel-default
+      #map.map{data: {cruise_info: cruise_path(@cruise, 'geojson')}}
+      .panel-body
+        %h4 Observed Sea Ice Type
+        .legend
+          %span.label.new-ice New Ice
+          %span.label.first-year-ice First Year Ice
+          %span.label.old-ice Old Ice
+          %span.label.other-ice Other

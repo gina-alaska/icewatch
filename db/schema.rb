@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140921230751) do
+ActiveRecord::Schema.define(version: 20141210212651) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,9 +29,9 @@ ActiveRecord::Schema.define(version: 20140921230751) do
     t.integer  "cloud_lookup_id"
     t.integer  "cover"
     t.integer  "height"
-    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "cloud_type"
   end
 
   create_table "comments", force: true do |t|
@@ -51,6 +51,12 @@ ActiveRecord::Schema.define(version: 20140921230751) do
     t.integer  "ship_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "chief_scientist"
+    t.string   "captain"
+    t.string   "primary_observer"
+    t.string   "name"
+    t.string   "ship"
+    t.boolean  "archived",         default: false
   end
 
   create_table "faunas", force: true do |t|
@@ -72,9 +78,10 @@ ActiveRecord::Schema.define(version: 20140921230751) do
     t.integer  "partial_concentration"
     t.integer  "thickness"
     t.integer  "snow_thickness"
-    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "algae_location_lookup_id"
+    t.string   "obs_type"
   end
 
   create_table "ices", force: true do |t|
@@ -82,15 +89,20 @@ ActiveRecord::Schema.define(version: 20140921230751) do
     t.integer  "total_concentration"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "open_water_lookup_id"
+    t.integer  "thick_ice_lookup_id"
+    t.integer  "thin_ice_lookup_id"
   end
 
   create_table "lookups", force: true do |t|
-    t.integer  "code"
+    t.string   "code"
     t.string   "name"
     t.string   "type"
     t.string   "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "height"
+    t.string   "group"
   end
 
   create_table "melt_ponds", force: true do |t|
@@ -123,7 +135,7 @@ ActiveRecord::Schema.define(version: 20140921230751) do
     t.string   "wind_direction"
     t.float    "air_temperature"
     t.float    "water_temperature"
-    t.integer  "realtive_humidity"
+    t.integer  "relative_humidity"
     t.integer  "air_pressure"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -153,15 +165,34 @@ ActiveRecord::Schema.define(version: 20140921230751) do
     t.datetime "updated_at"
   end
 
+  create_table "person_observations", force: true do |t|
+    t.boolean  "primary"
+    t.integer  "observation_id"
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ships", force: true do |t|
+    t.integer  "heading"
+    t.integer  "power"
+    t.integer  "speed"
+    t.integer  "ship_activity_lookup_id"
+    t.integer  "observation_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "topographies", force: true do |t|
     t.integer  "ice_observation_id"
     t.boolean  "old"
     t.boolean  "snow_covered"
     t.integer  "concentration"
-    t.integer  "ridge_height"
+    t.float    "ridge_height"
     t.integer  "topography_lookup_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "consolidated"
   end
 
   create_table "users", force: true do |t|

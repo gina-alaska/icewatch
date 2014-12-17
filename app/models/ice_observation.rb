@@ -33,4 +33,13 @@ class IceObservation < ActiveRecord::Base
       biota_location_lookup: 'biota_location_lookup',
       sediment_lookup: 'sediment_lookup'}
   end
+
+  def ice_type
+    case ice_lookup.try(:code)
+    when *IceLookup::OLD_ICE; 'old'
+    when *IceLookup::NEW_ICE; 'new'
+    when *IceLookup::FIRST_YEAR_ICE; 'first-year'
+    when *IceLookup::OTHER; 'other'
+    end
+  end
 end
