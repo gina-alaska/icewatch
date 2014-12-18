@@ -1,0 +1,20 @@
+- if signed_in?
+  = link_to "#", class: 'dropdown-toggle', data: {toggle: 'dropdown'} do
+    Welcome!
+    %span.caret
+  %ul.dropdown-menu
+    %li= link_to "My Dashboard", user_path(current_user)
+    %li= link_to "Logout", logout_path
+- else
+  = link_to '#', class: 'dropdown-toggle', data: {toggle: 'dropdown'} do
+    Login
+    %span.caret
+  %ul.dropdown-menu
+    %li
+      = link_to '/auth/google', class: 'navbar-link' do
+        %i.fa.fa-fw.fa-2x.fa-google-plus-square
+        Google
+    %li
+      = link_to '/auth/gina', class: 'navbar-link' do
+        %i.fa.fa-fw.fa-2x.fa-google-plus-square
+        GinaID
