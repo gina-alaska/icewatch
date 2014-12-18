@@ -1,0 +1,44 @@
+.jumbotron
+  %h3 Welcome to the
+  %h2 Arctic Shipborne Sea Ice Standardization Tool
+  .btn.btn-primary.btn-lg
+    = "Start Observation"
+
+.col-md-2.col-sm-2
+  %ul.list-group
+    %li.list-group-item.active
+      Export
+    %li.list-group-item
+      = link_to "All Observations", "#"
+    %li.list-group-item
+      = link_to "Selected Observations", "#"
+
+  %ul.list-group
+    %li.list-group-item.active
+      Import
+    %li.list-group-item
+      From ASSIST
+    %li.list-group-item
+      From CSV
+
+  %ul.list-group
+    %li.list-group-item.active
+      Change Cruise
+    = render @cruises
+.col-md-10.col-sm-10
+  .panel.panel-primary
+    .panel-heading
+      %h4
+        = "#{@active_cruise.ship}: #{@active_cruise.starts_at} - #{@active_cruise.ends_at}"
+    %table.table
+      %thead
+        %tr
+          %th All/None
+          %th Observation Date
+          %th Last Modified
+          %th Total Ice Concentration
+          %th Primary Observer
+          %th Additional Observers
+          %th
+      %tbody
+        = render partial: 'observation', collection: @active_cruise.observations

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
 
   def set_variant_type
-    request.vairant :assist if ENV['ICEWATCH_ASSIST']
+    request.variant= :assist if request.query_parameters.include? 'assist'# ENV['ICEWATCH_ASSIST']
   end
 
 end

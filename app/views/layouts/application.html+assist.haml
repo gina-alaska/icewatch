@@ -1,0 +1,16 @@
+!!!
+%html
+  %head
+    %title A.S.S.I.S.T.
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    .navbar.navbar-default
+      .container-fluid
+        .navbar-header
+          = link_to "A.S.S.I.S.T", root_url, class: 'navbar-brand'
+        %ul.nav.navbar-nav.navbar-right
+          %li= link_to "About", "/about/pages"
+
+    = yield

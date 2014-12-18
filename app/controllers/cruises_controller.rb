@@ -1,5 +1,6 @@
 class CruisesController < ApplicationController
   before_action :set_cruise, only: [:show, :edit, :update, :destroy]
+  before_action :set_active_cruise, only: [:index, :show]
 
   # GET /cruises
   # GET /cruises.json
@@ -70,5 +71,9 @@ class CruisesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def cruise_params
       params.require(:cruise).permit(:starts_at, :ends_at, :objective, :approved)
+    end
+
+    def set_active_cruise
+      @active_cruise = Cruise.where(id:cookies[:current_cruise]).first || Cruise.first
     end
 end

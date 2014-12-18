@@ -1,31 +1,80 @@
-= form_for(@observation) do |f|
-  - if @observation.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@observation.errors.count, "error")
-        prohibited this observation from being saved:
-      %ul
-        - @observation.errors.full_messages.each do |message|
-          %li= message
-  .field
-    = f.label :cruise_id
-    %br/
-    = f.number_field :cruise_id
-  .field
-    = f.label :observed_at
-    %br/
-    = f.datetime_select :observed_at
-  .field
-    = f.label :latitude
-    %br/
-    = f.text_field :latitude
-  .field
-    = f.label :longitude
-    %br/
-    = f.text_field :longitude
-  .field
-    = f.label :uuid
-    %br/
-    = f.text_field :uuid
-  .actions
-    = f.submit
+= form_for @observation do |f|
+  -# .row
+    -# .col-md-1
+    -#   .btn-group.btn-group-justified
+    -#     .btn.btn-danger.disabled Invalid
+    -# .col-md-6
+    -#   -# .btn-group.btn-group-justified
+    -#   -#   .btn.btn-primary General
+    -#   -#   .btn.btn-default Ice
+    -#   -#   .btn.btn-default Meteorology
+    -#   -#   .btn.btn-default Photos
+    -#   -#   .btn.btn-default Comments
+    -# .col-md-2
+    -#   .btn-group.btn-group-justified
+    -#     .btn.btn-info Add Comment
+    -# .col-md-3
+    -#   .btn-group.btn-group-justified
+    -#     .btn.btn-success Save
+    -#     .btn.btn-warning Save and Exit
+  .row
+    .col-md-2
+      .btn.btn-info.btn-block Add Comment
+      %br
+      %ul.nav.nav-pills.nav-stacked
+        %li.active= link_to "General", "#general-page"
+        %li= link_to "Ice", "#ice-page"
+        %li= link_to "Meteorology", "#meteorology-page"
+        %li= link_to "Photos", "#photos-page"
+        %li= link_to "Comments", "#comments-page"
+
+      = f.submit 'Save', class: 'btn btn-block btn-success'
+      = f.submit 'Save and Exit', class: 'btn btn-block btn-warning'
+    .col-md-10
+      .row
+        %ul.nav.nav-tabs.nav-justified
+          %li.active= link_to "Observation", '#observation-tab'
+          %li= link_to "Ship", '#ship-tab'
+          %li= link_to "Fauna", '#fauna-tab'
+          %li= link_to "Notes", '#notes-tab'
+        .tab-content
+          #observation-tab.tab-pan.active
+            = f.collection_select :primary_observer, Person.all, :id, :name
+            = f.collection_select :additional_observer_ids, Person.all, :id, :name
+            = f.text_field :observed_at
+            = f.text_field :latitude
+            = f.text_field :longitude
+          #ship-tab
+          #fauna-tab
+          #notes-tab
+-# = form_for(@observation) do |f|
+-#   - if @observation.errors.any?
+-#     #error_explanation
+-#       %h2
+-#         = pluralize(@observation.errors.count, "error")
+-#         prohibited this observation from being saved:
+-#       %ul
+-#         - @observation.errors.full_messages.each do |message|
+-#           %li= message
+-#   .field
+-#     = f.label :cruise_id
+-#     %br/
+-#     = f.number_field :cruise_id
+-#   .field
+-#     = f.label :observed_at
+-#     %br/
+-#     = f.datetime_select :observed_at
+-#   .field
+-#     = f.label :latitude
+-#     %br/
+-#     = f.text_field :latitude
+-#   .field
+-#     = f.label :longitude
+-#     %br/
+-#     = f.text_field :longitude
+-#   .field
+-#     = f.label :uuid
+-#     %br/
+-#     = f.text_field :uuid
+-#   .actions
+-#     = f.submit
