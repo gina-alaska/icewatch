@@ -3,12 +3,12 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
-  $('.fileinput').on 'change.bs.fileinput', (event) ->
-    console.log(event)
+  $(document).on 'change.bs.fileinput', '.fileinput', (event) ->
     $(this).find('input[type=file]').parse
       config:
         header: true
         skipEmptyLines: true
         dynamicTypeing: true
-        complete: (results) ->
+        complete: (results) =>
           $('#obs-upload-complete').text(JSON.stringify(results.data))
+          $(this).fileinput('reset')

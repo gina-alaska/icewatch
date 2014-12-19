@@ -3,11 +3,13 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 
-$(document).ready ->
+$(document).on 'ready page:load', ->
   crs = new L.Proj.CRS('EPSG:3572','+proj=laea +lat_0=90 +lon_0=-150 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs', {
     resolutions: [32768, 16384, 8192, 4096, 2048, 1024, 512, 256, 128,64, 32, 16, 8, 4, 2, 1, 0.5]
     transformation: new L.Transformation(1, -9020047.848073645, -1, 9020047.848073645)
   })
+
+  return if $('#map').length == 0
 
   map = new L.Map 'map',
   	crs: crs,
