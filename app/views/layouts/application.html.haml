@@ -14,9 +14,9 @@
         .navbar-header
           = link_to "Ice Watch", root_url, class: 'navbar-brand'
         %ul.nav.navbar-nav.navbar-right
-          %li= link_to "About", "/about/pages"
-          -# - if current_user.admin?
-          -#   = link_to "Admin", "#"
-          %li= login_helper
+          %li= link_to "About", "/about/pages", class: 'navbar-link'
 
+          - if current_user.has_role? :admin
+            %li= link_to "Admin", "#"
+          %li.dropdown= render 'layouts/login'
     = yield
