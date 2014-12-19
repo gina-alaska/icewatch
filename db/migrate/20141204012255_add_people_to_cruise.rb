@@ -6,6 +6,5 @@ class AddPeopleToCruise < ActiveRecord::Migration
     add_column :cruises, :name, :string
     add_column :cruises, :ship, :string
     add_column :cruises, :archived, :boolean, default: false
-    add_column :cruises, :approved, :boolean, default: false
   end
 end

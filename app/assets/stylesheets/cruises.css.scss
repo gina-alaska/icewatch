@@ -1,3 +1,30 @@
 // Place all the styles related to the cruises controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.map {
+  height: 400px;
+}
+
+.legend {
+  font-size: 1.6em;
+}
+.old-ice{
+  background-color: #50BBD4;
+  fill: #50BBD4;
+}
+
+.new-ice {
+  background-color: #D9D9D9;
+  fill: #D9D9D9;
+}
+
+.first-year-ice {
+  background-color: #BFD7D3;
+  fill: #BFD7D3;
+}
+
+.other-ice {
+  background-color: #92A9C4;
+  fill: #92A9C4;
+}

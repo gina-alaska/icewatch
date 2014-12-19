@@ -121,4 +121,15 @@ class Observation < ActiveRecord::Base
 
     ORDERED_CODES.index(thick.code) >= ORDERED_CODES.index(thin.code)
   end
+
+  def thickness_by_ice_type
+    ice_observations.group_by(&:ice_type).map{|k,v| {k => v.collect(&:partial_concentration).compact.inject(&:+)}}
+  end
+
+  def dominant_ice_type
+    thickness_by_ice_type.max{|(ak,av),(bk,bv)| av <=> bv }.keys.first
+  end
+
+
+
 end
