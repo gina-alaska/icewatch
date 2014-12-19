@@ -4,9 +4,16 @@
     %small= @cruise.starts_at
 
 .col-md-2
-  .btn-group-vertical
-    .btn.btn-default Upload Observations
-    .btn.btn-default Upload Photos
+  -# .btn-group-vertical
+  -#   .btn.btn-default Upload Observations
+  -#   .btn.btn-default Upload Photos
+  .fileinput.fileinput-new{data: {provides: 'fileinput'}}
+    .btn.btn-default.btn-file.btn-block
+      .fileinput-new Upload Observations
+      .fileinput-exists.fileinput-filename
+      = file_field_tag 'observations'
+    -# = link_to 'Cancel', '#', class: 'close fileinput-exists btn btn-primary ', data: {dismiss: 'fileinput'}
+
 .col-md-10
   %dl.dl-horizontal
     %dt Captain
@@ -20,3 +27,7 @@
   -# if @cruise.observations.errors.any?
   .panel.panel-danger
     .panel-heading Observations Needing Correction
+
+  .panel.panel-info
+    .panel-heading Observation Uploads
+    #obs-upload-complete.panel-body
