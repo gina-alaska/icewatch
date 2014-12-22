@@ -8,15 +8,13 @@ module Converters
       o.ice = Ice.new(params[:ice])
 
       %w{primary secondary tertiary}.each do |obs_type|
-        #o.primary_ice_observation = ice_observation(ice_observation_attributes(params, 'primary'))
-        o.send("#{obs_type}_ice_observation=", ice_observation(ice_observation_attributes(params, obs_type)))
+        o.ice_observations << ice_observation(obs_type, ice_observation_attributes(params, obs_type))
       end
       o.meteorology = meteorology(meteorology_attributes(params))
 
       o.faunas = Array(params[:faunas]).map{|f| Fauna.new(f)}
       # o.notes = Array(params[:notes]).map{|n| Note.new(n)}
-      o.ship = params[:ship]
-
+      o.ship = Ship.new(params[:ship])
       o
     end
 
@@ -31,39 +29,43 @@ module Converters
     end
 
     def ice_observation_attributes params, obs_type
-      params.extract! "#{obs_type}_ice_observation".to_sym  # params.extract "primary_ice_observation".to_sym
+      params.with_indifferent_access["#{obs_type}_ice_observation"]
     end
 
     def topography_attributes params
-      params.extract! :topography
+      params.delete(:topography)
     end
 
     def melt_pond_attributes params
-      params.extract! :melt_pond
+      params.delete(:melt_pond)
     end
 
     def cloud_attributes params, cloud_type
-      params.extract! "#{cloud_type}_cloud".to_sym  # params.extract "high_cloud".to_sym
+      # params.extract! "#{cloud_type}_cloud".to_sym  # params.extract "high_cloud".to_sym
+      params.with_indifferent_access["#{cloud_type}_cloud"]
     end
 
     def transform_lookups params
-      params.transform_keys!{|k| k.to_s.gsub(/_code/, '_id')}
+      params.transform_keys!{|k| k.to_s.gsub(/_code/, '_id').to_sym}
 
       params.each do |key, value|
         if value.is_a? Hash
           transform_lookups(value)
         elsif key =~ /_lookup_id/
-          table = key.chomp("_id").gsub(/(thin|thick)/,'').camelize.constantize
-          params[key] = table.where(code: value).first
+          table_name = key.to_s.chomp("_id")
+          table_name.gsub!(/(thin|thick)/,'')
+          table_name.gsub!(/biota/,'algae')
+          table = table_name.camelize.constantize
+          params[key] = table.where(code: value).first.try(:id)
         end
       end
 
     end
 
-    def ice_observation attributes
+    def ice_observation obs_type, attributes
       ta = topography_attributes(attributes)
       mpa = melt_pond_attributes(attributes)
-      io = IceObservation.new attributes
+      io = IceObservation.send(obs_type.to_sym).new attributes
       io.topography = Topography.new ta
       io.melt_pond = MeltPond.new mpa
 
@@ -80,9 +82,9 @@ module Converters
       lc = cloud_attributes(attributes, 'low')
 
       m = Meteorology.new attributes
-      m.high_cloud = Cloud.new hc
-      m.medium_cloud = Cloud.new mc
-      m.low_cloud = Cloud.new lc
+      m.high_cloud = Cloud.high.new hc
+      m.medium_cloud = Cloud.medium.new mc
+      m.low_cloud = Cloud.low.new lc
 
       m
     end
