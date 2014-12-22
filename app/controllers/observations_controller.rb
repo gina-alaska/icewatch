@@ -64,17 +64,17 @@ class ObservationsController < ApplicationController
   def import
     @cruise = Cruise.find params[:cruise_id]
 
-    import_params.each do |obs|
-      @cruise.observations << CsvObservation.new(obs).build_observation
-    end
+    @observation = CsvObservation.new(import_params).build_observation
+    Rails.logger.info @observation.ice_observations
+    @observation.cruise = @cruise
 
     respond_to do |format|
-      if @cruise.save validate: false
+      if @observation.save validate: false
         format.html { redirect_to cruises_url, notice: 'Observations were successfully imported' }
         format.json { head :no_content }
       else
         format.html { redirect_to cruises_url, notice: 'There was an error importing the observations'}
-        format.json { render json: @cruise.errors, status: :unprocessable_entity }
+        format.json { render json: @observation.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -91,6 +91,6 @@ class ObservationsController < ApplicationController
     end
 
     def import_params
-      params.require(:observations).permit!
+      params.require(:observation).permit!
     end
 end
