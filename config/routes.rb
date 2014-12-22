@@ -1,26 +1,10 @@
 Rails.application.routes.draw do
-  # resources :lookups
-  #
-  # resources :faunas
-  #
-  # resources :notes
-  #
-  # resources :comments
-  #
-  # resources :clouds
-  #
-  # resources :meteorologies
-  #
-  # resources :topographies
-  #
-  # resources :melt_ponds
-  #
-  # resources :ice_observations
-  #
-  # resources :people
-  #
   resources :cruises, shallow: true do
-    resources :observations
+    resources :observations do
+      collection do
+        post :import
+      end
+    end
   end
   resources :lookups
 

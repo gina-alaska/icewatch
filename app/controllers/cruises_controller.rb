@@ -77,4 +77,5 @@ class CruisesController < ApplicationController
     def cruise_params
       params.require(:cruise).permit(:starts_at, :ends_at, :objective, :approved)
     end
+
 end

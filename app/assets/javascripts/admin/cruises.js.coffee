@@ -10,5 +10,7 @@ $ ->
         skipEmptyLines: true
         dynamicTypeing: true
         complete: (results) =>
-          $('#obs-upload-complete').text(JSON.stringify(results.data))
+          url = $(this).find('input[type=file]').data('submit-url')
+          $.post url,
+            observations: results.data
           $(this).fileinput('reset')

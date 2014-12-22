@@ -130,6 +130,4 @@ class Observation < ActiveRecord::Base
     thickness_by_ice_type.max{|(ak,av),(bk,bv)| av <=> bv }.keys.first
   end
 
-
-
 end

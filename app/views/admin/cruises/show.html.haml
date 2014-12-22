@@ -11,7 +11,7 @@
     .btn.btn-default.btn-file.btn-block
       .fileinput-new Upload Observations
       .fileinput-exists.fileinput-filename
-      = file_field_tag 'observations'
+      = file_field_tag 'observations', data: {'submit-url' => import_cruise_observations_path(@cruise)}
     -# = link_to 'Cancel', '#', class: 'close fileinput-exists btn btn-primary ', data: {dismiss: 'fileinput'}
 
 .col-md-10
