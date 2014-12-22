@@ -41,10 +41,10 @@ class CsvObservation
         open_water_lookup_code: ow
       },
       primary_ice_observation: {
-        parital_concentration: ppc,
+        partial_concentration: ppc,
         ice_lookup_code: pt,
         thickness: pz,
-        floe_size_lookup: pf,
+        floe_size_lookup_code: pf,
         sediment_lookup_code: psd,
         algae_lookup_code: pa,
         algae_density_lookup_code: pad,
@@ -70,10 +70,10 @@ class CsvObservation
         }
       },
       secondary_ice_observation: {
-        parital_concentration: spc,
+        partial_concentration: spc,
         ice_lookup_code: st,
         thickness: sz,
-        floe_size_lookup: sf,
+        floe_size_lookup_code: sf,
         sediment_lookup_code: ssd,
         algae_lookup_code: sa,
         algae_density_lookup_code: sad,
@@ -99,10 +99,10 @@ class CsvObservation
         }
       },
       tertiary_ice_observation: {
-        parital_concentration: tpc,
+        partial_concentration: tpc,
         ice_lookup_code: tt,
         thickness: tz,
-        floe_size_lookup: tf,
+        floe_size_lookup_code: tf,
         sediment_lookup_code: tsd,
         algae_lookup_code: ta,
         algae_density_lookup_code: tad,
