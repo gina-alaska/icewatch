@@ -28,9 +28,9 @@ class IceObservation < ActiveRecord::Base
       ice_lookup: 'ice_lookup',
       floe_size_lookup: 'floe_size_lookup',
       snow_lookup: 'snow_lookup',
-      biota_lookup: 'biota_lookup',
-      biota_density_lookup: 'biota_density_lookup',
-      biota_location_lookup: 'biota_location_lookup',
+      algae_lookup: 'algae_lookup',
+      algae_density_lookup: 'algae_density_lookup',
+      algae_location_lookup: 'algae_location_lookup',
       sediment_lookup: 'sediment_lookup'}
   end
 
