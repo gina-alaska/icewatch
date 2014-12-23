@@ -13,5 +13,7 @@
  *= require_tree .
  *= require bootstrap/dist/css/bootstrap
  *= require font-awesome/css/font-awesome
+ *= require leaflet/dist/leaflet
+ *= require jasny-bootstrap/dist/css/jasny-bootstrap.min
  *= require_self
  */

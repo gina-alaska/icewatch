@@ -1,0 +1,26 @@
+!!!
+%html
+  %head
+    %title Icewatch
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+  %body
+    = render 'layouts/header'
+    .navbar.navbar-inverse.navbar-static-top
+      .container-fluid
+        .navbar-header
+          = link_to 'ADMIN', admin_url, class: 'navbar-brand'
+        %ul.nav.navbar-nav
+          %li= link_to 'Cruises', admin_cruises_path
+          %li= link_to 'Imports', '#' #admin_imports_page
+          %li= link_to 'Users', '#' #admin_users_page
+
+    -# .col-md-2
+    -#   .list-group
+    -#     = link_to admin_path, class: 'list-group-item active' do
+    -#       %h4 Admin
+    -#     = link_to 'Cruises', admin_cruises_path, class: 'list-group-item'
+    -#     = link_to 'Imports', '#', class: 'list-group-item' #admin_imports_page, class: 'list-group-item'
+    -#     = link_to 'Users', '#', class: 'list-group-item' #admin_users_page, class: 'list-group-item'
+    = yield

@@ -1,0 +1,13 @@
+%table.table
+  %thead
+    %tr
+      %th Ship
+      %th Start Date
+      %th End Date
+      %th Observations
+      %th Pending Approval
+      %th Errors
+      %th Status
+      %th Actions
+  %tbody
+    = render partial: 'admin/cruises/cruise', collection: @cruises

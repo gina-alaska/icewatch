@@ -14,4 +14,9 @@
 //= require jquery_ujs
 //= require bootstrap/dist/js/bootstrap
 //= require turbolinks
+//= require leaflet/dist/leaflet
+//= require proj4leaflet/lib/proj4-compressed
+//= require proj4leaflet/src/proj4leaflet
+//= require papaparse/papaparse
+//= require jasny-bootstrap/dist/js/jasny-bootstrap
 //= require_tree .

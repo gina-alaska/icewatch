@@ -1,0 +1,31 @@
+.page-header
+  %h1
+    = @cruise.ship
+    %small= @cruise.starts_at
+
+.col-md-2
+  -# .btn-group-vertical
+  -#   .btn.btn-default Upload Observations
+  -#   .btn.btn-default Upload Photos
+  .fileinput.fileinput-new{data: {provides: 'fileinput'}}
+    .btn.btn-default.btn-file.btn-block
+      .fileinput-new Upload Observations
+      .fileinput-exists.fileinput-filename
+      = file_field_tag 'observations', data: {'submit-url' => import_cruise_observations_path(@cruise)}
+    -# = link_to 'Cancel', '#', class: 'close fileinput-exists btn btn-primary ', data: {dismiss: 'fileinput'}
+
+.col-md-10
+  %dl.dl-horizontal
+    %dt Captain
+    %dd= @cruise.captain
+    %dt Primary Observer
+    %dd= @cruise.primary_observer
+
+  - if @cruise.observations.reviewing.any?
+    .panel.panel-warning
+      .panel-heading Observations Pending Review
+      = render partial: 'admin/cruises/observation', collection: @cruise.observations.reviewing
+  - if @cruise.observations.saved.any?
+    .panel.panel-danger
+      .panel-heading Observations Needing Correction
+      = render partial: 'admin/cruises/observation', collection: @cruise.observations.saved

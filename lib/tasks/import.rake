@@ -8,13 +8,14 @@ namespace :import do
       cruises = JSON.parse(response.body)
 
       cruises.each do |original|
+        observations = original['observations']
         original_id = original['_id']
 
         c = Cruise.first_or_create cruise_params(original)
-
-        fetch_observations(original_id).each do |observation|
-          o = c.observations.where(uuid: observation['uuid']).first_or_create
-          o.update_attributes(observation_attributes(observation))
+        observations.each do |observation|
+          o = c.observations.where(uuid: observation['uuid']).first_or_initialize(observation_attributes(observation))
+          # o.update_attributes(observation_attributes(observation))
+          o.save(validate:false)
         end
       end
 
@@ -31,13 +32,6 @@ namespace :import do
       cruise['starts_at'] = cruise.delete('start_date')
       cruise['ends_at'] = cruise.delete('end_date')
       cruise
-    end
-
-    def fetch_observations(cruise_id)
-      url = "http://icewatch.gina.alaska.edu/api/cruises/#{cruise_id}/observations.json"
-
-      response = HTTParty.get(url)
-      JSON.parse(response.body)
     end
 
     def observation_attributes(observation)
@@ -62,7 +56,6 @@ namespace :import do
       observation['meteorology_attributes']['clouds_attributes'] = observation['meteorology_attributes'].delete('clouds')
 
       update_lookup_codes(observation)
-
       observation
     end
 

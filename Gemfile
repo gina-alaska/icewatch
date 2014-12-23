@@ -3,8 +3,6 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -52,10 +50,12 @@ gem 'friendly_id'
 gem 'nested_form'
 gem 'bootstrap_form'
 gem 'cancancan'
+gem 'rails_12factor', group: :production
+gem 'httparty'
+gem 'aasm'
 
 group :development do
   gem 'better_errors'
-  gem 'httparty'
 end
 
 gem 'shoulda', group: :test

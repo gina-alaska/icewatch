@@ -2,6 +2,7 @@ class CruisesController < ApplicationController
   before_action :set_cruise, only: [:show, :edit, :update, :destroy]
   before_action :set_active_cruise, only: [:index, :show]
 
+  respond_to :geojson, :json
   # GET /cruises
   # GET /cruises.json
   def index
@@ -11,6 +12,11 @@ class CruisesController < ApplicationController
   # GET /cruises/1
   # GET /cruises/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.geojson
+      format.json
+    end
   end
 
   # GET /cruises/new
