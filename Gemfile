@@ -52,6 +52,7 @@ gem 'bootstrap_form'
 gem 'cancancan'
 gem 'rails_12factor', group: :production
 gem 'httparty'
+gem 'aasm'
 
 group :development do
   gem 'better_errors'

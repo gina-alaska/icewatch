@@ -65,11 +65,11 @@ class ObservationsController < ApplicationController
     @cruise = Cruise.find params[:cruise_id]
 
     @observation = CsvObservation.new(import_params).build_observation
-    Rails.logger.info @observation.ice_observations
     @observation.cruise = @cruise
 
     respond_to do |format|
       if @observation.save validate: false
+        @observation.review if @observation.may_review?
         format.html { redirect_to cruises_url, notice: 'Observations were successfully imported' }
         format.json { head :no_content }
       else

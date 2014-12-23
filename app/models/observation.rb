@@ -1,5 +1,37 @@
 class Observation < ActiveRecord::Base
   include IceTypes
+  include AASM
+
+  aasm column: 'status' do
+    state :saved, initial: true
+    state :reviewing
+    state :accepted
+    state :rejected
+    state :locked
+
+
+    event :review do
+      transitions from: [:saved, :rejected], to: :reviewing, guard: :valid?
+    end
+
+    event :accept do
+      transitions from: :reviewing, to: :accepted, guard: :valid?
+    end
+
+    event :reject do
+      transitions from: :reviewing, to: :rejected
+    end
+
+    event :lock do
+      transitions from: :accepted, to: :locked
+    end
+
+    event :unlock do
+      transitions from: :locked, to: :accepeted
+    end
+
+  end
+
   belongs_to :cruise
 
   has_many :person_observations
@@ -48,6 +80,9 @@ class Observation < ActiveRecord::Base
   validate :ice_lookup_codes
   validate :ice_lookup_codes_are_increasing_order
 
+  def to_s
+    "#{observed_at.strftime("%Y-%m-%d %H:%M")} - #{primary_observer.try(:name)}"
+  end
   def location
     errors.add(:latitude, "Latitude must be between -90 and 90") unless (latitude.to_f <= 90 && latitude.to_f >= -90)
     errors.add(:longitude, "Longitude must be between -180 and 180") unless (longitude.to_f <= 180 && longitude.to_f >= -180)
