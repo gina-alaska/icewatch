@@ -8,4 +8,20 @@ module ObservationsHelper
     else "#FF0000"
     end
   end
+
+  def concentration_options
+    Ice::CONCENTRATION_VALUES.map{|i| [i,i]}
+  end
+
+  def ship_power_options
+    Ship::POWER_VALUES.map{|i| [i,i]}
+  end
+
+  def cloud_cover_options
+    Cloud::CLOUD_COVER_VALUES.map{|i| [i,i]}
+  end
+  
+  def yes_no_options
+    [['No', 0],['Yes', 1]]
+  end
 end

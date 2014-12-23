@@ -1,0 +1,8 @@
+= f.fields_for :meteorology do |m|
+  = m.fields_for :clouds do |c|
+    .col-md-4
+      %h4= c.object.cloud_type.capitalize
+      = c.collection_select :cloud_lookup_id, CloudLookup.all, :id, :code_with_name,
+        {allow_blank: true, include_blank: true}
+      = c.select :cover, cloud_cover_options
+      = c.number_field :height

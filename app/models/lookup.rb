@@ -8,4 +8,8 @@ class Lookup < ActiveRecord::Base
     super.send(CODE_DATATYPE)
   end
 
+  def code_with_name
+    "#{code} :: #{name}"
+  end
+
 end
