@@ -1,5 +1,37 @@
 class Observation < ActiveRecord::Base
   include IceTypes
+  include AASM
+
+  aasm column: 'status' do
+    state :saved, initial: true
+    state :reviewing
+    state :accepted
+    state :rejected
+    state :locked
+
+
+    event :review do
+      transitions from: [:saved, :rejected], to: :reviewing, guard: :valid?
+    end
+
+    event :accept do
+      transitions from: :reviewing, to: :accepted, guard: :valid?
+    end
+
+    event :reject do
+      transitions from: :reviewing, to: :rejected
+    end
+
+    event :lock do
+      transitions from: :accepted, to: :locked
+    end
+
+    event :unlock do
+      transitions from: :locked, to: :accepeted
+    end
+
+  end
+
   belongs_to :cruise
 
   has_many :person_observations
@@ -13,9 +45,9 @@ class Observation < ActiveRecord::Base
   has_many :additional_observers, through: :additional_person_observations, source: :person
 
   has_many :ice_observations
-  has_one :primary_ice_observation, -> { primary }, class_name: 'IceObservation'
-  has_one :secondary_ice_observation, -> { secondary }, class_name: 'IceObservation'
-  has_one :tertiary_ice_observation, -> { tertiary }, class_name: 'IceObservation'
+  has_many :primary_ice_observations, -> { primary }, class_name: 'IceObservation'
+  has_many :secondary_ice_observations, -> { secondary }, class_name: 'IceObservation'
+  has_many :tertiary_ice_observations, -> { tertiary }, class_name: 'IceObservation'
 
   has_one :ice
   has_one :meteorology
@@ -32,6 +64,14 @@ class Observation < ActiveRecord::Base
     self.primary_observer = Person.where(attrs).first_or_initialize
   end
 
+  %w{primary secondary tertiary}.each do |field|
+    field = "#{field}_ice_observation"
+    define_method(field) do                    # def primary_ice_observation
+      self.send("#{field}s".to_sym).first      #   self.send(:primary_ice_observations).first
+    end                                        # end
+  end
+
+  validates_uniqueness_of :observed_at, scope: [:cruise_id, :latitude, :longitude], message: "This observation already exists"
   validates_presence_of :primary_observer, :observed_at, :latitude, :longitude
 
   validate :location
@@ -40,6 +80,9 @@ class Observation < ActiveRecord::Base
   validate :ice_lookup_codes
   validate :ice_lookup_codes_are_increasing_order
 
+  def to_s
+    "#{observed_at.strftime("%Y-%m-%d %H:%M")} - #{primary_observer.try(:name)}"
+  end
   def location
     errors.add(:latitude, "Latitude must be between -90 and 90") unless (latitude.to_f <= 90 && latitude.to_f >= -90)
     errors.add(:longitude, "Longitude must be between -180 and 180") unless (longitude.to_f <= 180 && longitude.to_f >= -180)
@@ -63,6 +106,9 @@ class Observation < ActiveRecord::Base
     primary = primary_ice_observation
     secondary = secondary_ice_observation
     tertiary = tertiary_ice_observation
+
+    Rails.logger.info(ice_observations)
+    Rails.logger.info(primary)
 
     if primary.thickness and primary.thickness < secondary.thickness.to_i
       secondary.errors.add(:thickness)
@@ -129,7 +175,5 @@ class Observation < ActiveRecord::Base
   def dominant_ice_type
     thickness_by_ice_type.max{|(ak,av),(bk,bv)| av <=> bv }.keys.first
   end
-
-
 
 end

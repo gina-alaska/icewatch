@@ -61,6 +61,24 @@ class ObservationsController < ApplicationController
     end
   end
 
+  def import
+    @cruise = Cruise.find params[:cruise_id]
+
+    @observation = CsvObservation.new(import_params).build_observation
+    @observation.cruise = @cruise
+
+    respond_to do |format|
+      if @observation.save validate: false
+        @observation.review if @observation.may_review?
+        format.html { redirect_to cruises_url, notice: 'Observations were successfully imported' }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to cruises_url, notice: 'There was an error importing the observations'}
+        format.json { render json: @observation.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_observation
@@ -70,5 +88,9 @@ class ObservationsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def observation_params
       params.require(:observation).permit(:cruise_id, :observed_at, :latitude, :longitude, :uuid)
+    end
+
+    def import_params
+      params.require(:observation).permit!
     end
 end

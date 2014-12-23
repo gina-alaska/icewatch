@@ -11,7 +11,7 @@
     .btn.btn-default.btn-file.btn-block
       .fileinput-new Upload Observations
       .fileinput-exists.fileinput-filename
-      = file_field_tag 'observations'
+      = file_field_tag 'observations', data: {'submit-url' => import_cruise_observations_path(@cruise)}
     -# = link_to 'Cancel', '#', class: 'close fileinput-exists btn btn-primary ', data: {dismiss: 'fileinput'}
 
 .col-md-10
@@ -21,13 +21,11 @@
     %dt Primary Observer
     %dd= @cruise.primary_observer
 
-  -# if @cruise.observations.pending.any?
-  .panel.panel-warning
-    .panel-heading Observations Pending Review
-  -# if @cruise.observations.errors.any?
-  .panel.panel-danger
-    .panel-heading Observations Needing Correction
-
-  .panel.panel-info
-    .panel-heading Observation Uploads
-    #obs-upload-complete.panel-body
+  - if @cruise.observations.reviewing.any?
+    .panel.panel-warning
+      .panel-heading Observations Pending Review
+      = render partial: 'admin/cruises/observation', collection: @cruise.observations.reviewing
+  - if @cruise.observations.saved.any?
+    .panel.panel-danger
+      .panel-heading Observations Needing Correction
+      = render partial: 'admin/cruises/observation', collection: @cruise.observations.imported

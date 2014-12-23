@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (3.4.0)
     actionmailer (4.1.8)
       actionpack (= 4.1.8)
       actionview (= 4.1.8)
@@ -200,6 +201,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   better_errors
   bootstrap_form
   bower-rails
