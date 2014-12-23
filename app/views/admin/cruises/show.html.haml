@@ -28,4 +28,4 @@
   - if @cruise.observations.saved.any?
     .panel.panel-danger
       .panel-heading Observations Needing Correction
-      = render partial: 'admin/cruises/observation', collection: @cruise.observations.imported
+      = render partial: 'admin/cruises/observation', collection: @cruise.observations.saved
