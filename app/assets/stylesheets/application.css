@@ -15,5 +15,6 @@
  *= require font-awesome/css/font-awesome
  *= require leaflet/dist/leaflet
  *= require jasny-bootstrap/dist/css/jasny-bootstrap.min
+ *= require select2/select2
  *= require_self
  */
