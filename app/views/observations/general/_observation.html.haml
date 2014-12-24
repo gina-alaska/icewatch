@@ -2,12 +2,9 @@
   %tr
     %td= f.collection_select :primary_observer, Person.all, :id, :name
     %td= f.collection_select :additional_observers, Person.all, :id, :name
-    %td
-      .btn.btn-info.btn-block Add Observer
+
   %tr
-    %td= f.datetime_local_field :observed_at
-    %td{colspan: 2}
+    %td{colspan: 2}= f.datetime_local_field :observed_at
   %tr
     %td= f.text_field :latitude
     %td= f.text_field :longitude
-    %td

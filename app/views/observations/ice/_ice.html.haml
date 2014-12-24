@@ -1,9 +1,32 @@
-= f.fields_for :ice_observations do |io|
-  .col-md-4
+.col-md-4
+  = f.fields_for :primary_ice_observation do |io|
     %h4= io.object.obs_type.capitalize
+    = io.hidden_field :obs_type
     = io.select :partial_concentration, concentration_options
     = io.collection_select :ice_lookup_id, IceLookup.all, :id, :code_with_name,
       {allow_blank: true, include_blank: true}
     = io.number_field :thickness
     = io.collection_select :floe_size_lookup_id, FloeSizeLookup.all, :id, :code_with_name,
       {allow_blank: true, include_blank: true}
+
+.col-md-4
+  = f.fields_for :secondary_ice_observation do |io|
+    %h4= io.object.obs_type.capitalize
+    = io.hidden_field :obs_type
+    = io.select :partial_concentration, concentration_options
+    = io.collection_select :ice_lookup_id, IceLookup.all, :id, :code_with_name,
+    {allow_blank: true, include_blank: true}
+    = io.number_field :thickness
+    = io.collection_select :floe_size_lookup_id, FloeSizeLookup.all, :id, :code_with_name,
+    {allow_blank: true, include_blank: true}
+
+.col-md-4
+  = f.fields_for :tertiary_ice_observation do |io|
+    %h4= io.object.obs_type.capitalize
+    = io.hidden_field :obs_type
+    = io.select :partial_concentration, concentration_options
+    = io.collection_select :ice_lookup_id, IceLookup.all, :id, :code_with_name,
+    {allow_blank: true, include_blank: true}
+    = io.number_field :thickness
+    = io.collection_select :floe_size_lookup_id, FloeSizeLookup.all, :id, :code_with_name,
+    {allow_blank: true, include_blank: true}

@@ -1,9 +1,10 @@
 = f.fields_for :ice do |i|
-  .col-md-6
-    = i.select :total_concentration, concentration_options
-  .col-md-6
-    = i.collection_select :open_water_lookup_id, OpenWaterLookup.all, :id, :code_with_name,
-      {allow_blank: true, include_blank: true}
+  .row
+    .col-md-6
+      = i.select :total_concentration, concentration_options
+    .col-md-6
+      = i.collection_select :open_water_lookup_id, OpenWaterLookup.all, :id, :code_with_name,
+        {allow_blank: true, include_blank: true}
 %ul.nav.nav-tabs.nav-justified
   %li.active= link_to "Ice", '#ice-tab', data: {toggle: 'tab'}
   %li= link_to "Snow", '#snow-tab', data: {toggle: 'tab'}

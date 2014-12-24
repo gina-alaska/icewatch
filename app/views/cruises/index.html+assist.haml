@@ -1,8 +1,7 @@
 .jumbotron
   %h3 Welcome to the
   %h2 Arctic Shipborne Sea Ice Standardization Tool
-  .btn.btn-primary.btn-lg
-    = "Start Observation"
+  = link_to "Start Observation", cruise_observations_path(@active_cruise), class: 'btn btn-primary btn-lg', method: 'POST'
 
 .col-md-2.col-sm-2
   %ul.list-group
@@ -16,8 +15,7 @@
   %ul.list-group
     %li.list-group-item.active
       Import
-    %li.list-group-item
-      From ASSIST
+
     %li.list-group-item
       From CSV
 

@@ -34,6 +34,7 @@ class IceObservation < ActiveRecord::Base
       sediment_lookup: 'sediment_lookup'}
   end
 
+
   def ice_type
     case ice_lookup.try(:code)
     when *IceLookup::OLD_ICE; 'old'
