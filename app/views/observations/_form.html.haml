@@ -1,31 +1,42 @@
-= form_for(@observation) do |f|
-  - if @observation.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@observation.errors.count, "error")
-        prohibited this observation from being saved:
-      %ul
-        - @observation.errors.full_messages.each do |message|
-          %li= message
-  .field
-    = f.label :cruise_id
-    %br/
-    = f.number_field :cruise_id
-  .field
-    = f.label :observed_at
-    %br/
-    = f.datetime_select :observed_at
-  .field
-    = f.label :latitude
-    %br/
-    = f.text_field :latitude
-  .field
-    = f.label :longitude
-    %br/
-    = f.text_field :longitude
-  .field
-    = f.label :uuid
-    %br/
-    = f.text_field :uuid
-  .actions
-    = f.submit
+= bootstrap_nested_form_for [@cruise,@observation] do |f|
+  -# .row
+    -# .col-md-1
+    -#   .btn-group.btn-group-justified
+    -#     .btn.btn-danger.disabled Invalid
+    -# .col-md-6
+    -#   -# .btn-group.btn-group-justified
+    -#   -#   .btn.btn-primary General
+    -#   -#   .btn.btn-default Ice
+    -#   -#   .btn.btn-default Meteorology
+    -#   -#   .btn.btn-default Photos
+    -#   -#   .btn.btn-default Comments
+    -# .col-md-2
+    -#   .btn-group.btn-group-justified
+    -#     .btn.btn-info Add Comment
+    -# .col-md-3
+    -#   .btn-group.btn-group-justified
+    -#     .btn.btn-success Save
+    -#     .btn.btn-warning Save and Exit
+  .row
+    .col-md-2
+      .btn.btn-info.btn-block Add Comment
+      %br
+      %ul.nav.nav-pills.nav-stacked
+        %li.active= link_to "General", "#general-page", data: {toggle: 'tab'}
+        %li= link_to "Ice", "#ice-page", data: {toggle: 'tab'}
+        %li= link_to "Meteorology", "#meteorology-page", data: {toggle: 'tab'}
+        %li= link_to "Photos", "#photos-page", data: {toggle: 'tab'}
+        %li= link_to "Comments", "#comments-page", data: {toggle: 'tab'}
+      %br
+      = f.submit 'Save', class: 'btn btn-block btn-success'
+      = f.submit 'Save and Exit', class: 'btn btn-block btn-warning'
+    .col-md-10
+      .tab-content
+        #general-page.tab-pane.active
+          = render partial: 'general', locals: {f: f}
+        #ice-page.tab-pane
+          = render partial: 'ice', locals: {f: f}
+        #meteorology-page.tab-pane
+          = render partial: 'meteorology', locals: {f: f}
+        #photos-page.tab-pane
+        #comments-page.tab-pane

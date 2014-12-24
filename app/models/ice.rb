@@ -1,4 +1,5 @@
 class Ice < ActiveRecord::Base
+  CONCENTRATION_VALUES=(0..10).to_a
   belongs_to :observation
   belongs_to :thin_ice_lookup, class_name: 'IceLookup'
   belongs_to :thick_ice_lookup, class_name: 'IceLookup'
@@ -14,4 +15,7 @@ class Ice < ActiveRecord::Base
       open_water_lookup_id: "open_water_lookup"
     },
     allow_blank: true
+
+
+
 end

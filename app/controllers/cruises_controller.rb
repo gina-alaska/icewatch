@@ -1,5 +1,6 @@
 class CruisesController < ApplicationController
   before_action :set_cruise, only: [:show, :edit, :update, :destroy]
+  before_action :set_active_cruise, only: [:index, :show]
 
   respond_to :geojson, :json
   # GET /cruises
@@ -78,4 +79,7 @@ class CruisesController < ApplicationController
       params.require(:cruise).permit(:starts_at, :ends_at, :objective, :approved)
     end
 
+    def set_active_cruise
+      @active_cruise = Cruise.where(id:cookies[:current_cruise]).first || Cruise.first
+    end
 end

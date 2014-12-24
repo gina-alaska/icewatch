@@ -1,0 +1,14 @@
+%ul.nav.nav-tabs.nav-justified
+  %li.active= link_to "Observation", '#observation-tab', data: {toggle: 'tab'}
+  %li= link_to "Ship", '#ship-tab', data: {toggle: 'tab'}
+  %li= link_to "Fauna", '#fauna-tab', data: {toggle: 'tab'}
+  %li= link_to "Notes", '#notes-tab', data: {toggle: 'tab'}
+.tab-content
+  #observation-tab.tab-pane.active
+    = render partial: 'observations/general/observation', locals: {f: f}
+  #ship-tab.tab-pane
+    = render partial: 'observations/general/ship', locals: {f: f}
+  #fauna-tab.tab-pane
+    = render partial: 'observations/general/fauna', locals: {f: f}
+  #notes-tab.tab-pane
+    = render partial: 'observations/general/notes', locals: {f: f}

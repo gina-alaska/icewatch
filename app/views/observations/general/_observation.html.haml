@@ -1,0 +1,10 @@
+%table.table.table-striped
+  %tr
+    %td= f.collection_select :primary_observer, Person.all, :id, :name
+    %td= f.collection_select :additional_observers, Person.all, :id, :name
+
+  %tr
+    %td{colspan: 2}= f.datetime_local_field :observed_at
+  %tr
+    %td= f.text_field :latitude
+    %td= f.text_field :longitude

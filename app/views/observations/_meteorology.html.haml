@@ -1,0 +1,8 @@
+%ul.nav.nav-tabs.nav-justified
+  %li.active= link_to "Meteorology", '#meteorology-tab', data: {toggle: 'tab'}
+  %li= link_to "Cloud", '#cloud-tab', data: {toggle: 'tab'}
+.tab-content
+  #meteorology-tab.tab-pane.active
+    = render partial: 'observations/meteorology/meteorology', locals: {f: f}
+  #cloud-tab.tab-pane
+    = render partial: 'observations/meteorology/clouds', locals: {f: f}

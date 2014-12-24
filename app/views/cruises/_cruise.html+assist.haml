@@ -1,0 +1,4 @@
+%li.list-group-item{class: active_cruise(cruise)}
+  = link_to cruise.ship, cruise_path(cruise)
+  %span.badge
+    =cruise.observations.count

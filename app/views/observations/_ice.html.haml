@@ -1,0 +1,24 @@
+= f.fields_for :ice do |i|
+  .row
+    .col-md-6
+      = i.select :total_concentration, concentration_options
+    .col-md-6
+      = i.collection_select :open_water_lookup_id, OpenWaterLookup.all, :id, :code_with_name,
+        {allow_blank: true, include_blank: true}
+%ul.nav.nav-tabs.nav-justified
+  %li.active= link_to "Ice", '#ice-tab', data: {toggle: 'tab'}
+  %li= link_to "Snow", '#snow-tab', data: {toggle: 'tab'}
+  %li= link_to "Topography", '#topography-tab', data: {toggle: 'tab'}
+  %li= link_to "Melt", '#melt-tab', data: {toggle: 'tab'}
+  %li= link_to "Other", '#other-tab', data: {toggle: 'tab'}
+.tab-content
+  #ice-tab.tab-pane.active
+    = render partial: 'observations/ice/ice', locals: {f: f}
+  #snow-tab.tab-pane
+    = render partial: 'observations/ice/snow', locals: {f: f}
+  #topography-tab.tab-pane
+    = render partial: 'observations/ice/topography', locals: {f: f}
+  #melt-tab.tab-pane
+    = render partial: 'observations/ice/melt', locals: {f: f}
+  #other-tab.tab-pane
+    = render partial: 'observations/ice/other', locals: {f: f}

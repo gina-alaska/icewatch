@@ -14,21 +14,24 @@ class ObservationsController < ApplicationController
 
   # GET /observations/new
   def new
-    @observation = Observation.new
+    @cruise = Cruise.find(params[:cruise_id])
+    @observation = @cruise.build_observation
   end
 
   # GET /observations/1/edit
   def edit
+    @observation.valid?
   end
 
   # POST /observations
   # POST /observations.json
   def create
-    @observation = Observation.new(observation_params)
+    @cruise = Cruise.find(params[:cruise_id])
+    @observation = @cruise.build_observation
 
     respond_to do |format|
-      if @observation.save
-        format.html { redirect_to @observation, notice: 'Observation was successfully created.' }
+      if @observation.save validate: false
+        format.html { redirect_to edit_observation_path(@observation), notice: 'Observation was successfully created.' }
         format.json { render :show, status: :created, location: @observation }
       else
         format.html { render :new }
@@ -69,7 +72,7 @@ class ObservationsController < ApplicationController
 
     respond_to do |format|
       if @observation.save validate: false
-        @observation.review if @observation.may_review?
+        @observation.review! if @observation.may_review?
         format.html { redirect_to cruises_url, notice: 'Observations were successfully imported' }
         format.json { head :no_content }
       else
@@ -87,7 +90,30 @@ class ObservationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def observation_params
-      params.require(:observation).permit(:cruise_id, :observed_at, :latitude, :longitude, :uuid)
+      params.require(:observation).permit(
+        :cruise_id, :observed_at, :latitude, :longitude, :uuid,
+        :primary_observer_id, :additional_observer_ids,
+        ship_attributes: [:heading, :power, :speed, :ship_activity_lookup_id],
+        notes_attributes: [:text],
+        ice_attributes: [:total_concentration, :open_water_lookup_id,
+          :thick_ice_lookup_id, :thin_ice_lookup_id],
+        ice_observations_attributes: [:partial_concentration, :ice_lookup_id,
+          :thickness, :floe_size_lookup_id, :snow_lookup_id, :snow_thickness,
+          :algae_lookup_id, :algae_density_lookup_id, :algae_location_lookup_id,
+          :sediment_lookup_id, :obs_type,
+          topography_attributes: [:concentration, :ridge_height, :consolidated,
+            :snow_covered, :old
+          ],
+          melt_pond_attributes: [:surface_coverage, :pattern_lookup_id,
+            :surface_lookup_id, :freeboard, :max_depth_lookup_id, :bottom_type_lookup_id,
+            :dried_ice, :rotten_ice
+          ]
+        ],
+        meteorology_attributes: [ :visibility_lookup_id, :weather_lookup_id,
+          :total_cloud_cover, :wind_speed, :wind_direction, :water_temperature,
+          :air_pressure, cloud_attributes: [ :cloud_lookup_id, :cover, :height, :cloud_type]
+        ]
+      )
     end
 
     def import_params
