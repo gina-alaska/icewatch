@@ -1,32 +1,9 @@
-= f.fields_for :primary_ice_observation do |io|
+= f.fields_for :ice_observations, ice_observation do |io|
   .col-md-4
     %h4= io.object.obs_type.capitalize
     = io.fields_for :topography do |t|
       = t.collection_select :topography_lookup_id, TopographyLookup.all, :id, :code_with_name,
         {allow_blank: true, include_blank: true}
-      = t.select :concentration, concentration_options, {allow_blank: true, include_blank: true}
-      = t.number_field :ridge_height
-      = t.select :consolidated, yes_no_options, {allow_blank: true, include_blank: true}
-      = t.select :snow_covered, yes_no_options, {allow_blank: true, include_blank: true}
-      = t.select :old, yes_no_options, {allow_blank: true, include_blank: true}
-= f.fields_for :secondary_ice_observation do |io|
-  .col-md-4
-    %h4= io.object.obs_type.capitalize
-    = io.fields_for :topography do |t|
-      = t.collection_select :topography_lookup_id, TopographyLookup.all, :id, :code_with_name,
-      {allow_blank: true, include_blank: true}
-      = t.select :concentration, concentration_options, {allow_blank: true, include_blank: true}
-      = t.number_field :ridge_height
-      = t.select :consolidated, yes_no_options, {allow_blank: true, include_blank: true}
-      = t.select :snow_covered, yes_no_options, {allow_blank: true, include_blank: true}
-      = t.select :old, yes_no_options, {allow_blank: true, include_blank: true}
-
-= f.fields_for :tertiary_ice_observation do |io|
-  .col-md-4
-    %h4= io.object.obs_type.capitalize
-    = io.fields_for :topography do |t|
-      = t.collection_select :topography_lookup_id, TopographyLookup.all, :id, :code_with_name,
-      {allow_blank: true, include_blank: true}
       = t.select :concentration, concentration_options, {allow_blank: true, include_blank: true}
       = t.number_field :ridge_height
       = t.select :consolidated, yes_no_options, {allow_blank: true, include_blank: true}
