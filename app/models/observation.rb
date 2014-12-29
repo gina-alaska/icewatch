@@ -59,8 +59,7 @@ class Observation < ActiveRecord::Base
   accepts_nested_attributes_for :ice, :ice_observations, :meteorology,
                                 :comments, :notes, :faunas, :ship,
                                 :primary_observer, :additional_observers,
-                                :primary_ice_observation, :secondary_ice_observation,
-                                :tertiary_ice_observation, :meteorology
+                                :meteorology
 
   def primary_observer_attributes= attrs
     self.primary_observer = Person.where(attrs).first_or_initialize
