@@ -19,5 +19,5 @@
 //= require proj4leaflet/src/proj4leaflet
 //= require papaparse/papaparse
 //= require jasny-bootstrap/dist/js/jasny-bootstrap
-//= require select2/select2
+//= require selectize/dist/js/standalone/selectize.min
 //= require_tree .

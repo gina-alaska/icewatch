@@ -3,4 +3,10 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'ready page:load', ->
-  # $("select").select2()
+  $("select").selectize
+
+  $(".person-field").selectize
+    plugins: ['restore_on_backspace', 'remove_button']
+    create: (input) ->
+      value: input,
+      text: input
