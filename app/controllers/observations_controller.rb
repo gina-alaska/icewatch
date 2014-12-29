@@ -21,6 +21,7 @@ class ObservationsController < ApplicationController
   # GET /observations/1/edit
   def edit
     @observation.valid?
+    @observation.faunas.build
   end
 
   # POST /observations
@@ -116,7 +117,8 @@ class ObservationsController < ApplicationController
           :total_cloud_cover, :wind_speed, :wind_direction, :water_temperature,
           :air_pressure, :air_temperature, :relative_humidity,
           clouds_attributes: [:id, :cloud_lookup_id, :cover, :height, :cloud_type]
-        ]
+        ],
+        faunas_attributes: [:id, :name, :count, :_destroy]
       )
     end
 

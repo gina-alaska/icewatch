@@ -20,4 +20,5 @@
 //= require papaparse/papaparse
 //= require jasny-bootstrap/dist/js/jasny-bootstrap
 //= require selectize/dist/js/standalone/selectize.min
+//= require jquery_nested_form
 //= require_tree .
