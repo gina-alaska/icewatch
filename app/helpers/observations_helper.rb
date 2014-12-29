@@ -14,14 +14,14 @@ module ObservationsHelper
   end
 
   def ship_power_options
-    Ship::POWER_VALUES.map{|i| [i,i]}
+    Ship::POWER_VALUES.each_with_index.map{|x,i| [x,i]}
   end
 
   def cloud_cover_options
     Cloud::CLOUD_COVER_VALUES.map{|i| [i,i]}
   end
-  
+
   def yes_no_options
-    [['No', 0],['Yes', 1]]
+    [['No', false],['Yes', true]]
   end
 end
