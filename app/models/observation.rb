@@ -34,32 +34,39 @@ class Observation < ActiveRecord::Base
 
   belongs_to :cruise
 
-  has_many :person_observations
-  has_many :observers, through: :person_observations, class_name: :person
+  has_many :person_observations, dependent: :destroy
+  has_many :observers, through: :person_observations, class_name: :person,
+           dependent: :destroy
 
   has_one :primary_person_observation, -> { primary },
-          class_name: 'PersonObservation'
+          class_name: 'PersonObservation', dependent: :destroy
   has_one :primary_observer, through: :primary_person_observation, source: :person
   has_many :additional_person_observations, -> { additional },
-          class_name: 'PersonObservation'
-  has_many :additional_observers, through: :additional_person_observations, source: :person
+          class_name: 'PersonObservation', dependent: :destroy
+  has_many :additional_observers, through: :additional_person_observations,
+          source: :person, dependent: :destroy
 
-  has_many :ice_observations
-  has_one :primary_ice_observation, -> { primary }, class_name: 'IceObservation'
-  has_one :secondary_ice_observation, -> { secondary }, class_name: 'IceObservation'
-  has_one :tertiary_ice_observation, -> { tertiary }, class_name: 'IceObservation'
+  has_many :ice_observations, dependent: :destroy
+  has_one :primary_ice_observation, -> { primary }, class_name: 'IceObservation',
+          dependent: :destroy
+  has_one :secondary_ice_observation, -> { secondary }, class_name: 'IceObservation',
+          dependent: :destroy
+  has_one :tertiary_ice_observation, -> { tertiary }, class_name: 'IceObservation',
+          dependent: :destroy
 
-  has_one :ice
-  has_one :meteorology
-  has_one :ship
-  has_many :faunas
-  has_many :comments
-  has_many :notes
+  has_one :ice, dependent: :destroy
+  has_one :meteorology, dependent: :destroy
+  has_one :ship, dependent: :destroy
+  has_many :faunas, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :notes, dependent: :destroy
 
   accepts_nested_attributes_for :ice, :ice_observations, :meteorology,
-                                :comments, :notes, :faunas, :ship,
+                                :comments, :notes, :ship,
                                 :primary_observer, :additional_observers,
                                 :meteorology
+  accepts_nested_attributes_for :faunas, allow_destroy: true, reject_if: ->(f){f['name'].blank?}
+  accepts_nested_attributes_for :comments, allow_destroy: true, reject_if: ->(c){c['text'].blank?}
 
   def primary_observer_attributes= attrs
     self.primary_observer = Person.where(attrs).first_or_initialize
