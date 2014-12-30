@@ -66,11 +66,7 @@ class Observation < ActiveRecord::Base
                                 :primary_observer, :additional_observers,
                                 :meteorology
   accepts_nested_attributes_for :faunas, allow_destroy: true, reject_if: ->(f){f['name'].blank?}
-  accepts_nested_attributes_for :comments, allow_destroy: true, reject_if: ->(c){c['text'].blank?}
 
-  def primary_observer_attributes= attrs
-    self.primary_observer = Person.where(attrs).first_or_initialize
-  end
 
   validates_uniqueness_of :observed_at, scope: [:cruise_id, :latitude, :longitude], message: "This observation already exists"
   validates_presence_of :primary_observer, :observed_at, :latitude, :longitude
@@ -82,9 +78,38 @@ class Observation < ActiveRecord::Base
   validate :ice_lookup_codes_are_increasing_order
   validates_associated :ice, :ice_observations, :meteorology
 
+  attr_writer :primary_observer_id_or_name
+  attr_writer :additional_observers_id_or_name
+
+  before_save :resolve_primary_observer
+  before_save :resolve_additional_observers
+
+  def resolve_primary_observer
+    self.primary_observer = resolve_observer(@primary_observer_id_or_name)
+  end
+
+  def resolve_additional_observers
+    if @additional_observers_id_or_name.present?
+      self.additional_observer_ids = @additional_observers_id_or_name.map{|i| resolve_observer(i).id}
+    end
+  end
+
+  def resolve_observer id_or_name
+    Person.find_or_create_by_id_or_name(id_or_name)
+  end
+
+  def additional_observers_id_or_name
+    self.additional_observer_ids
+  end
+
+  def primary_observer_id_or_name
+    self.primary_observer.try(:id)
+  end
+
   def to_s
     "#{observed_at.strftime("%Y-%m-%d %H:%M")} - #{primary_observer.try(:name)}"
   end
+
   def location
     errors.add(:latitude, "Latitude must be between -90 and 90") unless (latitude.to_f <= 90 && latitude.to_f >= -90)
     errors.add(:longitude, "Longitude must be between -180 and 180") unless (longitude.to_f <= 180 && longitude.to_f >= -180)

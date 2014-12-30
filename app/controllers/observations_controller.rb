@@ -46,7 +46,7 @@ class ObservationsController < ApplicationController
   def update
     @observation.assign_attributes observation_params
     respond_to do |format|
-      if @observation.save validate: false
+      if @observation.save(validate: false)
         if params[:commit] == "Save and Exit"
           format.html { redirect_to root_url}
         else
@@ -96,7 +96,7 @@ class ObservationsController < ApplicationController
     def observation_params
       params.require(:observation).permit(
         :cruise_id, :observed_at, :latitude, :longitude, :uuid,
-        # :primary_observer, :additional_observers,
+        :primary_observer_id_or_name, additional_observers_id_or_name: [],
         ship_attributes: [:id, :heading, :power, :speed, :ship_activity_lookup_id],
         notes_attributes: [:id, :text],
         ice_attributes: [:id, :total_concentration, :open_water_lookup_id,

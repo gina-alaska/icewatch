@@ -1,8 +1,9 @@
 %table.table.table-striped
   %tr
-    %td= f.collection_select :primary_observer, Person.all, :id, :name, {}, class: 'person-field'
-    %td= f.collection_select :additional_observers, Person.all, :id, :name, {}, {multiple: true, class: 'person-field'}
-
+    %td= f.collection_select :primary_observer_id_or_name, Person.all, :id, :name,
+      {}, class: 'person-field'
+    %td= f.collection_select :additional_observers_id_or_name, Person.all, :id,
+      :name, {selected: @observation.additional_observers_id_or_name}, {multiple: true, class: 'person-field'}
   %tr
     %td{colspan: 2}= f.datetime_local_field :observed_at
   %tr

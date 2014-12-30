@@ -3,8 +3,6 @@
     .col-md-2
       = link_to 'Add Comment', new_observation_comment_path(@observation),
         remote: true, class: 'btn btn-info btn-block'
-      -# .btn.btn-info.btn-block{data: {toggle: 'modal', target: '#add-comment'}}
-      -#   Add Comment
       %br
       %ul#page.nav.nav-pills.nav-stacked
         %li.active= link_to "General", "#general-page", data: {toggle: 'tab'}

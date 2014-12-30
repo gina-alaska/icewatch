@@ -8,7 +8,9 @@ class Comment < ActiveRecord::Base
   before_validation :resolve_person
 
   def resolve_person
-    self.person = Person.find_or_create_by_id_or_name(self.person_id_or_name)
+    if @person_id_or_name.present?
+      self.person = Person.find_or_create_by_id_or_name(@person_id_or_name)
+    end
   end
 
   def person_id_or_name
