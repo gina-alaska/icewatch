@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'ready page:load', ->
-  $("select").selectize
+  $("select").selectize()
 
   $(".person-field").selectize
     plugins: ['restore_on_backspace', 'remove_button']
