@@ -1,9 +1,12 @@
 = bootstrap_nested_form_for [@cruise,@observation] do |f|
   .row
     .col-md-2
-      .btn.btn-info.btn-block Add Comment
+      = link_to 'Add Comment', new_observation_comment_path(@observation),
+        remote: true, class: 'btn btn-info btn-block'
+      -# .btn.btn-info.btn-block{data: {toggle: 'modal', target: '#add-comment'}}
+      -#   Add Comment
       %br
-      %ul.nav.nav-pills.nav-stacked
+      %ul#page.nav.nav-pills.nav-stacked
         %li.active= link_to "General", "#general-page", data: {toggle: 'tab'}
         %li= link_to "Ice", "#ice-page", data: {toggle: 'tab'}
         %li= link_to "Meteorology", "#meteorology-page", data: {toggle: 'tab'}
@@ -22,3 +25,4 @@
           = render partial: 'meteorology', locals: {f: f}
         #photos-page.tab-pane
         #comments-page.tab-pane
+          = render partial: 'comments', locals: {f: f}

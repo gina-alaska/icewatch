@@ -1,27 +1,14 @@
-= form_for(@comment) do |f|
-  - if @comment.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@comment.errors.count, "error")
-        prohibited this comment from being saved:
-      %ul
-        - @comment.errors.full_messages.each do |message|
-          %li= message
-  .field
-    = f.label :text
-    %br/
-    = f.text_field :text
-  .field
-    = f.label :commentable_id
-    %br/
-    = f.number_field :commentable_id
-  .field
-    = f.label :commentable_type
-    %br/
-    = f.text_field :commentable_type
-  .field
-    = f.label :person_id
-    %br/
-    = f.number_field :person_id
-  .actions
-    = f.submit
+#add-comment.modal.fade
+  = bootstrap_form_for [@observation, @comment], remote: true do |f|
+    .modal-dialog
+      .modal-content
+        .modal-header
+          = @comment.new_record? ? "Add Comment" : "Edit Comment"
+          %button.close{data: {dismiss: 'modal'}}
+            %span &times;
+        .modal-body
+          #comment-errors
+          = f.collection_select :person_id_or_name, Person.all, :id, :name, {}, class: 'person-field'
+          = f.text_area :text
+        .modal-footer
+          = f.submit 'Save', class: 'btn btn-primary'

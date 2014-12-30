@@ -1,0 +1,3 @@
+<%- @comment.errors.full_messages.each do |message| %>
+  $("#comment-errors").html("<%= escape_javascript(comment_error(message)) %>")
+<%- end %>
