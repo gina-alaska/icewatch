@@ -1,4 +1,4 @@
-%table.table.table-striped
+%table.table
   %tr
     %td= f.collection_select :primary_observer_id_or_name, Person.all, :id, :name,
       {label: 'Primary Observer'}, class: 'person-field'
