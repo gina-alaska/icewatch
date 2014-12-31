@@ -12,4 +12,8 @@ class Cloud < ActiveRecord::Base
   validates :cloud_type, inclusion: {in: %w(low medium high)}
 
   CLOUD_COVER_VALUES=(0..8).to_a
+
+  def as_csv
+    [ cloud_lookup.try(:code), cover, height ]
+  end
 end

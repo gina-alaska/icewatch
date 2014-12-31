@@ -35,8 +35,7 @@ class Observation < ActiveRecord::Base
   belongs_to :cruise
 
   has_many :person_observations, dependent: :destroy
-  has_many :observers, through: :person_observations, class_name: :person,
-           dependent: :destroy
+  has_many :observers, through: :person_observations, class_name: :person
 
   has_one :primary_person_observation, -> { primary },
           class_name: 'PersonObservation', dependent: :destroy
@@ -44,7 +43,7 @@ class Observation < ActiveRecord::Base
   has_many :additional_person_observations, -> { additional },
           class_name: 'PersonObservation', dependent: :destroy
   has_many :additional_observers, through: :additional_person_observations,
-          source: :person, dependent: :destroy
+          source: :person
 
   has_many :ice_observations, dependent: :destroy
   has_one :primary_ice_observation, -> { primary }, class_name: 'IceObservation',
@@ -86,7 +85,7 @@ class Observation < ActiveRecord::Base
   before_save :resolve_additional_observers
 
   def resolve_primary_observer
-    self.primary_observer = resolve_observer(@primary_observer_id_or_name)
+    self.primary_observer = resolve_observer(@primary_observer_id_or_name) unless @primary_observer_id_or_name.blank?
   end
 
   def resolve_additional_observers
@@ -206,6 +205,32 @@ class Observation < ActiveRecord::Base
 
   def export_path
     File.join(EXPORT_PATH, self.to_s)
+  end
+
+  def as_csv
+    [
+      observed_at,
+      primary_observer.try(:name),
+      (a = additional_observers.map{|o| o.try(:name)}.join(":")).present? ? a : nil,
+      latitude,
+      longitude,
+      ice.as_csv,
+      primary_ice_observation.as_csv,
+      secondary_ice_observation.as_csv,
+      tertiary_ice_observation.as_csv,
+      meteorology.as_csv,
+      ship.try(:as_csv),
+      (f = faunas.map(&:name).join("//")).present? ? f : nil,
+      (f = faunas.map(&:count).join("//")).present? ? f : nil,
+      photos.count,
+      notes.map{|n| n.text.blank? ? nil : n.text},
+      (c = self.comments.map {|c|
+        c.data.blank? ? nil : "#{c.data} -- #{c.user.first_and_last_name}".dump}.join("//")).present? ? c : nil
+    ].flatten
+  end
+
+  def to_csv
+    as_csv.join(",")
   end
 
 end

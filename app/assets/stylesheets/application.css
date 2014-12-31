@@ -16,5 +16,6 @@
  *= require leaflet/dist/leaflet
  *= require jasny-bootstrap/dist/css/jasny-bootstrap.min
  *= require selectize/dist/css/selectize.bootstrap3
+ *= require eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min
  *= require_self
  */

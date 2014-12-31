@@ -1,3 +1,7 @@
 class CloudLookup < Lookup
-  CODE_DATATYPE = :to_s
+
+  def code_datatype
+    :to_s
+  end
+
 end

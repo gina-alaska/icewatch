@@ -1,5 +1,2 @@
-%h1 Editing cruise
+%h1= "Editing #{@cruise.ship}"
 = render 'form'
-= link_to 'Show', @cruise
-|
-\#{link_to 'Back', cruises_path}

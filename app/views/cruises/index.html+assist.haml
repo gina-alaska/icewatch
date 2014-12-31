@@ -24,8 +24,19 @@
 
   %ul.list-group
     %li.list-group-item.active
-      Change Cruise
-    = render @cruises
+      Cruise
+    %li.list-group-item
+      = link_to "Edit", edit_cruise_path(@active_cruise)
+    %li.list-group-item
+      = link_to "CSV", cruise_path(@active_cruise, :csv)
+
+  -# %ul.list-group
+  -#   %li.list-group-item.active
+  -#     Change Cruise
+  -#   = render @cruises
+  -#
+  -# %br
+  -# = link_to 'New Cruise',
 .col-md-10.col-sm-10
   .panel.panel-primary
     .panel-heading

@@ -14,5 +14,18 @@ class MeltPond < ActiveRecord::Base
       surface_lookup: 'surface_lookup',
       pattern_lookup: 'pattern_lookup'
     }
+
+    def as_csv
+      [
+        surface_coverage,
+        max_depth_lookup.try(:code),
+        pattern_lookup.try(:code),
+        surface_lookup.try(:code),
+        freeboard,
+        bottom_type_lookup.try(:code),
+        dried_ice,
+        rotten_ice
+      ]
+    end
   end
 end

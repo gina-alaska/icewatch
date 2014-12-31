@@ -7,6 +7,9 @@ class CruisesController < ApplicationController
   # GET /cruises.json
   def index
     @cruises = Cruise.all
+    if Rails.application.secrets.icewatch_assist and @cruises.empty?
+      redirect_to new_cruise_path
+    end
   end
 
   # GET /cruises/1
@@ -16,6 +19,7 @@ class CruisesController < ApplicationController
       format.html
       format.geojson
       format.json
+      format.csv
     end
   end
 
@@ -35,7 +39,7 @@ class CruisesController < ApplicationController
 
     respond_to do |format|
       if @cruise.save
-        format.html { redirect_to @cruise, notice: 'Cruise was successfully created.' }
+        format.html { redirect_to after_modify_path, notice: 'Cruise was successfully created.' }
         format.json { render :show, status: :created, location: @cruise }
       else
         format.html { render :new }
@@ -48,8 +52,8 @@ class CruisesController < ApplicationController
   # PATCH/PUT /cruises/1.json
   def update
     respond_to do |format|
-      if @cruise.update(cruise_params)
-        format.html { redirect_to @cruise, notice: 'Cruise was successfully updated.' }
+      if @cruise.update_attributes(cruise_params)
+        format.html { redirect_to after_modify_path, notice: 'Cruise was successfully updated.' }
         format.json { render :show, status: :ok, location: @cruise }
       else
         format.html { render :edit }
@@ -76,10 +80,15 @@ class CruisesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def cruise_params
-      params.require(:cruise).permit(:starts_at, :ends_at, :objective, :approved)
+      params.require(:cruise).permit(:starts_at, :ends_at, :objective, :approved,
+        :chief_scientist, :captain, :primary_observer, :ship)
     end
 
     def set_active_cruise
       @active_cruise = Cruise.where(id:cookies[:current_cruise]).first || Cruise.first
+    end
+
+    def after_modify_path
+      Rails.application.secrets.icewatch_assist ? root_path : @cruise
     end
 end

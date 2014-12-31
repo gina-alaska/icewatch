@@ -1,3 +1,10 @@
-$('<%= escape_javascript(render "form") %>').on('hidden.bs.modal', function() {
+$('<%= escape_javascript(render "form") %>').on('show.bs.modal', function() {
+  $(this).find('.person-field').selectize({
+    plugins: ['restore_on_backspace', 'remove_button'],
+    create: function(input) {
+      return {value: input, text: input}
+    }
+  });
+}).on('hidden.bs.modal', function() {
   $(this).remove();
 }).modal('show')

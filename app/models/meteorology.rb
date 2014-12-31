@@ -39,4 +39,21 @@ class Meteorology < ActiveRecord::Base
     },
     allow_blank: true
   validates :relative_humidity, numericality: true, allow_blank: true
+
+  def as_csv
+    [
+      weather_lookup.try(:code),
+      visibility_lookup.try(:code),
+      high_cloud.as_csv,
+      medium_cloud.as_csv,
+      low_cloud.as_csv,
+      total_cloud_cover,
+      wind_speed,
+      wind_direction,
+      air_temperature,
+      water_temperature,
+      relative_humidity,
+      air_pressure
+    ]
+  end
 end

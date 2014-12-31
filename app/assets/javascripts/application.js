@@ -21,4 +21,6 @@
 //= require jasny-bootstrap/dist/js/jasny-bootstrap
 //= require selectize/dist/js/standalone/selectize.min
 //= require jquery_nested_form
+//= require moment/min/moment-with-locales.min
+//= require eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min
 //= require_tree .

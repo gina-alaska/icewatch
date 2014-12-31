@@ -17,4 +17,15 @@ class Topography < ActiveRecord::Base
     topography_lookup: 'topography_lookup'
     },
     allow_blank: true
+
+  def as_csv
+    [
+      topography_lookup.try(:code),
+      concentration,
+      ridge_height,
+      old,
+      consolidated,
+      snow_covered
+    ]
+  end
 end
