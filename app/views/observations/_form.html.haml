@@ -16,11 +16,12 @@
     .col-md-10
       .tab-content
         #general-page.tab-pane.active
-          = render partial: 'general', locals: {f: f}
+          = render 'general', f: f
         #ice-page.tab-pane
-          = render partial: 'ice', locals: {f: f}
+          = render 'ice', f: f
         #meteorology-page.tab-pane
-          = render partial: 'meteorology', locals: {f: f}
+          = render 'meteorology', f: f
         #photos-page.tab-pane
+          = render 'photo', f: f
         #comments-page.tab-pane
-          = render partial: 'comments', locals: {f: f}
+          = render 'comments', f: f

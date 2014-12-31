@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/bootstrap-ruby/rails-bootstrap-forms.git
+  revision: 5e498df2a3e0cd25afe8743f01d69015b78f1e27
+  specs:
+    bootstrap_form (2.2.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -38,7 +44,6 @@ GEM
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
       rack (>= 0.9.0)
-    bootstrap_form (2.1.1)
     bower-rails (0.9.2)
     builder (3.2.2)
     cancancan (1.9.2)
@@ -203,7 +208,7 @@ PLATFORMS
 DEPENDENCIES
   aasm
   better_errors
-  bootstrap_form
+  bootstrap_form!
   bower-rails
   cancancan
   coffee-rails (~> 4.0.0)

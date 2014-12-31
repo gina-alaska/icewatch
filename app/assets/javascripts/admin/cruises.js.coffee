@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $ ->
-  $(document).on 'change.bs.fileinput', '.fileinput', (event) ->
+  $(document).on 'change.bs.fileinput', '.cruise-upload.fileinput', (event) ->
     $(this).find('input[type=file]').parse
       config:
         header: true

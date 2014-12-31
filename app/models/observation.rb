@@ -60,13 +60,14 @@ class Observation < ActiveRecord::Base
   has_many :faunas, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :notes, dependent: :destroy
+  has_many :photos, dependent: :destroy
 
   accepts_nested_attributes_for :ice, :ice_observations, :meteorology,
                                 :comments, :notes, :ship,
                                 :primary_observer, :additional_observers,
                                 :meteorology
   accepts_nested_attributes_for :faunas, allow_destroy: true, reject_if: ->(f){f['name'].blank?}
-
+  accepts_nested_attributes_for :photos, allow_destroy: true, reject_if: ->(f){f['tempfile'].blank? and f['name'].blank?}
 
   validates_uniqueness_of :observed_at, scope: [:cruise_id, :latitude, :longitude], message: "This observation already exists"
   validates_presence_of :primary_observer, :observed_at, :latitude, :longitude
@@ -76,7 +77,7 @@ class Observation < ActiveRecord::Base
   validate :ice_thickness_are_decreasing_order
   validate :ice_lookup_codes
   validate :ice_lookup_codes_are_increasing_order
-  validates_associated :ice, :ice_observations, :meteorology
+  validates_associated :ice, :ice_observations, :meteorology, :photos
 
   attr_writer :primary_observer_id_or_name
   attr_writer :additional_observers_id_or_name
@@ -201,6 +202,10 @@ class Observation < ActiveRecord::Base
 
   def dominant_ice_type
     thickness_by_ice_type.max{|(ak,av),(bk,bv)| av <=> bv }.keys.first
+  end
+
+  def export_path
+    File.join(EXPORT_PATH, self.to_s)
   end
 
 end

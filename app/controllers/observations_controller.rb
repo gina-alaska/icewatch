@@ -22,6 +22,7 @@ class ObservationsController < ApplicationController
   def edit
     @observation.valid?
     @observation.faunas.build
+    @observation.photos.build
   end
 
   # POST /observations
@@ -118,11 +119,13 @@ class ObservationsController < ApplicationController
           :air_pressure, :air_temperature, :relative_humidity,
           clouds_attributes: [:id, :cloud_lookup_id, :cover, :height, :cloud_type]
         ],
-        faunas_attributes: [:id, :name, :count, :_destroy]
+        faunas_attributes: [:id, :name, :count, :_destroy],
+        photos_attributes: [:id, :name, :tempfile, :on_boat_location_lookup_id, :_destroy]
       )
     end
 
     def import_params
       params.require(:observation).permit!
     end
+
 end
