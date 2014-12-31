@@ -34,3 +34,15 @@ $(document).on 'ready page:load', ->
         L.circleMarker(latlng, markerOptions)
     ).addTo(map)
   map.setView [80.856,-147.849], 3
+
+$(document).on 'change.bs.fileinput', '.cruise-upload', (event) ->
+  $(this).find('input[type=file]').parse
+    config:
+      header: true
+      skipEmptyLines: true
+      dynamicTypeing: true
+      complete: (results) =>
+        url = $(this).find('input[type=file]').data('submit-url')
+        uploader = new ObsUploader url, results.data
+        uploader.submitNextRow()
+        $(this).fileinput('clear')

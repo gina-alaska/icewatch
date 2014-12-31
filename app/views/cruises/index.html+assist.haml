@@ -16,8 +16,11 @@
     %li.list-group-item.active
       Import
 
-    %li.list-group-item
-      From CSV
+    %li.list-group-item.cruise-upload{data: {provides: 'fileinput'}}
+      = link_to "From CSV", '#', data: {trigger: 'fileinput'}
+      -# .fileinput-new From CSV
+      = file_field_tag 'observations', data: {'submit-url' => import_cruise_observations_path(@active_cruise)},
+        class: 'hidden'
 
   %ul.list-group
     %li.list-group-item.active
