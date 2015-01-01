@@ -34,37 +34,39 @@ class Observation < ActiveRecord::Base
 
   belongs_to :cruise
 
-  has_many :person_observations
+  has_many :person_observations, dependent: :destroy
   has_many :observers, through: :person_observations, class_name: :person
 
   has_one :primary_person_observation, -> { primary },
-          class_name: 'PersonObservation'
+          class_name: 'PersonObservation', dependent: :destroy
   has_one :primary_observer, through: :primary_person_observation, source: :person
   has_many :additional_person_observations, -> { additional },
-          class_name: 'PersonObservation'
-  has_many :additional_observers, through: :additional_person_observations, source: :person
+          class_name: 'PersonObservation', dependent: :destroy
+  has_many :additional_observers, through: :additional_person_observations,
+          source: :person
 
-  has_many :ice_observations
-  has_one :primary_ice_observation, -> { primary }, class_name: 'IceObservation'
-  has_one :secondary_ice_observation, -> { secondary }, class_name: 'IceObservation'
-  has_one :tertiary_ice_observation, -> { tertiary }, class_name: 'IceObservation'
+  has_many :ice_observations, dependent: :destroy
+  has_one :primary_ice_observation, -> { primary }, class_name: 'IceObservation',
+          dependent: :destroy
+  has_one :secondary_ice_observation, -> { secondary }, class_name: 'IceObservation',
+          dependent: :destroy
+  has_one :tertiary_ice_observation, -> { tertiary }, class_name: 'IceObservation',
+          dependent: :destroy
 
-  has_one :ice
-  has_one :meteorology
-  has_one :ship
-  has_many :faunas
-  has_many :comments
-  has_many :notes
+  has_one :ice, dependent: :destroy
+  has_one :meteorology, dependent: :destroy
+  has_one :ship, dependent: :destroy
+  has_many :faunas, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :notes, dependent: :destroy
+  has_many :photos, dependent: :destroy
 
   accepts_nested_attributes_for :ice, :ice_observations, :meteorology,
-                                :comments, :notes, :faunas, :ship,
+                                :comments, :notes, :ship,
                                 :primary_observer, :additional_observers,
-                                :primary_ice_observation, :secondary_ice_observation,
-                                :tertiary_ice_observation, :meteorology
-
-  def primary_observer_attributes= attrs
-    self.primary_observer = Person.where(attrs).first_or_initialize
-  end
+                                :meteorology
+  accepts_nested_attributes_for :faunas, allow_destroy: true, reject_if: ->(f){f['name'].blank?}
+  accepts_nested_attributes_for :photos, allow_destroy: true, reject_if: ->(f){f['tempfile'].blank? and f['name'].blank?}
 
   validates_uniqueness_of :observed_at, scope: [:cruise_id, :latitude, :longitude], message: "This observation already exists"
   validates_presence_of :primary_observer, :observed_at, :latitude, :longitude
@@ -74,11 +76,40 @@ class Observation < ActiveRecord::Base
   validate :ice_thickness_are_decreasing_order
   validate :ice_lookup_codes
   validate :ice_lookup_codes_are_increasing_order
-  validates_associated :ice, :ice_observations, :meteorology
+  validates_associated :ice, :ice_observations, :meteorology, :photos
+
+  attr_writer :primary_observer_id_or_name
+  attr_writer :additional_observers_id_or_name
+
+  before_save :resolve_primary_observer
+  before_save :resolve_additional_observers
+
+  def resolve_primary_observer
+    self.primary_observer = resolve_observer(@primary_observer_id_or_name) unless @primary_observer_id_or_name.blank?
+  end
+
+  def resolve_additional_observers
+    if @additional_observers_id_or_name.present?
+      self.additional_observer_ids = @additional_observers_id_or_name.map{|i| resolve_observer(i).id}
+    end
+  end
+
+  def resolve_observer id_or_name
+    Person.find_or_create_by_id_or_name(id_or_name)
+  end
+
+  def additional_observers_id_or_name
+    self.additional_observer_ids
+  end
+
+  def primary_observer_id_or_name
+    self.primary_observer.try(:id)
+  end
 
   def to_s
     "#{observed_at.strftime("%Y-%m-%d %H:%M")} - #{primary_observer.try(:name)}"
   end
+
   def location
     errors.add(:latitude, "Latitude must be between -90 and 90") unless (latitude.to_f <= 90 && latitude.to_f >= -90)
     errors.add(:longitude, "Longitude must be between -180 and 180") unless (longitude.to_f <= 180 && longitude.to_f >= -180)
@@ -170,6 +201,36 @@ class Observation < ActiveRecord::Base
 
   def dominant_ice_type
     thickness_by_ice_type.max{|(ak,av),(bk,bv)| av <=> bv }.keys.first
+  end
+
+  def export_path
+    File.join(EXPORT_PATH, self.to_s)
+  end
+
+  def as_csv
+    [
+      observed_at,
+      primary_observer.try(:name),
+      (a = additional_observers.map{|o| o.try(:name)}.join(":")).present? ? a : nil,
+      latitude,
+      longitude,
+      ice.as_csv,
+      primary_ice_observation.as_csv,
+      secondary_ice_observation.as_csv,
+      tertiary_ice_observation.as_csv,
+      meteorology.as_csv,
+      ship.try(:as_csv),
+      (f = faunas.map(&:name).join("//")).present? ? f : nil,
+      (f = faunas.map(&:count).join("//")).present? ? f : nil,
+      photos.count,
+      notes.map{|n| n.text.blank? ? nil : n.text},
+      (c = self.comments.map {|c|
+        c.data.blank? ? nil : "#{c.data} -- #{c.user.first_and_last_name}".dump}.join("//")).present? ? c : nil
+    ].flatten
+  end
+
+  def to_csv
+    as_csv.join(",")
   end
 
 end

@@ -1,27 +1,10 @@
 = bootstrap_nested_form_for [@cruise,@observation] do |f|
-  -# .row
-    -# .col-md-1
-    -#   .btn-group.btn-group-justified
-    -#     .btn.btn-danger.disabled Invalid
-    -# .col-md-6
-    -#   -# .btn-group.btn-group-justified
-    -#   -#   .btn.btn-primary General
-    -#   -#   .btn.btn-default Ice
-    -#   -#   .btn.btn-default Meteorology
-    -#   -#   .btn.btn-default Photos
-    -#   -#   .btn.btn-default Comments
-    -# .col-md-2
-    -#   .btn-group.btn-group-justified
-    -#     .btn.btn-info Add Comment
-    -# .col-md-3
-    -#   .btn-group.btn-group-justified
-    -#     .btn.btn-success Save
-    -#     .btn.btn-warning Save and Exit
   .row
     .col-md-2
-      .btn.btn-info.btn-block Add Comment
+      = link_to 'Add Comment', new_observation_comment_path(@observation),
+        remote: true, class: 'btn btn-info btn-block'
       %br
-      %ul.nav.nav-pills.nav-stacked
+      %ul#page.nav.nav-pills.nav-stacked
         %li.active= link_to "General", "#general-page", data: {toggle: 'tab'}
         %li= link_to "Ice", "#ice-page", data: {toggle: 'tab'}
         %li= link_to "Meteorology", "#meteorology-page", data: {toggle: 'tab'}
@@ -33,10 +16,12 @@
     .col-md-10
       .tab-content
         #general-page.tab-pane.active
-          = render partial: 'general', locals: {f: f}
+          = render 'general', f: f
         #ice-page.tab-pane
-          = render partial: 'ice', locals: {f: f}
+          = render 'ice', f: f
         #meteorology-page.tab-pane
-          = render partial: 'meteorology', locals: {f: f}
+          = render 'meteorology', f: f
         #photos-page.tab-pane
+          = render 'photo', f: f
         #comments-page.tab-pane
+          = render 'comments', f: f

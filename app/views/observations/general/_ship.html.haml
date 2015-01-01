@@ -1,6 +1,6 @@
 = f.fields_for :ship do |s|
-  = s.number_field :heading
+  = s.number_field :heading, label: 'Heading (degrees)'
   = s.select :power, ship_power_options
-  = s.number_field :speed
+  = s.number_field :speed, label: 'Speed (knots)'
   = s.collection_select :ship_activity_lookup_id, ShipActivityLookup.all, :id, :code_with_name,
-    {allow_blank: true, include_blank: true}
+    {label: 'Ship Activity'}, {allow_blank: true, include_blank: true}

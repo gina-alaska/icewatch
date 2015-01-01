@@ -1,48 +1,16 @@
-= f.fields_for :primary_ice_observation do |io|
+= f.fields_for :ice_observations, ice_observation do |io|
   .col-md-4
     %h4= io.object.obs_type.capitalize
     = io.fields_for :melt_pond do |m|
-      = m.select :surface_coverage, concentration_options
+      = m.select :surface_coverage, concentration_options, label: 'Pond Concentration'
       = m.collection_select :pattern_lookup_id, PatternLookup.all, :id, :code_with_name,
-        {allow_blank: true, include_blank: true}
+        {label: 'Pond Pattern'}, {allow_blank: true, include_blank: true}
       = m.collection_select :surface_lookup_id, SurfaceLookup.all, :id, :code_with_name,
-        {allow_blank: true, include_blank: true}
-      = m.number_field :freeboard
+        {label: 'Pond Surface Type'}, {allow_blank: true, include_blank: true}
+      = m.number_field :freeboard, label: 'Freeboard of pond (cm)'
       = m.collection_select :max_depth_lookup_id, MaxDepthLookup.all, :id, :code_with_name,
-        {allow_blank: true, include_blank: true}
+        {label: 'Depth of Pond (cm)'}, {allow_blank: true, include_blank: true}
       = m.collection_select :bottom_type_lookup_id, BottomTypeLookup.all, :id, :code_with_name,
-        {allow_blank: true, include_blank: true}
-      = m.select :dried_ice, yes_no_options, {allow_blank: true, include_blank: true}
-      = m.select :rotten_ice, yes_no_options, {allow_blank: true, include_blank: true}
-= f.fields_for :secondary_ice_observation do |io|
-  .col-md-4
-    %h4= io.object.obs_type.capitalize
-    = io.fields_for :melt_pond do |m|
-      = m.select :surface_coverage, concentration_options
-      = m.collection_select :pattern_lookup_id, PatternLookup.all, :id, :code_with_name,
-      {allow_blank: true, include_blank: true}
-      = m.collection_select :surface_lookup_id, SurfaceLookup.all, :id, :code_with_name,
-      {allow_blank: true, include_blank: true}
-      = m.number_field :freeboard
-      = m.collection_select :max_depth_lookup_id, MaxDepthLookup.all, :id, :code_with_name,
-      {allow_blank: true, include_blank: true}
-      = m.collection_select :bottom_type_lookup_id, BottomTypeLookup.all, :id, :code_with_name,
-      {allow_blank: true, include_blank: true}
-      = m.select :dried_ice, yes_no_options, {allow_blank: true, include_blank: true}
-      = m.select :rotten_ice, yes_no_options, {allow_blank: true, include_blank: true}
-= f.fields_for :secondary_ice_observation do |io|
-  .col-md-4
-    %h4= io.object.obs_type.capitalize
-    = io.fields_for :melt_pond do |m|
-      = m.select :surface_coverage, concentration_options
-      = m.collection_select :pattern_lookup_id, PatternLookup.all, :id, :code_with_name,
-      {allow_blank: true, include_blank: true}
-      = m.collection_select :surface_lookup_id, SurfaceLookup.all, :id, :code_with_name,
-      {allow_blank: true, include_blank: true}
-      = m.number_field :freeboard
-      = m.collection_select :max_depth_lookup_id, MaxDepthLookup.all, :id, :code_with_name,
-      {allow_blank: true, include_blank: true}
-      = m.collection_select :bottom_type_lookup_id, BottomTypeLookup.all, :id, :code_with_name,
-      {allow_blank: true, include_blank: true}
-      = m.select :dried_ice, yes_no_options, {allow_blank: true, include_blank: true}
-      = m.select :rotten_ice, yes_no_options, {allow_blank: true, include_blank: true}
+        {label: 'Bottom of Pond'}, {allow_blank: true, include_blank: true}
+      = m.select :dried_ice, yes_no_options, {label: 'Dried Ice?', allow_blank: true, include_blank: true}
+      = m.select :rotten_ice, yes_no_options, {label: 'Rotten Ice?', allow_blank: true, include_blank: true}

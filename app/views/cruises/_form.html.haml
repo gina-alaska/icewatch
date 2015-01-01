@@ -1,27 +1,16 @@
-= form_for(@cruise) do |f|
-  - if @cruise.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@cruise.errors.count, "error")
-        prohibited this cruise from being saved:
-      %ul
-        - @cruise.errors.full_messages.each do |message|
-          %li= message
-  .field
-    = f.label :starts_at
-    %br/
-    = f.datetime_select :starts_at
-  .field
-    = f.label :ends_at
-    %br/
-    = f.datetime_select :ends_at
-  .field
-    = f.label :objective
-    %br/
-    = f.text_field :objective
-  .field
-    = f.label :approved
-    %br/
-    = f.check_box :approved
-  .actions
-    = f.submit
+= bootstrap_form_for @cruise do |f|
+  %table.table.table-striped
+    %tr
+      %td= f.text_field :ship
+      %td= f.text_field :captain
+    %tr
+      %td= f.date_field :starts_at, class: 'datetimepicker',
+        data: {"date-pickTime" => false, "date-format" => 'YYYY-MM-DD'}
+      %td= f.date_field :ends_at, class: 'datetimepicker',
+        data: {"date-pickTime" => false, "date-format" => 'YYYY-MM-DD'}
+    %tr
+      %td= f.text_field :chief_scientist
+      %td= f.text_field :primary_observer
+    %tr
+      %td{colspan: 2}= f.text_area :objective
+  = f.submit class: 'btn btn-primary'

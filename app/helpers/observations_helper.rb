@@ -9,19 +9,28 @@ module ObservationsHelper
     end
   end
 
-  def concentration_options
-    Ice::CONCENTRATION_VALUES.map{|i| [i,i]}
+  def concentration_options max = nil
+    Ice::CONCENTRATION_VALUES.select{|i| max.nil? ? true : i <= max }.map{|i| [i,i]}
   end
 
   def ship_power_options
-    Ship::POWER_VALUES.map{|i| [i,i]}
+    Ship::POWER_VALUES.each_with_index.map{|x,i| [x,i]}
   end
 
   def cloud_cover_options
     Cloud::CLOUD_COVER_VALUES.map{|i| [i,i]}
   end
-  
+
   def yes_no_options
-    [['No', 0],['Yes', 1]]
+    [['No', false],['Yes', true]]
+  end
+
+  def dms coordinate
+    coordinate = coordinate.to_f
+    deg = coordinate < 0 ? coordinate.ceil : coordinate.floor
+
+    min = ((coordinate - deg).abs * 60.0).floor
+    sec = ((((coordinate - deg).abs * 60.0) % 1) * 60.0).round
+    "DMS: #{deg} #{min} #{sec}"
   end
 end

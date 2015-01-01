@@ -43,4 +43,21 @@ class IceObservation < ActiveRecord::Base
     when *IceLookup::OTHER; 'other'
     end
   end
+
+  def as_csv
+    [
+      partial_concentration,
+      ice_lookup.try(:code),
+      thickness,
+      floe_size_lookup.try(:code),
+      snow_lookup.try(:code),
+      snow_thickness,
+      topography.as_csv,
+      melt_pond.as_csv,
+      algae_lookup.try(:code),
+      sediment_lookup.try(:code),
+      algae_density_lookup.try(:code),
+      algae_location_lookup.try(:code)
+    ]
+  end
 end

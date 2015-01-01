@@ -48,7 +48,7 @@ gem "google-api-client"
 
 gem 'friendly_id'
 gem 'nested_form'
-gem 'bootstrap_form'
+gem 'bootstrap_form', git: 'https://github.com/bootstrap-ruby/rails-bootstrap-forms.git'
 gem 'cancancan'
 gem 'rails_12factor', group: :production
 gem 'httparty'
@@ -56,6 +56,7 @@ gem 'aasm'
 
 group :development do
   gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
 gem 'shoulda', group: :test

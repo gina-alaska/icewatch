@@ -1,10 +1,10 @@
 = f.fields_for :ice do |i|
   .row
     .col-md-6
-      = i.select :total_concentration, concentration_options
+      = i.select :total_concentration, concentration_options, label: 'Total Concentration (tenths)'
     .col-md-6
       = i.collection_select :open_water_lookup_id, OpenWaterLookup.all, :id, :code_with_name,
-        {allow_blank: true, include_blank: true}
+        {label: 'Open Water'}, {allow_blank: true, include_blank: true}
 %ul.nav.nav-tabs.nav-justified
   %li.active= link_to "Ice", '#ice-tab', data: {toggle: 'tab'}
   %li= link_to "Snow", '#snow-tab', data: {toggle: 'tab'}
@@ -13,12 +13,29 @@
   %li= link_to "Other", '#other-tab', data: {toggle: 'tab'}
 .tab-content
   #ice-tab.tab-pane.active
-    = render partial: 'observations/ice/ice', locals: {f: f}
+    = render partial: 'observations/ice/ice', locals: {f: f, ice_observation: @observation.primary_ice_observation}
+    = render partial: 'observations/ice/ice', locals: {f: f, ice_observation: @observation.secondary_ice_observation}
+    = render partial: 'observations/ice/ice', locals: {f: f, ice_observation: @observation.tertiary_ice_observation}
   #snow-tab.tab-pane
-    = render partial: 'observations/ice/snow', locals: {f: f}
+    = render partial: 'observations/ice/snow', locals: {f: f, ice_observation: @observation.primary_ice_observation}
+    = render partial: 'observations/ice/snow', locals: {f: f, ice_observation: @observation.secondary_ice_observation}
+    = render partial: 'observations/ice/snow', locals: {f: f, ice_observation: @observation.tertiary_ice_observation}
   #topography-tab.tab-pane
-    = render partial: 'observations/ice/topography', locals: {f: f}
+    = render partial: 'observations/ice/topography', locals: {f: f, ice_observation: @observation.primary_ice_observation}
+    = render partial: 'observations/ice/topography', locals: {f: f, ice_observation: @observation.secondary_ice_observation}
+    = render partial: 'observations/ice/topography', locals: {f: f, ice_observation: @observation.tertiary_ice_observation}
   #melt-tab.tab-pane
-    = render partial: 'observations/ice/melt', locals: {f: f}
+    = render partial: 'observations/ice/melt', locals: {f: f, ice_observation: @observation.primary_ice_observation}
+    = render partial: 'observations/ice/melt', locals: {f: f, ice_observation: @observation.secondary_ice_observation}
+    = render partial: 'observations/ice/melt', locals: {f: f, ice_observation: @observation.tertiary_ice_observation}
   #other-tab.tab-pane
-    = render partial: 'observations/ice/other', locals: {f: f}
+    = render partial: 'observations/ice/other', locals: {f: f, ice_observation: @observation.primary_ice_observation}
+    = render partial: 'observations/ice/other', locals: {f: f, ice_observation: @observation.secondary_ice_observation}
+    = render partial: 'observations/ice/other', locals: {f: f, ice_observation: @observation.tertiary_ice_observation}
+    = f.fields_for :ice do |i|
+      .col-md-4.col-md-offset-2
+        = i.collection_select :thick_ice_lookup_id, IceLookup.all, :id, :code_with_name,
+          {label: 'Thick Ice Type'}, {allow_blank: true, include_blank: true}
+      .col-md-4
+        = i.collection_select :thin_ice_lookup_id, IceLookup.all, :id, :code_with_name,
+          {label: 'Thin Ice Type'}, {allow_blank: true, include_blank: true}

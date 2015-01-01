@@ -13,7 +13,7 @@ module Converters
       o.meteorology = meteorology(meteorology_attributes(params))
 
       o.faunas = Array(params[:faunas]).map{|f| Fauna.new(f)}
-      # o.notes = Array(params[:notes]).map{|n| Note.new(n)}
+      o.notes = Array(params[:notes]).map{|n| Note.new(n)}
       o.ship = Ship.new(params[:ship])
       o
     end
@@ -21,7 +21,7 @@ module Converters
 
     private
     def person params
-      Person.where(params).first_or_initialize
+      Person.where(params).first_or_create
     end
 
     def observation_attributes params
@@ -41,8 +41,7 @@ module Converters
     end
 
     def cloud_attributes params, cloud_type
-      # params.extract! "#{cloud_type}_cloud".to_sym  # params.extract "high_cloud".to_sym
-      params.with_indifferent_access["#{cloud_type}_cloud"]
+      params.delete "#{cloud_type}_cloud".to_sym
     end
 
     def transform_lookups params
@@ -73,7 +72,7 @@ module Converters
     end
 
     def meteorology_attributes(attributes)
-      attributes.extract! :metorology
+      attributes.delete :meteorology
     end
 
     def meteorology attributes

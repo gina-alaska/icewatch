@@ -1,23 +1,9 @@
 = f.fields_for :meteorology do |m|
-  = m.fields_for :high_cloud do |c|
-    .col-md-4
-      %h4= c.object.inspect#.cloud_type.capitalize
-      = c.collection_select :cloud_lookup_id, CloudLookup.all, :id, :code_with_name,
-        {allow_blank: true, include_blank: true}
-      = c.select :cover, cloud_cover_options
-      = c.number_field :height
-
-  = m.fields_for :medium_cloud do |c|
-    .col-md-4
-      %h4= c.object.inspect#cloud_type.capitalize
-      = c.collection_select :cloud_lookup_id, CloudLookup.all, :id, :code_with_name,
-      {allow_blank: true, include_blank: true}
-      = c.select :cover, cloud_cover_options
-      = c.number_field :height
-  = m.fields_for :low_cloud do |c|
-    .col-md-4
-      %h4= c.object.inspect#cloud_type.capitalize
-      = c.collection_select :cloud_lookup_id, CloudLookup.all, :id, :code_with_name,
-      {allow_blank: true, include_blank: true}
-      = c.select :cover, cloud_cover_options
-      = c.number_field :height
+  = m.fields_for :clouds, cloud do |c|
+    .col-md-4.striped
+      - cloud_type = c.object.cloud_type.capitalize
+      %h4= cloud_type
+      = c.collection_select :cloud_lookup_id, CloudLookup.where(group: cloud_type), :id, :code_with_name,
+        {label: 'Cloud Type'}, {allow_blank: true, include_blank: true}
+      = c.select :cover, cloud_cover_options, label: 'Cloud Cover (eights)'
+      = c.number_field :height, label: 'Cloud Height (m)'

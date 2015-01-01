@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
-  resources :cruises, shallow: true do
-    resources :observations do
+  resources :cruises do
+    resources :observations, shallow: true do
       collection do
         post :import
       end
+      resources :comments, except: [:index, :show], shallow: false
     end
   end
   resources :lookups

@@ -19,5 +19,8 @@
 //= require proj4leaflet/src/proj4leaflet
 //= require papaparse/papaparse
 //= require jasny-bootstrap/dist/js/jasny-bootstrap
-//= require select2/select2
+//= require selectize/dist/js/standalone/selectize.min
+//= require jquery_nested_form
+//= require moment/min/moment-with-locales.min
+//= require eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min
 //= require_tree .

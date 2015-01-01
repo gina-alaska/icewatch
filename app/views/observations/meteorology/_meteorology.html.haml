@@ -2,18 +2,18 @@
   .row
     .col-md-4
       = m.collection_select :visibility_lookup_id, VisibilityLookup.all, :id, :code_with_name,
-        {include_blank: true, allow_blank: true}
+        {label: 'Visibility (m-km)'},{include_blank: true, allow_blank: true}
     .col-md-4
       = m.collection_select :weather_lookup_id, WeatherLookup.all, :id, :code_with_name,
-        {include_blank: true, allow_blank: true}
+        {label: 'Weather'}, {include_blank: true, allow_blank: true}
     .col-md-4
-      = m.number_field :total_cloud_cover
+      = m.number_field :total_cloud_cover, label: 'Total Cloud Cover (eigths)'
   .row
     .col-md-4.col-md-offset-2
-      = m.number_field :wind_speed
-      = m.number_field :air_temperature
-      = m.number_field :relative_humidity
+      = m.number_field :wind_speed, label: 'Wind Speed (knots)'
+      = m.number_field :air_temperature, label: 'Air Temperature (c)'
+      = m.number_field :relative_humidity, label: 'Relative Humidity (%)'
     .col-md-4
-      = m.number_field :wind_direction
-      = m.number_field :water_temperature
-      = m.number_field :air_pressure
+      = m.number_field :wind_direction, label: 'Wind Direction (degrees)'
+      = m.number_field :water_temperature, label: 'Water Temperature (c)'
+      = m.number_field :air_pressure, label: 'Air Pressure (mBar)'

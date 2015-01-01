@@ -5,4 +5,6 @@
   #meteorology-tab.tab-pane.active
     = render partial: 'observations/meteorology/meteorology', locals: {f: f}
   #cloud-tab.tab-pane
-    = render partial: 'observations/meteorology/clouds', locals: {f: f}
+    = render partial: 'observations/meteorology/clouds', locals: {f: f, cloud: @observation.meteorology.high_cloud}
+    = render partial: 'observations/meteorology/clouds', locals: {f: f, cloud: @observation.meteorology.medium_cloud}
+    = render partial: 'observations/meteorology/clouds', locals: {f: f, cloud: @observation.meteorology.low_cloud}

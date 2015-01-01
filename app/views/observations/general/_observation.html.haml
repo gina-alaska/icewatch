@@ -1,10 +1,16 @@
-%table.table.table-striped
+%table.table
   %tr
-    %td= f.collection_select :primary_observer, Person.all, :id, :name
-    %td= f.collection_select :additional_observers, Person.all, :id, :name
-
+    %td= f.collection_select :primary_observer_id_or_name, Person.all, :id, :name,
+      {label: 'Primary Observer'}, class: 'person-field'
+    %td= f.collection_select :additional_observers_id_or_name, Person.all, :id,
+      :name, {label: 'Additional Observers', selected: @observation.additional_observers_id_or_name},
+      {multiple: true, class: 'person-field'}
   %tr
-    %td{colspan: 2}= f.datetime_local_field :observed_at
+    %td{colspan: 2}= f.datetime_local_field :observed_at, label: 'Observation Date and Time'
   %tr
-    %td= f.text_field :latitude
-    %td= f.text_field :longitude
+    %td
+      = f.text_field :latitude, help: dms(f.object.latitude),
+        placeholder: "DD.DDDD or DD MM SS", class: 'coordinate'
+    %td
+      = f.text_field :longitude, help: dms(f.object.longitude),
+        placeholder: "DD.DDDD or DD MM SS", class: 'coordinate'

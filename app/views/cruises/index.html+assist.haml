@@ -16,13 +16,27 @@
     %li.list-group-item.active
       Import
 
-    %li.list-group-item
-      From CSV
+    %li.list-group-item.cruise-upload{data: {provides: 'fileinput'}}
+      = link_to "From CSV", '#', data: {trigger: 'fileinput'}
+      -# .fileinput-new From CSV
+      = file_field_tag 'observations', data: {'submit-url' => import_cruise_observations_path(@active_cruise)},
+        class: 'hidden'
 
   %ul.list-group
     %li.list-group-item.active
-      Change Cruise
-    = render @cruises
+      Cruise
+    %li.list-group-item
+      = link_to "Edit", edit_cruise_path(@active_cruise)
+    %li.list-group-item
+      = link_to "CSV", cruise_path(@active_cruise, :csv)
+
+  -# %ul.list-group
+  -#   %li.list-group-item.active
+  -#     Change Cruise
+  -#   = render @cruises
+  -#
+  -# %br
+  -# = link_to 'New Cruise',
 .col-md-10.col-sm-10
   .panel.panel-primary
     .panel-heading

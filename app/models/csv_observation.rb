@@ -165,7 +165,6 @@ class CsvObservation
   end
 
   def additional_observers
-    ao ||= ""
-    ao.split(",").map{|n| {name: n}}
+    ao.split(":").map{|n| {name: n}}
   end
 end
