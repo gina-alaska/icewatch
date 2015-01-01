@@ -24,4 +24,13 @@ module ObservationsHelper
   def yes_no_options
     [['No', false],['Yes', true]]
   end
+
+  def dms coordinate
+    coordinate = coordinate.to_f
+    deg = coordinate < 0 ? coordinate.ceil : coordinate.floor
+
+    min = ((coordinate - deg).abs * 60.0).floor
+    sec = ((((coordinate - deg).abs * 60.0) % 1) * 60.0).round
+    "DMS: #{deg} #{min} #{sec}"
+  end
 end

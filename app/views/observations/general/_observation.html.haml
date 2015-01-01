@@ -8,5 +8,9 @@
   %tr
     %td{colspan: 2}= f.datetime_local_field :observed_at, label: 'Observation Date and Time'
   %tr
-    %td= f.text_field :latitude
-    %td= f.text_field :longitude
+    %td
+      = f.text_field :latitude, help: dms(f.object.latitude),
+        placeholder: "DD.DDDD or DD MM SS", class: 'coordinate'
+    %td
+      = f.text_field :longitude, help: dms(f.object.longitude),
+        placeholder: "DD.DDDD or DD MM SS", class: 'coordinate'
