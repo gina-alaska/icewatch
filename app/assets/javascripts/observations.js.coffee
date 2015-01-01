@@ -25,7 +25,7 @@ $(document).on 'blur', '.coordinate', ->
 
   if dms != coordinates
     $(this).val(dms)
-    $(this).siblings('.help-block').text("DMS: #{coordinates}")
+    $(this).siblings('.help-block').text("DMS: #{coordinates}")    
 
 @parseCoordinate = (coordinate) ->
   toDD = (value) ->

@@ -9,8 +9,8 @@ module ObservationsHelper
     end
   end
 
-  def concentration_options
-    Ice::CONCENTRATION_VALUES.map{|i| [i,i]}
+  def concentration_options max = nil
+    Ice::CONCENTRATION_VALUES.select{|i| max.nil? ? true : i <= max }.map{|i| [i,i]}
   end
 
   def ship_power_options

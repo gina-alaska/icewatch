@@ -1,7 +1,10 @@
 .col-md-4
   = f.fields_for :ice_observations, ice_observation do |io|
     %h4= io.object.obs_type.capitalize
-    = io.select :partial_concentration, concentration_options, label: 'Partial Concentration (tenths)'
+    - tc = f.object.ice.total_concentration
+    = io.select :partial_concentration, concentration_options(tc),
+      { help: "Total Concentration: #{tc}/10", label: 'Partial Concentration (tenths)'},
+       class: 'partial-concentration'
     = io.collection_select :ice_lookup_id, IceLookup.all, :id, :code_with_name,
       {label: 'Ice Type'}, {allow_blank: true, include_blank: true}
     = io.number_field :thickness, label: 'Thickness (cm)'
