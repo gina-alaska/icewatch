@@ -13,7 +13,7 @@
     .col-md-3
       = f.hidden_field :name
       = f.collection_select :on_boat_location_lookup_id, OnBoatLocationLookup.all, :id, :name,
-        {label: 'Taken From'}, {allow_blank: true, include_blank: true}
+        {label: 'Taken From', include_blank: 'Not Specified'}
     .col-md-3
       = f.link_to_remove "Delete", class: 'btn btn-danger', style: 'margin-top: 25px'
 

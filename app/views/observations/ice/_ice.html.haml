@@ -3,10 +3,10 @@
     %h4= io.object.obs_type.capitalize
     - tc = f.object.ice.total_concentration
     = io.select :partial_concentration, concentration_options(tc),
-      { help: "Total Concentration: #{tc}/10", label: 'Partial Concentration (tenths)'},
+      { help: "Total Concentration: #{tc}/10", label: 'Partial Concentration (tenths)', include_blank: 'No Observation'},
        class: 'partial-concentration'
     = io.collection_select :ice_lookup_id, IceLookup.all, :id, :code_with_name,
-      {label: 'Ice Type'}, {allow_blank: true, include_blank: true}
+      {label: 'Ice Type', include_blank: 'No Observation'}
     = io.number_field :thickness, label: 'Thickness (cm)'
     = io.collection_select :floe_size_lookup_id, FloeSizeLookup.all, :id, :code_with_name,
-      {label: 'Floe Size'}, {allow_blank: true, include_blank: true}
+      {label: 'Floe Size', include_blank: 'No Observation'}

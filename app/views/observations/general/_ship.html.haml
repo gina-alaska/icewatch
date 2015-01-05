@@ -3,4 +3,4 @@
   = s.select :power, ship_power_options
   = s.number_field :speed, label: 'Speed (knots)'
   = s.collection_select :ship_activity_lookup_id, ShipActivityLookup.all, :id, :code_with_name,
-    {label: 'Ship Activity'}, {allow_blank: true, include_blank: true}
+    {label: 'Ship Activity', include_blank: 'Not specified'}

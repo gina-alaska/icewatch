@@ -17,7 +17,8 @@ class Ice < ActiveRecord::Base
     allow_blank: true
 
   def as_csv
-    [ total_concentration,
+    [
+      total_concentration,
       open_water_lookup.try(:code),
       thin_ice_lookup.try(:code),
       thick_ice_lookup.try(:code)

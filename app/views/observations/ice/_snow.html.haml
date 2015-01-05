@@ -2,5 +2,5 @@
   .col-md-4
     %h4= io.object.obs_type.capitalize
     = io.collection_select :snow_lookup_id, SnowLookup.all, :id, :code_with_name,
-      {label: 'Snow Type'}, {allow_blank: true, include_blank: true}
+      {label: 'Snow Type', include_blank: 'No Observation'}
     = io.number_field :snow_thickness, label: 'Snow Thickness (cm)'

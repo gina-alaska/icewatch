@@ -2,10 +2,10 @@
   .col-md-4
     %h4= io.object.obs_type.capitalize
     = io.collection_select :algae_lookup_id, AlgaeLookup.all, :id, :code_with_name,
-      {label: 'Algae Concentration'},{allow_blank: true, include_blank: true}
+      {label: 'Algae Concentration', include_blank: 'No Observation'}
     = io.collection_select :algae_density_lookup_id, AlgaeDensityLookup.all, :id, :code_with_name,
-      {label: 'Algae Density'},{allow_blank: true, include_blank: true}
+      {label: 'Algae Density', include_blank: 'No Observation'}
     = io.collection_select :algae_location_lookup_id, AlgaeLocationLookup.all, :id, :code_with_name,
-      {label: 'Algae Location'},{allow_blank: true, include_blank: true}
+      {label: 'Algae Location', include_blank: 'No Observation'}
     = io.collection_select :sediment_lookup_id, SedimentLookup.all, :id, :code_with_name,
-      {label: 'Sediment'},{allow_blank: true, include_blank: true}
+      {label: 'Sediment', include_blank: 'No Observation'}

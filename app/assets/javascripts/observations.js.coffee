@@ -3,7 +3,8 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'ready page:load', ->
-  $("select:not(.person-field)").selectize()
+  $("select:not(.person-field)").selectize
+    allowEmptyOption: true
 
   $(".person-field").selectize
     plugins: ['restore_on_backspace', 'remove_button']
@@ -25,7 +26,7 @@ $(document).on 'blur', '.coordinate', ->
 
   if dms != coordinates
     $(this).val(dms)
-    $(this).siblings('.help-block').text("DMS: #{coordinates}")    
+    $(this).siblings('.help-block').text("DMS: #{coordinates}")
 
 @parseCoordinate = (coordinate) ->
   toDD = (value) ->

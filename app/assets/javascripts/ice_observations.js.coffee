@@ -12,6 +12,5 @@ $(document).on 'change', '#observation_ice_attributes_total_concentration', ->
   $("select.partial-concentration").each (idx, pc) ->
     data = $(pc).data('selectize')
     for key, opt of concentrationOptions
-      console.log(parseInt(opt.value) > tc)
       if parseInt(opt.value) > tc then data.removeOption(opt.value) else data.addOption(opt)
-      
+
