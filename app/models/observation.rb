@@ -225,7 +225,7 @@ class Observation < ActiveRecord::Base
       photos.count,
       notes.map{|n| n.text.blank? ? nil : n.text},
       (c = self.comments.map {|c|
-        c.data.blank? ? nil : "#{c.data} -- #{c.user.first_and_last_name}".dump}.join("//")).present? ? c : nil
+        c.text.blank? ? nil : "#{c.text} -- #{c.user.first_and_last_name}".dump}.join("//")).present? ? c : nil
     ].flatten
   end
 
