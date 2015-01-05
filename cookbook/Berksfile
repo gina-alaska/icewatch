@@ -1,0 +1,10 @@
+source "https://supermarket.getchef.com"
+
+# depends 'rcs-rails-application'
+cookbook 'java'
+cookbook 'chruby'
+cookbook 'yum-epel'
+
+
+
+metadata
