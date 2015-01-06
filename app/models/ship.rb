@@ -18,4 +18,7 @@ class Ship < ActiveRecord::Base
     [power, speed, heading, ship_activity_lookup.try(:code)]
   end
 
+  def ship_activity_lookup_code
+    ship_activity_lookup.try(&:code)
+  end
 end

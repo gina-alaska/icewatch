@@ -16,4 +16,8 @@ class Cloud < ActiveRecord::Base
   def as_csv
     [ cloud_lookup.try(:code), cover, height ]
   end
+
+  def cloud_lookup_code
+    cloud_lookup.try(&:code)
+  end
 end

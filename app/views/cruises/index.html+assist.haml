@@ -18,7 +18,6 @@
 
     %li.list-group-item.cruise-upload{data: {provides: 'fileinput'}}
       = link_to "From CSV", '#', data: {trigger: 'fileinput'}
-      -# .fileinput-new From CSV
       = file_field_tag 'observations', data: {'submit-url' => import_cruise_observations_path(@active_cruise)},
         class: 'hidden'
 
@@ -29,6 +28,8 @@
       = link_to "Edit", edit_cruise_path(@active_cruise)
     %li.list-group-item
       = link_to "CSV", cruise_path(@active_cruise, :csv)
+    %li.list-group-item
+      = link_to "JSON", cruise_path(@active_cruise, :json)
 
   -# %ul.list-group
   -#   %li.list-group-item.active

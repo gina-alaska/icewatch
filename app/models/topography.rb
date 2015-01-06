@@ -28,4 +28,8 @@ class Topography < ActiveRecord::Base
       snow_covered
     ]
   end
+
+  def topography_lookup_code
+    topography_lookup.try(&:code)
+  end
 end
