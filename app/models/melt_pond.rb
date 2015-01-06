@@ -28,4 +28,11 @@ class MeltPond < ActiveRecord::Base
       ]
     end
   end
+
+
+  %w{bottom_type max_depth pattern surface}.each do |lookup|
+    define_method "#{lookup}_lookup_code" do      # define_method "surface_lookup_code" do
+      self.send("#{lookup}_lookup").try(&:code)    #   self.send("surface_lookup_code").try(&:code)
+    end                                           # end
+  end
 end

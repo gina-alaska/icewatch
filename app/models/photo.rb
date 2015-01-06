@@ -38,4 +38,8 @@ class Photo < ActiveRecord::Base
   def url
     File.join('/', observation.export_path, name).gsub(/public\//,'')
   end
+
+  def on_boat_location_lookup_code
+    on_boat_location.try(:code)
+  end
 end

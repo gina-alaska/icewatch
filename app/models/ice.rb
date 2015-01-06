@@ -25,4 +25,9 @@ class Ice < ActiveRecord::Base
     ]
   end
 
+  %w{open_water thin_ice thick_ice}.each do |lookup|
+    define_method "#{lookup}_lookup_code" do      # define_method "open_water_lookup_code" do
+      self.send("#{lookup}_lookup").try(&:code)    #   self.send("open_water_lookup_code").try(&:code)
+    end                                           # end
+  end
 end
