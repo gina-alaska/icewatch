@@ -7,7 +7,9 @@
       {multiple: true, class: 'person-field'}
   %tr
     %td{colspan: 2}
-      = f.datetime_local_field :observed_at, label: 'Observation Date and Time', help: 'UTC'
+      = f.datetime_field :observed_at, label: 'Observation Date and Time', help: 'YYYY-mm-dd HH:MM UTC',
+      class: 'datetimepicker', data: {"date-format" => 'YYYY-MM-DD hh:mm', "date-sideBySide" => true},
+      value: f.object.observed_at.try(:strftime,"%Y-%m-%d %H:%M")
   %tr
     %td
       = f.text_field :latitude, help: dms(f.object.latitude),
