@@ -45,4 +45,15 @@ class Cruise < ActiveRecord::Base
   def export_path
     File.join(EXPORT_PATH, self.to_s)
   end
+
+  def metadata
+    {
+      exported_on: Time.now.utc,
+      assist_version: Icewatch::VERSION,
+      ship_name: ship,
+      captain: captain,
+      chief_scientist: chief_scientist,
+      primary_observer: primary_observer
+    }
+  end
 end
