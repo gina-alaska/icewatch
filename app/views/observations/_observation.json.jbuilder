@@ -17,7 +17,7 @@ end
 json.notes observation.notes.map(&:text)
 json.ship observation.ship, :heading, :power, :ship_activity_lookup_code, :speed
 json.comments do
-  json.partial! 'observations/comment', collection: observation.comments, as: :comment
+  json.partial! 'observations/comments', collection: observation.comments, as: :comment
 end
 json.photos do
   json.partial! 'observations/photo', collection: observation.photos, as: :photo

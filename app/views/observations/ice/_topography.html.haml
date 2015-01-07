@@ -1,5 +1,5 @@
 = f.fields_for :ice_observations, ice_observation do |io|
-  .col-md-4.topography-group
+  .col-md-4.col-sm-4.topography-group
     %h4= io.object.obs_type.capitalize
     = io.fields_for :topography do |t|
       = t.collection_select :topography_lookup_id, TopographyLookup.all, :id, :code_with_name,

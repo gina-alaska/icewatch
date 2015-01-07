@@ -1,4 +1,4 @@
-.col-md-4
+.col-md-4.col-sm-4
   = f.fields_for :ice_observations, ice_observation do |io|
     %h4= io.object.obs_type.capitalize
     - tc = f.object.ice.total_concentration
