@@ -40,6 +40,6 @@ class Photo < ActiveRecord::Base
   end
 
   def on_boat_location_lookup_code
-    on_boat_location.try(:code)
+    on_boat_location_lookup.try(:code)
   end
 end

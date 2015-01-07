@@ -1,6 +1,6 @@
 = f.fields_for :photos do |f|
   .row
-    .col-md-4
+    .col-md-4.col-sm-4
       .fileinput{data: {provides: 'fileinput'}, class: (f.object.new_record? ? 'fileinput-new' : 'fileinput-exists')}
         .fileinput-new.thumbnail{style: 'width: 140px; height: 78px;', data: {trigger: 'fileinput'}}
         .fileinput-preview.thumbnail.fileinput-exists{style: 'max-width: 140px; max-height: 78px;'}
@@ -10,11 +10,11 @@
           .fileinput-exists.fileinput-filename
             = f.object.name unless f.object.new_record?
           = f.file_field_without_bootstrap :tempfile
-    .col-md-3
+    .col-md-3.col-sm-3
       = f.hidden_field :name
       = f.collection_select :on_boat_location_lookup_id, OnBoatLocationLookup.all, :id, :name,
         {label: 'Taken From', include_blank: 'Not Specified'}
-    .col-md-3
+    .col-md-3.col-sm-3
       = f.link_to_remove "Delete", class: 'btn btn-danger', style: 'margin-top: 25px'
 
 

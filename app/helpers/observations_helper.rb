@@ -33,4 +33,8 @@ module ObservationsHelper
     sec = ((((coordinate - deg).abs * 60.0) % 1) * 60.0).round
     "DMS: #{deg} #{min} #{sec}"
   end
+
+  def row_highlight observation
+    observation.valid? ? '' : 'danger'
+  end
 end

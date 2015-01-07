@@ -1,1 +1,1 @@
-# json.partial! 'observation/observation', @observation
+json.partial! 'observations/observation', observation: @observation

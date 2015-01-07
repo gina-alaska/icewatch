@@ -53,6 +53,7 @@ gem 'cancancan'
 gem 'rails_12factor', group: :production
 gem 'httparty'
 gem 'aasm'
+gem 'rubyzip', '>= 1.0.0', require: 'zip'
 
 group :development do
   gem 'better_errors'
