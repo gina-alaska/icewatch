@@ -1,1 +1,1 @@
-json.extract! @observation, :id, :cruise_id, :observed_at, :latitude, :longitude, :uuid, :created_at, :updated_at
+json.partial! 'observations/observation', observation: @observation

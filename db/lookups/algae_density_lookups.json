@@ -1,5 +1,13 @@
 [
   {
+    "code": 0,
+    "name": "Not Visible"
+  },
+  {
+    "code": 1,
+    "name": "Trace"
+  },
+  {
     "code": 2,
     "name": "Light"
   },
@@ -10,13 +18,5 @@
   {
     "code": 4,
     "name": "Strong"
-  },
-  {
-    "code": 1,
-    "name": "Trace"
-  },
-  {
-    "code": 0,
-    "name": "Not Visible"
   }
 ]

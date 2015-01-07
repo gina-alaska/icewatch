@@ -24,7 +24,6 @@
 
   group = $(this).parents('.topography-group')
   selectedValue = parseInt($(this).find('option:selected').val())
-  console.log(selectedValue)
   switch
     when levelCodes.indexOf(selectedValue) >= 0
       # Disable all fields

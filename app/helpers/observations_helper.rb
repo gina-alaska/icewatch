@@ -10,7 +10,7 @@ module ObservationsHelper
   end
 
   def concentration_options max = nil
-    Ice::CONCENTRATION_VALUES.select{|i| max.nil? ? true : i <= max }.map{|i| [i,i]}
+    Ice::CONCENTRATION_VALUES.select{|i| (max.nil? or i.nil?) ? true : i <= max }.map{|i| [i,i]}
   end
 
   def ship_power_options
@@ -32,5 +32,9 @@ module ObservationsHelper
     min = ((coordinate - deg).abs * 60.0).floor
     sec = ((((coordinate - deg).abs * 60.0) % 1) * 60.0).round
     "DMS: #{deg} #{min} #{sec}"
+  end
+
+  def row_highlight observation
+    observation.valid? ? '' : 'danger'
   end
 end

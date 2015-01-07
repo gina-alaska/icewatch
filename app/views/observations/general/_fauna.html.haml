@@ -1,10 +1,10 @@
 = f.fields_for :faunas do |fauna|
   .row
-    .col-md-5
+    .col-md-5.col-sm-5
       = fauna.text_field :name
-    .col-md-5
+    .col-md-5.col-sm-5
       = fauna.number_field :count
-    .col-md-2
+    .col-md-2.col-sm-2
       = fauna.link_to_remove class: 'btn btn-danger', style: 'margin-top: 25px' do
         %i.fa.fa-remove
 

@@ -1,12 +1,13 @@
 = f.fields_for :ice_observations, ice_observation do |io|
-  .col-md-4.topography-group
+  .col-md-4.col-sm-4.topography-group
     %h4= io.object.obs_type.capitalize
     = io.fields_for :topography do |t|
       = t.collection_select :topography_lookup_id, TopographyLookup.all, :id, :code_with_name,
-        {label: 'Thick Ice Type', allow_blank: true, include_blank: true}, {class: 'topography'}
-      = t.select :concentration, concentration_options, {allow_blank: true, include_blank: true},
-        {label: 'Concentration', class: 'concentration'}
-      = t.number_field :ridge_height, class: 'ridge', label: 'Ridge Height (m)'
-      = t.select :old, yes_no_options, {allow_blank: true, include_blank: true}, {class: 'ridge'}
-      = t.select :consolidated, yes_no_options, {allow_blank: true, include_blank: true}, {class: 'ridge'}
-      = t.select :snow_covered, yes_no_options, {allow_blank: true, include_blank: true}, {class: 'ridge'}
+        {label: 'Thick Ice Type', include_blank: 'No Observation'}, {class: 'topography'}
+      = t.select :concentration, concentration_options,
+        { help: 'in tenths',label: 'Concentration', class: 'concentration', include_blank: 'No Observation'}
+      = t.number_field :ridge_height, { help: 'meters to nearest half meter', class: 'ridge',
+          label: 'Ridge Height (m)', step: 0.5}
+      = t.select :old, yes_no_options, {include_blank: 'No Observation'}, {class: 'ridge'}
+      = t.select :consolidated, yes_no_options, { include_blank: 'No Observation'}, {class: 'ridge'}
+      = t.select :snow_covered, yes_no_options, { include_blank: 'No Observation'}, {class: 'ridge'}

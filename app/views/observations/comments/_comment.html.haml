@@ -1,6 +1,6 @@
 .panel.panel-info
   .panel-heading
-    = comment.person.try(:name)
-    = link_to '[edit]', edit_comment_path(comment), remote: true
+    %h5= comment.person.try(:name)
+    =# link_to '[edit]', edit_comment_path(comment), remote: true
   .panel-body
     = comment.text

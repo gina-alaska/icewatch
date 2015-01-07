@@ -1,6 +1,10 @@
 class ObservationsController < ApplicationController
   before_action :set_observation, only: [:show, :edit, :update, :destroy]
 
+  if Rails.application.secrets.icewatch_assist
+    after_action :export_json, :export_csv, only: [:update]
+  end
+
   # GET /observations
   # GET /observations.json
   def index
@@ -128,4 +132,22 @@ class ObservationsController < ApplicationController
       params.require(:observation).permit!
     end
 
+    def create_export_directory!
+      FileUtils.mkdir_p(@observation.export_path) unless File.exists?(@observation.export_path)
+    end
+
+    def export_json
+      create_export_directory!
+      File.open(File.join(@observation.export_path,"#{@observation.to_s}.json"),'w') do |f|
+        f << JSON.pretty_generate(JSON.parse(@observation.render_to_string))
+      end
+    end
+
+    def export_csv
+      create_export_directory!
+      File.open(File.join(@observation.export_path, "#{@observation.to_s}.csv"),'w') do |f|
+        f << Observation.csv_headers
+        f << @observation.as_csv.to_csv
+      end
+    end
 end

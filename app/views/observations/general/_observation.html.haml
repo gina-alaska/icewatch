@@ -1,13 +1,15 @@
 %table.table
   %tr
     %td= f.collection_select :primary_observer_id_or_name, Person.all, :id, :name,
-      {label: 'Primary Observer'}, class: 'person-field'
+      {label: 'Primary Observer', include_blank: true}, class: 'person-field', placeholder: 'Select person or type to add'
     %td= f.collection_select :additional_observers_id_or_name, Person.all, :id,
-      :name, {label: 'Additional Observers', selected: @observation.additional_observers_id_or_name, help: 'Comma seperated list'},
-      {multiple: true, class: 'person-field'}
+      :name, {label: 'Additional Observers', selected: @observation.additional_observers_id_or_name, help: 'Separate observers with ","'},
+      {multiple: true, class: 'person-field', placeholder: 'Select person or type to add'}
   %tr
     %td{colspan: 2}
-      = f.datetime_local_field :observed_at, label: 'Observation Date and Time', help: 'UTC'
+      = f.datetime_field :observed_at, label: 'Observation Date and Time', help: 'YYYY-mm-dd HH:MM UTC',
+      class: 'datetimepicker', data: {"date-format" => 'YYYY-MM-DD HH:mm', "date-sideBySide" => true},
+      value: f.object.observed_at.try(:strftime,"%Y-%m-%d %H:%M")
   %tr
     %td
       = f.text_field :latitude, help: dms(f.object.latitude),

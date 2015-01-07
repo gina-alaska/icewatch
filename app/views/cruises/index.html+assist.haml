@@ -3,14 +3,28 @@
   %h2 Arctic Shipborne Sea Ice Standardization Tool
   = link_to "Start Observation", cruise_observations_path(@active_cruise), class: 'btn btn-primary btn-lg', method: 'POST'
 
+.row
+  .col-md-12
+    .alert.alert-warning
+      %h4
+        This is an early release of ASSIST. Some features from previous versions of
+        ASSIST may not yet be implemented.
+
 .col-md-2.col-sm-2
   %ul.list-group
     %li.list-group-item.active
       Export
     %li.list-group-item
-      = link_to "All Observations", "#"
+      = link_to "All Observations", cruise_path(@active_cruise, :zip)
+
+  %ul.list-group
+    %li.list-group-item.active
+      View Cruise as
     %li.list-group-item
-      = link_to "Selected Observations", "#"
+      = link_to "CSV", cruise_path(@active_cruise, :csv)
+    %li.list-group-item
+      = link_to "JSON", cruise_path(@active_cruise, :json)
+
 
   %ul.list-group
     %li.list-group-item.active
@@ -18,7 +32,6 @@
 
     %li.list-group-item.cruise-upload{data: {provides: 'fileinput'}}
       = link_to "From CSV", '#', data: {trigger: 'fileinput'}
-      -# .fileinput-new From CSV
       = file_field_tag 'observations', data: {'submit-url' => import_cruise_observations_path(@active_cruise)},
         class: 'hidden'
 
@@ -27,16 +40,7 @@
       Cruise
     %li.list-group-item
       = link_to "Edit", edit_cruise_path(@active_cruise)
-    %li.list-group-item
-      = link_to "CSV", cruise_path(@active_cruise, :csv)
 
-  -# %ul.list-group
-  -#   %li.list-group-item.active
-  -#     Change Cruise
-  -#   = render @cruises
-  -#
-  -# %br
-  -# = link_to 'New Cruise',
 .col-md-10.col-sm-10
   .panel.panel-primary
     .panel-heading

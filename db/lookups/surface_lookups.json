@@ -1,14 +1,14 @@
 [
   {
+    "code": 1,
+    "name": "Frozen"
+  },
+  {
     "code": 2,
     "name": "Open"
   },
   {
     "code": 3,
     "name": "Bottom up"
-  },
-  {
-    "code": 1,
-    "name": "Frozen"
   }
 ]

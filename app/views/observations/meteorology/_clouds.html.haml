@@ -1,9 +1,9 @@
-= f.fields_for :meteorology do |m|
-  = m.fields_for :clouds, cloud do |c|
-    .col-md-4.striped
-      - cloud_type = c.object.cloud_type.capitalize
-      %h4= cloud_type
-      = c.collection_select :cloud_lookup_id, CloudLookup.where(group: cloud_type), :id, :code_with_name,
-        {label: 'Cloud Type'}, {allow_blank: true, include_blank: true}
-      = c.select :cover, cloud_cover_options, label: 'Cloud Cover (eights)'
-      = c.number_field :height, label: 'Cloud Height (m)'
+-# = f.fields_for :meteorology do |m|
+= m.fields_for :clouds, cloud do |c|
+  .col-md-4.col-sm-4
+    - cloud_type = c.object.cloud_type.capitalize
+    %h4= cloud_type
+    = c.collection_select :cloud_lookup_id, CloudLookup.where(group: cloud_type), :id, :code_with_name,
+      {label: 'Cloud Type', include_blank: 'No Observation'}
+    = c.select :cover, cloud_cover_options, {label: 'Cloud Cover (eights)', include_blank: 'No Observation'}
+    = c.number_field :height, label: 'Cloud Height (m)'

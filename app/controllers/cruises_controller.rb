@@ -1,8 +1,9 @@
 class CruisesController < ApplicationController
   before_action :set_cruise, only: [:show, :edit, :update, :destroy]
   before_action :set_active_cruise, only: [:index, :show]
+  before_action :set_observations, only: [:show]
 
-  respond_to :geojson, :json
+  respond_to :geojson, :json, :csv, :zip
   # GET /cruises
   # GET /cruises.json
   def index
@@ -20,6 +21,12 @@ class CruisesController < ApplicationController
       format.geojson
       format.json
       format.csv
+      format.zip do
+        generate_zip
+        File.open(File.join(@cruise.export_path, "#{@cruise.to_s}.zip"), 'rb') do |f|
+          send_data f.read, filename: "#{@cruise.to_s}.zip"
+        end
+      end
     end
   end
 
@@ -78,6 +85,13 @@ class CruisesController < ApplicationController
       @cruise = Cruise.find(params[:id])
     end
 
+    def set_observations
+      @observations = @cruise.observations
+      if params[:observations]
+        @observations = @observations.where(id: params[:observations])
+      end
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def cruise_params
       params.require(:cruise).permit(:starts_at, :ends_at, :objective, :approved,
@@ -91,4 +105,35 @@ class CruisesController < ApplicationController
     def after_modify_path
       Rails.application.secrets.icewatch_assist ? root_path : @cruise
     end
+
+    def generate_zip params={}
+      FileUtils.mkdir_p @cruise.export_path unless File.exists? @cruise.export_path
+      export_file = File.join(@cruise.export_path, "#{@cruise.to_s}.zip")
+      FileUtils.remove(export_file) if File.exists?(export_file)
+
+      Zip::File.open(export_file, Zip::File::CREATE) do |zipfile|
+        zipfile.get_output_stream "METADATA" do |f|
+          f.write @cruise.metadata.to_yaml
+        end
+
+        @observations.each do |observation|
+          %w{csv json}.each do |format|
+            if File.exists?(observation.export_file(format))
+              obs_path = File.join(observation.to_s, File.basename(observation.export_file(format)))
+              zipfile.add obs_path, observation.export_file(format)
+            end
+          end
+        end
+
+        zipfile.get_output_stream("#{@cruise.to_s}.json") do |f|
+          f.write JSON.pretty_generate(JSON.parse(@cruise.render_to_string))
+        end
+        zipfile.get_output_stream("#{@cruise.to_s}.csv") do |f|
+          f.write Observation.csv_headers
+          f.write @observations.map(&:as_csv).to_csv
+        end
+      end
+
+    end
+
 end

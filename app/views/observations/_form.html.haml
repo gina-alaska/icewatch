@@ -1,6 +1,7 @@
+
 = bootstrap_nested_form_for [@cruise,@observation] do |f|
   .row
-    .col-md-2
+    .col-md-2.col-sm-3
       = link_to 'Add Comment', new_observation_comment_path(@observation),
         remote: true, class: 'btn btn-info btn-block'
       %br
@@ -13,7 +14,7 @@
       %br
       = f.submit 'Save', class: 'btn btn-block btn-success'
       = f.submit 'Save and Exit', class: 'btn btn-block btn-warning'
-    .col-md-10
+    .col-md-10.col-sm-9
       .tab-content
         #general-page.tab-pane.active
           = render 'general', f: f
@@ -25,3 +26,6 @@
           = render 'photo', f: f
         #comments-page.tab-pane
           = render 'comments', f: f
+
+.row
+  .col-md-12.footer

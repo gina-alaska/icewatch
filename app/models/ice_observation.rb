@@ -60,4 +60,10 @@ class IceObservation < ActiveRecord::Base
       algae_location_lookup.try(:code)
     ]
   end
+
+  %w{algae_density algae_location algae floe_size ice sediment snow}.each do |lookup|
+    define_method "#{lookup}_lookup_code" do      # define_method "snow_lookup_code" do
+      self.send("#{lookup}_lookup").try(&:code)    #   self.send("snow_lookup_code").try(&:code)
+    end                                           # end
+  end
 end

@@ -107,7 +107,12 @@ class Observation < ActiveRecord::Base
   end
 
   def to_s
-    "#{observed_at.strftime("%Y-%m-%d %H:%M")} - #{primary_observer.try(:name)}"
+    timestamp =  if observed_at.present?
+      observed_at.strftime("%Y-%m-%d %H:%M")
+    else
+      "#{self.id}_time_not_specified"
+    end
+    "#{timestamp} - #{primary_observer.try(:name)}"
   end
 
   def location
@@ -204,7 +209,11 @@ class Observation < ActiveRecord::Base
   end
 
   def export_path
-    File.join(EXPORT_PATH, self.to_s)
+    File.join(self.cruise.export_path, self.to_s)
+  end
+
+  def export_file format
+    File.join(export_path, "#{self.to_s}.#{format}")
   end
 
   def as_csv
@@ -225,12 +234,17 @@ class Observation < ActiveRecord::Base
       photos.count,
       notes.map{|n| n.text.blank? ? nil : n.text},
       (c = self.comments.map {|c|
-        c.data.blank? ? nil : "#{c.data} -- #{c.user.first_and_last_name}".dump}.join("//")).present? ? c : nil
+        c.text.blank? ? nil : "#{c.text} -- #{c.person.try(&:name)}".dump}.join("//")).present? ? c : nil
     ].flatten
   end
 
-  def to_csv
-    as_csv.join(",")
+  def self.csv_headers
+    "Date,PO,AO,LAT,LON,TC,OW,OT,TH,PPC,PT,PZ,PF,PSY,PSH,PTop,PTopC,PRH,POld,PCs,PSC,PMPC,PMPD,PMPP,PMPT,PMPF,PMBT,PMDI,PMRI,PA,PSD,PAD,PAL,SPC,ST,SZ,SF,SSY,SSH,STop,STopC,SRH,SOld,SCs,SSC,SMPC,SMPD,SMPP,SMPT,SMPF,SMBT,SMDI,SMRI,SA,SSD,SAD,SAL,TPC,TT,TZ,TF,TSY,TSH,TTop,TTopC,TRH,TOld,TCs,TSC,TMPC,TMPD,TMPP,TMPT,TMPF,TMBT,TMDI,TMRI,TA,TSD,TAD,TAL,WX,V,HY,HV,HH,MY,MV,MH,LY,LV,LH,TCC,WS,WD,AT,WT,RelH,AP,ShP,ShS,ShH,ShA,FN,FC,Photo,note0,note1,note2,Comments"
+  end
+
+  def render_to_string format=:json
+    ActionView::Base.new(Rails.configuration.paths['app/views']).
+    render(template: "observations/show.#{format.to_s}", format: format, locals: {:@observation => self})
   end
 
 end

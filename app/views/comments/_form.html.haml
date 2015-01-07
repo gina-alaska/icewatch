@@ -7,6 +7,8 @@
           %button.close{data: {dismiss: 'modal'}}
             %span &times;
         .modal-body
+          .alert.alert-info
+            Comments are seperated by "//" when exported to csv.  Please do not use "//" in your comment
           #comment-errors
           = f.collection_select :person_id_or_name, Person.all, :id, :name, {}, class: 'person-field'
           = f.text_area :text
