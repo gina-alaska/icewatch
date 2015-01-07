@@ -1,5 +1,5 @@
 json.extract! observation, :observed_at, :latitude, :longitude, :uuid
-json.primary_observer observation.primary_observer.name
+json.primary_observer observation.primary_observer.try(:name)
 json.additional_observers observation.additional_observers.map(&:name)
 json.ice observation.ice, :open_water_lookup_code, :thick_ice_lookup_code,
   :thin_ice_lookup_code, :total_concentration

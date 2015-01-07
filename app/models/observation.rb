@@ -229,8 +229,8 @@ class Observation < ActiveRecord::Base
     ].flatten
   end
 
-  def to_csv
-    as_csv.join(",")
+  def self.csv_headers
+    "Date,PO,AO,LAT,LON,TC,OW,OT,TH,PPC,PT,PZ,PF,PSY,PSH,PTop,PTopC,PRH,POld,PCs,PSC,PMPC,PMPD,PMPP,PMPT,PMPF,PMBT,PMDI,PMRI,PA,PSD,PAD,PAL,SPC,ST,SZ,SF,SSY,SSH,STop,STopC,SRH,SOld,SCs,SSC,SMPC,SMPD,SMPP,SMPT,SMPF,SMBT,SMDI,SMRI,SA,SSD,SAD,SAL,TPC,TT,TZ,TF,TSY,TSH,TTop,TTopC,TRH,TOld,TCs,TSC,TMPC,TMPD,TMPP,TMPT,TMPF,TMBT,TMDI,TMRI,TA,TSD,TAD,TAL,WX,V,HY,HV,HH,MY,MV,MH,LY,LV,LH,TCC,WS,WD,AT,WT,RelH,AP,ShP,ShS,ShH,ShA,FN,FC,Photo,note0,note1,note2,Comments"
   end
 
 end

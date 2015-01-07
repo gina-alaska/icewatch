@@ -33,6 +33,11 @@ class Cruise < ActiveRecord::Base
     observation
   end
 
+  def render_to_string format=:json
+    ActionView::Base.new(Rails.configuration.paths['app/views']).
+      render(template: "cruises/show.#{format.to_s}", format: format, locals: {:@cruise => self})
+  end
+
   # attr_writer :primary_observer_id_or_name
   # attr_writer :captain_id_or_name
   # attr_writer :chief_scientist_id_or_name
