@@ -212,6 +212,10 @@ class Observation < ActiveRecord::Base
     File.join(self.cruise.export_path, self.to_s)
   end
 
+  def export_file format
+    File.join(export_path, "#{self.to_s}.#{format}")
+  end
+
   def as_csv
     [
       observed_at,

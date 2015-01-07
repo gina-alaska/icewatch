@@ -133,7 +133,7 @@ class ObservationsController < ApplicationController
     end
 
     def create_export_directory!
-      FileUtils.mkdir_p(@observation.export_path)
+      FileUtils.mkdir_p(@observation.export_path) unless File.exists?(@observation.export_path)
     end
 
     def export_json
