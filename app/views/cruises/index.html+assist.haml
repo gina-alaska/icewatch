@@ -3,6 +3,13 @@
   %h2 Arctic Shipborne Sea Ice Standardization Tool
   = link_to "Start Observation", cruise_observations_path(@active_cruise), class: 'btn btn-primary btn-lg', method: 'POST'
 
+.row
+  .col-md-12
+    .alert.alert-warning
+      %h4
+        This is an early release of ASSIST. Some features from previous versions of
+        ASSIST may not yet be implemented.
+
 .col-md-2.col-sm-2
   %ul.list-group
     %li.list-group-item.active

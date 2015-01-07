@@ -3,7 +3,7 @@ class CruisesController < ApplicationController
   before_action :set_active_cruise, only: [:index, :show]
   before_action :set_observations, only: [:show]
 
-  respond_to :geojson, :json
+  respond_to :geojson, :json, :csv, :zip
   # GET /cruises
   # GET /cruises.json
   def index
