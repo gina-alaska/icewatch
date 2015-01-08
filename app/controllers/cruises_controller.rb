@@ -129,8 +129,10 @@ class CruisesController < ApplicationController
           f.write JSON.pretty_generate(JSON.parse(@cruise.render_to_string))
         end
         zipfile.get_output_stream("#{@cruise.to_s}.csv") do |f|
-          f.write Observation.csv_headers
-          f.write @observations.map(&:as_csv).to_csv
+          f << Observation.csv_headers + "\n"
+          @observations.each do |o|
+            f << o.as_csv.to_csv
+          end
         end
       end
 

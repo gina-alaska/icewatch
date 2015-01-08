@@ -147,7 +147,7 @@ class ObservationsController < ApplicationController
       create_export_directory!
       File.open(File.join(@observation.export_path, "#{@observation.to_s}.csv"),'w') do |f|
         f << Observation.csv_headers
-        f << @observation.as_csv.to_csv
+        f << @observation.as_csv.to_csv.html_safe
       end
     end
 end

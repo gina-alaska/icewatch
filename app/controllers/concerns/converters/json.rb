@@ -15,6 +15,7 @@ module Converters
       o.faunas = Array(params[:faunas]).map{|f| Fauna.new(f)}
       o.notes = Array(params[:notes]).map{|n| Note.new(n)}
       o.ship = Ship.new(params[:ship])
+      o.comments = build_comments(params[:comments])
       o
     end
 
@@ -86,6 +87,13 @@ module Converters
       m.low_cloud = Cloud.low.new lc
 
       m
+    end
+
+    def build_comments params
+      comments = params.map do |comment|
+        Comment.new(text: comment[:text], person_id: person(comment[:person]).id)
+      end
+      comments
     end
 
   end

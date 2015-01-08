@@ -57,6 +57,7 @@ class CsvObservation
           pattern_lookup_code: pmpp,
           surface_lookup_code: pmpt,
           freeboard: pmpf,
+          bottom_type_lookup_code: pmbt,
           dried_ice: pmdi,
           rotten_ice: pmri
         },
@@ -86,6 +87,7 @@ class CsvObservation
           pattern_lookup_code: smpp,
           surface_lookup_code: smpt,
           freeboard: smpf,
+          bottom_type_lookup_code: smbt,
           dried_ice: smdi,
           rotten_ice: smri
         },
@@ -115,6 +117,7 @@ class CsvObservation
           pattern_lookup_code: tmpp,
           surface_lookup_code: tmpt,
           freeboard: tmpf,
+          bottom_type_lookup_code: tmbt,
           dried_ice: tmdi,
           rotten_ice: tmri
         },
@@ -153,7 +156,8 @@ class CsvObservation
           cloud_lookup_code: ly
         }
       },
-      notes: [{ text: note0},{ text: note1 },{ text: note2 }]
+      notes: [{ text: note0},{ text: note1 },{ text: note2 }],
+      comments: comments.split("//").map{|c| comment_to_hash(c) }
     }
   end
 
@@ -166,5 +170,10 @@ class CsvObservation
 
   def additional_observers
     ao.split(":").map{|n| {name: n}}
+  end
+
+  def comment_to_hash line
+    comment, person = line.split(" -- ")
+    {person: {name: person}, text: comment}
   end
 end
