@@ -39,7 +39,7 @@ gem 'spring',        group: :development
 gem 'warbler', platforms: :jruby
 # gem 'activerecord-jdbc-adapter', platform: :jruby #, require: false
 # gem 'jdbc-sqlite3', platform: :jruby
-gem 'activerecord-jdbcsqlite3-adapter'
+gem 'activerecord-jdbcsqlite3-adapter', platform: :jruby
 gem 'jruby-openssl', platform: :jruby
 
 gem "pg", platform: :ruby
