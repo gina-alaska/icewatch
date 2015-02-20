@@ -28,14 +28,6 @@ gem 'spring',        group: :development
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use unicorn as the app server
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
-
 gem 'warbler', platforms: :jruby
 # gem 'activerecord-jdbc-adapter', platform: :jruby #, require: false
 # gem 'jdbc-sqlite3', platform: :jruby
@@ -43,7 +35,7 @@ gem 'activerecord-jdbcsqlite3-adapter', platform: :jruby
 gem 'jruby-openssl', platform: :jruby
 
 gem 'pg', platform: :ruby
-gem 'unicorn', platform: :ruby
+gem 'puma', platform: :ruby
 
 
 gem 'haml'
@@ -85,3 +77,5 @@ gem 'shoulda', group: :test
 #   gem 'rails-assets-selectize'
 #   gem 'rails-assets-bootstrap-switch'
 # end
+
+ruby '2.2.0'
