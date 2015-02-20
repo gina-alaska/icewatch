@@ -2,15 +2,15 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.8'
+gem 'rails', '4.2.0'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails', '~> 5.0.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer',  platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 gem 'therubyrhino', platforms: :jruby
 
 # Use jquery as the JavaScript library
@@ -42,17 +42,16 @@ gem 'warbler', platforms: :jruby
 gem 'activerecord-jdbcsqlite3-adapter', platform: :jruby
 gem 'jruby-openssl', platform: :jruby
 
-gem "pg", platform: :ruby
+gem 'pg', platform: :ruby
 gem 'unicorn', platform: :ruby
 
 
-gem "haml"
-gem "bower-rails"
-gem "omniauth"
-gem "omniauth-github"
-gem "omniauth-google-oauth2"
-gem "omniauth-openid"
-gem "google-api-client"
+gem 'haml'
+gem 'omniauth'
+gem 'omniauth-github'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-openid'
+gem 'google-api-client'
 
 gem 'friendly_id'
 gem 'nested_form'
@@ -62,10 +61,27 @@ gem 'rails_12factor', group: :production
 gem 'httparty'
 gem 'aasm'
 gem 'rubyzip', '>= 1.0.0', require: 'zip'
+gem 'bower-rails'
 
-group :development do
+group :development, :test do
   gem 'better_errors', platform: :ruby
   gem 'binding_of_caller', platform: :ruby
+  gem 'rubocop'
+  gem 'guard'
+  gem 'guard-minitest'
+  gem 'guard-rubocop'
 end
 
 gem 'shoulda', group: :test
+
+# source 'https://rails-assets.org' do
+#   gem 'rails-assets-bootstrap'
+#   gem 'rails-assets-eonasdan-bootstrap-datetimepicker'
+#   gem 'rails-assets-font-awesome'
+#   gem 'rails-assets-jasny-bootstrap'
+#   gem 'rails-assets-leaflet'
+#   gem 'rails-assets-papaparse'
+#   gem 'rails-assets-proj4leaflet'
+#   gem 'rails-assets-selectize'
+#   gem 'rails-assets-bootstrap-switch'
+# end
