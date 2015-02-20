@@ -37,27 +37,27 @@ class Observation < ActiveRecord::Base
 
   has_one :primary_person_observation, -> { primary },
           class_name: 'PersonObservation', dependent: :destroy
-  has_one :primary_observer, through: :primary_person_observation, source: :person
+  has_one :primary_observer, through: :primary_person_observation, source: :person, validate: true
   has_many :additional_person_observations, -> { additional },
-          class_name: 'PersonObservation', dependent: :destroy
+           class_name: 'PersonObservation', dependent: :destroy
   has_many :additional_observers, through: :additional_person_observations,
-          source: :person
+                                  source: :person, validate: true
 
-  has_many :ice_observations, dependent: :destroy
+  has_many :ice_observations, dependent: :destroy, validate: true
   has_one :primary_ice_observation, -> { primary }, class_name: 'IceObservation',
-          dependent: :destroy
+                                                    dependent: :destroy
   has_one :secondary_ice_observation, -> { secondary }, class_name: 'IceObservation',
-          dependent: :destroy
+                                                        dependent: :destroy
   has_one :tertiary_ice_observation, -> { tertiary }, class_name: 'IceObservation',
-          dependent: :destroy
+                                                      dependent: :destroy
 
-  has_one :ice, dependent: :destroy
-  has_one :meteorology, dependent: :destroy
-  has_one :ship, dependent: :destroy
-  has_many :faunas, dependent: :destroy
-  has_many :comments, dependent: :destroy
-  has_many :notes, dependent: :destroy
-  has_many :photos, dependent: :destroy
+  has_one :ice, dependent: :destroy, validate: true
+  has_one :meteorology, dependent: :destroy, validate: true
+  has_one :ship, dependent: :destroy, validate: true
+  has_many :faunas, dependent: :destroy, validate: true
+  has_many :comments, dependent: :destroy, validate: true
+  has_many :notes, dependent: :destroy, validate: true
+  has_many :photos, dependent: :destroy, validate: true
 
   accepts_nested_attributes_for :ice, :ice_observations, :meteorology,
                                 :comments, :notes, :ship,
@@ -74,7 +74,7 @@ class Observation < ActiveRecord::Base
   validate :ice_thickness_are_decreasing_order
   validate :ice_lookup_codes
   validate :ice_lookup_codes_are_increasing_order
-  validates_associated :ice, :ice_observations, :meteorology, :photos
+  validate :merge_association_errors
 
   attr_writer :primary_observer_id_or_name
   attr_writer :additional_observers_id_or_name
@@ -192,22 +192,17 @@ class Observation < ActiveRecord::Base
     tertiary = tertiary_ice_observation
 
     unless increasing_order?(ice.thick_ice_lookup, primary.ice_lookup)
-      errors.add(:ice, "Thick ice type thinner than primary")
-      primary.errors.add(:ice_lookup_id)
+      primary.errors.add(:ice_lookup_id, 'Thick ice type thinner than primary')
     end
     unless increasing_order?(primary.ice_lookup, secondary.ice_lookup)
-      errors.add(:ice, "Primary ice type thinner than secondary")
-      secondary.errors.add(:ice_lookup_id)
+      secondary.errors.add(:ice_lookup_id, 'Primary ice type thinner than secondary')
     end
     unless increasing_order?(secondary.ice_lookup, tertiary.ice_lookup)
-      errors.add(:ice, "Secondary ice type thinner than tertiary")
-      tertiary.errors.add(:ice_lookup_id)
+      tertiary.errors.add(:ice_lookup_id,'Secondary ice type thinner than tertiary')
     end
     unless increasing_order?(ice.thin_ice_lookup, tertiary.ice_lookup)
-      errors.add(:ice, "Tertiary ice type thinner than thin ice type")
-      tertiary.errors.add(:ice_lookup_id)
+      tertiary.errors.add(:ice_lookup_id,'Tertiary ice type thinner than thin ice type')
     end
-
   end
 
   def ice_lookup_codes
@@ -215,13 +210,11 @@ class Observation < ActiveRecord::Base
     secondary = secondary_ice_observation
     tertiary = tertiary_ice_observation
 
-    if (secondary.ice_lookup and !primary.ice_lookup)
-      errors.add(:ice, "Secondary ice type without primary")
-      secondary.errors.add(:ice_lookup_id)
+    if secondary.ice_lookup && !primary.ice_lookup
+      secondary.errors.add(:ice_lookup_id, 'Secondary ice type without primary')
     end
-    if (tertiary.ice_lookup and !secondary.ice_lookup)
-      errors.add(:ice, "Tertiary ice type without primary")
-      tertiary.errors.add(:ice_lookup_id)
+    if tertiary.ice_lookup && !secondary.ice_lookup
+      tertiary.errors.add(:ice_lookup_id,'Tertiary ice type without secondary')
     end
   end
 
@@ -242,6 +235,14 @@ class Observation < ActiveRecord::Base
     thickness_by_ice_type.max { |(_ak, av), (_bk, bv)| av <=> bv }.keys.first
   end
 
+  def merge_association_errors
+    %w(ship ice primary_ice_observation secondary_ice_observation tertiary_ice_observation).each do |assoc|
+      unless self.send(assoc.to_sym).valid?
+        self.send(assoc.to_sym).errors.full_messages.each do |msg|
+          errors[:base] << "#{assoc.humanize} error: #{msg}"
+        end
+      end
+    end
   end
 
 end
