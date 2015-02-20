@@ -1,5 +1,4 @@
 class CommentsController < ApplicationController
-  respond_to :js
   before_action :set_comment, only: [:update, :destroy]
   # POST /comments
   # POST /comments.json
