@@ -68,7 +68,7 @@ class ObservationsController < ApplicationController
   def destroy
     @observation.destroy
     respond_to do |format|
-      format.html { redirect_to observations_url, notice: 'Observation was successfully destroyed.' }
+      format.html { redirect_to root_url, notice: 'Observation was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
