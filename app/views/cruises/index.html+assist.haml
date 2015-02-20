@@ -16,6 +16,8 @@
       Export
     %li.list-group-item
       = link_to "All Observations", cruise_path(@active_cruise, :zip)
+    %li.list-group-item
+      = link_to "Selected Observations", cruise_path(@active_cruise, :zip), id: 'selected-export'
 
   %ul.list-group
     %li.list-group-item.active
@@ -49,7 +51,10 @@
     %table.table
       %thead
         %tr
-          %th All/None
+          %th
+            = link_to 'All', '#', id: 'all-export'
+            = "/"
+            = link_to 'None', '#', id: 'none-export'
           %th Observation Date
           %th Last Modified
           %th Total Ice Concentration

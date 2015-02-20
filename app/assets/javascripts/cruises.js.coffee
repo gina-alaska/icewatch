@@ -46,3 +46,17 @@ $(document).on 'change.bs.fileinput', '.cruise-upload', (event) ->
         uploader = new ObsUploader url, results.data
         uploader.submitNextRow()
         $(this).fileinput('clear')
+
+$(document).on 'click', '#all-export', ->
+  $(".export[type='checkbox']").prop("checked", true)
+$(document).on 'click', '#none-export', ->
+  $(".export[type='checkbox']").prop("checked", false)
+
+$(document).on 'click', '#selected-export', (e) ->
+  e.preventDefault()
+  params = ""
+  $(".export[type='checkbox']:checked").each (index, item) ->
+    params += "&" unless index is 0
+    params += "observations[]=#{$(item).val()}"
+
+  document.location = "#{$(this).attr('href')}?#{params}"

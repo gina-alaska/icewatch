@@ -1,5 +1,5 @@
 %tr.observation{class: row_highlight(observation)}
-  %td
+  %td= check_box_tag "observations[]", observation.id, false, id: "observation_#{observation.id}", class: 'export'
   %td= observation.observed_at
   %td= observation.updated_at
   %td= observation.ice.try(:total_concentration)
