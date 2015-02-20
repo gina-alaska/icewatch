@@ -16,6 +16,9 @@
       %br
       = f.submit 'Save', class: 'btn btn-block btn-success'
       = f.submit 'Save and Exit', class: 'btn btn-block btn-warning'
+      = link_to 'Exit without Saving', root_path,
+                class: 'btn btn-block btn-danger',
+                data: {confirm: 'Any changes made will be lost'}
     .col-md-10.col-sm-9
       .tab-content
         #general-page.tab-pane.active
