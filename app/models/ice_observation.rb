@@ -34,6 +34,7 @@ class IceObservation < ActiveRecord::Base
       sediment_lookup: 'sediment_lookup' }
   end
 
+  validate :ice_types_with_ten_codes_cant_have_floe_size
 
   def ice_type
     case ice_lookup.try(:code)
@@ -65,5 +66,14 @@ class IceObservation < ActiveRecord::Base
     define_method "#{lookup}_lookup_code" do      # define_method "snow_lookup_code" do
       send("#{lookup}_lookup").try(&:code)        #   self.send("snow_lookup_code").try(&:code)
     end                                           # end
+  end
+
+  private
+
+  def ice_types_with_ten_codes_cant_have_floe_size
+    return unless %w(Shuga Frazil Grease).include?(ice_lookup.try(:name))
+    return if floe_size_lookup.nil?
+
+    errors.add(:ice_lookup_id, "#{ice_lookup.name} cannot have a floe size")
   end
 end
