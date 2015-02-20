@@ -62,13 +62,14 @@ class LookupsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_lookup
-      @lookup = Lookup.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def lookup_params
-      params.require(:lookup).permit(:code, :name, :type, :comment)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_lookup
+    @lookup = Lookup.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def lookup_params
+    params.require(:lookup).permit(:code, :name, :type, :comment)
+  end
 end

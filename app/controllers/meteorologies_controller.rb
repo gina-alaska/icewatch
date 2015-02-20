@@ -62,13 +62,14 @@ class MeteorologiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_meteorology
-      @meteorology = Meteorology.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def meteorology_params
-      params.require(:meteorology).permit(:observation_id, :weather_lookup_id, :visibility_lookup_id, :total_cloud_cover, :wind_speed, :wind_direction, :air_temperature, :water_temperature, :realtive_humidity, :air_pressure)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_meteorology
+    @meteorology = Meteorology.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def meteorology_params
+    params.require(:meteorology).permit(:observation_id, :weather_lookup_id, :visibility_lookup_id, :total_cloud_cover, :wind_speed, :wind_direction, :air_temperature, :water_temperature, :realtive_humidity, :air_pressure)
+  end
 end

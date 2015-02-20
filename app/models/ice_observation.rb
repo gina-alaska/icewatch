@@ -17,13 +17,13 @@ class IceObservation < ActiveRecord::Base
   scope :secondary, -> { where(obs_type: 'secondary') }
   scope :tertiary, -> { where(obs_type: 'tertiary') }
 
-  validates_uniqueness_of :obs_type, scope: :observation_id
+  validates :obs_type, uniqueness: { scope: :observation_id }
 
   with_options allow_blank: true do |record|
-    record.validates :partial_concentration, numericality: {only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 10}
-    record.validates :thickness,  numericality: {only_integer: true, greater_than_or_equal_to: 0 }
-    record.validates :snow_thickness,  numericality: {only_integer: true, greater_than_or_equal_to: 0 }
-    record.validates :obs_type, inclusion: {in: %w(primary secondary tertiary)}
+    record.validates :partial_concentration, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 10 }
+    record.validates :thickness,  numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+    record.validates :snow_thickness,  numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+    record.validates :obs_type, inclusion: { in: %w(primary secondary tertiary) }
     record.validates_with Validations::LookupCodeValidator, fields: {
       ice_lookup: 'ice_lookup',
       floe_size_lookup: 'floe_size_lookup',
@@ -31,16 +31,16 @@ class IceObservation < ActiveRecord::Base
       algae_lookup: 'algae_lookup',
       algae_density_lookup: 'algae_density_lookup',
       algae_location_lookup: 'algae_location_lookup',
-      sediment_lookup: 'sediment_lookup'}
+      sediment_lookup: 'sediment_lookup' }
   end
 
 
   def ice_type
     case ice_lookup.try(:code)
-    when *IceLookup::OLD_ICE; 'old'
-    when *IceLookup::NEW_ICE; 'new'
-    when *IceLookup::FIRST_YEAR_ICE; 'first-year'
-    when *IceLookup::OTHER; 'other'
+    when *IceLookup::OLD_ICE then 'old'
+    when *IceLookup::NEW_ICE then 'new'
+    when *IceLookup::FIRST_YEAR_ICE then 'first-year'
+    when *IceLookup::OTHER then 'other'
     end
   end
 
@@ -61,9 +61,9 @@ class IceObservation < ActiveRecord::Base
     ]
   end
 
-  %w{algae_density algae_location algae floe_size ice sediment snow}.each do |lookup|
+  %w(algae_density algae_location algae floe_size ice sediment snow).each do |lookup|
     define_method "#{lookup}_lookup_code" do      # define_method "snow_lookup_code" do
-      self.send("#{lookup}_lookup").try(&:code)    #   self.send("snow_lookup_code").try(&:code)
+      send("#{lookup}_lookup").try(&:code)        #   self.send("snow_lookup_code").try(&:code)
     end                                           # end
   end
 end

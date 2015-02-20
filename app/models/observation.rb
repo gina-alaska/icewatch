@@ -9,7 +9,6 @@ class Observation < ActiveRecord::Base
     state :rejected
     state :locked
 
-
     event :review do
       transitions from: [:saved, :rejected], to: :reviewing, guard: :valid?
     end
@@ -29,7 +28,6 @@ class Observation < ActiveRecord::Base
     event :unlock do
       transitions from: :locked, to: :accepeted
     end
-
   end
 
   belongs_to :cruise
@@ -65,10 +63,10 @@ class Observation < ActiveRecord::Base
                                 :comments, :notes, :ship,
                                 :primary_observer, :additional_observers,
                                 :meteorology
-  accepts_nested_attributes_for :faunas, allow_destroy: true, reject_if: ->(f){f['name'].blank?}
-  accepts_nested_attributes_for :photos, allow_destroy: true, reject_if: ->(f){f['tempfile'].blank? and f['name'].blank?}
+  accepts_nested_attributes_for :faunas, allow_destroy: true, reject_if: ->(f) { f['name'].blank? }
+  accepts_nested_attributes_for :photos, allow_destroy: true, reject_if: ->(f) { f['tempfile'].blank? && f['name'].blank? }
 
-  validates_uniqueness_of :observed_at, scope: [:cruise_id, :latitude, :longitude], message: "This observation already exists"
+  validates_uniqueness_of :observed_at, scope: [:cruise_id, :latitude, :longitude], message: 'This observation already exists'
   validates_presence_of :primary_observer, :observed_at, :latitude, :longitude
 
   validate :location
@@ -90,47 +88,88 @@ class Observation < ActiveRecord::Base
 
   def resolve_additional_observers
     if @additional_observers_id_or_name.present?
-      self.additional_observer_ids = @additional_observers_id_or_name.map{|i| resolve_observer(i).id}
+      self.additional_observer_ids = @additional_observers_id_or_name.map { |i| resolve_observer(i).id }
     end
   end
 
-  def resolve_observer id_or_name
+  def resolve_observer(id_or_name)
     Person.find_or_create_by_id_or_name(id_or_name)
   end
 
   def additional_observers_id_or_name
-    self.additional_observer_ids
+    additional_observer_ids
   end
 
   def primary_observer_id_or_name
-    self.primary_observer.try(:id)
+    primary_observer.try(:id)
   end
 
   def to_s
-    timestamp =  if observed_at.present?
-      observed_at.strftime("%Y-%m-%d %H:%M")
-    else
-      "#{self.id}_time_not_specified"
-    end
+    timestamp = if observed_at.present?
+                  observed_at.strftime('%Y-%m-%d %H:%M')
+                else
+                  "#{id}_time_not_specified"
+                end
     "#{timestamp} - #{primary_observer.try(:name)}"
   end
 
+  def export_path
+    File.join(cruise.export_path, to_s)
+  end
+
+  def export_file(format)
+    File.join(export_path, "#{self}.#{format}")
+  end
+
+  def as_csv
+    [
+      observed_at,
+      primary_observer.try(:name),
+      (a = additional_observers.map { |o| o.try(:name) }.join(':')).present? ? a : nil,
+      latitude,
+      longitude,
+      ice.as_csv,
+      primary_ice_observation.as_csv,
+      secondary_ice_observation.as_csv,
+      tertiary_ice_observation.as_csv,
+      meteorology.as_csv,
+      ship.try(:as_csv),
+      (f = faunas.map(&:name).join('//')).present? ? f : nil,
+      (f = faunas.map(&:count).join('//')).present? ? f : nil,
+      photos.count,
+      notes.map { |n| n.text.blank? ? nil : n.text },
+      (c = comments.map {|c|
+        c.text.blank? ? nil : "#{c.text} -- #{c.person.try(&:name)}".dump}.join('//')).present? ? c : nil
+    ].flatten
+  end
+
+  def self.csv_headers
+    'Date,PO,AO,LAT,LON,TC,OW,OT,TH,PPC,PT,PZ,PF,PSY,PSH,PTop,PTopC,PRH,POld,PCs,PSC,PMPC,PMPD,PMPP,PMPT,PMPF,PMBT,PMDI,PMRI,PA,PSD,PAD,PAL,SPC,ST,SZ,SF,SSY,SSH,STop,STopC,SRH,SOld,SCs,SSC,SMPC,SMPD,SMPP,SMPT,SMPF,SMBT,SMDI,SMRI,SA,SSD,SAD,SAL,TPC,TT,TZ,TF,TSY,TSH,TTop,TTopC,TRH,TOld,TCs,TSC,TMPC,TMPD,TMPP,TMPT,TMPF,TMBT,TMDI,TMRI,TA,TSD,TAD,TAL,WX,V,HY,HV,HH,MY,MV,MH,LY,LV,LH,TCC,WS,WD,AT,WT,RelH,AP,ShP,ShS,ShH,ShA,FN,FC,Photo,note0,note1,note2,Comments'
+  end
+
+  def render_to_string(format = :json)
+    ActionView::Base.new(Rails.configuration.paths['app/views'])
+      .render(template: "observations/show.#{format}", format: format, locals: { :@observation => self })
+  end
+
+  private
+
   def location
-    errors.add(:latitude, "Latitude must be between -90 and 90") unless (latitude.to_f <= 90 && latitude.to_f >= -90)
-    errors.add(:longitude, "Longitude must be between -180 and 180") unless (longitude.to_f <= 180 && longitude.to_f >= -180)
+    errors.add(:latitude, 'Latitude must be between -90 and 90') unless latitude.to_f <= 90 && latitude.to_f >= -90
+    errors.add(:longitude, 'Longitude must be between -180 and 180') unless longitude.to_f <= 180 && longitude.to_f >= -180
   end
 
   def partial_concentrations_equal_total_concentration
-    total_pc = ice_observations.inject(0){|sum,p| sum + p.partial_concentration.to_i}
+    total_pc = ice_observations.inject(0) { |sum, p| sum + p.partial_concentration.to_i }
     primary = primary_ice_observation
     secondary = secondary_ice_observation
     tertiary = tertiary_ice_observation
 
-    if total_pc != 0 and ice.total_concentration != total_pc
-      errors.add(:ice, "Partial concentrations must equal total concentration")
-      primary.errors.add(:partial_concentration)
-      secondary.errors.add(:partial_concentration)
-      tertiary.errors.add(:partial_concentration)
+    if total_pc != 0 && ice.total_concentration != total_pc
+      ice.errors.add(:total_concentration, 'Partial concentrations must equal total concentration')
+      primary.errors.add(:partial_concentration, 'Sum of partial concentrations must equal total concentration')
+      secondary.errors.add(:partial_concentration, 'Sum of partial concentrations must equal total concentration')
+      tertiary.errors.add(:partial_concentration, 'Sum of partial concentrations must equal total concentration')
     end
   end
 
@@ -139,16 +178,11 @@ class Observation < ActiveRecord::Base
     secondary = secondary_ice_observation
     tertiary = tertiary_ice_observation
 
-    Rails.logger.info(ice_observations)
-    Rails.logger.info(primary)
-
-    if primary.thickness and primary.thickness < secondary.thickness.to_i
-      secondary.errors.add(:thickness)
-      errors.add(:ice, "Primary thickness must be greater than secondary thickness")
+    if primary.thickness && primary.thickness < secondary.thickness.to_i
+      secondary.errors.add(:thickness, 'Primary thickness must be greater than secondary thickness')
     end
-    if secondary.thickness and secondary.thickness < tertiary.thickness.to_i
-      tertiary.errors.add(:thickness)
-      errors.add(:ice, "Secondary thickness must be greater than tertiary thickness")
+    if secondary.thickness && secondary.thickness < tertiary.thickness.to_i
+      tertiary.errors.add(:thickness,'Secondary thickness must be greater than tertiary thickness')
     end
   end
 
@@ -192,59 +226,22 @@ class Observation < ActiveRecord::Base
   end
 
   def increasing_order?(thick, thin)
-    always_pass = [10,11,12,30,90]
+    always_pass = [10, 11, 12, 30, 90]
 
-    return true if (thick.nil? or thin.nil?)
+    return true if thick.nil? || thin.nil?
     return true if (always_pass & [thick.code, thin.code]).any?
 
     ORDERED_CODES.index(thick.code) >= ORDERED_CODES.index(thin.code)
   end
 
   def thickness_by_ice_type
-    ice_observations.group_by(&:ice_type).map{|k,v| {k => v.collect(&:partial_concentration).compact.inject(&:+)}}
+    ice_observations.group_by(&:ice_type).map { |k, v| { k => v.collect(&:partial_concentration).compact.inject(&:+) } }
   end
 
   def dominant_ice_type
-    thickness_by_ice_type.max{|(ak,av),(bk,bv)| av <=> bv }.keys.first
+    thickness_by_ice_type.max { |(_ak, av), (_bk, bv)| av <=> bv }.keys.first
   end
 
-  def export_path
-    File.join(self.cruise.export_path, self.to_s)
-  end
-
-  def export_file format
-    File.join(export_path, "#{self.to_s}.#{format}")
-  end
-
-  def as_csv
-    [
-      observed_at,
-      primary_observer.try(:name),
-      (a = additional_observers.map{|o| o.try(:name)}.join(":")).present? ? a : nil,
-      latitude,
-      longitude,
-      ice.as_csv,
-      primary_ice_observation.as_csv,
-      secondary_ice_observation.as_csv,
-      tertiary_ice_observation.as_csv,
-      meteorology.as_csv,
-      ship.try(:as_csv),
-      (f = faunas.map(&:name).join("//")).present? ? f : nil,
-      (f = faunas.map(&:count).join("//")).present? ? f : nil,
-      photos.count,
-      notes.map{|n| n.text.blank? ? nil : n.text},
-      (c = self.comments.map {|c|
-        c.text.blank? ? nil : "#{c.text} -- #{c.person.try(&:name)}".dump}.join("//")).present? ? c : nil
-    ].flatten
-  end
-
-  def self.csv_headers
-    "Date,PO,AO,LAT,LON,TC,OW,OT,TH,PPC,PT,PZ,PF,PSY,PSH,PTop,PTopC,PRH,POld,PCs,PSC,PMPC,PMPD,PMPP,PMPT,PMPF,PMBT,PMDI,PMRI,PA,PSD,PAD,PAL,SPC,ST,SZ,SF,SSY,SSH,STop,STopC,SRH,SOld,SCs,SSC,SMPC,SMPD,SMPP,SMPT,SMPF,SMBT,SMDI,SMRI,SA,SSD,SAD,SAL,TPC,TT,TZ,TF,TSY,TSH,TTop,TTopC,TRH,TOld,TCs,TSC,TMPC,TMPD,TMPP,TMPT,TMPF,TMBT,TMDI,TMRI,TA,TSD,TAD,TAL,WX,V,HY,HV,HH,MY,MV,MH,LY,LV,LH,TCC,WS,WD,AT,WT,RelH,AP,ShP,ShS,ShH,ShA,FN,FC,Photo,note0,note1,note2,Comments"
-  end
-
-  def render_to_string format=:json
-    ActionView::Base.new(Rails.configuration.paths['app/views']).
-    render(template: "observations/show.#{format.to_s}", format: format, locals: {:@observation => self})
   end
 
 end

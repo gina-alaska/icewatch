@@ -1,13 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+frazil:
   code: 1
-  name: MyString
-  type: 
-  comment: MyString
+  name: Frazil
+  type: IceLookup
+  comment:
 
-two:
-  code: 1
-  name: MyString
-  type: 
-  comment: MyString
+shuga:
+  code: 2
+  name: Shuga
+  type: IceLookup
+
+grease:
+  code: 3
+  name: Grease
+  type: IceLookup

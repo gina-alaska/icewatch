@@ -62,13 +62,14 @@ class MeltPondsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_melt_pond
-      @melt_pond = MeltPond.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def melt_pond_params
-      params.require(:melt_pond).permit(:ice_observation_id, :max_depth_lookup_id, :surface_lookup_id, :pattern_lookup_id, :bottom_type_lookup_id, :surface_coverage, :freeboard, :dried_ice, :rotten_ice)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_melt_pond
+    @melt_pond = MeltPond.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def melt_pond_params
+    params.require(:melt_pond).permit(:ice_observation_id, :max_depth_lookup_id, :surface_lookup_id, :pattern_lookup_id, :bottom_type_lookup_id, :surface_coverage, :freeboard, :dried_ice, :rotten_ice)
+  end
 end

@@ -21,22 +21,22 @@ describe 'icewatch::build-assist' do
 
   it 'installs gems' do
     expect(chef_run).to run_execute('bundle-install').
-      with(cwd: '/www/icewatch', command: 'chruby-exec jruby -- bundle install', env: {"RAILS_ENV" => 'production'})
+      with(cwd: '/www/icewatch', command: 'chruby-exec jruby -- bundle install', env: { 'RAILS_ENV' => 'production' })
   end
 
   it 'sets up the database' do
     expect(chef_run).to run_execute('chruby-exec jruby -- bundle exec rake db:setup').
-      with(cwd: '/www/icewatch', creates: 'db/production.sqlite3', env: {"RAILS_ENV" => 'production'})
+      with(cwd: '/www/icewatch', creates: 'db/production.sqlite3', env: { 'RAILS_ENV' => 'production' })
   end
 
   it 'precompiles the assets' do
     expect(chef_run).to run_execute('chruby-exec jruby -- bundle exec rake assets:precompile').
-      with(cwd: '/www/icewatch', env: {"RAILS_ENV" => 'production'})
+      with(cwd: '/www/icewatch', env: { 'RAILS_ENV' => 'production' })
   end
 
   it 'builds the war file' do
     expect(chef_run).to run_execute('warble-executable-war').
-      with(cwd: '/www/icewatch', creates: 'assist.war', env: {"RAILS_ENV" => 'production'})
+      with(cwd: '/www/icewatch', creates: 'assist.war', env: { 'RAILS_ENV' => 'production' })
   end
 
   it 'creates a distributable zip file' do

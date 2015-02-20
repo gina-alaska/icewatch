@@ -1,22 +1,22 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-Vagrant.configure("2") do |config|
-  config.vm.hostname = "icewatch-development"
+Vagrant.configure('2') do |config|
+  config.vm.hostname = 'icewatch-development'
 
-  config.vm.box = "opscode_centos-6.4_provisionerless"
-  config.vm.box_url = "https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box"
+  config.vm.box = 'opscode_centos-6.4_provisionerless'
+  config.vm.box_url = 'https://opscode-vm.s3.amazonaws.com/vagrant/opscode_centos-6.4_provisionerless.box'
 
-  config.vm.synced_folder "../", "/www/icewatch"
+  config.vm.synced_folder '../', '/www/icewatch'
 
   config.vm.provider :virtualbox do |vb|
-    vb.customize ["modifyvm", :id, "--memory", "4096"]
-    vb.customize ["modifyvm", :id, "--cpus", "2"]
-    vb.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
-    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
+    vb.customize ['modifyvm', :id, '--memory', '4096']
+    vb.customize ['modifyvm', :id, '--cpus', '2']
+    vb.customize ['modifyvm', :id, '--natdnsproxy1', 'off']
+    vb.customize ['modifyvm', :id, '--natdnshostresolver1', 'off']
   end
 
-  if Vagrant.has_plugin?("vagrant-cachier")
+  if Vagrant.has_plugin?('vagrant-cachier')
     config.cache.scope  = :box
   end
 
@@ -24,7 +24,7 @@ Vagrant.configure("2") do |config|
   config.omnibus.chef_version = :latest
 
   #Force ip4/6 requests to be made seperatly
-  config.vm.provision :shell, inline: "if [ ! $(grep single-request-reopen /etc/sysconfig/network) ]; then echo RES_OPTIONS=single-request-reopen >> /etc/sysconfig/network && service network restart; fi"
+  config.vm.provision :shell, inline: 'if [ ! $(grep single-request-reopen /etc/sysconfig/network) ]; then echo RES_OPTIONS=single-request-reopen >> /etc/sysconfig/network && service network restart; fi'
 
   config.vm.provision :chef_solo do |chef|
     chef.json = {
@@ -34,7 +34,7 @@ Vagrant.configure("2") do |config|
     }
 
     chef.run_list = [
-      "recipe[icewatch::build-assist]"
+      'recipe[icewatch::build-assist]'
     ]
   end
 end

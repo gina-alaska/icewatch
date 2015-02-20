@@ -62,13 +62,14 @@ class IceObservationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_ice_observation
-      @ice_observation = IceObservation.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def ice_observation_params
-      params.require(:ice_observation).permit(:observation_id, :floe_size_lookup_id, :snow_lookup_id, :ice_lookup_id, :algae_lookup_id, :algae_density_lookup_id, :algae_density_lookup_id, :sediment_lookup_id, :partial_concentration, :thickness, :snow_thickness, :obs_type)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_ice_observation
+    @ice_observation = IceObservation.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def ice_observation_params
+    params.require(:ice_observation).permit(:observation_id, :floe_size_lookup_id, :snow_lookup_id, :ice_lookup_id, :algae_lookup_id, :algae_density_lookup_id, :algae_density_lookup_id, :sediment_lookup_id, :partial_concentration, :thickness, :snow_thickness, :obs_type)
+  end
 end

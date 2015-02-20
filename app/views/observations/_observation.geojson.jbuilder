@@ -1,6 +1,6 @@
-json.type "Feature"
+json.type 'Feature'
 json.geometry do
-  json.type "Point"
+  json.type 'Point'
   json.coordinates [observation.longitude, observation.latitude]
 end
 json.properties do

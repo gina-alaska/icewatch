@@ -17,7 +17,7 @@ Warbler::Config.new do |config|
   # config.includes = FileList["db"]
 
   # Additional files/directories to exclude
-  config.excludes = FileList["public/observation", 'log/*.log']
+  config.excludes = FileList['public/observation', 'log/*.log']
 
   # Additional Java .jar files to include.  Note that if .jar files are placed
   # in lib (and not otherwise excluded) then they need not be mentioned here.
@@ -78,7 +78,7 @@ Warbler::Config.new do |config|
 
   # Name of the archive (without the extension). Defaults to the basename
   # of the project directory.
-  config.jar_name = "ASSIST"
+  config.jar_name = 'ASSIST'
 
   # Name of the MANIFEST.MF template for the war file. Defaults to a simple
   # MANIFEST.MF that contains the version of Warbler used to create the war file.
@@ -149,7 +149,7 @@ Warbler::Config.new do |config|
   # config.webxml.booter = :rails
 
   # Set JRuby to run in 2.0 mode.
-  config.webxml.jruby.compat.version = "2.0"
+  config.webxml.jruby.compat.version = '2.0'
 
   # When using the :rack booter, "Rackup" script to use.
   # - For 'rackup.path', the value points to the location of the rackup

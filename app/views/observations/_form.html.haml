@@ -1,5 +1,7 @@
 
-= bootstrap_nested_form_for [@cruise,@observation] do |f|
+= bootstrap_nested_form_for [@cruise,@observation], inline_errors: false do |f|
+  = f.alert_message "This observation has the following errors:"
+
   .row
     .col-md-2.col-sm-3
       = link_to 'Add Comment', new_observation_comment_path(@observation),

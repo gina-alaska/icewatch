@@ -4,6 +4,7 @@ class AdminController < ApplicationController
   layout 'admin'
 
   private
+
   def is_admin?
     if !signed_in?
       redirect_to login_url

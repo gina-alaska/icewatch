@@ -1,6 +1,6 @@
 class Lookup < ActiveRecord::Base
   validates_presence_of :code, :name
-  validates_uniqueness_of :code, {scope: :type}
+  validates_uniqueness_of :code, scope: :type
 
   def code
     super.send(code_datatype)
@@ -13,5 +13,4 @@ class Lookup < ActiveRecord::Base
   def code_datatype
     :to_i
   end
-
 end

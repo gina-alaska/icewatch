@@ -8,6 +8,19 @@
         { help: 'in tenths',label: 'Concentration', class: 'concentration', include_blank: 'No Observation'}
       = t.number_field :ridge_height, { help: 'meters to nearest half meter', class: 'ridge',
           label: 'Ridge Height (m)', step: 0.5}
+      -# %h5 Old
+      -# %p
+      -#   = t.check_box_without_bootstrap :old, class: 'ridge', data: {indeterminate: true, "label-text": 'N/A', 'on-text': 'Yes', 'off-text': 'No'}
+      -#   %button.btn.btn-default Reset
+      -# %h5 Consolidated
+      -# %p
+      -#   = t.check_box_without_bootstrap :consolidated, class: 'ridge', data: {indeterminate: true, "label-text": 'N/A', 'on-text': 'Yes', 'off-text': 'No'}
+      -#   %button.btn.btn-default Reset
+      -# %h5 Snow Covered
+      -# %p
+      -#   = t.check_box_without_bootstrap :snow_covered, class: 'ridge', data: {indeterminate: true, "label-text": 'N/A', 'on-text': 'Yes', 'off-text': 'No'}
+      -#   %button.btn.btn-default Reset
+
       = t.select :old, yes_no_options, {include_blank: 'No Observation'}, {class: 'ridge'}
       = t.select :consolidated, yes_no_options, { include_blank: 'No Observation'}, {class: 'ridge'}
       = t.select :snow_covered, yes_no_options, { include_blank: 'No Observation'}, {class: 'ridge'}

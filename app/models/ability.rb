@@ -3,39 +3,39 @@ class Ability
 
   def initialize(user)
     user ||= User.new
-    #if assist?
+    # if assist?
+    can :manage, :all
+    # else  #IceWatch
+    if user.role? :admin
       can :manage, :all
-    #else  #IceWatch
-      if user.role? :admin
-        can :manage, :all
-        # Admins can promote users to managers or admins
-        # Admins can unlock Cruises
-        # Admins can unlock Observations
-        # Admins can perform manager actions
-      end
+      # Admins can promote users to managers or admins
+      # Admins can unlock Cruises
+      # Admins can unlock Observations
+      # Admins can perform manager actions
+    end
 
-      if user.role? :manager
-        # Managers can approve Cruises
-        # Managers can approve Observations
-        # Managers can lock Cruises
-        # Managers can lock Observations
-        # Managers can modify Observations if they aren't locked
-        # Managers can promote users to members
-        # Managers can perform member actions
-      end
+    if user.role? :manager
+      # Managers can approve Cruises
+      # Managers can approve Observations
+      # Managers can lock Cruises
+      # Managers can lock Observations
+      # Managers can modify Observations if they aren't locked
+      # Managers can promote users to members
+      # Managers can perform member actions
+    end
 
-      if user.role? :member
-        # Members can create cruises
-        # Members can upload observations
-        # Members can perform guest actions
-      end
+    if user.role? :member
+      # Members can create cruises
+      # Members can upload observations
+      # Members can perform guest actions
+    end
 
-      if user.role? :guest
-        # Guests can download assist
-        # Guests can download data
-        # Registered guests can request member access
-      end
-    #end
+    if user.role? :guest
+      # Guests can download assist
+      # Guests can download data
+      # Registered guests can request member access
+    end
+    # end
 
     # Define abilities for the passed in user here. For example:
     #

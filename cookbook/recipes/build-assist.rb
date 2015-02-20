@@ -17,10 +17,10 @@ end
 #Database config
 
 rails_env = {
-  "RAILS_ENV" => 'production',
-  "SECRET_KEY_BASE" => '31f071a9f7a37810dbfaa253b07c972be761a1fe90db090fb97382c12f84d8f0d0216ca9feddb430dc95c0e48f79b6a0136c6664e5a07d067dc7305b9b1e4fd3',
-  "ICEWATCH_ASSIST" => "true",
-  "JRUBY_OPTS" => '--2.0'
+  'RAILS_ENV' => 'production',
+  'SECRET_KEY_BASE' => '31f071a9f7a37810dbfaa253b07c972be761a1fe90db090fb97382c12f84d8f0d0216ca9feddb430dc95c0e48f79b6a0136c6664e5a07d067dc7305b9b1e4fd3',
+  'ICEWATCH_ASSIST' => 'true',
+  'JRUBY_OPTS' => '--2.0'
 }
 
 chruby_exec = "chruby-exec #{node['chruby']['default']} --"
@@ -52,7 +52,7 @@ execute 'warble-executable-war' do
 end
 
 execute 'create-distributable-zip' do
-  command "zip assist.war"
+  command 'zip assist.war'
   cwd node['icewatch']['paths']['application']
   creates 'assist.zip'
 end

@@ -14,6 +14,6 @@ class Comment < ActiveRecord::Base
   end
 
   def person_id_or_name
-    self.person.try(:id)
+    person.try(:id)
   end
 end

@@ -5,10 +5,10 @@ class Admin::CruisesController < AdminController
   end
 
   def show
-
   end
 
   private
+
   def set_cruise
     # @cruise = Cruise.friendly.find(params[:id])
     @cruise = Cruise.find(params[:id])

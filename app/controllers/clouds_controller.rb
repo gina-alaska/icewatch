@@ -62,13 +62,14 @@ class CloudsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cloud
-      @cloud = Cloud.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def cloud_params
-      params.require(:cloud).permit(:meteorology_id, :cloud_lookup_id, :cover, :height, :cloud_type)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_cloud
+    @cloud = Cloud.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def cloud_params
+    params.require(:cloud).permit(:meteorology_id, :cloud_lookup_id, :cover, :height, :cloud_type)
+  end
 end

@@ -6,8 +6,8 @@ class MeltPond < ActiveRecord::Base
   belongs_to :bottom_type_lookup
 
   with_options allow_blank: true do |record|
-    record.validates :surface_coverage, numericality: {only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 10}
-    record.validates :freeboard, numericality: {greater_than_or_equal_to: 0}
+    record.validates :surface_coverage, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 10 }
+    record.validates :freeboard, numericality: { greater_than_or_equal_to: 0 }
 
     record.validates_with Validations::LookupCodeValidator, fields: {
       max_depth_lookup: 'max_depth_lookup',
@@ -29,10 +29,9 @@ class MeltPond < ActiveRecord::Base
     end
   end
 
-
-  %w{bottom_type max_depth pattern surface}.each do |lookup|
+  %w(bottom_type max_depth pattern surface).each do |lookup|
     define_method "#{lookup}_lookup_code" do      # define_method "surface_lookup_code" do
-      self.send("#{lookup}_lookup").try(&:code)    #   self.send("surface_lookup_code").try(&:code)
+      send("#{lookup}_lookup").try(&:code)    #   self.send("surface_lookup_code").try(&:code)
     end                                           # end
   end
 end

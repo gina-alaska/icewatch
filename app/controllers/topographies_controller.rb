@@ -62,13 +62,14 @@ class TopographiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_topography
-      @topography = Topography.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def topography_params
-      params.require(:topography).permit(:ice_observation_id, :old, :snow_covered, :concentration, :ridge_height, :topography_lookup_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_topography
+    @topography = Topography.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def topography_params
+    params.require(:topography).permit(:ice_observation_id, :old, :snow_covered, :concentration, :ridge_height, :topography_lookup_id)
+  end
 end

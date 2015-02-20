@@ -5,10 +5,10 @@ class Cruise < ActiveRecord::Base
                         :chief_scientist, :objective
 
   # validates_presense_of :captain, :archived, :approved
-  validates_length_of :objective, {maximum: 300}
+  validates_length_of :objective, maximum: 300
 
   def build_observation
-    observation = self.observations.new
+    observation = observations.new
     observation.build_ship
     observation.build_ice
     observation.build_primary_ice_observation do |obs|
@@ -29,21 +29,21 @@ class Cruise < ActiveRecord::Base
       met.build_low_cloud
     end
     observation.faunas.build
-    3.times{ observation.notes.build }
+    3.times { observation.notes.build }
     observation
   end
 
-  def render_to_string format=:json
-    ActionView::Base.new(Rails.configuration.paths['app/views']).
-      render(template: "cruises/show.#{format.to_s}", format: format, locals: {:@cruise => self})
+  def render_to_string(format = :json)
+    ActionView::Base.new(Rails.configuration.paths['app/views'])
+      .render(template: "cruises/show.#{format}", format: format, locals: { :@cruise => self })
   end
 
   def to_s
-    "#{ship}-#{starts_at.strftime("%Y%m%d")}-#{ends_at.strftime("%Y%m%d")}"
+    "#{ship}-#{starts_at.strftime('%Y%m%d')}-#{ends_at.strftime('%Y%m%d')}"
   end
 
   def export_path
-    File.join(EXPORT_PATH, self.to_s)
+    File.join(EXPORT_PATH, to_s)
   end
 
   def metadata

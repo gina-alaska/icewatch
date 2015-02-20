@@ -11,33 +11,34 @@ class Meteorology < ActiveRecord::Base
   accepts_nested_attributes_for :clouds, :high_cloud, :medium_cloud, :low_cloud
 
   validates :visibility_lookup_id, presence: true
-  validates_with Validations::LookupCodeValidator, fields: {
-      visibility_lookup_id: 'visibility_lookup',
-      weather_lookup_id: 'weather_lookup'
-    },
-    allow_blank: true
+  validates_with Validations::LookupCodeValidator,
+                 fields: {
+                   visibility_lookup_id: 'visibility_lookup',
+                   weather_lookup_id: 'weather_lookup'
+                 }, allow_blank: true
+
   validates :total_cloud_cover,
-    numericality: {
-      only_integer: true,
-      greater_than_or_equal_to: 0,
-      less_than_or_equal_to: 8
-    },
-    allow_blank: true
-  validates :wind_speed, numericality: { greater_than_or_equal_to: 0}, allow_blank: true
+            numericality: {
+              only_integer: true,
+              greater_than_or_equal_to: 0,
+              less_than_or_equal_to: 8
+            },
+            allow_blank: true
+  validates :wind_speed, numericality: { greater_than_or_equal_to: 0 }, allow_blank: true
   validates :wind_direction,
-    numericality: {
-      greater_than_or_equal_to: 0,
-      less_than_or_equal_to: 360
-    },
-    allow_blank: true
+            numericality: {
+              greater_than_or_equal_to: 0,
+              less_than_or_equal_to: 360
+            },
+            allow_blank: true
   validates :air_temperature, numericality: true, allow_blank: true
   validates :water_temperature, numericality: true, allow_blank: true
   validates :relative_humidity,
-    numericality: {
-      greater_than_or_equal_to: 0,
-      less_than_or_equal_to: 100
-    },
-    allow_blank: true
+            numericality: {
+              greater_than_or_equal_to: 0,
+              less_than_or_equal_to: 100
+            },
+            allow_blank: true
   validates :relative_humidity, numericality: true, allow_blank: true
 
   def as_csv
@@ -57,9 +58,9 @@ class Meteorology < ActiveRecord::Base
     ]
   end
 
-  %w{visibility weather}.each do |lookup|
+  %w(visibility weather).each do |lookup|
     define_method "#{lookup}_lookup_code" do      # define_method "weather_lookup_code" do
-      self.send("#{lookup}_lookup").try(&:code)    #   self.send("weather_lookup_code").try(&:code)
+      send("#{lookup}_lookup").try(&:code)    #   self.send("weather_lookup_code").try(&:code)
     end                                           # end
   end
 end

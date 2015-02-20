@@ -5,7 +5,7 @@ class Person < ActiveRecord::Base
 
   validates_presence_of :name
 
-  def self.find_or_create_by_id_or_name id_or_name
+  def self.find_or_create_by_id_or_name(id_or_name)
     where(id: id_or_name).first || find_or_create_by(name: id_or_name)
   end
 end

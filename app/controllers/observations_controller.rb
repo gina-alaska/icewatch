@@ -52,8 +52,8 @@ class ObservationsController < ApplicationController
     @observation.assign_attributes observation_params
     respond_to do |format|
       if @observation.save(validate: false)
-        if params[:commit] == "Save and Exit"
-          format.html { redirect_to root_url}
+        if params[:commit] == 'Save and Exit'
+          format.html { redirect_to root_url }
         else
           format.html { redirect_to edit_observation_path(@observation), notice: 'Observation was successfully updated.' }
         end
@@ -85,69 +85,70 @@ class ObservationsController < ApplicationController
         format.html { redirect_to cruises_url, notice: 'Observations were successfully imported' }
         format.json { head :no_content }
       else
-        format.html { redirect_to cruises_url, notice: 'There was an error importing the observations'}
+        format.html { redirect_to cruises_url, notice: 'There was an error importing the observations' }
         format.json { render json: @observation.errors, status: :unprocessable_entity }
       end
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_observation
-      @observation = Observation.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def observation_params
-      params.require(:observation).permit(
-        :cruise_id, :observed_at, :latitude, :longitude, :uuid,
-        :primary_observer_id_or_name, additional_observers_id_or_name: [],
-        ship_attributes: [:id, :heading, :power, :speed, :ship_activity_lookup_id],
-        notes_attributes: [:id, :text],
-        ice_attributes: [:id, :total_concentration, :open_water_lookup_id,
-          :thick_ice_lookup_id, :thin_ice_lookup_id],
-        ice_observations_attributes: [:id, :partial_concentration, :ice_lookup_id,
-          :thickness, :floe_size_lookup_id, :snow_lookup_id, :snow_thickness,
-          :algae_lookup_id, :algae_density_lookup_id, :algae_location_lookup_id,
-          :sediment_lookup_id, :obs_type,
-          topography_attributes: [:id, :concentration, :ridge_height, :consolidated,
-            :snow_covered, :old, :topography_lookup_id
-          ],
-          melt_pond_attributes: [:id, :surface_coverage, :pattern_lookup_id,
-            :surface_lookup_id, :freeboard, :max_depth_lookup_id, :bottom_type_lookup_id,
-            :dried_ice, :rotten_ice
-          ]
-        ],
-        meteorology_attributes: [:id, :visibility_lookup_id, :weather_lookup_id,
-          :total_cloud_cover, :wind_speed, :wind_direction, :water_temperature,
-          :air_pressure, :air_temperature, :relative_humidity,
-          clouds_attributes: [:id, :cloud_lookup_id, :cover, :height, :cloud_type]
-        ],
-        faunas_attributes: [:id, :name, :count, :_destroy],
-        photos_attributes: [:id, :name, :tempfile, :on_boat_location_lookup_id, :_destroy]
-      )
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_observation
+    @observation = Observation.where(id: params[:id]).includes(:ice_observations).first#find(params[:id])
+  end
 
-    def import_params
-      params.require(:observation).permit!
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def observation_params
+    params.require(:observation).permit(
+      :cruise_id, :observed_at, :latitude, :longitude, :uuid,
+      :primary_observer_id_or_name, additional_observers_id_or_name: [],
+                                    ship_attributes: [:id, :heading, :power, :speed, :ship_activity_lookup_id],
+                                    notes_attributes: [:id, :text],
+                                    ice_attributes: [:id, :total_concentration, :open_water_lookup_id,
+                                                     :thick_ice_lookup_id, :thin_ice_lookup_id],
+                                    ice_observations_attributes: [:id, :partial_concentration, :ice_lookup_id,
+                                                                  :thickness, :floe_size_lookup_id, :snow_lookup_id, :snow_thickness,
+                                                                  :algae_lookup_id, :algae_density_lookup_id, :algae_location_lookup_id,
+                                                                  :sediment_lookup_id, :obs_type,
+                                                                  topography_attributes: [:id, :concentration, :ridge_height, :consolidated,
+                                                                                          :snow_covered, :old, :topography_lookup_id
+                                                                                         ],
+                                                                  melt_pond_attributes: [:id, :surface_coverage, :pattern_lookup_id,
+                                                                                         :surface_lookup_id, :freeboard, :max_depth_lookup_id, :bottom_type_lookup_id,
+                                                                                         :dried_ice, :rotten_ice
+                                                                                        ]
+                                                                 ],
+                                    meteorology_attributes: [:id, :visibility_lookup_id, :weather_lookup_id,
+                                                             :total_cloud_cover, :wind_speed, :wind_direction, :water_temperature,
+                                                             :air_pressure, :air_temperature, :relative_humidity,
+                                                             clouds_attributes: [:id, :cloud_lookup_id, :cover, :height, :cloud_type]
+                                                            ],
+                                    faunas_attributes: [:id, :name, :count, :_destroy],
+                                    photos_attributes: [:id, :name, :tempfile, :on_boat_location_lookup_id, :_destroy]
+    )
+  end
 
-    def create_export_directory!
-      FileUtils.mkdir_p(@observation.export_path) unless File.exists?(@observation.export_path)
-    end
+  def import_params
+    params.require(:observation).permit!
+  end
 
-    def export_json
-      create_export_directory!
-      File.open(File.join(@observation.export_path,"#{@observation.to_s}.json"),'w') do |f|
-        f << JSON.pretty_generate(JSON.parse(@observation.render_to_string))
-      end
-    end
+  def create_export_directory!
+    FileUtils.mkdir_p(@observation.export_path) unless File.exist?(@observation.export_path)
+  end
 
-    def export_csv
-      create_export_directory!
-      File.open(File.join(@observation.export_path, "#{@observation.to_s}.csv"),'w') do |f|
-        f << Observation.csv_headers
-        f << @observation.as_csv.to_csv.html_safe
-      end
+  def export_json
+    create_export_directory!
+    File.open(File.join(@observation.export_path, "#{@observation}.json"), 'w') do |f|
+      f << JSON.pretty_generate(JSON.parse(@observation.render_to_string))
     end
+  end
+
+  def export_csv
+    create_export_directory!
+    File.open(File.join(@observation.export_path, "#{@observation}.csv"), 'w') do |f|
+      f << Observation.csv_headers
+      f << @observation.as_csv.to_csv.html_safe
+    end
+  end
 end

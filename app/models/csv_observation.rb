@@ -14,9 +14,8 @@ class CsvObservation
                 :relh, :ap, :shp, :shs, :shh, :sha, :fn, :fc, :photo, :note0,
                 :note1, :note2, :comments
 
-
-  def initialize params = {}
-    params.transform_keys!{|k| k.to_s.downcase}
+  def initialize(params = {})
+    params.transform_keys! { |k| k.to_s.downcase }
     super
   end
 
@@ -25,7 +24,7 @@ class CsvObservation
       latitude: lat,
       longitude: lon,
       observed_at: date,
-      primary_observer: {name: po},
+      primary_observer: { name: po },
       additional_observers: additional_observers,
       ship: {
         power: shp,
@@ -156,24 +155,29 @@ class CsvObservation
           cloud_lookup_code: ly
         }
       },
-      notes: [{ text: note0},{ text: note1 },{ text: note2 }],
-      comments: comments.split("//").map{|c| comment_to_hash(c) }
+      notes: [{ text: note0 }, { text: note1 }, { text: note2 }],
+      comments: split_comments
     }
   end
 
   private
+
   def faunas
-    fn ||= ""
-    fc ||= ""
-    fn.split(",").zip(fc.split(",")).map{|f| {name: f.first, count: f.last}}
+    fn ||= ''
+    fc ||= ''
+    fn.split(',').zip(fc.split(',')).map { |f| { name: f.first, count: f.last } }
   end
 
   def additional_observers
-    ao.split(":").map{|n| {name: n}}
+    ao.split(':').map { |n| { name: n } }
   end
 
-  def comment_to_hash line
-    comment, person = line.split(" -- ")
-    {person: {name: person}, text: comment}
+  def split_comments
+    comments.split('//').map { |c| comment_to_hash(c) } if comments.present?
+  end
+
+  def comment_to_hash(line)
+    comment, person = line.split(' -- ')
+    { person: { name: person }, text: comment }
   end
 end

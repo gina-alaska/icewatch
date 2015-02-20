@@ -6,9 +6,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-
   def set_variant_type
-    request.variant= :assist if Rails.application.secrets.icewatch_assist
+    request.variant = :assist if Rails.application.secrets.icewatch_assist
   end
-
 end

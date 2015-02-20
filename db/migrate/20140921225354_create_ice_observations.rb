@@ -12,7 +12,7 @@ class CreateIceObservations < ActiveRecord::Migration
       t.integer :partial_concentration
       t.integer :thickness
       t.integer :snow_thickness
-      t.string  :type  
+      t.string  :type
 
       t.timestamps
     end

@@ -6,8 +6,8 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-Dir.glob("db/lookups/*.json").each do |lookup_file|
-  table = File.basename(lookup_file, "s.json").camelize.constantize
+Dir.glob('db/lookups/*.json').each do |lookup_file|
+  table = File.basename(lookup_file, 's.json').camelize.constantize
   JSON.parse(File.read(lookup_file)).each do |lookup|
     puts "Creating #{table} - #{lookup['code'].to_s}: #{lookup.inspect}"
     r = table.where(code: lookup['code'].to_s).first_or_create(lookup)

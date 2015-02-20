@@ -62,13 +62,14 @@ class FaunasController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_fauna
-      @fauna = Fauna.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def fauna_params
-      params.require(:fauna).permit(:name, :count, :observation_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_fauna
+    @fauna = Fauna.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def fauna_params
+    params.require(:fauna).permit(:name, :count, :observation_id)
+  end
 end

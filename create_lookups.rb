@@ -10,7 +10,7 @@ lookups = JSON.parse(response.body)
 FileUtils.mkdir_p('db/lookups')
 
 lookups.each do |name, values|
-  File.open("db/lookups/#{name.tableize}.json","w") do |f|
+  File.open("db/lookups/#{name.tableize}.json", 'w') do |f|
     f << JSON.pretty_generate(values)
   end
 end

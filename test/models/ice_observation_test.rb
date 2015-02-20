@@ -13,4 +13,12 @@ class IceObservationTest < ActiveSupport::TestCase
   should belong_to(:algae_location_lookup).class_name('Lookup')
   should belong_to(:sediment_lookup).class_name('Lookup')
 
+
+  def test_frazil_shuga_grease_floe_size_validation
+    ice_observation = ice_observations(:primary)
+    %w(frazil shuga grease).each do |ice_type|
+      ice_observation.ice_lookup = lookups(ice_type.to_sym)
+      refute ice_observation.valid?
+    end
+  end
 end
