@@ -18,6 +18,7 @@
 
 /.powenv
 /public/observations
+/public/assets
 /exports/*
 !/exports/.gitkeep
 
