@@ -81,9 +81,9 @@ class ObservationsController < ApplicationController
 
     respond_to do |format|
       if @observation.save validate: false
-        @observation.review! if @observation.may_review?
         format.html { redirect_to cruises_url, notice: 'Observations were successfully imported' }
         format.json { head :no_content }
+        format.js
       else
         format.html { redirect_to cruises_url, notice: 'There was an error importing the observations' }
         format.json { render json: @observation.errors, status: :unprocessable_entity }

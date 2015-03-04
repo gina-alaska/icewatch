@@ -1,0 +1,9 @@
+%table#observation-table.table
+  %thead
+    %tr
+      %th Observation Date
+      %th Total Ice Concentration
+      %th Primary Observer
+      %th
+  %tbody
+    = render partial: 'observation', collection: cruise.observations

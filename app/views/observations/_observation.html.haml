@@ -1,0 +1,8 @@
+%tr.observation{class: row_highlight(observation)}
+  %td= observation.observed_at
+  %td= observation.ice.try(:total_concentration)
+  %td= observation.primary_observer.try(&:name)
+  %td
+    - if can? :edit, observation
+      = link_to edit_observation_path(observation), class: 'btn btn-xsm btn-default' do
+        %i.fa.fa-edit

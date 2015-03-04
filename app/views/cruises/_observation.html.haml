@@ -1,0 +1,16 @@
+%tr.observation{class: row_highlight(observation)}
+  %td= observation.observed_at
+  %td= observation.ice.try(:total_concentration)
+  %td= observation.primary_observer.try(&:name)
+  %td
+    - if can?(:manage, Observation) && !observation.approved?
+      .btn-group.pull-right
+        - if observation.valid? && !observation.accepted?
+          = link_to observation_path(observation), class: 'btn btm-xsm btn-success' do
+            %i.fa.fa-thumbs-up
+        = link_to edit_observation_path(observation), class: 'btn btn-xsm btn-default' do
+          %i.fa.fa-edit
+        = link_to observation_path(observation), method: :delete,
+          data: {confirm: 'This will permanently remove this observation'},
+          class: 'btn btn-xsm btn-danger' do
+          %i.fa.fa-trash

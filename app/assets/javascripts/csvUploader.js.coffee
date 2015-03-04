@@ -15,10 +15,10 @@ class @ObsUploader
     $.ajax @url,
       type: 'POST'
       contentType: 'application/json'
-      dataType: 'json'
+      dataType: 'script'
       data: JSON.stringify
         observation: row
-      complete: =>
+      complete: (xhr, status) =>
         @updateProgressBar()
         @submitNextRow()
 

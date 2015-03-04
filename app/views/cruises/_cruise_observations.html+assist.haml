@@ -1,0 +1,15 @@
+%table#observation-table.table
+  %thead
+    %tr
+      %th
+        = link_to 'All', '#', id: 'all-export'
+        = "/"
+        = link_to 'None', '#', id: 'none-export'
+      %th Observation Date
+      %th Last Modified
+      %th Total Ice Concentration
+      %th Primary Observer
+      %th Additional Observers
+      %th
+  %tbody
+    = render partial: 'observation', collection: cruise.observations

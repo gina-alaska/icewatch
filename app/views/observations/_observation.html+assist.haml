@@ -1,0 +1,14 @@
+%tr.observation{class: row_highlight(observation)}
+  %td= check_box_tag "observations[]", observation.id, false, id: "observation_#{observation.id}", class: 'export'
+  %td= observation.observed_at
+  %td= observation.updated_at
+  %td= observation.ice.try(:total_concentration)
+  %td= observation.primary_observer.try(&:name)
+  %td= observation.additional_observers.map(&:name).join(",")
+  %td
+    = link_to edit_observation_path(observation), class: 'btn btn-xsm btn-default' do
+      %i.fa.fa-edit
+    = link_to observation_path(observation), method: :delete,
+    data: {confirm: 'This will permanently remove this observation'},
+    class: 'btn btn-xsm btn-danger' do
+      %i.fa.fa-trash
