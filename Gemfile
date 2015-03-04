@@ -36,7 +36,7 @@ gem 'jruby-openssl', platform: :jruby
 
 gem 'pg', platform: :ruby
 gem 'puma', platform: :ruby
-
+gem 'chartkick'
 
 gem 'haml'
 gem 'omniauth'
@@ -66,16 +66,15 @@ end
 
 gem 'shoulda', group: :test
 
-# source 'https://rails-assets.org' do
-#   gem 'rails-assets-bootstrap'
-#   gem 'rails-assets-eonasdan-bootstrap-datetimepicker'
-#   gem 'rails-assets-font-awesome'
-#   gem 'rails-assets-jasny-bootstrap'
+source 'https://rails-assets.org' do
+  gem 'rails-assets-bootstrap'
+  gem 'rails-assets-eonasdan-bootstrap-datetimepicker'
+  gem 'rails-assets-font-awesome'
+  gem 'rails-assets-jasny-bootstrap'
 #   gem 'rails-assets-leaflet'
 #   gem 'rails-assets-papaparse'
 #   gem 'rails-assets-proj4leaflet'
-#   gem 'rails-assets-selectize'
+  gem 'rails-assets-selectize'
 #   gem 'rails-assets-bootstrap-switch'
-# end
+end
 
-ruby '2.2.0'

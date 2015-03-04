@@ -12,15 +12,15 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require bootstrap/dist/js/bootstrap
+//= require bootstrap
 //= require turbolinks
 //= require leaflet/dist/leaflet
 //= require proj4leaflet/lib/proj4-compressed
 //= require proj4leaflet/src/proj4leaflet
 //= require papaparse/papaparse
-//= require jasny-bootstrap/dist/js/jasny-bootstrap
+//= require jasny-bootstrap
 //= require selectize/dist/js/standalone/selectize.min
 //= require jquery_nested_form
 //= require moment/min/moment-with-locales.min
-//= require eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min
+//= require eonasdan-bootstrap-datetimepicker
 //= require_tree .
