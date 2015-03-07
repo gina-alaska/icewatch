@@ -3,22 +3,68 @@ namespace :import do
     desc 'Import cruises from the live site'
     task cruises: :environment do
       require 'httparty'
+      require 'csv'
 
-      response = HTTParty.get('http://icewatch.gina.alaska.edu/api/cruises.json')
+      response = HTTParty.get('http://icewatch.gina.alaska.edu/api/cruises/all.json')
       cruises = JSON.parse(response.body)
 
-      cruises.each do |original|
-        observations = original['observations']
-        original_id = original['_id']
+      puts "Fetched #{cruises.count} cruises"
+      cruises.each do |cruise|
+        puts "Fetching #{cruise['ship']} - #{cruise['start_date']} - #{cruise['_id']}"
 
-        c = Cruise.first_or_create cruise_params(original)
-        observations.each do |observation|
-          o = c.observations.where(uuid: observation['uuid']).first_or_initialize(observation_attributes(observation))
-          # o.update_attributes(observation_attributes(observation))
-          o.save(validate: false)
+        observations = cruise.delete('observations')
+        original_id = cruise.delete('_id')
+
+
+        import_cruise = Cruise.where(cruise_params(cruise)).first_or_initialize#(params)
+
+        if import_cruise.new_record?
+          import_cruise.save(validate: false)
+        end
+        csv_observations = fetch_observations_for_cruise(original_id)
+
+        puts " -- Fetched #{csv_observations.split("\n").count} observations"
+        CSV.parse(csv_observations, headers: true).each do |row|
+          begin
+            csv_observation = CsvObservation.new(row.to_hash)
+          rescue Exception => ex
+            puts "Failed to create: "
+            puts row
+            puts row.inspect
+            puts row.to_hash
+            fail
+          end
+          observation = csv_observation.build_observation
+          observation.cruise = import_cruise
+          observation.save!(validate: false)
         end
       end
+
     end
+
+    def fetch_observations_for_cruise(original_id)
+      url = "http://icewatch.gina.alaska.edu/api/cruises/#{original_id}/observations/all.csv"
+      HTTParty.get(url).body
+    end
+    # desc 'Import cruises from the live site'
+    # task cruises: :environment do
+    #   require 'httparty'
+    #
+    #   response = HTTParty.get('http://icewatch.gina.alaska.edu/api/cruises.json')
+    #   cruises = JSON.parse(response.body)
+    #
+    #   cruises.each do |original|
+    #     observations = original['observations']
+    #     original_id = original['_id']
+    #
+    #     c = Cruise.first_or_create cruise_params(original)
+    #     observations.each do |observation|
+    #       o = c.observations.where(uuid: observation['uuid']).first_or_initialize(observation_attributes(observation))
+    #       # o.update_attributes(observation_attributes(observation))
+    #       o.save(validate: false)
+    #     end
+    #   end
+    # end
 
     def cruise_params(cruise)
       valid_keys = %w(

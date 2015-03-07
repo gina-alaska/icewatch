@@ -1,0 +1,26 @@
+.row
+  .col-md-3
+    %ul.list-group
+      %li.list-group-item
+        Download ASSIST
+      - if can? :create, Cruise
+        %li.list-group-item
+          = link_to "Register Cruise", new_cruise_path
+    %ul.list-group
+      %li.list-group-item.active
+        %strong= "#{@current_year} Cruises"
+      - @cruises.each do |cruise|
+        %li.list-group-item{class: cruise_highlight(cruise)}
+          = link_to cruise.ship, cruise_path(cruise)
+          %span.badge
+            = cruise.observations.count
+    %ul.list-group
+      %li.list-group-item.active
+        %strong Available Years
+      - @available_years.each do |year, cruises|
+        %li.list-group-item
+          = link_to year, cruises_path(year: year)
+          %span.badge
+            = cruises.count
+  .col-md-9
+    = render 'map', cruise_info: cruises_path('geojson', year: @current_year)
