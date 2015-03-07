@@ -5,18 +5,30 @@ low:
   cloud_lookup_id: 1
   cover: 1
   height: 1
-  type: low
+  cloud_type: low
 
 medium:
   meteorology_id: 1
   cloud_lookup_id: 1
   cover: 1
   height: 1
-  type: medium
+  cloud_type: medium
 
 high:
   meteorology_id: 1
   cloud_lookup_id: 1
   cover: 1
   height: 1
-  type: high
+  cloud_type: high
+
+low_base:
+  meteorology: base
+  cloud_type: low
+
+medium_base:
+  meteorology: base
+  cloud_type: medium
+
+high_base:
+  meteorology: base
+  cloud_type: high

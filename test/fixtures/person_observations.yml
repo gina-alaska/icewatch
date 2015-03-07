@@ -9,3 +9,8 @@ two:
   primary: false
   observation_id: 1
   person_id: 1
+
+base_primary_observer:
+  person: base_person
+  observation: base
+  primary: true

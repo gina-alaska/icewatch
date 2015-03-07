@@ -9,7 +9,7 @@ one:
   wind_direction: MyString
   air_temperature: 1.5
   water_temperature: 1.5
-  realtive_humidity: 1
+  relative_humidity: 1
   air_pressure: 1
 
 two:
@@ -21,5 +21,9 @@ two:
   wind_direction: MyString
   air_temperature: 1.5
   water_temperature: 1.5
-  realtive_humidity: 1
+  relative_humidity: 1
   air_pressure: 1
+
+base:
+  observation: base
+  visibility_lookup: 50m

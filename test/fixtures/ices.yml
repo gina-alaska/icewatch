@@ -7,3 +7,7 @@ one:
 two:
   observation_id: 1
   total_concentration: 1
+
+base:
+  observation: base
+  total_concentration: 9

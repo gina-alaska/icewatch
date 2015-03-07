@@ -13,3 +13,9 @@ two:
   latitude: 1.5
   longitude: 1.5
   uuid: MyString
+
+base:
+  cruise: test
+  observed_at: 2014-01-01 00:00:00
+  latitude: 65.43
+  longitude: -174.2

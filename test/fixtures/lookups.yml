@@ -1,17 +1,877 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+---
+light:
+  :code: 2
+  :name: Light
+  :type: AlgaeDensityLookup
+  :comment: 
+medium:
+  :code: 3
+  :name: Medium
+  :type: AlgaeDensityLookup
+  :comment: 
+strong:
+  :code: 4
+  :name: Strong
+  :type: AlgaeDensityLookup
+  :comment: 
+trace:
+  :code: 1
+  :name: Trace
+  :type: AlgaeDensityLookup
+  :comment: 
+not-visible:
+  :code: 0
+  :name: Not Visible
+  :type: AlgaeDensityLookup
+  :comment: 
+top:
+  :code: 10
+  :name: Top
+  :type: AlgaeLocationLookup
+  :comment: 
+middle:
+  :code: 20
+  :name: Middle
+  :type: AlgaeLocationLookup
+  :comment: 
+bottom:
+  :code: 30
+  :name: Bottom
+  :type: AlgaeLocationLookup
+  :comment: 
+'0':
+  :code: 0
+  :name: 0%
+  :type: SedimentLookup
+  :comment: 
+'30':
+  :code: 1
+  :name: "<30%"
+  :type: SedimentLookup
+  :comment: 
+'60':
+  :code: 3
+  :name: ">60%"
+  :type: SedimentLookup
+  :comment: 
+solid:
+  :code: 1
+  :name: Solid
+  :type: BottomTypeLookup
+  :comment: 
+some-thaw-holes:
+  :code: 2
+  :name: Some thaw holes
+  :type: BottomTypeLookup
+  :comment: 
+all-have-thaw-holes:
+  :code: 3
+  :name: All have thaw holes
+  :type: BottomTypeLookup
+  :comment: 
+stratus:
+  :code: St
+  :name: Stratus
+  :type: CloudLookup
+  :comment: 
+stratocumulus:
+  :code: S
+  :name: Stratocumulus
+  :type: CloudLookup
+  :comment: 
+nimbostratus:
+  :code: Ns
+  :name: Nimbostratus
+  :type: CloudLookup
+  :comment: 
+cumulus:
+  :code: Cu
+  :name: Cumulus
+  :type: CloudLookup
+  :comment: 
+cumulonimbus:
+  :code: Cn
+  :name: Cumulonimbus
+  :type: CloudLookup
+  :comment: 
+altostratus:
+  :code: As
+  :name: Altostratus
+  :type: CloudLookup
+  :comment: 
+altocumulus:
+  :code: Ac
+  :name: AltoCumulus
+  :type: CloudLookup
+  :comment: 
+cirrus:
+  :code: Ci
+  :name: Cirrus
+  :type: CloudLookup
+  :comment: 
+cirrostratus:
+  :code: Cs
+  :name: Cirrostratus
+  :type: CloudLookup
+  :comment: 
+cirrocumulus:
+  :code: Cc
+  :name: Cirrocumulus
+  :type: CloudLookup
+  :comment: 
+pancakes:
+  :code: 30
+  :name: Pancakes
+  :type: IceLookup
+  :comment: 
+new-sheet-ice:
+  :code: 200
+  :name: New sheet ice
+  :type: FloeSizeLookup
+  :comment: 
+brash-broken-ice:
+  :code: 300
+  :name: Brash/Broken Ice
+  :type: FloeSizeLookup
+  :comment: 
+cake-ice-20m:
+  :code: 400
+  :name: Cake ice <20m
+  :type: FloeSizeLookup
+  :comment: 
+medium-floes-100-500m:
+  :code: 600
+  :name: Medium floes 100-500m
+  :type: FloeSizeLookup
+  :comment: 
+large-floes-500-2000m:
+  :code: 700
+  :name: Large floes 500-2000m
+  :type: FloeSizeLookup
+  :comment: 
+vast-floes-2000m:
+  :code: 800
+  :name: Vast floes > 2000m
+  :type: FloeSizeLookup
+  :comment: 
+bergy-floes:
+  :code: 900
+  :name: Bergy Floes
+  :type: FloeSizeLookup
+  :comment: 
+small-floes-20-100m:
+  :code: 500
+  :name: Small floes 20-100m
+  :type: FloeSizeLookup
+  :comment: 
 frazil:
-  code: 1
-  name: Frazil
-  type: IceLookup
-  comment:
-
+  :code: 10
+  :name: Frazil
+  :type: IceLookup
+  :comment: 
 shuga:
-  code: 2
-  name: Shuga
-  type: IceLookup
-
+  :code: 11
+  :name: Shuga
+  :type: IceLookup
+  :comment: 
 grease:
-  code: 3
-  name: Grease
-  type: IceLookup
+  :code: 12
+  :name: Grease
+  :type: IceLookup
+  :comment: 
+nilas:
+  :code: 20
+  :name: Nilas
+  :type: IceLookup
+  :comment: 
+young-grey-ice-10-15cm:
+  :code: 40
+  :name: Young Grey Ice 10-15cm
+  :type: IceLookup
+  :comment: 
+young-grey-white-ice-15-30cm:
+  :code: 50
+  :name: Young Grey-White Ice 15-30cm
+  :type: IceLookup
+  :comment: 
+first-year-70cm:
+  :code: 60
+  :name: First year < 70cm
+  :type: IceLookup
+  :comment: 
+first-year-70-120cm:
+  :code: 70
+  :name: First year 70-120cm
+  :type: IceLookup
+  :comment: 
+first-year-120cm:
+  :code: 80
+  :name: First year > 120cm
+  :type: IceLookup
+  :comment: 
+second-year:
+  :code: 75
+  :name: Second year
+  :type: IceLookup
+  :comment: 
+multiyear:
+  :code: 85
+  :name: Multiyear
+  :type: IceLookup
+  :comment: 
+brash:
+  :code: 90
+  :name: Brash
+  :type: IceLookup
+  :comment: 
+fast-ice:
+  :code: 95
+  :name: Fast ice
+  :type: IceLookup
+  :comment: 
+0-10cm:
+  :code: 1
+  :name: 0-10cm
+  :type: MaxDepthLookup
+  :comment: 
+10-30cm:
+  :code: 2
+  :name: 10-30cm
+  :type: MaxDepthLookup
+  :comment: 
+30-50cm:
+  :code: 3
+  :name: 30-50cm
+  :type: MaxDepthLookup
+  :comment: 
+50cm:
+  :code: 4
+  :name: ">50cm"
+  :type: MaxDepthLookup
+  :comment: 
+unknown:
+  :code: -9
+  :name: Unknown
+  :type: MaxDepthLookup
+  :comment: 
+port:
+  :code: 1
+  :name: port
+  :type: OnBoatLocationLookup
+  :comment: 
+forward:
+  :code: 2
+  :name: forward
+  :type: OnBoatLocationLookup
+  :comment: 
+starboard:
+  :code: 3
+  :name: starboard
+  :type: OnBoatLocationLookup
+  :comment: 
+other:
+  :code: 4
+  :name: other
+  :type: OnBoatLocationLookup
+  :comment: 
+no-openings:
+  :code: 0
+  :name: No openings
+  :type: OpenWaterLookup
+  :comment: 
+small-cracks:
+  :code: 1
+  :name: Small cracks
+  :type: OpenWaterLookup
+  :comment: 
+very-narrow-breaks-50m:
+  :code: 2
+  :name: Very narrow breaks <50m
+  :type: OpenWaterLookup
+  :comment: 
+narrow-breaks-50-200m:
+  :code: 3
+  :name: Narrow breaks, 50-200m
+  :type: OpenWaterLookup
+  :comment: 
+wide-breaks-200-500m:
+  :code: 4
+  :name: Wide breaks, 200-500m
+  :type: OpenWaterLookup
+  :comment: 
+very-wide-breaks-500m:
+  :code: 5
+  :name: Very wide breaks, >500m
+  :type: OpenWaterLookup
+  :comment: 
+leads:
+  :code: 6
+  :name: Leads
+  :type: OpenWaterLookup
+  :comment: 
+polynya:
+  :code: 7
+  :name: Polynya
+  :type: OpenWaterLookup
+  :comment: 
+water-broken-only-by-scattered-floes:
+  :code: 8
+  :name: Water broken only by scattered floes
+  :type: OpenWaterLookup
+  :comment: 
+open-sea:
+  :code: 9
+  :name: Open Sea
+  :type: OpenWaterLookup
+  :comment: 
+stripes-and-patches:
+  :code: 10
+  :name: Stripes and Patches
+  :type: OpenWaterLookup
+  :comment: 
+linked:
+  :code: 1
+  :name: Linked
+  :type: PatternLookup
+  :comment: 
+discrete:
+  :code: 2
+  :name: Discrete
+  :type: PatternLookup
+  :comment: 
+travelling-in-leads:
+  :code: 10
+  :name: Travelling in leads
+  :type: ShipActivityLookup
+  :comment: 
+travelling-through-ice:
+  :code: 20
+  :name: Travelling through ice
+  :type: ShipActivityLookup
+  :comment: 
+back-and-ramming:
+  :code: 30
+  :name: Back and ramming
+  :type: ShipActivityLookup
+  :comment: 
+on-station:
+  :code: 40
+  :name: On station
+  :type: ShipActivityLookup
+  :comment: 
+no-snow-observation:
+  :code: 0
+  :name: No snow observation
+  :type: SnowLookup
+  :comment: 
+no-snow-no-ice-or-brash:
+  :code: 1
+  :name: No snow, no ice or brash
+  :type: SnowLookup
+  :comment: 
+cold-new-snow-1-day-old:
+  :code: 2
+  :name: Cold new snow, <1 day old
+  :type: SnowLookup
+  :comment: 
+cold-old-snow:
+  :code: 3
+  :name: Cold old snow
+  :type: SnowLookup
+  :comment: 
+cold-wind-packed-snow:
+  :code: 4
+  :name: Cold wind-packed snow
+  :type: SnowLookup
+  :comment: 
+new-melting-snow-wet-new-snow:
+  :code: 5
+  :name: New melting snow (wet new snow)
+  :type: SnowLookup
+  :comment: 
+old-melting-snow:
+  :code: 6
+  :name: Old melting snow
+  :type: SnowLookup
+  :comment: 
+glaze:
+  :code: 7
+  :name: Glaze
+  :type: SnowLookup
+  :comment: 
+melt-slush:
+  :code: 8
+  :name: Melt slush
+  :type: SnowLookup
+  :comment: 
+melt-puddles:
+  :code: 9
+  :name: Melt puddles
+  :type: SnowLookup
+  :comment: 
+saturated-snow:
+  :code: 10
+  :name: Saturated snow
+  :type: SnowLookup
+  :comment: 
+sastrugi:
+  :code: 11
+  :name: Sastrugi
+  :type: SnowLookup
+  :comment: 
+open:
+  :code: 2
+  :name: Open
+  :type: SurfaceLookup
+  :comment: 
+bottom-up:
+  :code: 3
+  :name: Bottom up
+  :type: SurfaceLookup
+  :comment: 
+frozen:
+  :code: 1
+  :name: Frozen
+  :type: SurfaceLookup
+  :comment: 
+level-ice:
+  :code: 100
+  :name: Level Ice
+  :type: TopographyLookup
+  :comment: 
+rafted-pancakes:
+  :code: 200
+  :name: Rafted Pancakes
+  :type: TopographyLookup
+  :comment: 
+cemented-pancakes:
+  :code: 300
+  :name: Cemented Pancakes
+  :type: TopographyLookup
+  :comment: 
+rafting:
+  :code: 400
+  :name: Rafting
+  :type: TopographyLookup
+  :comment: 
+ridges:
+  :code: 500
+  :name: Ridges
+  :type: TopographyLookup
+  :comment: 
+50m:
+  :code: 90
+  :name: "< 50m"
+  :type: VisibilityLookup
+  :comment: 
+50-200m:
+  :code: 91
+  :name: 50-200m
+  :type: VisibilityLookup
+  :comment: 
+200-500m:
+  :code: 92
+  :name: 200-500m
+  :type: VisibilityLookup
+  :comment: 
+500-1000m:
+  :code: 93
+  :name: 500-1000m
+  :type: VisibilityLookup
+  :comment: 
+1-2km:
+  :code: 94
+  :name: 1-2km
+  :type: VisibilityLookup
+  :comment: 
+2-4km:
+  :code: 95
+  :name: 2-4km
+  :type: VisibilityLookup
+  :comment: 
+4-10km:
+  :code: 96
+  :name: 4-10km
+  :type: VisibilityLookup
+  :comment: 
+10km:
+  :code: 97
+  :name: ">10km"
+  :type: VisibilityLookup
+  :comment: 
+drifting-snow-below-eye-level-heavy:
+  :code: 37
+  :name: Drifting snow below eye level, heavy
+  :type: WeatherLookup
+  :comment: Blowing or drifting snow
+blowing-snow-above-eye-level-heavy:
+  :code: 39
+  :name: Blowing snow, above eye level, heavy
+  :type: WeatherLookup
+  :comment: Blowing or drifting snow
+drifting-snow-below-eye-level-slight-moderate:
+  :code: 36
+  :name: Drifting snow below eye level, slight/moderate
+  :type: WeatherLookup
+  :comment: Blowing or drifting snow
+blowing-snow-above-eye-level-slight-moderate:
+  :code: 38
+  :name: Blowing snow, above eye level, slight/moderate
+  :type: WeatherLookup
+  :comment: Blowing or drifting snow
+fog-at-a-distance-but-not-at-ship-in-past-hour-visibility-may-be-greater-than-1-2-naut-mi:
+  :code: 40
+  :name: Fog at a distance but not at ship in past hour**Visibility may be greater
+    than 1⁄2 naut. mi.
+  :type: WeatherLookup
+  :comment: Blowing or drifting snow
+fog-in-patches:
+  :code: 41
+  :name: Fog in patches
+  :type: WeatherLookup
+  :comment: Fog/Mist
+fog-depositing-rime-sky-not-discernable:
+  :code: 49
+  :name: Fog depositing rime, sky not discernable
+  :type: WeatherLookup
+  :comment: Fog/Mist
+slight-drizzle-intermittent:
+  :code: 50
+  :name: Slight drizzle, intermittent
+  :type: WeatherLookup
+  :comment: Precipitation as drizzle
+slight-drizzle-continuous:
+  :code: 51
+  :name: Slight drizzle, continuous
+  :type: WeatherLookup
+  :comment: Precipitation as drizzle
+moderate-drizzle-intermittent:
+  :code: 52
+  :name: Moderate drizzle, intermittent
+  :type: WeatherLookup
+  :comment: Precipitation as drizzle
+moderate-drizzle-continuous:
+  :code: 53
+  :name: Moderate drizzle, continuous
+  :type: WeatherLookup
+  :comment: Precipitation as drizzle
+dense-drizzle-intermittent:
+  :code: 54
+  :name: Dense drizzle, intermittent
+  :type: WeatherLookup
+  :comment: Precipitation as drizzle
+dense-drizzle-continuous:
+  :code: 55
+  :name: Dense drizzle, continuous
+  :type: WeatherLookup
+  :comment: Precipitation as drizzle
+freezing-drizzle-slight:
+  :code: 56
+  :name: Freezing drizzle, slight
+  :type: WeatherLookup
+  :comment: Precipitation as drizzle
+freezing-drizzle-moderate-or-dense:
+  :code: 57
+  :name: Freezing drizzle, moderate or dense
+  :type: WeatherLookup
+  :comment: Precipitation as drizzle
+drizzle-and-rain-slight:
+  :code: 58
+  :name: Drizzle and rain, slight
+  :type: WeatherLookup
+  :comment: Precipitation as drizzle
+slight-rain-intermittent:
+  :code: 60
+  :name: Slight rain, intermittent
+  :type: WeatherLookup
+  :comment: Precipitation as rain, not showers
+slight-rain-continuous:
+  :code: 61
+  :name: Slight rain, continuous
+  :type: WeatherLookup
+  :comment: Precipitation as rain, not showers
+moderate-rain-intermittent:
+  :code: 62
+  :name: Moderate rain, intermittent
+  :type: WeatherLookup
+  :comment: Precipitation as rain, not showers
+moderate-rain-continuous:
+  :code: 63
+  :name: Moderate rain, continuous
+  :type: WeatherLookup
+  :comment: Precipitation as rain, not showers
+heavy-rain-intermittent:
+  :code: 64
+  :name: Heavy rain, intermittent
+  :type: WeatherLookup
+  :comment: Precipitation as rain, not showers
+heavy-rain-continuous:
+  :code: 65
+  :name: Heavy rain, continuous
+  :type: WeatherLookup
+  :comment: Precipitation as rain, not showers
+freezing-rain-slight:
+  :code: 66
+  :name: Freezing rain, slight
+  :type: WeatherLookup
+  :comment: Precipitation as rain, not showers
+freezing-rain-moderate-or-heavy:
+  :code: 67
+  :name: Freezing rain, moderate or heavy
+  :type: WeatherLookup
+  :comment: Precipitation as rain, not showers
+rain-or-drizzle-and-snow-slight:
+  :code: 68
+  :name: Rain or drizzle and snow, slight
+  :type: WeatherLookup
+  :comment: Precipitation as rain, not showers
+rain-or-drizzle-and-snow-moderate-heavy:
+  :code: 69
+  :name: Rain or drizzle and snow, moderate/heavy
+  :type: WeatherLookup
+  :comment: Precipitation as rain, not showers
+slight-fall-of-snow-flakes-intermittent:
+  :code: 70
+  :name: Slight fall of snow flakes, intermittent
+  :type: WeatherLookup
+  :comment: Frozen precipitation, not showers
+slight-fall-of-snow-flakes-continuous:
+  :code: 71
+  :name: Slight fall of snow flakes, continuous
+  :type: WeatherLookup
+  :comment: Frozen precipitation, not showers
+moderate-fall-of-snow-flakes-intermittent:
+  :code: 72
+  :name: Moderate fall of snow flakes, intermittent
+  :type: WeatherLookup
+  :comment: Frozen precipitation, not showers
+moderate-fall-of-snow-flakes-continuous:
+  :code: 73
+  :name: Moderate fall of snow flakes, continuous
+  :type: WeatherLookup
+  :comment: Frozen precipitation, not showers
+heavy-fall-of-snow-flakes-continuous:
+  :code: 75
+  :name: Heavy fall of snow flakes, continuous
+  :type: WeatherLookup
+  :comment: Frozen precipitation, not showers
+ice-prisms-with-without-fog:
+  :code: 76
+  :name: Ice prisms, with/without fog
+  :type: WeatherLookup
+  :comment: Frozen precipitation, not showers
+snow-grains-with-without-fog:
+  :code: 77
+  :name: Snow grains, with/without fog
+  :type: WeatherLookup
+  :comment: Frozen precipitation, not showers
+isolated-star-like-crystals:
+  :code: 78
+  :name: Isolated star like crystals
+  :type: WeatherLookup
+  :comment: Frozen precipitation, not showers
+moderate-or-heavy-rain-showers:
+  :code: 81
+  :name: Moderate or heavy rain showers
+  :type: WeatherLookup
+  :comment: Precipitation as showers
+slight-showers-of-rain-and-snow:
+  :code: 83
+  :name: Slight showers of rain and snow
+  :type: WeatherLookup
+  :comment: Precipitation as showers
+moderate-heavy-showers-of-rain-and-snow:
+  :code: 84
+  :name: Moderate/heavy showers of rain and snow
+  :type: WeatherLookup
+  :comment: Precipitation as showers
+slight-snow-showers:
+  :code: 85
+  :name: Slight snow showers
+  :type: WeatherLookup
+  :comment: Precipitation as showers
+moderate-or-heavy-snow-showers:
+  :code: 86
+  :name: Moderate or heavy snow showers
+  :type: WeatherLookup
+  :comment: Precipitation as showers
+slight-showers-of-soft-or-small-hail:
+  :code: 87
+  :name: Slight showers of soft or small hail
+  :type: WeatherLookup
+  :comment: Precipitation as showers
+moderate-heavy-showers-of-soft-small-hail:
+  :code: 88
+  :name: Moderate/heavy showers of soft/small hail
+  :type: WeatherLookup
+  :comment: Precipitation as showers
+slight-showers-of-hail:
+  :code: 89
+  :name: Slight showers of hail
+  :type: WeatherLookup
+  :comment: Precipitation as showers
+moderate-or-heavy-showers-of-hail:
+  :code: 90
+  :name: Moderate or heavy showers of hail
+  :type: WeatherLookup
+  :comment: Precipitation as showers
+clouds-not-observable-observed:
+  :code: 0
+  :name: Clouds not observable/observed
+  :type: WeatherLookup
+  :comment: Cloud development
+clouds-dissolving-or-becoming-less-developed:
+  :code: 1
+  :name: Clouds dissolving or becoming less developed
+  :type: WeatherLookup
+  :comment: Cloud development
+state-of-sky-as-a-whole-unchanged:
+  :code: 2
+  :name: State of sky as a whole unchanged
+  :type: WeatherLookup
+  :comment: Cloud development
+clouds-forming-or-developing:
+  :code: 3
+  :name: Clouds forming or developing
+  :type: WeatherLookup
+  :comment: Cloud development
+mist-visibility-1-2-nautical-mi-or-more:
+  :code: 10
+  :name: Mist (Visibility 1⁄2 Nautical mi. or more)
+  :type: WeatherLookup
+  :comment: ''
+shallow-fog-in-patches:
+  :code: 11
+  :name: Shallow fog in patches
+  :type: WeatherLookup
+  :comment: ''
+shallow-fog-more-or-less-continuous:
+  :code: 12
+  :name: Shallow fog - more or less continuous
+  :type: WeatherLookup
+  :comment: ''
+precipitation-in-sight-not-reaching-surface:
+  :code: 14
+  :name: Precipitation in sight, not reaching surface
+  :type: WeatherLookup
+  :comment: ''
+precip-beyond-3-naut-mi-reaching-surface:
+  :code: 15
+  :name: Precip. beyond 3 naut. mi. — reaching surface
+  :type: WeatherLookup
+  :comment: ''
+precip-within-3-naut-mi-reaching-surface:
+  :code: 16
+  :name: Precip. within 3 naut. mi. — reaching surface
+  :type: WeatherLookup
+  :comment: ''
+drizzle-not-freezing-or-snow-grains:
+  :code: 20
+  :name: Drizzle not freezing or snow grains
+  :type: WeatherLookup
+  :comment: Fog/Precipitation during past hour but not at time of obs
+rain-not-freezing-or-snow-grains:
+  :code: 21
+  :name: Rain not freezing or snow grains
+  :type: WeatherLookup
+  :comment: Fog/Precipitation during past hour but not at time of obs
+snow-not-freezing-or-snow-grains:
+  :code: 22
+  :name: Snow not freezing or snow grains
+  :type: WeatherLookup
+  :comment: Fog/Precipitation during past hour but not at time of obs
+rain-and-snow-or-ice-pellets:
+  :code: 23
+  :name: Rain and snow or ice pellets
+  :type: WeatherLookup
+  :comment: Fog/Precipitation during past hour but not at time of obs
+drizzle-or-rain-freezing:
+  :code: 24
+  :name: Drizzle or rain, freezing
+  :type: WeatherLookup
+  :comment: Fog/Precipitation during past hour but not at time of obs
+showers-of-rain:
+  :code: 25
+  :name: Showers of rain
+  :type: WeatherLookup
+  :comment: Fog/Precipitation during past hour but not at time of obs
+showers-of-snow-or-of-rain-and-snow:
+  :code: 26
+  :name: Showers of snow, or of rain and snow
+  :type: WeatherLookup
+  :comment: Fog/Precipitation during past hour but not at time of obs
+showers-of-hail-or-of-rain-and-hail:
+  :code: 27
+  :name: Showers of hail, or of rain and hail
+  :type: WeatherLookup
+  :comment: Fog/Precipitation during past hour but not at time of obs
+fog-in-past-hour-not-at-present:
+  :code: 28
+  :name: Fog in past hour, not at present
+  :type: WeatherLookup
+  :comment: Fog/Precipitation during past hour but not at time of obs
+thunderstorm-with-or-without-precipitation:
+  :code: 29
+  :name: Thunderstorm, with or without precipitation
+  :type: WeatherLookup
+  :comment: ''
+fog-thinning-in-last-hour-sky-discernable:
+  :code: 42
+  :name: Fog thinning in last hour, sky discernable
+  :type: WeatherLookup
+  :comment: Fog/Mist
+fog-thinning-in-last-hour-sky-not-discernable:
+  :code: 43
+  :name: Fog thinning in last hour, sky not discernable
+  :type: WeatherLookup
+  :comment: Fog/Mist
+fog-unchanged-in-last-hour-sky-discernable:
+  :code: 44
+  :name: Fog unchanged in last hour, sky discernable
+  :type: WeatherLookup
+  :comment: Fog/Mist
+fog-unchanged-in-last-hour-sky-not-discernable:
+  :code: 45
+  :name: Fog unchanged in last hour, sky not discernable
+  :type: WeatherLookup
+  :comment: Fog/Mist
+fog-beginning-thickening-in-last-hour-sky-discernable:
+  :code: 46
+  :name: Fog beginning/thickening in last hour, sky discernable
+  :type: WeatherLookup
+  :comment: Fog/Mist
+fog-beginning-thickening-in-last-hour-sky-not-discernable:
+  :code: 47
+  :name: Fog beginning/thickening in last hour, sky not discernable
+  :type: WeatherLookup
+  :comment: Fog/Mist
+fog-depositing-rime-sky-discernable:
+  :code: 48
+  :name: Fog depositing rime, sky discernable
+  :type: WeatherLookup
+  :comment: Fog/Mist
+drizzle-and-rain-moderate-or-dense:
+  :code: 59
+  :name: Drizzle and rain, moderate or dense
+  :type: WeatherLookup
+  :comment: Precipitation as drizzle
+heavy-fall-of-snow-flakes-intermittent:
+  :code: 74
+  :name: Heavy fall of snow flakes, intermittent
+  :type: WeatherLookup
+  :comment: Frozen precipitation, not showers
+ice-pellets:
+  :code: 79
+  :name: Ice pellets
+  :type: WeatherLookup
+  :comment: Frozen precipitation, not showers
+slight-rain-showers:
+  :code: 80
+  :name: Slight rain showers
+  :type: WeatherLookup
+  :comment: Precipitation as showers
+violent-rain-showers:
+  :code: 82
+  :name: Violent rain showers
+  :type: WeatherLookup
+  :comment: Precipitation as showers

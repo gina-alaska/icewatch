@@ -5,3 +5,6 @@ one:
 
 two:
   name: MyString
+
+base_person:
+  name: 'Foo Manchu'

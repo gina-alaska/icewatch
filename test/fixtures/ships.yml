@@ -13,3 +13,6 @@ two:
   speed: 1
   ship_activity_lookup_id: 1
   observation_id: 1
+
+boat:
+  observation: base
