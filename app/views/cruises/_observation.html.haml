@@ -1,5 +1,7 @@
 %tr.observation{class: row_highlight(observation)}
   %td= observation.observed_at
+  %td= observation.latitude
+  %td= observation.longitude
   %td= observation.ice.try(:total_concentration)
   %td= observation.primary_observer.try(&:name)
   %td

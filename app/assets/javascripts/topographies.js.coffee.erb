@@ -12,12 +12,17 @@
     if $(field).data('selectize') isnt undefined
       $(field).data('selectize').clear()
       $(field).data('selectize').disable()
+    else if $(field).hasClass('ridge') and $(field).attr('type') is 'checkbox'
+      # $(field).bootstrapSwitch('indeterminate', true)
+      # $(field).bootstrapSwitch('disabled', true)
     else
       $(field).attr('disabled', true).val(null)
 
   enableField = (field) ->
     if $(field).data('selectize') isnt undefined
       $(field).data('selectize').enable()
+    else if $(field).hasClass('ridge') and $(field).attr('type') is 'checkbox'
+      # $(field).bootstrapSwitch('disabled', false)
     else
       $(field).removeAttr('disabled')
 
@@ -49,3 +54,4 @@
 $(document).on 'change', '.topography', handleTopographies
 $(document).on 'ready page:load', ->
   $("select.topography").trigger('change')
+  # $(".ridge[type='checkbox']").bootstrapSwitch();

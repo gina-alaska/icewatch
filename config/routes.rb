@@ -4,8 +4,17 @@ Rails.application.routes.draw do
       collection do
         post :import
       end
+      member do
+        post :approve
+      end
       resources :comments, except: [:index, :show], shallow: false
     end
+    resource :charts, only: [] do
+      get :ice_concentration
+      get :ice_type
+    end
+    post :approve, on: :member
+    post :approve_observations, on: :member
   end
   resources :lookups
 

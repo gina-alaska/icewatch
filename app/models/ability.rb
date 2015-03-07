@@ -4,9 +4,12 @@ class Ability
   def initialize(user)
     user ||= User.new
     # if assist?
-    can :manage, :all
+    if assist?
+      can :manage, :all
+    end
+
     # else  #IceWatch
-    if user.role? :admin
+    if user.has_role? :admin
       can :manage, :all
       # Admins can promote users to managers or admins
       # Admins can unlock Cruises
@@ -14,7 +17,11 @@ class Ability
       # Admins can perform manager actions
     end
 
-    if user.role? :manager
+    if user.has_role? :manager
+      can :approve, Cruise
+      can :approve_observations, Cruise
+      can :approve, Observation
+      can :edit, Observation
       # Managers can approve Cruises
       # Managers can approve Observations
       # Managers can lock Cruises
@@ -24,44 +31,29 @@ class Ability
       # Managers can perform member actions
     end
 
-    if user.role? :member
+    if user.has_role? :member
+      can :create, Cruise
+      can :import, Observation
+      can :read, Cruise, approved: true
+      can :read, Observation, approved: true
+      
       # Members can create cruises
       # Members can upload observations
       # Members can perform guest actions
     end
 
-    if user.role? :guest
+    if user.has_role? :guest
+      can :read, Cruise, approved: true
+      can :read, Observation, approved: true
       # Guests can download assist
-      # Guests can download data
+      # Guests can view and download data
       # Registered guests can request member access
     end
-    # end
+  end
 
-    # Define abilities for the passed in user here. For example:
-    #
-    #   user ||= User.new # guest user (not logged in)
-    #   if user.admin?
-    #     can :manage, :all
-    #   else
-    #     can :read, :all
-    #   end
-    #
-    # The first argument to `can` is the action you are giving the user
-    # permission to do.
-    # If you pass :manage it will apply to every action. Other common actions
-    # here are :read, :create, :update and :destroy.
-    #
-    # The second argument is the resource the user can perform the action on.
-    # If you pass :all it will apply to every resource. Otherwise pass a Ruby
-    # class of the resource.
-    #
-    # The third argument is an optional hash of conditions to further filter the
-    # objects.
-    # For example, here the user can only update published articles.
-    #
-    #   can :update, Article, :published => true
-    #
-    # See the wiki for details:
-    # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
+  private
+
+  def assist?
+    RUBY_PLATFORM == 'java' || Rails.application.secrets.icewatch_assist == true
   end
 end

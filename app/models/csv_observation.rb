@@ -169,10 +169,12 @@ class CsvObservation
   end
 
   def additional_observers
+    return nil if ao.nil?
     ao.split(':').map { |n| { name: n } }
   end
 
   def split_comments
+    return nil if comments.nil?
     comments.split('//').map { |c| comment_to_hash(c) } if comments.present?
   end
 

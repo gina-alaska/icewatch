@@ -1,0 +1,10 @@
+%ul.list-group
+  %li.list-group-item.active Manage
+  = render 'sidebar_approve'
+  - if @cruise.locked?
+    = render 'sidebar_lock'
+  - else
+    = render 'sidebar_upload'
+    = render 'sidebar_lock'
+    = render 'sidebar_destroy'
+    

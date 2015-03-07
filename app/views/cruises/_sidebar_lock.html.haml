@@ -1,0 +1,6 @@
+- if can?(:lock, @cruise)
+  - if @cruise.locked?
+    %li.list-group-item
+      = link_to cruise_path(@cruise) do
+        %i.fa{class: "fa-#{cruise_lock_state}"}
+        = "#{cruise_lock_state}.capitalize Cruise"

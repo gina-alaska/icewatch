@@ -48,18 +48,19 @@
     .panel-heading
       %h4
         = "#{@active_cruise.ship}: #{@active_cruise.starts_at} - #{@active_cruise.ends_at}"
-    %table.table
-      %thead
-        %tr
-          %th
-            = link_to 'All', '#', id: 'all-export'
-            = "/"
-            = link_to 'None', '#', id: 'none-export'
-          %th Observation Date
-          %th Last Modified
-          %th Total Ice Concentration
-          %th Primary Observer
-          %th Additional Observers
-          %th
-      %tbody
-        = render partial: 'observation', collection: @active_cruise.observations
+    = render 'cruise_observations', cruise: @active_cruise
+    -# %table.table
+    -#   %thead
+    -#     %tr
+    -#       %th
+    -#         = link_to 'All', '#', id: 'all-export'
+    -#         = "/"
+    -#         = link_to 'None', '#', id: 'none-export'
+    -#       %th Observation Date
+    -#       %th Last Modified
+    -#       %th Total Ice Concentration
+    -#       %th Primary Observer
+    -#       %th Additional Observers
+    -#       %th
+    -#   %tbody
+    -#     = render partial: 'observation', collection: @active_cruise.observations

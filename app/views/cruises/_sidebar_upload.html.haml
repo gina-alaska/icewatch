@@ -1,0 +1,10 @@
+%li.list-group-item.cruise-upload{data: {provides: 'fileinput'}}
+  = link_to '#', data: {trigger: 'fileinput'} do
+    %i.fa.fa-upload
+    Upload Observation CSV
+  = file_field_tag 'observations', data: {'submit-url' => import_cruise_observations_path(@cruise)},
+  class: 'hidden'
+
+%li.list-group-item
+  %i.fa.fa-camera
+  Upload Photos

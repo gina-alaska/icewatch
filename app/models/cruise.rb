@@ -1,11 +1,19 @@
 class Cruise < ActiveRecord::Base
   has_many :observations
 
-  validates_presence_of :ship, :starts_at, :ends_at, :primary_observer,
-                        :chief_scientist, :objective
+  validates_presence_of :ship, :starts_at, :ends_at, :primary_observer, :objective
 
   # validates_presense_of :captain, :archived, :approved
   validates_length_of :objective, maximum: 300
+
+  scope :start_dates, -> { order(starts_at: :desc).pluck(:starts_at) }
+  scope :for_year, -> (year) do
+    date = Time.new(year)
+    where(starts_at: [date.beginning_of_year..date.end_of_year])
+  end
+  scope :approved, -> { where(approved: true) }
+
+  delegate :year, to: :starts_at
 
   def build_observation
     observation = observations.new
@@ -55,5 +63,17 @@ class Cruise < ActiveRecord::Base
       chief_scientist: chief_scientist,
       primary_observer: primary_observer
     }
+  end
+
+  def locked?
+    archived
+  end
+
+  def batch_approve_observations
+    observations.each do |observation|
+      next unless observation.may_accept?
+
+      observation.accept!
+    end
   end
 end

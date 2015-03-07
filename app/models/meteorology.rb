@@ -7,6 +7,7 @@ class Meteorology < ActiveRecord::Base
 
   belongs_to :weather_lookup
   belongs_to :visibility_lookup
+  belongs_to :observation
 
   accepts_nested_attributes_for :clouds, :high_cloud, :medium_cloud, :low_cloud
 

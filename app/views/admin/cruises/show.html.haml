@@ -4,15 +4,16 @@
     %small= @cruise.starts_at
 
 .col-md-2
-  -# .btn-group-vertical
-  -#   .btn.btn-default Upload Observations
+  %ul.list-group
+    %li.list-group-item.active
+      Manage
+    %li.list-group-item.cruise-upload{data: {provides: 'fileinput'}}
+      = link_to "Import From CSV", '#', data: {trigger: 'fileinput'}
+      = file_field_tag 'observations', data: {'submit-url' => import_cruise_observations_path(@cruise)},
+      class: 'hidden'
+    %li.list-group-item
+      Photos
   -#   .btn.btn-default Upload Photos
-  .fileinput.fileinput-new{data: {provides: 'fileinput'}}
-    .btn.btn-default.btn-file.btn-block
-      .fileinput-new Upload Observations
-      .fileinput-exists.fileinput-filename
-      = file_field_tag 'observations', data: {'submit-url' => import_cruise_observations_path(@cruise)}
-    -# = link_to 'Cancel', '#', class: 'close fileinput-exists btn btn-primary ', data: {dismiss: 'fileinput'}
 
 .col-md-10
   %dl.dl-horizontal

@@ -3,28 +3,30 @@
   %small
     = "#{ymd(@cruise.starts_at)} to #{ymd(@cruise.ends_at)}"
 .row
-  .col-md-2
+  .col-xs-4
+    - if can? :manage, @cruise
+      = render 'management_sidebar'
     %ul.list-group
       %li.list-group-item.active
         %strong Download Data
       %li.list-group-item
-        =link_to "CSV", "#"
+        =link_to "CSV", cruise_path(@cruise, :csv)
       %li.list-group-item
-        = link_to "JSON", "#"
+        = link_to "JSON", cruise_path(@cruise, :json)
+      %li.list-group-item
+        = link_to "GeoJSON", cruise_path(@cruise, :geojson)
       %li.list-group-item
         = link_to "Sigrid3(Beta)", "#"
-    %ul.nav.nav-pills.nav-stacked
-      %li.active= link_to "Map", "#"
-      %li= link_to "Graphs", "#"
-      %li= link_to "Photos", "#"
-      %li= link_to "Observations", "#"
-  .col-md-10
-    .panel.panel-default
-      #map.map{data: {cruise_info: cruise_path(@cruise, 'geojson')}}
-      .panel-body
-        %h4 Observed Sea Ice Type
-        .legend
-          %span.label.new-ice New Ice
-          %span.label.first-year-ice First Year Ice
-          %span.label.old-ice Old Ice
-          %span.label.other-ice Other
+    = render 'map', cruise_info: cruise_path(@cruise, :geojson)
+  .col-xs-8
+    %ul.nav.nav-tabs
+      %li.active= link_to "Observations", "#cruise-obs", data: { toggle: :tab }
+      %li= link_to "Graphs", "#cruise-graphs", data: { toggle: :tab }
+      %li= link_to "Photos", "#cruise-photos", data: { toggle: :tab }
+    #observation-views.tab-content
+      #cruise-obs.tab-pane.active
+        = render 'cruise_observations', cruise: @cruise
+      #cruise-graphs.tab-pane
+        = render 'graphs'
+      #cruise-photos.tab-pane
+        -# = render @cruise.photos

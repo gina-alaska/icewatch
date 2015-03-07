@@ -1,4 +1,6 @@
 class ObservationsController < ApplicationController
+  authorize_resource
+
   before_action :set_observation, only: [:show, :edit, :update, :destroy]
 
   if Rails.application.secrets.icewatch_assist
@@ -90,6 +92,7 @@ class ObservationsController < ApplicationController
       end
     end
   end
+
 
   private
 

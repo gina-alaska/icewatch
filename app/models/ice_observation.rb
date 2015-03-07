@@ -73,7 +73,7 @@ class IceObservation < ActiveRecord::Base
   def ice_types_with_ten_codes_cant_have_floe_size
     return unless %w(Shuga Frazil Grease).include?(ice_lookup.try(:name))
     return if floe_size_lookup.nil?
-
+    
     errors.add(:ice_lookup_id, "#{ice_lookup.name} cannot have a floe size")
   end
 end

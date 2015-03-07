@@ -4,21 +4,16 @@ class Observation < ActiveRecord::Base
 
   aasm column: 'status' do
     state :saved, initial: true
-    state :reviewing
     state :accepted
     state :rejected
     state :locked
 
-    event :review do
-      transitions from: [:saved, :rejected], to: :reviewing, guard: :valid?
-    end
-
     event :accept do
-      transitions from: :reviewing, to: :accepted, guard: :valid?
+      transitions from: :saved, to: :accepted, guard: :valid?
     end
 
     event :reject do
-      transitions from: :reviewing, to: :rejected
+      transitions from: :saved, to: :rejected
     end
 
     event :lock do
@@ -33,31 +28,34 @@ class Observation < ActiveRecord::Base
   belongs_to :cruise
 
   has_many :person_observations, dependent: :destroy
-  has_many :observers, through: :person_observations, class_name: :person
+  has_many :people, through: :person_observations, source: :person
 
   has_one :primary_person_observation, -> { primary },
           class_name: 'PersonObservation', dependent: :destroy
-  has_one :primary_observer, through: :primary_person_observation, source: :person, validate: true
+  has_one :primary_observer, through: :primary_person_observation, source: :person
   has_many :additional_person_observations, -> { additional },
            class_name: 'PersonObservation', dependent: :destroy
   has_many :additional_observers, through: :additional_person_observations,
-                                  source: :person, validate: true
+                                  source: :person
 
-  has_many :ice_observations, dependent: :destroy, validate: true
+  has_many :ice_observations, dependent: :destroy
   has_one :primary_ice_observation, -> { primary }, class_name: 'IceObservation',
                                                     dependent: :destroy
   has_one :secondary_ice_observation, -> { secondary }, class_name: 'IceObservation',
                                                         dependent: :destroy
   has_one :tertiary_ice_observation, -> { tertiary }, class_name: 'IceObservation',
                                                       dependent: :destroy
+  alias primary primary_ice_observation
+  alias secondary secondary_ice_observation
+  alias tertiary tertiary_ice_observation
 
-  has_one :ice, dependent: :destroy, validate: true
-  has_one :meteorology, dependent: :destroy, validate: true
-  has_one :ship, dependent: :destroy, validate: true
-  has_many :faunas, dependent: :destroy, validate: true
-  has_many :comments, dependent: :destroy, validate: true
-  has_many :notes, dependent: :destroy, validate: true
-  has_many :photos, dependent: :destroy, validate: true
+  has_one :ice, dependent: :destroy
+  has_one :meteorology, dependent: :destroy
+  has_one :ship, dependent: :destroy
+  has_many :faunas, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :notes, dependent: :destroy
+  has_many :photos, dependent: :destroy
 
   accepts_nested_attributes_for :ice, :ice_observations, :meteorology,
                                 :comments, :notes, :ship,
@@ -66,21 +64,28 @@ class Observation < ActiveRecord::Base
   accepts_nested_attributes_for :faunas, allow_destroy: true, reject_if: ->(f) { f['name'].blank? }
   accepts_nested_attributes_for :photos, allow_destroy: true, reject_if: ->(f) { f['tempfile'].blank? && f['name'].blank? }
 
+
   validates_uniqueness_of :observed_at, scope: [:cruise_id, :latitude, :longitude], message: 'This observation already exists'
   validates_presence_of :primary_observer, :observed_at, :latitude, :longitude
+
+  validates_associated :ice, :primary_ice_observation, :secondary_ice_observation,
+                       :tertiary_ice_observation, :ship, :meteorology
 
   validate :location
   validate :partial_concentrations_equal_total_concentration
   validate :ice_thickness_are_decreasing_order
-  validate :ice_lookup_codes
+  validate :ice_lookup_code_presence
   validate :ice_lookup_codes_are_increasing_order
-  validate :merge_association_errors
+
+  after_validation :merge_association_errors
 
   attr_writer :primary_observer_id_or_name
   attr_writer :additional_observers_id_or_name
 
   before_save :resolve_primary_observer
   before_save :resolve_additional_observers
+
+  scope :approved, -> { where(approved: true) }
 
   def resolve_primary_observer
     self.primary_observer = resolve_observer(@primary_observer_id_or_name) unless @primary_observer_id_or_name.blank?
@@ -152,73 +157,20 @@ class Observation < ActiveRecord::Base
       .render(template: "observations/show.#{format}", format: format, locals: { :@observation => self })
   end
 
-  private
-
-  def location
-    errors.add(:latitude, 'Latitude must be between -90 and 90') unless latitude.to_f <= 90 && latitude.to_f >= -90
-    errors.add(:longitude, 'Longitude must be between -180 and 180') unless longitude.to_f <= 180 && longitude.to_f >= -180
+  def dominant_ice_type
+    thickness_by_ice_type.max { |(_ak, av), (_bk, bv)| av <=> bv }.keys.first
   end
 
-  def partial_concentrations_equal_total_concentration
-    total_pc = ice_observations.inject(0) { |sum, p| sum + p.partial_concentration.to_i }
-    primary = primary_ice_observation
-    secondary = secondary_ice_observation
-    tertiary = tertiary_ice_observation
-
-    if total_pc != 0 && ice.total_concentration != total_pc
-      ice.errors.add(:total_concentration, 'Partial concentrations must equal total concentration')
-      primary.errors.add(:partial_concentration, 'Sum of partial concentrations must equal total concentration')
-      secondary.errors.add(:partial_concentration, 'Sum of partial concentrations must equal total concentration')
-      tertiary.errors.add(:partial_concentration, 'Sum of partial concentrations must equal total concentration')
-    end
+  def partial_and_total_concentrations_equal?
+    total_pc = observation_partial_concentrations
+    total_pc.empty? || ice.total_concentration == total_pc.sum
   end
 
-  def ice_thickness_are_decreasing_order
-    primary = primary_ice_observation
-    secondary = secondary_ice_observation
-    tertiary = tertiary_ice_observation
-
-    if primary.thickness && primary.thickness < secondary.thickness.to_i
-      secondary.errors.add(:thickness, 'Primary thickness must be greater than secondary thickness')
-    end
-    if secondary.thickness && secondary.thickness < tertiary.thickness.to_i
-      tertiary.errors.add(:thickness,'Secondary thickness must be greater than tertiary thickness')
-    end
+  def observation_partial_concentrations
+    [primary_ice_observation, secondary_ice_observation, tertiary_ice_observation].map(&:partial_concentration).compact
   end
 
-  def ice_lookup_codes_are_increasing_order
-    primary = primary_ice_observation
-    secondary = secondary_ice_observation
-    tertiary = tertiary_ice_observation
-
-    unless increasing_order?(ice.thick_ice_lookup, primary.ice_lookup)
-      primary.errors.add(:ice_lookup_id, 'Thick ice type thinner than primary')
-    end
-    unless increasing_order?(primary.ice_lookup, secondary.ice_lookup)
-      secondary.errors.add(:ice_lookup_id, 'Primary ice type thinner than secondary')
-    end
-    unless increasing_order?(secondary.ice_lookup, tertiary.ice_lookup)
-      tertiary.errors.add(:ice_lookup_id,'Secondary ice type thinner than tertiary')
-    end
-    unless increasing_order?(ice.thin_ice_lookup, tertiary.ice_lookup)
-      tertiary.errors.add(:ice_lookup_id,'Tertiary ice type thinner than thin ice type')
-    end
-  end
-
-  def ice_lookup_codes
-    primary = primary_ice_observation
-    secondary = secondary_ice_observation
-    tertiary = tertiary_ice_observation
-
-    if secondary.ice_lookup && !primary.ice_lookup
-      secondary.errors.add(:ice_lookup_id, 'Secondary ice type without primary')
-    end
-    if tertiary.ice_lookup && !secondary.ice_lookup
-      tertiary.errors.add(:ice_lookup_id,'Tertiary ice type without secondary')
-    end
-  end
-
-  def increasing_order?(thick, thin)
+  def ice_type_in_increasing_order?(thin, thick)
     always_pass = [10, 11, 12, 30, 90]
 
     return true if thick.nil? || thin.nil?
@@ -227,17 +179,62 @@ class Observation < ActiveRecord::Base
     ORDERED_CODES.index(thick.code) >= ORDERED_CODES.index(thin.code)
   end
 
+  private
+
+  def location
+    errors.add(:latitude, 'Latitude must be between -90 and 90') unless latitude.to_f <= 90 && latitude.to_f >= -90
+    errors.add(:longitude, 'Longitude must be between -180 and 180') unless longitude.to_f <= 180 && longitude.to_f >= -180
+  end
+
+  def partial_concentrations_equal_total_concentration
+    unless partial_and_total_concentrations_equal?
+      ice.errors.add(:total_concentration, 'Partial concentrations must equal total concentration')
+      primary_ice_observation.errors.add(:partial_concentration, 'Sum of partial concentrations must equal total concentration')
+      secondary_ice_observation.errors.add(:partial_concentration, 'Sum of partial concentrations must equal total concentration')
+      tertiary_ice_observation.errors.add(:partial_concentration, 'Sum of partial concentrations must equal total concentration')
+    end
+  end
+
+  def ice_thickness_are_decreasing_order
+    if primary.thickness && primary.thickness < secondary.thickness.to_i
+      secondary.errors.add(:thickness, 'Primary thickness must be greater than secondary thickness')
+    end
+    if secondary.thickness && secondary.thickness < tertiary.thickness.to_i
+      tertiary.errors.add(:thickness, 'Secondary thickness must be greater than tertiary thickness')
+    end
+  end
+
+  def ice_lookup_codes_are_increasing_order
+    unless ice_type_in_increasing_order?(ice.thin_ice_lookup, tertiary.ice_lookup)
+      tertiary.errors.add(:ice_lookup_id, 'Tertiary ice type thinner than thin ice type')
+    end
+    unless ice_type_in_increasing_order?(tertiary.ice_lookup, secondary.ice_lookup)
+      tertiary.errors.add(:ice_lookup_id, 'Secondary ice type thinner than tertiary')
+    end
+    unless ice_type_in_increasing_order?(secondary.ice_lookup, primary.ice_lookup)
+      secondary.errors.add(:ice_lookup_id, 'Primary ice type thinner than secondary')
+    end
+    unless ice_type_in_increasing_order?(primary.ice_lookup, ice.thick_ice_lookup)
+      primary.errors.add(:ice_lookup_id, 'Thick ice type thinner than primary')
+    end
+  end
+
+  def ice_lookup_code_presence
+    if secondary.ice_lookup && !primary.ice_lookup
+      secondary.errors.add(:ice_lookup_id, 'Secondary ice type without primary')
+    end
+    if tertiary.ice_lookup && !secondary.ice_lookup
+      tertiary.errors.add(:ice_lookup_id, 'Tertiary ice type without secondary')
+    end
+  end
+
   def thickness_by_ice_type
     ice_observations.group_by(&:ice_type).map { |k, v| { k => v.collect(&:partial_concentration).compact.inject(&:+) } }
   end
 
-  def dominant_ice_type
-    thickness_by_ice_type.max { |(_ak, av), (_bk, bv)| av <=> bv }.keys.first
-  end
-
   def merge_association_errors
-    %w(ship ice primary_ice_observation secondary_ice_observation tertiary_ice_observation).each do |assoc|
-      unless self.send(assoc.to_sym).valid?
+    %w(ship ice primary_ice_observation secondary_ice_observation tertiary_ice_observation meteorology).each do |assoc|
+      if self.send(assoc.to_sym).errors.any?
         self.send(assoc.to_sym).errors.full_messages.each do |msg|
           errors[:base] << "#{assoc.humanize} error: #{msg}"
         end

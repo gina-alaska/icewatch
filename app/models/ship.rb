@@ -2,6 +2,7 @@ class Ship < ActiveRecord::Base
   POWER_VALUES = %w(0 1/4 1/2 3/4 full)
 
   belongs_to :ship_activity_lookup
+  belongs_to :observation
 
   validates :power,
             numericality: {

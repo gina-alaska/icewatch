@@ -8,5 +8,11 @@ class ApplicationController < ActionController::Base
 
   def set_variant_type
     request.variant = :assist if Rails.application.secrets.icewatch_assist
+    request.variant = :assist if RUBY_PLATFORM == 'java'
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    session[:redirect_back_to] = request.original_url
+    redirect_to root_url
   end
 end

@@ -1,18 +1,17 @@
-# include_recipe 'java::default'
-#
-node.set['chruby']['rubies'] = {
-  'jruby-1.7.18' => true,
-  '1.9.3-p392' => false
-}
-node.set['chruby']['default'] = 'jruby-1.7.18'
-#
-# include_recipe 'chruby::system'
-#
 # package 'zip'
 
-gem_package 'bundler' do
-  gem_binary ::File.join('/opt/rubies', node['chruby']['default'], 'bin/gem')
-end
+node.set['chruby']['rubies'] = {
+  'jruby-1.7.16' => true,
+  '1.9.3-p392' => false
+}
+node.set['chruby']['default'] = 'jruby-1.7.16'
+node.set['icewatch']['paths']['application'] = '/Users/scott/workspace/icewatch'
+# include_recipe 'java::default'
+# include_recipe 'chruby::system'
+#
+# gem_package 'bundler' do
+#   gem_binary ::File.join(ENV['RUBY_ROOT'],'..', node['chruby']['default'], 'bin/gem')
+# end
 
 #Database config
 
@@ -24,6 +23,11 @@ rails_env = {
 }
 
 chruby_exec = "chruby-exec #{node['chruby']['default']} --"
+
+execute 'install-bundler' do
+  command "#{chruby_exec} gem install bundler"
+  env rails_env
+end
 
 execute 'bundle-install' do
   command "#{chruby_exec} bundle install"
@@ -51,8 +55,25 @@ execute 'warble-executable-war' do
   creates 'assist.war'
 end
 
+release = node['icewatch']['assist-release'] || Time.now.strftime('%Y%m%d')
+files = %w(ASSIST.war exports/launcher.* db/production.sqlite3)
+
 execute 'create-distributable-zip' do
-  command 'zip assist.war'
+  command "zip -j ASSIST_#{release}.zip #{files.join(' ')} "
   cwd node['icewatch']['paths']['application']
   creates 'assist.zip'
 end
+
+file 'ASSIST.war' do
+  action :delete
+end
+
+directory 'public/assets' do 
+  action :delete
+  recursive true
+end
+
+file 'db/production.sqlite3' do
+  action :delete
+end
+

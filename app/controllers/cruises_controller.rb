@@ -1,13 +1,16 @@
 class CruisesController < ApplicationController
-  before_action :set_cruise, only: [:show, :edit, :update, :destroy]
+  authorize_resource
+
+  before_action :set_cruise, only: [:show, :edit, :update, :destroy, :approve, :reject]
   before_action :set_active_cruise, only: [:index, :show]
   before_action :set_observations, only: [:show]
-
+  before_action :set_current_year, only: [:index]
   # respond_to :geojson, :json, :csv, :zip
   # GET /cruises
   # GET /cruises.json
   def index
-    @cruises = Cruise.all
+    @cruises = Cruise.accessible_by(current_ability).for_year(@current_year).order(starts_at: :desc)
+    @available_years = Cruise.accessible_by(current_ability).start_dates.group_by{|s| s.year }
     if Rails.application.secrets.icewatch_assist && @cruises.empty?
       redirect_to new_cruise_path
     end
@@ -16,17 +19,21 @@ class CruisesController < ApplicationController
   # GET /cruises/1
   # GET /cruises/1.json
   def show
-    respond_to do |format|
-      format.html
-      format.geojson
-      format.json
-      format.csv
-      format.zip do
-        generate_zip
-        File.open(File.join(@cruise.export_path, "#{@cruise}.zip"), 'rb') do |f|
-          send_data f.read, filename: "#{@cruise}.zip"
+    if @cruise.approved? or can?(:manage, Cruise)
+      respond_to do |format|
+        format.html
+        format.geojson
+        format.json
+        format.csv
+        format.zip do
+          generate_zip
+          File.open(File.join(@cruise.export_path, "#{@cruise}.zip"), 'rb') do |f|
+            send_data f.read, filename: "#{@cruise}.zip"
+          end
         end
       end
+    else
+      redirect_to root_url, alert: "You don't have access to that cruise"
     end
   end
 
@@ -79,7 +86,27 @@ class CruisesController < ApplicationController
     end
   end
 
+  def approve
+    if @cruise.update_attribute(:approved, true)
+      redirect_to cruise_path(@cruise), notice: 'Cruise has been approved'
+    else
+      redirect_to cruise_path(@cruise), error: 'Cruise could not be approved'
+    end
+  end
+
+  def approve_observations
+    @cruise = Cruise.find params[:id]
+    @cruise.batch_approve_observations
+
+    redirect_to @cruise
+  end
+
+
   private
+  def set_current_year
+    year = params[:year] || Cruise.order(starts_at: :desc).first.try(:year)
+    @current_year = year || Time.now.year
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_cruise
@@ -87,7 +114,7 @@ class CruisesController < ApplicationController
   end
 
   def set_observations
-    @observations = @cruise.observations
+    @observations = @cruise.observations.accessible_by(current_ability)
     if params[:observations]
       @observations = @observations.where(id: params[:observations])
     end

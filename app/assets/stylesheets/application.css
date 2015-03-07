@@ -11,11 +11,11 @@
  * file per style scope.
  *
  *= require_tree .
- *= require bootstrap/dist/css/bootstrap
- *= require font-awesome/css/font-awesome
+ *= require bootstrap
+ *= require font-awesome
  *= require leaflet/dist/leaflet
- *= require jasny-bootstrap/dist/css/jasny-bootstrap.min
+ *= require jasny-bootstrap
  *= require selectize/dist/css/selectize.bootstrap3
- *= require eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min
+ *= require eonasdan-bootstrap-datetimepicker
  *= require_self
  */

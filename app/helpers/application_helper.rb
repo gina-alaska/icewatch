@@ -1,5 +1,5 @@
 module ApplicationHelper
-  def current_year
-    '2014'
+  def assist?
+    Rails.application.secrets.icewatch_assist
   end
 end

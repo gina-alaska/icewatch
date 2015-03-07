@@ -1,0 +1,11 @@
+- if can?(:approve, Cruise) && !@cruise.approved?
+  %li.list-group-item
+    = link_to approve_cruise_path(@cruise), method: :post do
+      %i.fa.fa-thumbs-up
+      Approve Cruise
+
+- if can?(:approve, Observation) && @cruise.approved?
+  %li.list-group-item
+    = link_to approve_observations_cruise_path(@cruise), method: :post do
+      %i.fa.fa-thumbs-up
+      Approve Valid Observations
