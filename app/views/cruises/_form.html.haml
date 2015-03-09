@@ -13,4 +13,8 @@
       %td= f.text_field :primary_observer
     %tr
       %td{colspan: 2}= f.text_area :objective
+  - unless @cruise.new_record?
+    = link_to root_path, class: 'btn btn-default' do
+      %i.fa.fa-arrow-left
+      Cancel
   = f.submit class: 'btn btn-primary'
