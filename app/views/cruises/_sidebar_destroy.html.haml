@@ -1,5 +1,5 @@
 - if can?(:destroy, Cruise)
   %li.list-group-item.list-group-item-danger
-    = link_to cruise_path(@cruise, action: :destroy) do
+    = link_to cruise_path(@cruise), method: :delete, data: {confirm: 'Destroy this cruise and all associated observations?'} do
       %i.fa.fa-trash
       Destroy Cruise
