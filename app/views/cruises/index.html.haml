@@ -23,4 +23,9 @@
           %span.badge
             = cruises.count
   .col-md-9
-    = render 'map', cruise_info: cruises_path('geojson', year: @current_year)
+    .panel.panel-default
+      #map.map
+        = render partial: 'layer', collection: @cruises
+      = render 'legend'
+
+    -# = render 'map', cruise_info: cruises_path('geojson', year: @current_year)

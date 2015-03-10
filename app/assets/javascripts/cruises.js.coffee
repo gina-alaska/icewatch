@@ -3,11 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 $(document).on 'ready page:load', ->
-  # crs = new L.Proj.CRS('EPSG:3572','+proj=laea +lat_0=90 +lon_0=-150 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs', {
-  #   resolutions: [32768, 16384, 8192, 4096, 2048, 1024, 512, 256, 128,64, 32, 16, 8, 4, 2, 1, 0.5]
-  #   transformation: new L.Transformation(1, -9020047.848073645, -1, 9020047.848073645)
-  # })
-
   crs = new L.Proj.CRS('EPSG:3572',
 	 '+proj=laea +lat_0=90 +lon_0=-150 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs',
   		resolutions: [
@@ -27,35 +22,31 @@ $(document).on 'ready page:load', ->
     format: 'image/jpeg'
     continuousWorld: true).addTo(map)
 
-  L.tileLayer.wms('http://nsidc.org/cgi-bin/atlas_north',
-    layers: 'sea_ice_concentration_09'
-    transparent: true
-    format: 'image/gif'
-    continuousWorld: true
-    version: '1.1.1'
-    attributution: '&copy; <a href="http://nsidc.org">NSIDC</a>').addTo(map)
+  # L.tileLayer.wms('http://nsidc.org/cgi-bin/atlas_north',
+  #   layers: 'sea_ice_concentration_09'
+  #   transparent: true
+  #   format: 'image/gif'
+  #   continuousWorld: true
+  #   version: '1.1.1'
+  #   attributution: '&copy; <a href="http://nsidc.org">NSIDC</a>').addTo(map)
+  cruiseLayer = L.featureGroup().addTo(map)
 
-  # L.tileLayer.wms('http://nsidc.org/cgi-bin/atlas_north?service=WMS&request=GetMap&version=1.1.1',
-  #   layers: 'sea_ice_extent_01',
-  #   format: 'image/jpeg',
-  #   continousWorld: true,
-  #   attribution: '&copy; <a href="http://nsidc.org">NSIDC</a>').addTo(map)
-
-  dataUrl = $("#map").data('cruise-info')
-
-  $.getJSON dataUrl, (data) =>
-    layer = L.geoJson(data,
-      pointToLayer: (feature, latlng) ->
-        markerOptions =
-          radius: feature.properties.iceConcentration
-          # fillColor: feature.properties.fillColor
-          className: "#{feature.properties.dominantIceType}-ice"
-          color: '#000'
-          fillOpacity: 1
-        L.circleMarker(latlng, markerOptions)
-    ).addTo(map)
-    map.fitBounds(layer.getBounds())
-  map.setView [80.856,-147.849], 3
+  $("#map > layer").each (index, layer) ->
+    url = $(layer).data('url')
+    console.log("Fetching: #{url}")
+    $.getJSON url, (data) =>
+      layer = L.geoJson(data,
+        pointToLayer: (feature, latlng) ->
+          markerOptions =
+            radius: feature.properties.iceConcentration
+            className: "#{feature.properties.dominantIceType}-ice"
+            color: '#000'
+            fillOpacity: 1
+          L.circleMarker(latlng, markerOptions)
+      )
+      cruiseLayer.addLayer(layer)
+      map.fitBounds(cruiseLayer.getBounds())
+    map.setView [80.856,-147.849], 3
 
 $(document).on 'change.bs.fileinput', '.cruise-upload', (event) ->
   $(this).find('input[type=file]').parse

@@ -17,7 +17,10 @@
         = link_to "GeoJSON", cruise_path(@cruise, :geojson)
       %li.list-group-item
         = link_to "Sigrid3(Beta)", "#"
-    = render 'map', cruise_info: cruise_path(@cruise, :geojson)
+    .panel.panel-default
+      #map.map
+        = render partial: 'layer', locals: { layer: @cruise }
+      = render 'legend'
   .col-xs-8
     %ul.nav.nav-tabs
       %li.active= link_to "Observations", "#cruise-obs", data: { toggle: :tab }
