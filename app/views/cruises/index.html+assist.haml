@@ -4,63 +4,40 @@
   = link_to "Start Observation", cruise_observations_path(@active_cruise), class: 'btn btn-primary btn-lg', method: 'POST'
 
 .row
-  .col-md-12
-    .alert.alert-warning
-      %h4
-        This is an early release of ASSIST. Some features from previous versions of
-        ASSIST may not yet be implemented.
+  .col-md-2.col-sm-2
+    %ul.list-group
+      %li.list-group-item.active
+        Export
+      %li.list-group-item
+        = link_to "All Observations", cruise_path(@active_cruise, :zip)
+      %li.list-group-item
+        = link_to "Selected Observations", cruise_path(@active_cruise, :zip), id: 'selected-export'
 
-.col-md-2.col-sm-2
-  %ul.list-group
-    %li.list-group-item.active
-      Export
-    %li.list-group-item
-      = link_to "All Observations", cruise_path(@active_cruise, :zip)
-    %li.list-group-item
-      = link_to "Selected Observations", cruise_path(@active_cruise, :zip), id: 'selected-export'
+    %ul.list-group
+      %li.list-group-item.active
+        View Cruise as
+      %li.list-group-item
+        = link_to "CSV", cruise_path(@active_cruise, :csv)
+      %li.list-group-item
+        = link_to "JSON", cruise_path(@active_cruise, :json)
 
-  %ul.list-group
-    %li.list-group-item.active
-      View Cruise as
-    %li.list-group-item
-      = link_to "CSV", cruise_path(@active_cruise, :csv)
-    %li.list-group-item
-      = link_to "JSON", cruise_path(@active_cruise, :json)
+    %ul.list-group
+      %li.list-group-item.active
+        Import
+      %li.list-group-item.cruise-upload{data: {provides: 'fileinput'}}
+        = link_to "From CSV", '#', data: {trigger: 'fileinput'}
+        = file_field_tag 'observations', data: {'submit-url' => import_cruise_observations_path(@active_cruise)},
+          class: 'hidden'
 
+    %ul.list-group
+      %li.list-group-item.active
+        Cruise
+      %li.list-group-item
+        = link_to "Edit", edit_cruise_path(@active_cruise)
 
-  %ul.list-group
-    %li.list-group-item.active
-      Import
-
-    %li.list-group-item.cruise-upload{data: {provides: 'fileinput'}}
-      = link_to "From CSV", '#', data: {trigger: 'fileinput'}
-      = file_field_tag 'observations', data: {'submit-url' => import_cruise_observations_path(@active_cruise)},
-        class: 'hidden'
-
-  %ul.list-group
-    %li.list-group-item.active
-      Cruise
-    %li.list-group-item
-      = link_to "Edit", edit_cruise_path(@active_cruise)
-
-.col-md-10.col-sm-10
-  .panel.panel-primary
-    .panel-heading
-      %h4
-        = "#{@active_cruise.ship}: #{@active_cruise.starts_at} - #{@active_cruise.ends_at}"
-    = render 'cruise_observations', cruise: @active_cruise
-    -# %table.table
-    -#   %thead
-    -#     %tr
-    -#       %th
-    -#         = link_to 'All', '#', id: 'all-export'
-    -#         = "/"
-    -#         = link_to 'None', '#', id: 'none-export'
-    -#       %th Observation Date
-    -#       %th Last Modified
-    -#       %th Total Ice Concentration
-    -#       %th Primary Observer
-    -#       %th Additional Observers
-    -#       %th
-    -#   %tbody
-    -#     = render partial: 'observation', collection: @active_cruise.observations
+  .col-md-10.col-sm-10
+    .panel.panel-primary
+      .panel-heading
+        %h4
+          = "#{@active_cruise.ship}: #{@active_cruise.starts_at} - #{@active_cruise.ends_at}"
+      = render 'cruise_observations', cruise: @active_cruise
