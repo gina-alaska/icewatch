@@ -54,6 +54,7 @@ gem 'httparty'
 gem 'aasm'
 gem 'rubyzip', '>= 1.0.0', require: 'zip'
 gem 'bower-rails'
+gem 'whenever', platform: :ruby
 
 group :development, :test do
   gem 'better_errors', platform: :ruby

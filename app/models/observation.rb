@@ -86,6 +86,7 @@ class Observation < ActiveRecord::Base
   before_save :resolve_additional_observers
 
   scope :approved, -> { where(approved: true) }
+  scope :recent, ->{ where("created_at >= :start_date", { start_date: 1.day.ago }) }
 
   def resolve_primary_observer
     self.primary_observer = resolve_observer(@primary_observer_id_or_name) unless @primary_observer_id_or_name.blank?

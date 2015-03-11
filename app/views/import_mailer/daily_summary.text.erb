@@ -1,0 +1,5 @@
+The following cruises have observations pending approval:
+
+<%- @cruises.each do |cruise| %>
+  <%= cruise_url(cruise, host: 'icewatch.gina.alaska.edu') %>
+<%- end %>
