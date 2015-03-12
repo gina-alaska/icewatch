@@ -29,3 +29,21 @@
   background-color: #92A9C4;
   fill: #92A9C4;
 }
+
+.numberCircle {
+    border-radius: 50%;
+
+    width: 72px;
+    height: 72px;
+
+    background: #fff;
+    border: 3px solid #777;
+    color: #777;
+    text-align: center;
+
+    font-size: 48px;
+}
+
+.fa-muted {
+  color: #777
+}

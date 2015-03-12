@@ -1,0 +1,32 @@
+
+.panel.panel-default
+  .panel-body
+    .row
+      .col-xs-1
+        .numberCircle 1
+      .col-xs-8.col-xs-offset-1
+        .lead Java
+
+        = link_to 'Download Java', 'http://www.java.com/download/', target: '_blank'
+
+.panel.panel-default
+  .panel-body
+    .row
+      .col-xs-1
+        .numberCircle 2
+      .col-xs-8.col-xs-offset-1
+        .lead
+          A modern web browser
+        %ul.list-inline
+          %li= link_to 'Chrome', 'http://chrome.google.com', target: '_blank'
+          %li= link_to 'Firefox', 'https://www.mozilla.org/firefox/new/', target: '_blank'
+
+.panel.panel-default
+  .panel-body
+    .row
+      .col-xs-1
+        %i.fa.fa-ship.fa-4x.fa-muted
+      .col-xs-8.col-xs-offset-1
+        .lead
+          A.S.S.I.S.T
+        = link_to 'Download A.S.S.I.S.T.', '#'

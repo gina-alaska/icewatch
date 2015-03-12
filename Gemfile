@@ -54,6 +54,7 @@ gem 'rubyzip', '>= 1.0.0', require: 'zip'
 gem 'bower-rails'
 gem 'whenever', platform: :ruby
 gem 'tzinfo-data'#, platforms: [:mingw, :mswin, :jruby]
+gem 'high_voltage', '~> 2.2.1', platform: :ruby
 
 group :development, :test do
   gem 'better_errors', platform: :ruby

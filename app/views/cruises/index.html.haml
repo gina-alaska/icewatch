@@ -2,7 +2,7 @@
   .col-md-3
     %ul.list-group
       %li.list-group-item
-        Download ASSIST
+        = link_to 'Download ASSIST', page_path('assist')
       - if can? :create, Cruise
         %li.list-group-item
           = link_to "Register Cruise", new_cruise_path

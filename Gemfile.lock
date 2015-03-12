@@ -121,6 +121,7 @@ GEM
     haml (4.0.6)
       tilt
     hashie (3.3.2)
+    high_voltage (2.2.1)
     hike (1.2.3)
     hitimes (1.2.2)
     hitimes (1.2.2-java)
@@ -364,6 +365,7 @@ DEPENDENCIES
   guard-minitest
   guard-rubocop
   haml
+  high_voltage (~> 2.2.1)
   httparty
   jbuilder (~> 2.0)
   jquery-rails
