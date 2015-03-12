@@ -4,7 +4,7 @@
     = "#{ymd(@cruise.starts_at)} to #{ymd(@cruise.ends_at)}"
 .row
   .col-xs-4
-    - if can? :manage, @cruise
+    - if can?(:manage, @cruise) or can?(:import, @cruise)
       = render 'management_sidebar'
     %ul.list-group
       %li.list-group-item.active

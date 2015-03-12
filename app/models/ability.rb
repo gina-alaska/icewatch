@@ -33,9 +33,10 @@ class Ability
 
     if user.has_role? :member
       can :create, Cruise
-      can :import, Observation
+      can :import, Cruise, id: user_cruises(user)
+      can :import, Observation, cruise_id: user_cruises(user)
       can :read, Cruise, approved: true
-      can :read, Cruise, id: user.cruises.map(&:id)
+      can :read, Cruise, id: user_cruises(user)
       can :read, Observation, approved: true
 
       # Members can create cruises
@@ -56,5 +57,9 @@ class Ability
 
   def assist?
     RUBY_PLATFORM == 'java' || Rails.application.secrets.icewatch_assist == true
+  end
+
+  def user_cruises(user)
+    user.cruises.map(&:id)
   end
 end
