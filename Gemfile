@@ -29,8 +29,6 @@ gem 'spring',        group: :development
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'warbler', platforms: :jruby
-# gem 'activerecord-jdbc-adapter', platform: :jruby #, require: false
-# gem 'jdbc-sqlite3', platform: :jruby
 gem 'activerecord-jdbcsqlite3-adapter', platform: :jruby
 gem 'jruby-openssl', platform: :jruby
 
@@ -55,6 +53,7 @@ gem 'aasm'
 gem 'rubyzip', '>= 1.0.0', require: 'zip'
 gem 'bower-rails'
 gem 'whenever', platform: :ruby
+gem 'tzinfo-data'#, platforms: [:mingw, :mswin, :jruby]
 
 group :development, :test do
   gem 'better_errors', platform: :ruby

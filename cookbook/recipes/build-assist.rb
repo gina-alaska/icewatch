@@ -66,14 +66,17 @@ end
 
 file 'ASSIST.war' do
   action :delete
+  cwd node['icewatch']['paths']['application']
 end
 
-directory 'public/assets' do 
+directory 'public/assets' do
   action :delete
   recursive true
+  cwd node['icewatch']['paths']['application']
 end
 
 file 'db/production.sqlite3' do
   action :delete
+  cwd node['icewatch']['paths']['application']
 end
 
