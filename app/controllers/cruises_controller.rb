@@ -50,6 +50,9 @@ class CruisesController < ApplicationController
   # POST /cruises.json
   def create
     @cruise = Cruise.new(cruise_params)
+    unless current_user.new_record?
+      @cruise.users = [current_user]
+    end
 
     respond_to do |format|
       if @cruise.save

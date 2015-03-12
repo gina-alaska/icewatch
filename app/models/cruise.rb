@@ -1,5 +1,6 @@
 class Cruise < ActiveRecord::Base
   has_many :observations
+  has_and_belongs_to_many :users
 
   validates_presence_of :ship, :starts_at, :ends_at, :primary_observer, :objective
 
