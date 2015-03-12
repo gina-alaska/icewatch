@@ -76,6 +76,7 @@ source 'https://rails-assets.org' do
 #   gem 'rails-assets-papaparse'
 #   gem 'rails-assets-proj4leaflet'
   gem 'rails-assets-selectize'
+  gem 'rails-assets-highcharts'
 #   gem 'rails-assets-bootstrap-switch'
 end
 
