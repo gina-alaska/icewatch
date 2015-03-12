@@ -35,8 +35,9 @@ class Ability
       can :create, Cruise
       can :import, Observation
       can :read, Cruise, approved: true
+      can :read, Cruise, id: user.cruises.map(&:id)
       can :read, Observation, approved: true
-      
+
       # Members can create cruises
       # Members can upload observations
       # Members can perform guest actions
