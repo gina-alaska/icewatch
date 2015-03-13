@@ -16,7 +16,10 @@
       %li.list-group-item
         = link_to "GeoJSON", cruise_path(@cruise, :geojson)
       %li.list-group-item
-        = link_to "Sigrid3(Beta)", "#"
+        = link_to "Sigrid3(Beta)", '#', id: 'sigrid-data-submit'
+        = form_tag ogre_url, id: 'sigrid-form' do
+          = hidden_field_tag :jsonUrl, cruise_url(@cruise, :sigrid3)
+          = hidden_field_tag :outputName, "#{@cruise.to_s}.zip"
     .panel.panel-default
       #map.map
         = render partial: 'layer', locals: { layer: @cruise }

@@ -33,7 +33,6 @@ $(document).on 'ready page:load', ->
 
   $("#map > layer").each (index, layer) ->
     url = $(layer).data('url')
-    console.log("Fetching: #{url}")
     $.getJSON url, (data) =>
       layer = L.geoJson(data,
         pointToLayer: (feature, latlng) ->
@@ -73,3 +72,8 @@ $(document).on 'click', '#selected-export', (e) ->
     params += "observations[]=#{$(item).val()}"
 
   document.location = "#{$(this).attr('href')}?#{params}"
+
+$(document).on 'click', '#sigrid-data-submit', (e) ->
+  e.preventDefault()
+  $("#sigrid-form").submit()
+  

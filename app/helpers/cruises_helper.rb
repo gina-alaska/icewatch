@@ -14,4 +14,8 @@ module CruisesHelper
   def cruise_lock_state(cruise)
     cruise.locked? ? 'unlock' : 'lock'
   end
+
+  def ogre_url
+    Rails.application.secrets.ogre_url
+  end
 end
