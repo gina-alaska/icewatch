@@ -112,11 +112,11 @@ class Observation < ActiveRecord::Base
 
   def to_s
     timestamp = if observed_at.present?
-                  observed_at.strftime('%Y-%m-%d %H:%M')
+                  observed_at.strftime('%Y%m%d%H%M')
                 else
                   "#{id}_time_not_specified"
                 end
-    "#{timestamp} - #{primary_observer.try(:name)}"
+    "#{timestamp}-#{primary_observer.try(:name)}"
   end
 
   def export_path
