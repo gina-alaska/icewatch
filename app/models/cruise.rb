@@ -77,4 +77,12 @@ class Cruise < ActiveRecord::Base
       observation.accept!
     end
   end
+
+  def grouped_observed_ice_types
+    observations.map(&:observed_ice_types).flatten.inject(Hash.new(0)) do |h, i|
+      ice_type = i.try(:name) || 'No Observation'
+      h[ice_type] += 1
+      h
+    end
+  end
 end

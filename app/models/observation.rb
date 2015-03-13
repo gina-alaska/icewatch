@@ -180,6 +180,10 @@ class Observation < ActiveRecord::Base
     ORDERED_CODES.index(thick.code) >= ORDERED_CODES.index(thin.code)
   end
 
+  def observed_ice_types
+    ice_observations.map(&:ice_lookup)
+  end
+
   private
 
   def location

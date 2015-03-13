@@ -23,5 +23,6 @@
 //= require jquery_nested_form
 //= require moment/min/moment-with-locales.min
 //= require eonasdan-bootstrap-datetimepicker
-//= require highcharts
+//= require highcharts/highcharts
+//= require chartkick
 //= require_tree .

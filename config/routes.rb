@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       resources :comments, except: [:index, :show], shallow: false
     end
     resource :charts, only: [] do
-      get :ice_concentration
+      get :total_concentration
       get :ice_type
     end
     post :approve, on: :member
