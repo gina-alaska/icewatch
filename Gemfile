@@ -55,6 +55,7 @@ gem 'bower-rails'
 gem 'whenever', platform: :ruby
 gem 'tzinfo-data'#, platforms: [:mingw, :mswin, :jruby]
 gem 'high_voltage', '~> 2.2.1', platform: :ruby
+gem 'kaminari'
 
 group :development, :test do
   gem 'better_errors', platform: :ruby
@@ -76,7 +77,6 @@ source 'https://rails-assets.org' do
 #   gem 'rails-assets-papaparse'
 #   gem 'rails-assets-proj4leaflet'
   gem 'rails-assets-selectize'
-  gem 'rails-assets-highcharts'
 #   gem 'rails-assets-bootstrap-switch'
 end
 

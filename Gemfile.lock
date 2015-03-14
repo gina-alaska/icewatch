@@ -143,6 +143,9 @@ GEM
     json (1.8.2)
     json (1.8.2-java)
     jwt (1.2.0)
+    kaminari (0.16.3)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     launchy (2.4.3-java)
@@ -234,7 +237,6 @@ GEM
       rails-assets-jquery (>= 1.8.3)
       rails-assets-moment (>= 2.8.0)
     rails-assets-font-awesome (4.3.0)
-    rails-assets-highcharts (4.1.4)
     rails-assets-jasny-bootstrap (3.1.3)
       rails-assets-bootstrap (>= 3.1.0)
       rails-assets-jquery (>= 1.9.0)
@@ -371,6 +373,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jruby-openssl
+  kaminari
   nested_form
   omniauth
   omniauth-github
@@ -382,7 +385,6 @@ DEPENDENCIES
   rails-assets-bootstrap!
   rails-assets-eonasdan-bootstrap-datetimepicker!
   rails-assets-font-awesome!
-  rails-assets-highcharts!
   rails-assets-jasny-bootstrap!
   rails-assets-selectize!
   rails_12factor

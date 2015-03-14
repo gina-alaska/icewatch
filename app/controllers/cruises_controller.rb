@@ -117,9 +117,11 @@ class CruisesController < ApplicationController
   end
 
   def set_observations
-    @observations = @cruise.observations.accessible_by(current_ability)
-    if params[:observations]
-      @observations = @observations.where(id: params[:observations])
+    @observations = @cruise.observations.order(observed_at: :desc)
+    @observations = if params[:observations]
+      @observations.where(id: params[:observations])
+    else
+      @observations.accessible_by(current_ability).page(params[:page])
     end
   end
 

@@ -1,3 +1,4 @@
+= paginate @observations
 %table#observation-table.table
   %thead
     %tr
@@ -8,4 +9,4 @@
       %th Primary Observer
       %th
   %tbody
-    = render partial: 'observation', collection: cruise.observations
+    = render partial: 'observation', collection: @observations
