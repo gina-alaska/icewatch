@@ -10,3 +10,6 @@ Rails.application.config.assets.version = '1.0'
 # # Rails.application.config.assets.precompile.push ->(path) do
 # #   File.extname(path).in? %w{.html .erb .haml .png .gif .jpg .jpeg .svg .eot .otf .svc .woff .ttf}
 # # end
+Rails.configuration.assets.paths.reject! do |path|
+  path.include?('rails-assets-bootstrap')
+end
