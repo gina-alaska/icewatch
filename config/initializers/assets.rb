@@ -11,5 +11,5 @@ Rails.application.config.assets.version = '1.0'
 # #   File.extname(path).in? %w{.html .erb .haml .png .gif .jpg .jpeg .svg .eot .otf .svc .woff .ttf}
 # # end
 Rails.configuration.assets.paths.reject! do |path|
-  path.include?('rails-assets-bootstrap')
+  path.to_s.include?('rails-assets-bootstrap')
 end
