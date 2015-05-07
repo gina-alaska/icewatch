@@ -1,10 +1,10 @@
 {
   "id": "icewatch-test",
   "repository": "https://github.com/gina-alaska/icewatch",
-  "revision": "master",
+  "revision": "icewatch_2_0",
   "passwords": {
     "postgres": "icewatch-in-the-kitchen-sink",
-    "icewatch":  "icewatch-in-the-kitchen-sink",
+    "icewatch":  "icewatch-in-the-kitchen-sink"
   },
   "env": {
     "port": 5000,

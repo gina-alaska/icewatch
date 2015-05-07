@@ -1,3 +1,5 @@
+include_recipe 'user'
+
 account = data_bag_item('users', 'webdev')
 
 group 'webdev' do

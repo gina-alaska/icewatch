@@ -6,7 +6,6 @@ include_recipe 'git'
 include_recipe 'postgresql::client'
 include_recipe "icewatch::_user"
 include_recipe "icewatch::_ruby"
-include_recipe "icewatch::_application"
 
 
 runit_service "puma" do
@@ -23,4 +22,5 @@ runit_service "puma" do
   subscribes :usr2, "template[#{node['icewatch']['home']}/shared/.env.production]", :delayed
 end
 
+include_recipe "icewatch::_application"
 include_recipe "icewatch::_nginx"

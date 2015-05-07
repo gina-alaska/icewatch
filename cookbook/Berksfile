@@ -11,5 +11,7 @@ cookbook 'yum-epel'
 cookbook 'yum-gina', git: 'git@github.com:gina-alaska/yum-gina-cookbook'
 cookbook 'git'
 cookbook 'build-essential'
-
+cookbook 'chef-vault'
+cookbook 'user'
+cookbook 'nodejs'
 metadata

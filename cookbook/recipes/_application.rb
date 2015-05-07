@@ -1,3 +1,7 @@
+include_recipe 'nodejs'
+
+nodejs_npm "bower"
+
 directory node['icewatch']['home'] do
   user 'webdev'
   group 'webdev'
@@ -31,7 +35,6 @@ template "#{node['icewatch']['home']}/shared/.env.production" do
   variables({env: app['env'].merge({
      rails_database_host: database_host.first['ip'],
      rails_database_password: app['passwords']['icewatch'],
-     path: "$PATH:#{node['icewatch']['worker']['home']}/current/bin"
    })
   })
 end
@@ -69,6 +72,15 @@ deploy_revision node['icewatch']['home'] do
   end
 
   before_restart do
+    # execute 'bower:install' do
+    #   user 'webdev'
+    #   group 'webdev'
+    #   environment 'RAILS_ENV' => 'production'
+    #   cwd release_path
+    #   command 'bundle exec rake bower:install:production'
+    #   only_if { node['icewatch']['precompile_assets'] }
+    # end
+
     execute 'assets:precompile' do
       user 'webdev'
       group 'webdev'
