@@ -1,0 +1,40 @@
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
+#
+<%
+if RUBY_PLATFORM == "java"
+  ADAPTER = 'sqlite3'
+  DB = java.lang.System.getProperty("db") || "db/production.sqlite3"
+else
+  ADAPTER = 'postgresql'
+  DB = "icewatch_production"
+end
+%>
+default: &default
+  adapter: <%= ADAPTER %>
+  pool: 5
+  timeout: 5000
+  database: <%= ENV['RAILS_DATABASE'] %>
+  username: <%= ENV['RAILS_DATABASE_USERNAME'] %>
+  password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
+  host:     <%= ENV['RAILS_DATABASE_HOST'] %>
+  encoding: UTF8
+
+development:
+  <<: *default
+  database: icewatch_development
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: icewatch_test
+
+production:
+  <<: *default
+  database: <%= ENV['RAILS_DATABASE'] || DB %>
+
