@@ -68,9 +68,9 @@ group :development, :test do
 end
 
 gem 'shoulda', group: :test
+gem 'bootstrap-sass'
 
 source 'https://rails-assets.org' do
-  gem 'rails-assets-bootstrap'
   gem 'rails-assets-eonasdan-bootstrap-datetimepicker'
   gem 'rails-assets-font-awesome'
   gem 'rails-assets-jasny-bootstrap'
