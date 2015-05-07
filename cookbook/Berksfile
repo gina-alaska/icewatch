@@ -3,6 +3,10 @@ source 'https://supermarket.getchef.com'
 # depends 'rcs-rails-application'
 cookbook 'java'
 cookbook 'chruby'
+cookbook 'gina-gluster', git: 'git@github.com:gina-alaska/gina-gluster-cookbook'
+cookbook 'postgresql'
 cookbook 'yum-epel'
+cookbook 'yum-gina', git: 'git@github.com:gina-alaska/yum-gina-cookbook'
+
 
 metadata

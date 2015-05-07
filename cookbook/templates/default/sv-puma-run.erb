@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd <%= "#{node['icewatch']['home']}/current" %>
+
+exec 2>&1
+exec chpst -u webdev  -e /etc/sv/puma/env \
+  bundle exec puma -C config/puma.rb
