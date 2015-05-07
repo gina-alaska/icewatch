@@ -56,6 +56,7 @@ gem 'whenever', platform: :ruby
 gem 'tzinfo-data'#, platforms: [:mingw, :mswin, :jruby]
 gem 'high_voltage', '~> 2.2.1', platform: :ruby
 gem 'kaminari'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'better_errors', platform: :ruby
