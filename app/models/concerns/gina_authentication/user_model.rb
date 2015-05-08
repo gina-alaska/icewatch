@@ -38,7 +38,7 @@ module GinaAuthentication
 
     module ClassMethods
       def create_from_hash!(hash)
-        user = create(params_from_hash(hash))
+        user = where(params_from_hash(hash)).first_or_create
 
         # attempt to associate with membership
         membership = Membership.where(email: user.email).first
@@ -52,7 +52,6 @@ module GinaAuthentication
           name: hash['info']['name'],
           email: hash['info']['email']
         }
-        info.merge!(avatar: hash['info']['image']) unless hash['info']['image'].blank?
         info
       end
     end
