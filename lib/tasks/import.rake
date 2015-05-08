@@ -1,5 +1,37 @@
 namespace :import do
   namespace :legacy do
+    desc 'Import users from the live site'
+    task users: :environment do
+      require 'httparty'
+      response = HTTParty.get('http://icewatch.gina.alaska.edu/api/users.json')
+      users = JSON.parse(response.body)
+
+      users.each do |user|
+        u = User.where(email: user['email']).first_or_initialize
+        puts "#{u.new_record? ? 'Creating' : 'Updating'} #{user['email']}"
+        u.name = user['name']
+        u.role = 'member' if user['approved']
+        u.role = 'admin' if user['admin']
+        user['cruises'].each do |cruise|
+          puts "Looking for #{cruise['ship']}: #{cruise['start_date']} - #{cruise['end_date']}"
+          crs = Cruise.where(ship: cruise['ship'], starts_at: cruise['start_date'], ends_at: cruise['end_date'])
+
+          # Some users created multiple copies of their cruise.
+          # Preserve that and let the admins clean it up
+          crs.each do |c|
+            if u.cruises.include?(c)
+              puts "Skipping #{c.ship}"
+            else
+              puts "Adding #{c.ship}"
+              u.cruises << c
+            end
+          end
+        end
+
+        u.save
+      end
+    end
+
     desc 'Import cruises from the live site'
     task cruises: :environment do
       require 'httparty'
