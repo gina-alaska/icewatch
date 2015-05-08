@@ -5,5 +5,5 @@
         = image_tag 'icewatch_logo.png', class: 'logo'
 
     %ul.nav.navbar-nav.navbar-right
-      %li= link_to "About", "/about/pages", class: 'navbar-link'
+      %li= link_to "About", page_path('about'), class: 'navbar-link'
       %li.dropdown= render 'layouts/login'
