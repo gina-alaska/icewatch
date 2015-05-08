@@ -1,0 +1,9 @@
+%h1
+  = "Welcome #{@user.name}!"
+
+- if @user.cruises.any?
+  %h3 Your Cruises
+
+  .list-group
+  - @user.cruises.each do |cruise|
+    = link_to cruise_path(cruise), class: 'list-group-item'
