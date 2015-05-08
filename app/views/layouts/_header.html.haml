@@ -1,9 +1,9 @@
 .navbar.navbar-default
   .container-fluid
-    .navbar-header
+    .navbar-header{style: 'position: relative'}
       = link_to root_url, class: 'navbar-brand' do
-        %i.fa.fa-fw.fa-lg.fa-ship
-        Ice Watch
+        = image_tag 'icewatch_logo.png', class: 'logo'
+
     %ul.nav.navbar-nav.navbar-right
       %li= link_to "About", "/about/pages", class: 'navbar-link'
       %li.dropdown= render 'layouts/login'
