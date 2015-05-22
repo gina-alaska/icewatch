@@ -11,15 +11,15 @@ override['postgresql']['config']['listen_addresses'] = '0.0.0.0'
 
 
 
-default['icewatch']['database']['name'] = 'icewatch'
-default['icewatch']['database']['database'] = 'icewatch'
-default['icewatch']['database']['hostname'] = "localhost"
-default['icewatch']['database']['username'] = 'icewatch'
-default['icewatch']['database']['password'] = nil
-default['icewatch']['database']['adapter'] = 'postgresql'
-default['icewatch']['database']['client_encoding'] = 'UTF8'
-default['icewatch']['database']['pool'] = 5
-default['icewatch']['database']['schema_search_path'] = 'icewatch,public'
+# default['icewatch']['database']['name'] = 'icewatch'
+# default['icewatch']['database']['database'] = 'icewatch'
+# default['icewatch']['database']['hostname'] = "localhost"
+# default['icewatch']['database']['username'] = 'icewatch'
+# default['icewatch']['database']['password'] = nil
+# default['icewatch']['database']['adapter'] = 'postgresql'
+# default['icewatch']['database']['client_encoding'] = 'UTF8'
+# default['icewatch']['database']['pool'] = 5
+# default['icewatch']['database']['schema_search_path'] = 'icewatch,public'
 
 default['icewatch']['environment'] = "development"
 default['icewatch']['data_bag'] = 'icewatch-test'
@@ -31,7 +31,7 @@ default['icewatch']['home'] = '/www/icewatch'
 default['icewatch']['puma_port'] = '5000'
 
 default['icewatch']['ruby'] = {
-  'version' => 'ruby-2.1.1',
+  'version' => 'ruby-2.2.2',
   'package' => 'gina-ruby-21'
 }
 
