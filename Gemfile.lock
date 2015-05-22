@@ -175,6 +175,7 @@ GEM
     nested_form (0.3.2)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
+    nokogiri (1.6.6.2-java)
     notiffany (0.0.4)
       nenv (~> 0.1)
       shellany (~> 0.0)
@@ -274,7 +275,6 @@ GEM
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
     rdoc (4.2.0)
-    redcarpet (3.1.2)
     ref (1.0.5)
     retriable (1.4.1)
     rubocop (0.29.0)
@@ -392,7 +392,6 @@ DEPENDENCIES
   rails-assets-jasny-bootstrap!
   rails-assets-selectize!
   rails_12factor
-  redcarpet
   rubocop
   rubyzip (>= 1.0.0)
   sass-rails (~> 5.0.0)
