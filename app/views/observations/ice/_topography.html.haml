@@ -5,9 +5,9 @@
       = t.collection_select :topography_lookup_id, TopographyLookup.all, :id, :code_with_name,
         {label: 'Thick Ice Type', include_blank: 'No Observation'}, {class: 'topography'}
       = t.select :concentration, concentration_options,
-        { help: 'in tenths',label: 'Concentration', class: 'concentration', include_blank: 'No Observation'}
-      = t.number_field :ridge_height, { help: 'meters to nearest half meter', class: 'ridge',
-          label: 'Ridge Height (m)', step: 0.5}
+        { label: 'Concentration (in tenths)', class: 'concentration', include_blank: 'No Observation'}
+      = t.number_field :ridge_height, { class: 'ridge',
+          label: 'Ridge Height (meter to nearest half meter)', step: 0.5}
       -# %h5 Old
       -# %p
       -#   = t.check_box_without_bootstrap :old, class: 'ridge', data: {indeterminate: true, "label-text": 'N/A', 'on-text': 'Yes', 'off-text': 'No'}
