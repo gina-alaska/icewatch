@@ -25,7 +25,7 @@ end
 
 app = chef_vault_item(:apps, node['icewatch']['data_bag'])
 database_host = search(:node, 'roles:icewatch-database', filter_result: {'ip' => ['ipaddress']})
-database_host  = [{'ip' => node['ipaddress']}] if database_host.empty?
+database_host  = [{'ip' => '127.0.0.1'}] if database_host.empty?
 
 template "#{node['icewatch']['home']}/shared/.env.production" do
   source "env.erb"
@@ -72,15 +72,6 @@ deploy_revision node['icewatch']['home'] do
   end
 
   before_restart do
-    # execute 'bower:install' do
-    #   user 'webdev'
-    #   group 'webdev'
-    #   environment 'RAILS_ENV' => 'production'
-    #   cwd release_path
-    #   command 'bundle exec rake bower:install:production'
-    #   only_if { node['icewatch']['precompile_assets'] }
-    # end
-
     execute 'assets:precompile' do
       user 'webdev'
       group 'webdev'

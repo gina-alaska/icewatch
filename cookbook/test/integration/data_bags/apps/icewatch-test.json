@@ -11,7 +11,6 @@
     "rails_database": "icewatch-kitchen",
     "rails_database_username": "icewatch",
     "rails_env": "development",
-    "redis_namespace": "icewatch-test",
     "secret_key_base": "sdflksajldkfjaslkdjfalskjbeflaksjbflkasjbdlfkjabslkejfbaslkjdbflaskjeb"
   }
 }
