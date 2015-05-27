@@ -10,10 +10,10 @@
       = m.number_field :total_cloud_cover, label: 'Total Cloud Cover (eigths)'
   .row
     .col-md-4.col-md-offset-2.col-sm-4.col-sm-offset-2
-      = m.number_field :wind_speed, label: 'Wind Speed (knots)'
-      = m.number_field :air_temperature, label: 'Air Temperature (c)'
-      = m.number_field :relative_humidity, label: 'Relative Humidity (%)'
+      = m.number_field :wind_speed, label: 'Wind Speed (nearest knot)', data: {constraint: 'integer'}
+      = m.number_field :air_temperature, label: 'Air Temperature (nearest degree c)', data: {constraint: 'integer'}
+      = m.number_field :relative_humidity, label: 'Relative Humidity (nearest %)', data: {constraint: 'integer'}
     .col-md-4.col-sm-4
-      = m.number_field :wind_direction, label: 'Wind Direction (degrees)'
-      = m.number_field :water_temperature, label: 'Water Temperature (c)'
-      = m.number_field :air_pressure, label: 'Air Pressure (mBar)'
+      = m.number_field :wind_direction, label: 'Wind Direction (nearest degree)', data: {constraint: 'integer'}
+      = m.number_field :water_temperature, label: 'Water Temperature (nearest degree c)', data: {constraint: 'integer'}
+      = m.number_field :air_pressure, label: 'Air Pressure (nearest mBar)', data: {constraint: 'integer'}
