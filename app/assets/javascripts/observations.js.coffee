@@ -14,6 +14,11 @@ $(document).on 'ready page:load', ->
 
   $(".datetimepicker").datetimepicker()
 
+$(document).on 'blur', "[data-constraint=integer]", ->
+  val = parseFloat($(this).val())
+  $(this).val(Math.round(val))
+
+
 $(document).on 'blur', '.coordinate', ->
   coordinates = $(this).val()
   dms = parseCoordinate(coordinates)
