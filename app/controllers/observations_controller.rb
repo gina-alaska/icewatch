@@ -78,17 +78,22 @@ class ObservationsController < ApplicationController
   def import
     @cruise = Cruise.find params[:cruise_id]
 
-    @observation = CsvObservation.new(import_params).build_observation
-    @observation.cruise = @cruise
+    @csv_observation = CsvObservation.new(import_params)
 
     respond_to do |format|
-      if @observation.save validate: false
-        format.html { redirect_to cruises_url, notice: 'Observations were successfully imported' }
-        format.json { head :no_content }
-        format.js
+      if @csv_observation.errors.any?
+        format.json { render json: @csv_observation.errors.full_messages, status: :unprocessable_entity }
       else
-        format.html { redirect_to cruises_url, notice: 'There was an error importing the observations' }
-        format.json { render json: @observation.errors, status: :unprocessable_entity }
+        @observation = @csv_observation.build_observation
+        @observation.cruise = @cruise
+        if @observation.save validate: false
+          format.html { redirect_to cruises_url, notice: 'Observations were successfully imported' }
+          format.json { head :no_content }
+          format.js
+        else
+          format.html { redirect_to cruises_url, notice: 'There was an error importing the observations' }
+          format.json { render json: @observation.errors.full_messages, status: :unprocessable_entity }
+        end
       end
     end
   end

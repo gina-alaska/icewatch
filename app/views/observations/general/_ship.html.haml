@@ -1,6 +1,6 @@
 = f.fields_for :ship do |s|
   = s.number_field :heading, label: 'Heading (degrees)'
   = s.select :power, ship_power_options, include_blank: 'Not specified'
-  = s.number_field :speed, label: 'Speed (knots)'
+  = s.number_field :speed, label: 'Speed (nearest knot)', step: 1, data: { constraint: 'integer' }
   = s.collection_select :ship_activity_lookup_id, ShipActivityLookup.all, :id, :code_with_name,
     {label: 'Ship Activity', include_blank: 'Not specified'}

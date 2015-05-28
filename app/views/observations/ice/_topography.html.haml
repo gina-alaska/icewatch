@@ -2,12 +2,12 @@
   .col-md-4.col-sm-4.topography-group
     %h4= io.object.obs_type.capitalize
     = io.fields_for :topography do |t|
-      = t.collection_select :topography_lookup_id, TopographyLookup.all, :id, :code_with_name,
+      = t.collection_select :topography_lookup_id, sort_by_code(TopographyLookup.all), :id, :code_with_name,
         {label: 'Topography Type', include_blank: 'No Observation'}, {class: 'topography'}
       = t.select :concentration, concentration_options,
-        { help: 'in tenths',label: 'Concentration', class: 'concentration', include_blank: 'No Observation'}
-      = t.number_field :ridge_height, { help: 'meters to nearest half meter', class: 'ridge',
-          label: 'Ridge Height (m)', step: 0.5}
+        { label: 'Concentration (in tenths)', class: 'concentration', include_blank: 'No Observation'}
+      = t.number_field :ridge_height, { class: 'ridge',
+          label: 'Ridge Height (meter to nearest half meter)', step: 0.5}
       -# %h5 Old
       -# %p
       -#   = t.check_box_without_bootstrap :old, class: 'ridge', data: {indeterminate: true, "label-text": 'N/A', 'on-text': 'Yes', 'off-text': 'No'}

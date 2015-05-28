@@ -19,6 +19,13 @@ class CsvObservation
     super
   end
 
+  def method_missing *args
+    super unless args.first =~ /=$/
+    field = args.first.to_s.chomp('=').upcase
+
+    errors.add(:base, "Unknown field: '#{field}'")
+  end
+
   def to_observation_json
     {
       latitude: lat,
