@@ -5,9 +5,11 @@ one:
   ends_at: 2014-09-21 14:45:52
   objective: MyString
   approved: false
+  ship: Boat
 
 two:
   starts_at: 2014-09-21 14:45:52
   ends_at: 2014-09-21 14:45:52
   objective: MyString
   approved: false
+  ship: SS MONKEY
