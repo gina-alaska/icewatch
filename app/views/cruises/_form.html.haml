@@ -10,7 +10,10 @@
         data: {"date-pickTime" => false, "date-format" => 'YYYY-MM-DD'}
     %tr
       %td= f.text_field :chief_scientist
-      %td= f.text_field :primary_observer
+      %td
+        =f.collection_select :primary_observer_id_or_name, Person.all, :id, :name,
+        {label: 'Primary Observer', include_blank: true}, class: 'person-field', placeholder: 'Select person or type to add'
+        =# f.text_field :primary_observer_id_or_name, label: 'Primary Observer'
     %tr
       %td{colspan: 2}= f.text_area :objective
   - unless @cruise.new_record?

@@ -1,8 +1,11 @@
 class Cruise < ActiveRecord::Base
+  include PrimaryObserver
+
   has_many :observations
   has_and_belongs_to_many :users
+  belongs_to :primary_observer, class_name: Person
 
-  validates_presence_of :ship, :starts_at, :ends_at, :primary_observer, :objective
+  validates_presence_of :ship, :starts_at, :ends_at, :objective
 
   # validates_presense_of :captain, :archived, :approved
   validates_length_of :objective, maximum: 300

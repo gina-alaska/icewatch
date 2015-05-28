@@ -5,8 +5,8 @@
     = io.select :partial_concentration, concentration_options(tc),
       { help: "Total Concentration: #{tc}/10", label: 'Partial Concentration (tenths)', include_blank: 'No Observation'},
        class: 'partial-concentration'
-    = io.collection_select :ice_lookup_id, IceLookup.all, :id, :code_with_name,
+    = io.collection_select :ice_lookup_id, sort_by_code(IceLookup.all), :id, :code_with_name,
       {label: 'Ice Type', include_blank: 'No Observation'}
     = io.number_field :thickness, label: 'Thickness (cm)'
-    = io.collection_select :floe_size_lookup_id, FloeSizeLookup.all, :id, :code_with_name,
+    = io.collection_select :floe_size_lookup_id, sort_by_code(FloeSizeLookup.all), :id, :code_with_name,
       {label: 'Floe Size', include_blank: 'No Observation'}

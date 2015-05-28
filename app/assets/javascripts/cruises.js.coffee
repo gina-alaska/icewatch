@@ -56,7 +56,7 @@ $(document).on 'change.bs.fileinput', '.cruise-upload', (event) ->
       complete: (results) =>
         url = $(this).find('input[type=file]').data('submit-url')
         uploader = new ObsUploader url, results.data
-        uploader.submitNextRow()
+        #uploader.submitNextRow()
         $(this).fileinput('clear')
 
 $(document).on 'click', '#all-export', ->
@@ -76,4 +76,3 @@ $(document).on 'click', '#selected-export', (e) ->
 $(document).on 'click', '#sigrid-data-submit', (e) ->
   e.preventDefault()
   $("#sigrid-form").submit()
-  

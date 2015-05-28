@@ -1,10 +1,10 @@
 = f.fields_for :meteorology do |m|
   .row
     .col-md-4.col-sm-4
-      = m.collection_select :visibility_lookup_id, VisibilityLookup.all, :id, :code_with_name,
+      = m.collection_select :visibility_lookup_id, sort_by_code(VisibilityLookup.all), :id, :code_with_name,
         {label: 'Visibility (m-km)', include_blank: 'No Observation'}
     .col-md-4.col-sm-4
-      = m.collection_select :weather_lookup_id, WeatherLookup.all, :id, :code_with_name,
+      = m.collection_select :weather_lookup_id, sort_by_code(WeatherLookup.all), :id, :code_with_name,
         {label: 'Weather', include_blank: 'No Observation'}
     .col-md-4.col-sm-4
       = m.number_field :total_cloud_cover, label: 'Total Cloud Cover (eigths)'

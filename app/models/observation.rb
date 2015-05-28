@@ -1,5 +1,6 @@
 class Observation < ActiveRecord::Base
   include IceTypes
+  include PrimaryObserver
   include AASM
 
   aasm column: 'status' do
@@ -79,18 +80,12 @@ class Observation < ActiveRecord::Base
 
   after_validation :merge_association_errors
 
-  attr_writer :primary_observer_id_or_name
   attr_writer :additional_observers_id_or_name
 
-  before_save :resolve_primary_observer
   before_save :resolve_additional_observers
 
   scope :approved, -> { where(approved: true) }
   scope :recent, ->{ where("created_at >= :start_date", { start_date: 1.day.ago }) }
-
-  def resolve_primary_observer
-    self.primary_observer = resolve_observer(@primary_observer_id_or_name) unless @primary_observer_id_or_name.blank?
-  end
 
   def resolve_additional_observers
     if @additional_observers_id_or_name.present?
@@ -98,16 +93,8 @@ class Observation < ActiveRecord::Base
     end
   end
 
-  def resolve_observer(id_or_name)
-    Person.find_or_create_by_id_or_name(id_or_name)
-  end
-
   def additional_observers_id_or_name
     additional_observer_ids
-  end
-
-  def primary_observer_id_or_name
-    primary_observer.try(:id)
   end
 
   def to_s

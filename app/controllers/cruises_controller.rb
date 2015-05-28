@@ -128,7 +128,8 @@ class CruisesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def cruise_params
     params.require(:cruise).permit(:starts_at, :ends_at, :objective, :approved,
-                                   :chief_scientist, :captain, :primary_observer, :ship)
+                                   :chief_scientist, :captain, :ship,
+                                   :primary_observer_id_or_name)
   end
 
   def set_active_cruise
