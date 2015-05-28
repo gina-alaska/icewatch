@@ -7,9 +7,10 @@ class @ObsUploader
 
   submitNextRow: ->
     if @data.length <= 0
-      @progressModal.modal('hide')
+      $(".progress-bar").removeClass('active progress-bar-striped')
+        .addClass('progress-bar-success')
+      $("#modal-close-btn").removeClass('disabled')
       return
-      #return unless @data.length > 0
 
     row = @data.shift()
     $.ajax @url,
@@ -18,7 +19,21 @@ class @ObsUploader
       dataType: 'script'
       data: JSON.stringify
         observation: row
-      complete: (xhr, status) =>
+      error: (xhr, status, error) =>
+        errors = JSON.parse(xhr.responseText)
+        $("#modal-close-btn").removeClass('disabled')
+        $("#upload-modal .modal-body").empty().append """
+                                                        <h4>The following errors occured:</h4>
+                                                      """
+        for error in errors
+          do (error) ->
+            $("#upload-modal .modal-body").append """
+                                                    <div class='alert alert-danger'>
+                                                      #{error}
+                                                    </div>
+                                                  """
+
+      success: (data, status, xhr) =>
         @updateProgressBar()
         @submitNextRow()
 
@@ -28,7 +43,7 @@ class @ObsUploader
 
   createProgressBar: ->
     progressModalHTML ="""
-                       <div class="modal fade">
+                       <div class="modal fade" id="upload-modal">
                          <div class="modal-dialog">
                            <div class="modal-content">
                              <div class="modal-header"><h4>Uploading Observations</h4></div>
@@ -37,9 +52,16 @@ class @ObsUploader
                                  <div class="progress-bar progress-bar-striped active" style="width: 0%"></div>
                                </div>
                              </div>
+                             <div class="modal-footer">
+                               <div id="modal-close-btn" class="btn btn-primary disabled" data-dismiss="modal">Close</div>
+                             </div>
                            </div>
                          </div>
                        </div>
                        """
-    @progressModal = $(progressModalHTML).modal('show').on 'hidden', ->
-      $(this).remove()
+    @progressModal = $(progressModalHTML)
+      .on 'shown.bs.modal', =>
+        this.submitNextRow()
+      .on 'hidden', ->
+        $(this).remove()
+      .modal('show')
