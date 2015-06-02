@@ -118,7 +118,7 @@ class ObservationsController < ApplicationController
 
   def invalid
     @cruise = Cruise.find params[:cruise_id]
-    @observations = @cruise.observations.reject{|o| o.valid? }
+    @observations = @cruise.observations.reject(&:valid?)
     Observation.where(id: @observations).destroy_all
 
     respond_to do |format|
