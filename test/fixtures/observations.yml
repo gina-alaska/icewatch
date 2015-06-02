@@ -26,7 +26,7 @@ valid_observation_<%= o %>:
   observed_at: <%= Date.new(2014, 01, 01) %>
   latitude: 65.43
   longitude: <%= o %>.00
-  status: approved
+  status: accepted
 <% end %>
 
 <% 100.times do |o| %>
@@ -35,6 +35,7 @@ unapproved_observation_<%= o %>:
   observed_at: <%= Date.new(2014, 01, 01) %>
   latitude: 65.43
   longitude: <%= o %>.10
+  status: saved
 <% end %>
 
 <% 100.times do |o| %>
@@ -43,4 +44,5 @@ invalid_observation_<%= o %>:
   observed_at: <%= Date.new(2014, 01, 01) %>
   latitude: 100.0
   longitude: -200.<%= o %>
+  status: saved
 <% end %>

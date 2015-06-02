@@ -110,7 +110,7 @@ class ObservationsController < ApplicationController
   def unapproved
     @cruise = Cruise.find params[:cruise_id]
 
-    @cruise.observations.unapproved.destroy_all
+    @cruise.observations.saved.destroy_all
     respond_to do |format|
       format.html { redirect_to cruise_url(@cruise), notice: 'All unapproved observations were successfully destroyed.'}
     end
