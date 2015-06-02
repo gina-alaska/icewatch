@@ -119,11 +119,8 @@ class ObservationsController < ApplicationController
   def invalid
     @cruise = Cruise.find params[:cruise_id]
     @observations = @cruise.observations.reject{|o| o.valid? }
-    Rails.logger.info("---- #{@observations.count} ----")
     Observation.where(id: @observations).destroy_all
 
-    # Rails.logger.info(@observations.count)
-    # Observation.where(id: @observations).destroy_all
     respond_to do |format|
       format.html { redirect_to cruise_url(@cruise), notice: 'All unapproved observations were successfully destroyed.'}
     end
