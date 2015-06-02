@@ -78,5 +78,25 @@ class ObservationsControllerTest < ActionController::TestCase
     assert_redirected_to cruise_url(cruise)
   end
 
+  test 'should approve an observation' do
+    login_user(users(:admin))
+    observation = observations(:unapproved_observation_0)
+
+    patch :approve, id: observation
+    assert assigns(:observation).accepted?
+    assert_redirected_to(cruise_path(observation.cruise))
+  end
+
+  test 'it shouldnt approve an invalid observation' do
+    login_user(users(:admin))
+    observation = observations(:invalid_observation_0)
+
+    patch :approve, id: observation
+    refute assigns(:observation).accepted?
+    assert_redirected_to(cruise_path(observation.cruise))
+    assert_equal 'Unable to approve an invalid observation', flash[:error]
+  end
+
+
 end
 

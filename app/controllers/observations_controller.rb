@@ -126,6 +126,18 @@ class ObservationsController < ApplicationController
     end
   end
 
+  def approve
+    @observation = Observation.find params[:id]
+
+    if @observation.valid?
+      @observation.accept!
+    else
+      flash[:error] = "Unable to approve an invalid observation"
+    end
+
+    redirect_to cruise_path(@observation.cruise)
+  end
+
 private
 
   # Use callbacks to share common setup or constraints between actions.
