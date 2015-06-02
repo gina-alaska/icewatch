@@ -2,26 +2,18 @@ require 'test_helper'
 
 class ObservationsControllerTest < ActionController::TestCase
   setup do
-    @observation = observations(:one)
-  end
-
-  test 'should get index' do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:observations)
-  end
-
-  test 'should get new' do
-    get :new
-    assert_response :success
+    @observation = observations(:base)
+    @cruise = @observation.cruise
   end
 
   test 'should create observation' do
+    login_user(users(:admin))
+
     assert_difference('Observation.count') do
-      post :create, observation: { cruise_id: @observation.cruise_id, latitude: @observation.latitude, longitude: @observation.longitude, observed_at: @observation.observed_at, uuid: @observation.uuid }
+      post :create, cruise_id: @cruise.id
     end
 
-    assert_redirected_to observation_path(assigns(:observation))
+    assert_redirected_to edit_observation_path(assigns(:observation))
   end
 
   test 'should show observation' do
@@ -30,20 +22,61 @@ class ObservationsControllerTest < ActionController::TestCase
   end
 
   test 'should get edit' do
+    login_user(users(:admin))
+
     get :edit, id: @observation
     assert_response :success
   end
 
   test 'should update observation' do
+    login_user(users(:admin))
+
     patch :update, id: @observation, observation: { cruise_id: @observation.cruise_id, latitude: @observation.latitude, longitude: @observation.longitude, observed_at: @observation.observed_at, uuid: @observation.uuid }
-    assert_redirected_to observation_path(assigns(:observation))
+    assert_redirected_to edit_observation_path(assigns(:observation))
   end
 
   test 'should destroy observation' do
+    login_user(users(:admin))
+
     assert_difference('Observation.count', -1) do
       delete :destroy, id: @observation
     end
 
-    assert_redirected_to observations_path
+    assert_redirected_to root_url
   end
+
+  test 'should destroy all observations' do
+    login_user(users(:admin))
+    cruise = cruises(:cruise_0)
+
+    assert_difference("Cruise.find(#{cruise.id}).observations.count", -30) do
+      delete :all, cruise_id: cruise
+    end
+
+    assert_redirected_to cruise_url(cruise)
+  end
+
+  test 'should destroy unapproved observations' do
+    login_user(users(:admin))
+    cruise = cruises(:cruise_0)
+
+    assert_difference("Cruise.find(#{cruise.id}).observations.count", -20) do
+      delete :unapproved, cruise_id: cruise
+    end
+
+    assert_redirected_to cruise_url(cruise)
+  end
+
+  test 'should destroy invalid observations' do
+    login_user(users(:admin))
+    cruise = cruises(:cruise_0)
+
+    assert_difference("Cruise.find(#{cruise.id}).observations.count", -10) do
+      delete :invalid, cruise_id: cruise
+    end
+
+    assert_redirected_to cruise_url(cruise)
+  end
+
 end
+

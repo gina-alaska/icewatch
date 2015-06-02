@@ -9,20 +9,20 @@ class ObservationsController < ApplicationController
 
   # GET /observations
   # GET /observations.json
-  def index
-    @observations = Observation.all
-  end
+  # def index
+  #   @observations = Observation.all
+  # end
 
   # GET /observations/1
   # GET /observations/1.json
   def show
   end
 
-  # GET /observations/new
-  def new
-    @cruise = Cruise.find(params[:cruise_id])
-    @observation = @cruise.build_observation
-  end
+  # # GET /observations/new
+  # def new
+  #   @cruise = Cruise.find(params[:cruise_id])
+  #   @observation = @cruise.build_observation
+  # end
 
   # GET /observations/1/edit
   def edit
@@ -98,8 +98,38 @@ class ObservationsController < ApplicationController
     end
   end
 
+  def all
+    @cruise = Cruise.find params[:cruise_id]
 
-  private
+    @cruise.observations.destroy_all
+    respond_to do |format|
+      format.html { redirect_to cruise_url(@cruise), notice: 'All observations were successfully destroyed.'}
+    end
+  end
+
+  def unapproved
+    @cruise = Cruise.find params[:cruise_id]
+
+    @cruise.observations.unapproved.destroy_all
+    respond_to do |format|
+      format.html { redirect_to cruise_url(@cruise), notice: 'All unapproved observations were successfully destroyed.'}
+    end
+  end
+
+  def invalid
+    @cruise = Cruise.find params[:cruise_id]
+    @observations = @cruise.observations.reject{|o| o.valid? }
+    Rails.logger.info("---- #{@observations.count} ----")
+    Observation.where(id: @observations).destroy_all
+
+    # Rails.logger.info(@observations.count)
+    # Observation.where(id: @observations).destroy_all
+    respond_to do |format|
+      format.html { redirect_to cruise_url(@cruise), notice: 'All unapproved observations were successfully destroyed.'}
+    end
+  end
+
+private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_observation
