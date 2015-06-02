@@ -8,7 +8,7 @@
     - if can?(:manage, Observation) && !observation.accepted?
       .btn-group.pull-right
         - if observation.valid? && !observation.accepted?
-          = link_to observation_path(observation), class: 'btn btm-xsm btn-success' do
+          = link_to approve_observation_path(observation), class: 'btn btm-xsm btn-success', method: :patch do
             %i.fa.fa-thumbs-up
         = link_to edit_observation_path(observation), class: 'btn btn-xsm btn-default' do
           %i.fa.fa-edit
