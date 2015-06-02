@@ -49,7 +49,39 @@ primary_base:
 secondary_base:
   observation: base
   obs_type: secondary
-  
+
 tertiary_base:
   observation: base
   obs_type: tertiary
+
+<% 100.times do |io| %>
+primary_valid_<%= io %>:
+  observation: valid_observation_<%= io %>
+  obs_type: primary
+secondary_valid_<%= io %>:
+  observation: valid_observation_<%= io %>
+  obs_type: secondary
+tertiary_valid_<%= io %>:
+  observation: valid_observation_<%= io %>
+  obs_type: tertiary
+
+primary_unapproved_<%= io %>:
+  observation: unapproved_observation_<%= io %>
+  obs_type: primary
+secondary_unapproved_<%= io %>:
+  observation: unapproved_observation_<%= io %>
+  obs_type: secondary
+tertiary_unapproved_<%= io %>:
+  observation: unapproved_observation_<%= io %>
+  obs_type: tertiary
+
+primary_invalid_<%= io %>:
+  observation: invalid_observation_<%= io %>
+  obs_type: primary
+secondary_invalid_<%= io %>:
+  observation: invalid_observation_<%= io %>
+  obs_type: secondary
+tertiary_invalid_<%= io %>:
+  observation: invalid_observation_<%= io %>
+  obs_type: tertiary
+<% end %>

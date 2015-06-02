@@ -14,3 +14,18 @@ base_primary_observer:
   person: base_person
   observation: base
   primary: true
+
+<% 100.times do |s| %>
+valid_primary_observer_<%= s %>:
+  observation: valid_observation_<%= s %>
+  primary: true
+  person: base_person
+unapproved_primary_observer_<%= s %>:
+  observation: unapproved_observation_<%= s %>
+  primary: true
+  person: base_person
+invalid_primary_observer_<%= s %>:
+  observation: invalid_observation_<%= s %>
+  primary: true
+  person: base_person
+<% end %>
