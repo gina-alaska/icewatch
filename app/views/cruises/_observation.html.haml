@@ -5,7 +5,7 @@
   %td= observation.ice.try(:total_concentration)
   %td= observation.primary_observer.try(&:name)
   %td
-    - if can?(:manage, Observation) && !observation.approved?
+    - if can?(:manage, Observation) && !observation.accepted?
       .btn-group.pull-right
         - if observation.valid? && !observation.accepted?
           = link_to observation_path(observation), class: 'btn btm-xsm btn-success' do
