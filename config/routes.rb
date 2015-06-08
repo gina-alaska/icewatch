@@ -8,7 +8,7 @@ Rails.application.routes.draw do
         delete :invalid
       end
       member do
-        post :approve
+        patch :approve
       end
       resources :comments, except: [:index, :show], shallow: false
     end
