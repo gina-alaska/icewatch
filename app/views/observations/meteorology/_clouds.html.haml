@@ -6,4 +6,4 @@
     = c.collection_select :cloud_lookup_id, CloudLookup.where(group: cloud_type), :id, :code_with_name,
       {label: 'Cloud Type', include_blank: 'No Observation'}
     = c.select :cover, cloud_cover_options, {label: 'Cloud Cover (eights)', include_blank: 'No Observation'}
-    = c.number_field :height, label: 'Cloud Height (m)'
+    = c.number_field :height, label: 'Cloud Height (m)', min: 0
