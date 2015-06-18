@@ -7,11 +7,23 @@
   .col-md-2.col-sm-2
     %ul.list-group
       %li.list-group-item.active
-        Export
+        Export without photos
+      %li.list-group-item.list-group-item-info
+        Use this when sending data from ship
       %li.list-group-item
         = link_to "All Observations", cruise_path(@active_cruise, :zip)
       %li.list-group-item
         = link_to "Selected Observations", cruise_path(@active_cruise, :zip), id: 'selected-export'
+    %ul.list-group
+      %li.list-group-item.active
+        Export with photos
+      %li.list-group-item.list-group-item-info
+        It is recommended to not export with photos until returning to port and sufficient
+        bandwidth is available.
+      %li.list-group-item
+        = link_to "All Observations", cruise_path(@active_cruise, :zip, photos: true)
+      %li.list-group-item
+        = link_to "Selected Observations", cruise_path(@active_cruise, :zip, photos: true), id: 'selected-photos-export'
 
     %ul.list-group
       %li.list-group-item.active
