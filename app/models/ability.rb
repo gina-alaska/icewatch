@@ -35,7 +35,7 @@ class Ability
       can :create, Cruise
       can :import, Cruise, id: user_cruises(user)
       can :import, Observation, cruise_id: user_cruises(user)
-      can :read, Cruise, status: 'accepted'
+      can :read, Cruise, approved: true
       can :read, Cruise, id: user_cruises(user)
       can :read, Observation, status: 'accepted'
 
