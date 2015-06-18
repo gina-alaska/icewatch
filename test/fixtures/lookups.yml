@@ -3,502 +3,507 @@ light:
   :code: 2
   :name: Light
   :type: AlgaeDensityLookup
-  :comment: 
+  :comment:
 medium:
   :code: 3
   :name: Medium
   :type: AlgaeDensityLookup
-  :comment: 
+  :comment:
 strong:
   :code: 4
   :name: Strong
   :type: AlgaeDensityLookup
-  :comment: 
+  :comment:
 trace:
   :code: 1
   :name: Trace
   :type: AlgaeDensityLookup
-  :comment: 
+  :comment:
 not-visible:
   :code: 0
   :name: Not Visible
   :type: AlgaeDensityLookup
-  :comment: 
+  :comment:
 top:
   :code: 10
   :name: Top
   :type: AlgaeLocationLookup
-  :comment: 
+  :comment:
 middle:
   :code: 20
   :name: Middle
   :type: AlgaeLocationLookup
-  :comment: 
+  :comment:
 bottom:
   :code: 30
   :name: Bottom
   :type: AlgaeLocationLookup
-  :comment: 
+  :comment:
 '0':
   :code: 0
   :name: 0%
   :type: SedimentLookup
-  :comment: 
+  :comment:
 '30':
   :code: 1
   :name: "<30%"
   :type: SedimentLookup
-  :comment: 
+  :comment:
 '60':
   :code: 3
   :name: ">60%"
   :type: SedimentLookup
-  :comment: 
+  :comment:
 solid:
   :code: 1
   :name: Solid
   :type: BottomTypeLookup
-  :comment: 
+  :comment:
 some-thaw-holes:
   :code: 2
   :name: Some thaw holes
   :type: BottomTypeLookup
-  :comment: 
+  :comment:
 all-have-thaw-holes:
   :code: 3
   :name: All have thaw holes
   :type: BottomTypeLookup
-  :comment: 
+  :comment:
 stratus:
   :code: St
   :name: Stratus
   :type: CloudLookup
-  :comment: 
+  :comment:
 stratocumulus:
   :code: S
   :name: Stratocumulus
   :type: CloudLookup
-  :comment: 
+  :comment:
 nimbostratus:
   :code: Ns
   :name: Nimbostratus
   :type: CloudLookup
-  :comment: 
+  :comment:
 cumulus:
   :code: Cu
   :name: Cumulus
   :type: CloudLookup
-  :comment: 
+  :comment:
 cumulonimbus:
   :code: Cn
   :name: Cumulonimbus
   :type: CloudLookup
-  :comment: 
+  :comment:
 altostratus:
   :code: As
   :name: Altostratus
   :type: CloudLookup
-  :comment: 
+  :comment:
 altocumulus:
   :code: Ac
   :name: AltoCumulus
   :type: CloudLookup
-  :comment: 
+  :comment:
 cirrus:
   :code: Ci
   :name: Cirrus
   :type: CloudLookup
-  :comment: 
+  :comment:
 cirrostratus:
   :code: Cs
   :name: Cirrostratus
   :type: CloudLookup
-  :comment: 
+  :comment:
 cirrocumulus:
   :code: Cc
   :name: Cirrocumulus
   :type: CloudLookup
-  :comment: 
+  :comment:
 pancakes:
   :code: 30
   :name: Pancakes
   :type: IceLookup
-  :comment: 
+  :comment:
 new-sheet-ice:
   :code: 200
   :name: New sheet ice
   :type: FloeSizeLookup
-  :comment: 
+  :comment:
 brash-broken-ice:
   :code: 300
   :name: Brash/Broken Ice
   :type: FloeSizeLookup
-  :comment: 
+  :comment:
 cake-ice-20m:
   :code: 400
   :name: Cake ice <20m
   :type: FloeSizeLookup
-  :comment: 
+  :comment:
 medium-floes-100-500m:
   :code: 600
   :name: Medium floes 100-500m
   :type: FloeSizeLookup
-  :comment: 
+  :comment:
 large-floes-500-2000m:
   :code: 700
   :name: Large floes 500-2000m
   :type: FloeSizeLookup
-  :comment: 
+  :comment:
 vast-floes-2000m:
   :code: 800
   :name: Vast floes > 2000m
   :type: FloeSizeLookup
-  :comment: 
+  :comment:
 bergy-floes:
   :code: 900
   :name: Bergy Floes
   :type: FloeSizeLookup
-  :comment: 
+  :comment:
 small-floes-20-100m:
   :code: 500
   :name: Small floes 20-100m
   :type: FloeSizeLookup
-  :comment: 
+  :comment:
 frazil:
   :code: 10
   :name: Frazil
   :type: IceLookup
-  :comment: 
+  :comment:
 shuga:
   :code: 11
   :name: Shuga
   :type: IceLookup
-  :comment: 
+  :comment:
 grease:
   :code: 12
   :name: Grease
+  :type: IceLookup
+  :comment:
+slush:
+  :code: 13
+  :name: Slush
   :type: IceLookup
   :comment: 
 nilas:
   :code: 20
   :name: Nilas
   :type: IceLookup
-  :comment: 
+  :comment:
 young-grey-ice-10-15cm:
   :code: 40
   :name: Young Grey Ice 10-15cm
   :type: IceLookup
-  :comment: 
+  :comment:
 young-grey-white-ice-15-30cm:
   :code: 50
   :name: Young Grey-White Ice 15-30cm
   :type: IceLookup
-  :comment: 
+  :comment:
 first-year-70cm:
   :code: 60
   :name: First year < 70cm
   :type: IceLookup
-  :comment: 
+  :comment:
 first-year-70-120cm:
   :code: 70
   :name: First year 70-120cm
   :type: IceLookup
-  :comment: 
+  :comment:
 first-year-120cm:
   :code: 80
   :name: First year > 120cm
   :type: IceLookup
-  :comment: 
+  :comment:
 second-year:
   :code: 75
   :name: Second year
   :type: IceLookup
-  :comment: 
+  :comment:
 multiyear:
   :code: 85
   :name: Multiyear
   :type: IceLookup
-  :comment: 
+  :comment:
 brash:
   :code: 90
   :name: Brash
   :type: IceLookup
-  :comment: 
+  :comment:
 fast-ice:
   :code: 95
   :name: Fast ice
   :type: IceLookup
-  :comment: 
+  :comment:
 0-10cm:
   :code: 1
   :name: 0-10cm
   :type: MaxDepthLookup
-  :comment: 
+  :comment:
 10-30cm:
   :code: 2
   :name: 10-30cm
   :type: MaxDepthLookup
-  :comment: 
+  :comment:
 30-50cm:
   :code: 3
   :name: 30-50cm
   :type: MaxDepthLookup
-  :comment: 
+  :comment:
 50cm:
   :code: 4
   :name: ">50cm"
   :type: MaxDepthLookup
-  :comment: 
+  :comment:
 unknown:
   :code: -9
   :name: Unknown
   :type: MaxDepthLookup
-  :comment: 
+  :comment:
 port:
   :code: 1
   :name: port
   :type: OnBoatLocationLookup
-  :comment: 
+  :comment:
 forward:
   :code: 2
   :name: forward
   :type: OnBoatLocationLookup
-  :comment: 
+  :comment:
 starboard:
   :code: 3
   :name: starboard
   :type: OnBoatLocationLookup
-  :comment: 
+  :comment:
 other:
   :code: 4
   :name: other
   :type: OnBoatLocationLookup
-  :comment: 
+  :comment:
 no-openings:
   :code: 0
   :name: No openings
   :type: OpenWaterLookup
-  :comment: 
+  :comment:
 small-cracks:
   :code: 1
   :name: Small cracks
   :type: OpenWaterLookup
-  :comment: 
+  :comment:
 very-narrow-breaks-50m:
   :code: 2
   :name: Very narrow breaks <50m
   :type: OpenWaterLookup
-  :comment: 
+  :comment:
 narrow-breaks-50-200m:
   :code: 3
   :name: Narrow breaks, 50-200m
   :type: OpenWaterLookup
-  :comment: 
+  :comment:
 wide-breaks-200-500m:
   :code: 4
   :name: Wide breaks, 200-500m
   :type: OpenWaterLookup
-  :comment: 
+  :comment:
 very-wide-breaks-500m:
   :code: 5
   :name: Very wide breaks, >500m
   :type: OpenWaterLookup
-  :comment: 
+  :comment:
 leads:
   :code: 6
   :name: Leads
   :type: OpenWaterLookup
-  :comment: 
+  :comment:
 polynya:
   :code: 7
   :name: Polynya
   :type: OpenWaterLookup
-  :comment: 
+  :comment:
 water-broken-only-by-scattered-floes:
   :code: 8
   :name: Water broken only by scattered floes
   :type: OpenWaterLookup
-  :comment: 
+  :comment:
 open-sea:
   :code: 9
   :name: Open Sea
   :type: OpenWaterLookup
-  :comment: 
+  :comment:
 stripes-and-patches:
   :code: 10
   :name: Stripes and Patches
   :type: OpenWaterLookup
-  :comment: 
+  :comment:
 linked:
   :code: 1
   :name: Linked
   :type: PatternLookup
-  :comment: 
+  :comment:
 discrete:
   :code: 2
   :name: Discrete
   :type: PatternLookup
-  :comment: 
+  :comment:
 travelling-in-leads:
   :code: 10
   :name: Travelling in leads
   :type: ShipActivityLookup
-  :comment: 
+  :comment:
 travelling-through-ice:
   :code: 20
   :name: Travelling through ice
   :type: ShipActivityLookup
-  :comment: 
+  :comment:
 back-and-ramming:
   :code: 30
   :name: Back and ramming
   :type: ShipActivityLookup
-  :comment: 
+  :comment:
 on-station:
   :code: 40
   :name: On station
   :type: ShipActivityLookup
-  :comment: 
+  :comment:
 no-snow-observation:
   :code: 0
   :name: No snow observation
   :type: SnowLookup
-  :comment: 
+  :comment:
 no-snow-no-ice-or-brash:
   :code: 1
   :name: No snow, no ice or brash
   :type: SnowLookup
-  :comment: 
+  :comment:
 cold-new-snow-1-day-old:
   :code: 2
   :name: Cold new snow, <1 day old
   :type: SnowLookup
-  :comment: 
+  :comment:
 cold-old-snow:
   :code: 3
   :name: Cold old snow
   :type: SnowLookup
-  :comment: 
+  :comment:
 cold-wind-packed-snow:
   :code: 4
   :name: Cold wind-packed snow
   :type: SnowLookup
-  :comment: 
+  :comment:
 new-melting-snow-wet-new-snow:
   :code: 5
   :name: New melting snow (wet new snow)
   :type: SnowLookup
-  :comment: 
+  :comment:
 old-melting-snow:
   :code: 6
   :name: Old melting snow
   :type: SnowLookup
-  :comment: 
+  :comment:
 glaze:
   :code: 7
   :name: Glaze
   :type: SnowLookup
-  :comment: 
+  :comment:
 melt-slush:
   :code: 8
   :name: Melt slush
   :type: SnowLookup
-  :comment: 
+  :comment:
 melt-puddles:
   :code: 9
   :name: Melt puddles
   :type: SnowLookup
-  :comment: 
+  :comment:
 saturated-snow:
   :code: 10
   :name: Saturated snow
   :type: SnowLookup
-  :comment: 
+  :comment:
 sastrugi:
   :code: 11
   :name: Sastrugi
   :type: SnowLookup
-  :comment: 
+  :comment:
 open:
   :code: 2
   :name: Open
   :type: SurfaceLookup
-  :comment: 
+  :comment:
 bottom-up:
   :code: 3
   :name: Bottom up
   :type: SurfaceLookup
-  :comment: 
+  :comment:
 frozen:
   :code: 1
   :name: Frozen
   :type: SurfaceLookup
-  :comment: 
+  :comment:
 level-ice:
   :code: 100
   :name: Level Ice
   :type: TopographyLookup
-  :comment: 
+  :comment:
 rafted-pancakes:
   :code: 200
   :name: Rafted Pancakes
   :type: TopographyLookup
-  :comment: 
+  :comment:
 cemented-pancakes:
   :code: 300
   :name: Cemented Pancakes
   :type: TopographyLookup
-  :comment: 
+  :comment:
 rafting:
   :code: 400
   :name: Rafting
   :type: TopographyLookup
-  :comment: 
+  :comment:
 ridges:
   :code: 500
   :name: Ridges
   :type: TopographyLookup
-  :comment: 
+  :comment:
 50m:
   :code: 90
   :name: "< 50m"
   :type: VisibilityLookup
-  :comment: 
+  :comment:
 50-200m:
   :code: 91
   :name: 50-200m
   :type: VisibilityLookup
-  :comment: 
+  :comment:
 200-500m:
   :code: 92
   :name: 200-500m
   :type: VisibilityLookup
-  :comment: 
+  :comment:
 500-1000m:
   :code: 93
   :name: 500-1000m
   :type: VisibilityLookup
-  :comment: 
+  :comment:
 1-2km:
   :code: 94
   :name: 1-2km
   :type: VisibilityLookup
-  :comment: 
+  :comment:
 2-4km:
   :code: 95
   :name: 2-4km
   :type: VisibilityLookup
-  :comment: 
+  :comment:
 4-10km:
   :code: 96
   :name: 4-10km
   :type: VisibilityLookup
-  :comment: 
+  :comment:
 10km:
   :code: 97
   :name: ">10km"
   :type: VisibilityLookup
-  :comment: 
+  :comment:
 drifting-snow-below-eye-level-heavy:
   :code: 37
   :name: Drifting snow below eye level, heavy
