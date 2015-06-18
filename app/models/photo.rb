@@ -3,10 +3,10 @@ class Photo < ActiveRecord::Base
   belongs_to :on_boat_location_lookup
 
   validates_presence_of :name
-  validates_uniqueness_of :checksum_id, scope: [:observation_id], message: 'This photo has already been attached to this report'
+  validates_uniqueness_of :checksum, scope: [:observation_id], message: 'This photo has already been attached to this report'
 
   before_save :copy_file, prepend: true, if: -> (photo) { photo.tempfile.present? }
-  before_validation :generate_checksum, if: -> (photo) { photo.name.present? && File.exist?(file_path) }
+  before_save :generate_checksum, if: -> (photo) { photo.name.present? && File.exist?(file_path) }
   before_destroy :remove_image_file
 
   attr_accessor :tempfile
@@ -21,7 +21,7 @@ class Photo < ActiveRecord::Base
   end
 
   def generate_checksum
-    self.checksum_id = Digest::MD5.hexdigest(File.read(file_path))
+    self.checksum = Digest::MD5.hexdigest(File.read(file_path))
   end
 
   def remove_image_file
