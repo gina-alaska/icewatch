@@ -11,3 +11,14 @@ two:
 base:
   observation: base
   total_concentration: 9
+
+<% 100.times do |i| %>
+valid_ice_<%= i %>:
+  observation: valid_observation_<%= i %>
+  total_concentration: 3
+unapproved_ice_<%= i %>:
+  observation: unapproved_observation_<%= i %>
+  total_concentration: 3
+invalid_ice_<%= i %>:
+  observation: invalid_observation_<%= i %>
+<% end %>

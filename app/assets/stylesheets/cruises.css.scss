@@ -47,3 +47,12 @@
 .fa-muted {
   color: #777
 }
+
+.list-group-item.active.danger {
+  background-color: #b73333;
+  border-color: #b73333;
+  &:hover {
+    background-color: #b73333;
+    border-color: #b73333;
+  }
+}
