@@ -4,12 +4,12 @@ one:
   observation_id: 1
   on_boat_location_lookup_id: 1
   name: MyString
-  checksum_id: MyString
+  checksum: MyString
   note: MyString
 
 two:
   observation_id: 1
   on_boat_location_lookup_id: 1
   name: MyString
-  checksum_id: MyString
+  checksum: MyString
   note: MyString
