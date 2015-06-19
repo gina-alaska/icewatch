@@ -5,5 +5,7 @@
         = image_tag 'icewatch_logo.png', class: 'logo'
 
     %ul.nav.navbar-nav.navbar-right
+      - if current_user.has_role?('admin')
+        %li= link_to 'Manage Users', users_path, class: 'navbar-link'
       %li= link_to "About", page_path('about'), class: 'navbar-link'
       %li.dropdown= render 'layouts/login'
