@@ -77,6 +77,7 @@ class Observation < ActiveRecord::Base
   validate :ice_thickness_are_decreasing_order
   validate :ice_lookup_code_presence
   validate :ice_lookup_codes_are_increasing_order
+  validate :other_ice_lookup_codes_are_increasing_order
 
   after_validation :merge_association_errors
 
@@ -208,8 +209,12 @@ class Observation < ActiveRecord::Base
     unless ice_type_in_increasing_order?(secondary.ice_lookup, primary.ice_lookup)
       secondary.errors.add(:ice_lookup_id, 'Primary ice type thinner than secondary')
     end
-    unless ice_type_in_increasing_order?(primary.ice_lookup, ice.thick_ice_lookup)
-      primary.errors.add(:ice_lookup_id, 'Thick ice type thinner than primary')
+  end
+
+  def other_ice_lookup_codes_are_increasing_order
+    unless ice_type_in_increasing_order?(ice.thin_ice_lookup, ice.thick_ice_lookup)
+      ice.errors.add(:thick_ice_lookup_id, ' thinner than Thin ice type')
+      ice.errors.add(:thin_ice_lookup_id, ' thicker than Thick ice type')
     end
   end
 
