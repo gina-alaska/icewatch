@@ -1,0 +1,6 @@
+%h1
+  = @user.name
+  %small= @user.email
+= bootstrap_form_for @user do |f|
+  = f.select :role, %w{admin manager member guest}.map{|r| [r.capitalize,r]}
+  = f.submit

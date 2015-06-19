@@ -1,0 +1,8 @@
+%tr
+  %td= user.name
+  %td= user.role
+  %td
+    - if can?(:edit, user)
+      = link_to edit_user_path(user), class: 'btn btn-default' do
+        %i.fa.fa-edit
+        Edit

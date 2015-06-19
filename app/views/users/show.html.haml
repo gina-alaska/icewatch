@@ -5,5 +5,7 @@
   %h3 Your Cruises
 
   .list-group
-  - @user.cruises.each do |cruise|
-    = link_to cruise_path(cruise), class: 'list-group-item'
+  - @user.cruises.order(starts_at: :desc).group_by { |c| c.starts_at.year }.each do |year,cruises|
+    .list-group-item.active= year
+    - cruises.each do |cruise|
+      = link_to "#{cruise.ship}: #{cruise.starts_at} - #{cruise.ends_at}", cruise_path(cruise), class: 'list-group-item'
