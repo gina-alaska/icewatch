@@ -77,6 +77,7 @@ class Observation < ActiveRecord::Base
   validate :ice_thickness_are_decreasing_order
   validate :ice_lookup_code_presence
   validate :ice_lookup_codes_are_increasing_order
+  validate :other_ice_lookup_codes_are_increasing_order
 
   after_validation :merge_association_errors
 
@@ -84,8 +85,10 @@ class Observation < ActiveRecord::Base
 
   before_save :resolve_additional_observers
 
-  scope :approved, -> { where(approved: true) }
-  scope :recent, ->{ where("created_at >= :start_date", { start_date: 1.day.ago }) }
+  scope :approved, -> { where(status: 'accepted') }
+  scope :unapproved, -> { where(status: 'saved') }
+
+  scope :recent, -> { where("created_at >= :start_date", { start_date: 1.day.ago }) }
 
   def resolve_additional_observers
     if @additional_observers_id_or_name.present?
@@ -206,8 +209,12 @@ class Observation < ActiveRecord::Base
     unless ice_type_in_increasing_order?(secondary.ice_lookup, primary.ice_lookup)
       secondary.errors.add(:ice_lookup_id, 'Primary ice type thinner than secondary')
     end
-    unless ice_type_in_increasing_order?(primary.ice_lookup, ice.thick_ice_lookup)
-      primary.errors.add(:ice_lookup_id, 'Thick ice type thinner than primary')
+  end
+
+  def other_ice_lookup_codes_are_increasing_order
+    unless ice_type_in_increasing_order?(ice.thin_ice_lookup, ice.thick_ice_lookup)
+      ice.errors.add(:thick_ice_lookup_id, ' thinner than Thin ice type')
+      ice.errors.add(:thin_ice_lookup_id, ' thicker than Thick ice type')
     end
   end
 
@@ -229,6 +236,15 @@ class Observation < ActiveRecord::Base
       if self.send(assoc.to_sym).errors.any?
         self.send(assoc.to_sym).errors.full_messages.each do |msg|
           errors[:base] << "#{assoc.humanize} error: #{msg}"
+        end
+      end
+    end
+    faunas.each do |fauna|
+      #Not sure why fauana validations aren't being run so force it
+      fauna.valid?
+      if fauna.errors.any?
+        fauna.errors.full_messages.each do |msg|
+          errors[:base] << "Fauna #{fauna.name} error: #{msg}"
         end
       end
     end
