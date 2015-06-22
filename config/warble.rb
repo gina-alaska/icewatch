@@ -42,7 +42,7 @@ Warbler::Config.new do |config|
 
   # An array of Bundler groups to avoid including in the war file.
   # Defaults to ["development", "test", "assets"].
-  # config.bundle_without = []
+  config.bundle_without = []
 
   # Other gems to be included. If you don't use Bundler or a gemspec
   # file, you need to tell Warbler which gems your application needs
@@ -143,7 +143,7 @@ Warbler::Config.new do |config|
   # config.webserver = 'jetty'
 
   # Value of RAILS_ENV for the webapp -- default as shown below
-  config.webxml.rails.env = ENV['RAILS_ENV'] || 'production'
+  config.webxml.rails.env = 'production'
 
   # Application booter to use, one of :rack, :rails, or :merb (autodetected by default)
   # config.webxml.booter = :rails
