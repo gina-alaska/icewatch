@@ -239,6 +239,15 @@ class Observation < ActiveRecord::Base
         end
       end
     end
+    faunas.each do |fauna|
+      #Not sure why fauana validations aren't being run so force it
+      fauna.valid?
+      if fauna.errors.any?
+        fauna.errors.full_messages.each do |msg|
+          errors[:base] << "Fauna #{fauna.name} error: #{msg}"
+        end
+      end
+    end
   end
 
 end
