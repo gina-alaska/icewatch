@@ -26,7 +26,7 @@ class CruisesController < ApplicationController
         format.json
         format.csv
         format.zip do
-          generate_zip
+          generate_zip !!params[:photos]
           File.open(File.join(@cruise.export_path, "#{@cruise}.zip"), 'rb') do |f|
             send_data f.read, filename: "#{@cruise}.zip"
           end
@@ -140,7 +140,7 @@ class CruisesController < ApplicationController
     Rails.application.secrets.icewatch_assist ? root_path : @cruise
   end
 
-  def generate_zip(params = {})
+  def generate_zip(include_photos = false)
     FileUtils.mkdir_p @cruise.export_path unless File.exist? @cruise.export_path
     export_file = File.join(@cruise.export_path, "#{@cruise}.zip")
     FileUtils.remove(export_file) if File.exist?(export_file)
@@ -155,6 +155,13 @@ class CruisesController < ApplicationController
           if File.exist?(observation.export_file(format))
             obs_path = File.join(observation.to_s, File.basename(observation.export_file(format)))
             zipfile.add obs_path, observation.export_file(format)
+          end
+        end
+        if include_photos
+          observation.photos.each do |photo|
+            next unless File.exists?(photo.file_path)
+            path = File.join(observation.to_s, File.basename(photo.file_path))
+            zipfile.add path, photo.file_path
           end
         end
       end
