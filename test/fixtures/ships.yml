@@ -16,3 +16,12 @@ two:
 
 boat:
   observation: base
+
+<% 100.times do |s| %>
+valid_ship_<%= s %>:
+  observation: valid_observation_<%= s %>
+unapproved_ship_<%= s %>:
+  observation: unapproved_observation_<%= s %>
+invalid_ship_<%= s %>:
+  observation: invalid_observation_<%= s %>
+<% end %>

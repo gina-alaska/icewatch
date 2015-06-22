@@ -37,7 +37,7 @@ class Ability
       can :import, Observation, cruise_id: user_cruises(user)
       can :read, Cruise, approved: true
       can :read, Cruise, id: user_cruises(user)
-      can :read, Observation, approved: true
+      can :read, Observation, status: 'accepted'
 
       # Members can create cruises
       # Members can upload observations
@@ -46,7 +46,7 @@ class Ability
 
     if user.has_role? :guest
       can :read, Cruise, approved: true
-      can :read, Observation, approved: true
+      can :read, Observation, status: 'accepted'
       # Guests can download assist
       # Guests can view and download data
       # Registered guests can request member access

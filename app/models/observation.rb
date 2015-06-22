@@ -84,8 +84,10 @@ class Observation < ActiveRecord::Base
 
   before_save :resolve_additional_observers
 
-  scope :approved, -> { where(approved: true) }
-  scope :recent, ->{ where("created_at >= :start_date", { start_date: 1.day.ago }) }
+  scope :approved, -> { where(status: 'accepted') }
+  scope :unapproved, -> { where(status: 'saved') }
+
+  scope :recent, -> { where("created_at >= :start_date", { start_date: 1.day.ago }) }
 
   def resolve_additional_observers
     if @additional_observers_id_or_name.present?

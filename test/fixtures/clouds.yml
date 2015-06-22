@@ -32,3 +32,35 @@ medium_base:
 high_base:
   meteorology: base
   cloud_type: high
+
+<% 100.times do |s| %>
+valid_low_cloud_<%= s %>:
+  meteorology: valid_meteorology_<%= s %>
+  cloud_type: low
+valid_medium_cloud_<%= s %>:
+  meteorology: valid_meteorology_<%= s %>
+  cloud_type: medium
+valid_high_cloud_<%= s %>:
+  meteorology: valid_meteorology_<%= s %>
+  cloud_type: high
+
+unapproved_low_cloud_<%= s %>:
+  meteorology: unapproved_meteorology_<%= s %>
+  cloud_type: low
+unapproved_medium_cloud_<%= s %>:
+  meteorology: unapproved_meteorology_<%= s %>
+  cloud_type: medium
+unapproved_high_cloud_<%= s %>:
+  meteorology: unapproved_meteorology_<%= s %>
+  cloud_type: high
+
+invalid_low_cloud_<%= s %>:
+  meteorology: invalid_meteorology_<%= s %>
+  cloud_type: low
+invalid_medium_cloud_<%= s %>:
+  meteorology: invalid_meteorology_<%= s %>
+  cloud_type: medium
+invalid_high_cloud_<%= s %>:
+  meteorology: invalid_meteorology_<%= s %>
+  cloud_type: high
+<% end %>

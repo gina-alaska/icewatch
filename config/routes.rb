@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
   resources :cruises do
-    resources :observations, shallow: true do
+    resources :observations, except: [:index, :new], shallow: true do
       collection do
         post :import
+        delete :all
+        delete :unapproved
+        delete :invalid
       end
       member do
-        post :approve
+        patch :approve
       end
       resources :comments, except: [:index, :show], shallow: false
     end

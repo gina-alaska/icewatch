@@ -7,4 +7,18 @@
     = render 'sidebar_upload'
     = render 'sidebar_lock'
     = render 'sidebar_destroy'
-    
+
+%ul.list-group
+  %li.list-group-item.active.danger Delete Observations
+  %li.list-group-item.list-group-item-danger
+    = link_to invalid_cruise_observations_path(@cruise), method: :delete, data: {confirm: 'This will permanetly destroy all invalid observations, are you sure?' } do
+      %i.fa.fa-trash
+      Invalid
+  %li.list-group-item.list-group-item-danger
+    = link_to unapproved_cruise_observations_path(@cruise), method: :delete, data: {confirm: 'This will permanetly destroy all unapproved observations, are you sure?'} do
+      %i.fa.fa-trash
+      Unapproved
+  %li.list-group-item.list-group-item-danger
+    = link_to all_cruise_observations_path(@cruise), method: :delete, data: {confirm: 'This will permanetly destroy all observations, are you sure?'} do
+      %i.fa.fa-trash
+      All

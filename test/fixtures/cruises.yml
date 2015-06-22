@@ -7,9 +7,18 @@ one:
   approved: false
   ship: Boat
 
-two:
+test:
   starts_at: 2014-09-21 14:45:52
   ends_at: 2014-09-21 14:45:52
   objective: MyString
   approved: false
   ship: SS MONKEY
+
+<% 10.times do |c| %>
+cruise_<%=c%>:
+  starts_at: <%= Date.new(2014, (c+1) % 12, 1) - c.years %>
+  ends_at: <%= Date.new(2014, (c+1) % 12, 3) - c.years %>
+  objective: See things
+  approved: <%= c % 2 ? true : false %>
+  ship: Ship <%= c %>
+<% end %>
