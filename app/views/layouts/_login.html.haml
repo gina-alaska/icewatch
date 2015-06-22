@@ -1,13 +1,13 @@
 - if signed_in?
   = link_to "#", class: 'dropdown-toggle', data: {toggle: 'dropdown'} do
-    Welcome!
+    = "Welcome #{current_user.name}!"
     %span.caret
   %ul.dropdown-menu
     %li= link_to "My Dashboard", user_path(current_user)
     %li= link_to "Logout", logout_path
 - else
   = link_to '#', class: 'dropdown-toggle', data: {toggle: 'dropdown'} do
-    Login
+    Login / Create Account
     %span.caret
   %ul.dropdown-menu
     %li
