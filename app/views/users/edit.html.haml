@@ -1,0 +1,25 @@
+%h1
+  = @user.name
+  %small= @user.email
+.row
+  .col-xs-6
+    = bootstrap_form_for @user do |f|
+      = f.select :role, %w{admin manager member guest}.map{|r| [r.capitalize,r]}
+      = f.submit
+  .col-xs-6
+    %ul.list-group
+      %li.list-group-item.active Admin
+      %li.list-group-item All permisions
+      %li.list-group-item.active Manager
+      %li.list-group-item Can approve cruises
+      %li.list-group-item Can approve observations
+      %li.list-group-item Can edit observations
+      %li.list-group-item Can view users
+      %li.list-group-item Has Member privileges
+      %li.list-group-item.active Member
+      %li.list-group-item Can create cruises
+      %li.list-group-item Can import observations to cruises they have created
+      %li.list-group-item Can view cruises they have created
+      %li.list-group-item.active Guest
+      %li.list-group-item Can view approved cruises and observations
+      %li.list-group-item Can Download observation data for approved cruises
