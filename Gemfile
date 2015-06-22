@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
+gem 'thread_safe'
+gem 'hitimes'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -23,12 +25,12 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
+# gem 'spring',        group: :development
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem 'warbler', platforms: :jruby
+gem 'warbler', '= 1.4.5', platforms: :jruby
 gem 'activerecord-jdbcsqlite3-adapter', platform: :jruby
 gem 'jruby-openssl', platform: :jruby
 
@@ -54,7 +56,7 @@ gem 'rubyzip', '>= 1.0.0', require: 'zip'
 gem 'bower-rails'
 gem 'whenever', platform: :ruby
 gem 'tzinfo-data'#, platforms: [:mingw, :mswin, :jruby]
-gem 'high_voltage', '~> 2.2.1', platform: :ruby
+gem 'high_voltage', '~> 2.2.1'
 gem 'kaminari'
 gem 'dotenv-rails'
 
@@ -65,9 +67,9 @@ group :development, :test do
   gem 'guard'
   gem 'guard-minitest'
   gem 'guard-rubocop'
+  gem 'shoulda'
 end
 
-gem 'shoulda', group: :test
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'
@@ -77,3 +79,4 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-selectize'
 end
 
+gem 'sprockets', '< 3.0.0'
