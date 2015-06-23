@@ -240,6 +240,7 @@ class Observation < ActiveRecord::Base
       end
     end
     faunas.each do |fauna|
+      next if fauna.new_record? # Don't validate unsaved entries.
       #Not sure why fauana validations aren't being run so force it
       fauna.valid?
       if fauna.errors.any?
