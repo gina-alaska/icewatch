@@ -1,10 +1,10 @@
 # package 'zip'
 
 node.set['chruby']['rubies'] = {
-  'jruby-1.7.16' => true,
+  'jruby-1.7.20.1' => true,
   '1.9.3-p392' => false
 }
-node.set['chruby']['default'] = 'jruby-1.7.16'
+node.set['chruby']['default'] = 'jruby-1.7.20.1'
 node.set['icewatch']['paths']['application'] = '/Users/scott/workspace/icewatch'
 # include_recipe 'java::default'
 # include_recipe 'chruby::system'
@@ -25,7 +25,7 @@ rails_env = {
 chruby_exec = "chruby-exec #{node['chruby']['default']} --"
 
 execute 'install-bundler' do
-  command "#{chruby_exec} gem install bundler"
+  command "#{chruby_exec} gem install bundler -v 1.9.9"
   env rails_env
 end
 
