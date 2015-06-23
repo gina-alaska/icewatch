@@ -40,7 +40,7 @@ class Cruise < ActiveRecord::Base
       met.build_medium_cloud
       met.build_low_cloud
     end
-    observation.faunas.build
+    #observation.faunas.build
     3.times { observation.notes.build }
     observation
   end
