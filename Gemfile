@@ -65,9 +65,9 @@ group :development, :test do
   gem 'guard'
   gem 'guard-minitest'
   gem 'guard-rubocop'
+  gem 'shoulda'
 end
 
-gem 'shoulda', group: :test
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'
