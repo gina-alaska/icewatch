@@ -31,16 +31,37 @@ $(document).on 'blur', '.coordinate', ->
 
   if dms != coordinates
     $(this).val(dms)
-    $(this).siblings('.help-block').text("DMS: #{coordinates}")
+    $(this).siblings('.help-block').text("#{coordinateType(coordinates)}: #{coordinates}")
+
+
+@coordinateType = (coordinate) ->
+  switch
+    when coordinate.match(/^(\+|-)?[0-9]{1,3}\s[0-9]{1,2}(\s[0-9]{1,2})?(\s?[NSEW])?$/)
+      'DMS'
+    when coordinate.match(/^(\+|-)?[0-9]{1,3}\s[0-9]{1,2}(\.[0-9]{1,3})?(\s?[NSEW])?$/)
+      'DDM'
+    else
+      ''
+
 
 @parseCoordinate = (coordinate) ->
-  toDD = (value) ->
+
+  toDDfromDMS = (value) ->
     dms = value.split " "
     deg = parseFloat dms[0]
     min = parseInt dms[1]
     sec = if dms.length > 2 then parseInt(dms[2]) else 0
 
     dec = (min * 60 + sec) / 3600.0
+    dd = if deg > 0 then deg + dec else deg - dec
+    "#{dd.toFixed(4)}"
+
+  toDDfromDDM = (value) ->
+    ddm = value.split " "
+    deg = parseInt ddm[0]
+    min = parseFloat ddm[1]
+
+    dec = min / 60.0
     dd = if deg > 0 then deg + dec else deg - dec
     "#{dd.toFixed(4)}"
 
@@ -52,11 +73,13 @@ $(document).on 'blur', '.coordinate', ->
     sec = (ms % 1) * 60.0
     "#{deg} #{min} #{Math.round(sec)}"
 
-  switch
-    when coordinate.match(/^(\+|-)?[0-9]{1,3}\s[0-9]{1,2}(\s[0-9]{1,2})?(\s?[NSEW])?$/)
-      toDD(coordinate)
-    # when coordinate.match(/^(\+|-)?[0-9]{1,3}\.[0-9]*(\s?[EW])?$/)
-    #   toDMS(coordinate)
+
+
+  switch coordinateType(coordinate)
+    when 'DMS' #coordinate.match(/^(\+|-)?[0-9]{1,3}\s[0-9]{1,2}(\s[0-9]{1,2})?(\s?[NSEW])?$/)
+      toDDfromDMS(coordinate)
+    when 'DDM' #coordinate.match(/^(\+|-)?[0-9]{1,3}\s[0-9]{1,2}(\.[0-9]{1,3})?(\s?[NSEW])?$/)
+      toDDfromDDM(coordinate)
     else
       coordinate
 
