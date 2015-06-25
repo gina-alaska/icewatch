@@ -99,11 +99,10 @@ class CruisesController < ApplicationController
 
   def approve_observations
     @cruise = Cruise.find params[:id]
-    @cruise.batch_approve_observations
+    @cruise.batch_approve_observations(filter_invalid?)
 
     redirect_to @cruise
   end
-
 
   private
   def set_current_year
@@ -138,6 +137,10 @@ class CruisesController < ApplicationController
 
   def after_modify_path
     Rails.application.secrets.icewatch_assist ? root_path : @cruise
+  end
+
+  def filter_invalid?
+    params[:filter_invalid] == 'false' ? false : true
   end
 
   def generate_zip(include_photos = false)
