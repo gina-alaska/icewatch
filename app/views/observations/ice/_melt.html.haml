@@ -2,7 +2,7 @@
   .col-md-4.col-sm-4
     %h4= io.object.obs_type.capitalize
     = io.fields_for :melt_pond do |m|
-      = m.select :surface_coverage, concentration_options, label: 'Pond Concentration', help: 'Area of ice covered in tenths'
+      = m.select :surface_coverage, concentration_options, {label: 'Pond Concentration', include_blank: 'No Observation'}, help: 'Area of ice covered in tenths'
       = m.collection_select :pattern_lookup_id, sort_by_code(PatternLookup.all), :id, :code_with_name,
         {label: 'Pond Pattern', include_blank: 'No Observation'}
       = m.collection_select :surface_lookup_id, sort_by_code(SurfaceLookup.all), :id, :code_with_name,
