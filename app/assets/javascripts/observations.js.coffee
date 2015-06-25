@@ -2,6 +2,11 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+$(document).on 'keypress keyup keydown', 'form input[type="text"]', (event) ->
+  if event.keyCode is 13
+    event.preventDefault()
+    return false
+
 $(document).on 'ready page:load', ->
   $("select:not(.person-field)").selectize
     allowEmptyOption: true
