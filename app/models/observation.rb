@@ -75,7 +75,7 @@ class Observation < ActiveRecord::Base
   validate :location
   validate :partial_concentrations_equal_total_concentration
   validate :ice_thickness_are_decreasing_order
-  validate :ice_lookup_code_presence
+  # validate :ice_lookup_code_presence
   validate :ice_lookup_codes_are_increasing_order
   validate :other_ice_lookup_codes_are_increasing_order
 
@@ -200,9 +200,6 @@ class Observation < ActiveRecord::Base
   end
 
   def ice_lookup_codes_are_increasing_order
-    unless ice_type_in_increasing_order?(ice.thin_ice_lookup, tertiary.ice_lookup)
-      tertiary.errors.add(:ice_lookup_id, 'Tertiary ice type thinner than thin ice type')
-    end
     unless ice_type_in_increasing_order?(tertiary.ice_lookup, secondary.ice_lookup)
       tertiary.errors.add(:ice_lookup_id, 'Secondary ice type thinner than tertiary')
     end
@@ -247,6 +244,12 @@ class Observation < ActiveRecord::Base
         fauna.errors.full_messages.each do |msg|
           errors[:base] << "Fauna #{fauna.name} error: #{msg}"
         end
+      end
+    end
+    notes.each do |note|
+      note.valid?
+      note.errors.full_messages.each do |msg|
+        errors[:base] << "Note error: #{msg}"
       end
     end
   end
