@@ -9,3 +9,8 @@
     = link_to approve_observations_cruise_path(@cruise), method: :post do
       %i.fa.fa-thumbs-up
       Approve Valid Observations
+  - if current_user.role == 'admin'
+    %li.list-group-item.list-group-item-danger
+      = link_to approve_observations_cruise_path(@cruise, filter_invalid: false), method: :post, data: {confirm: "This will approve ALL observations, including invalid ones. Please double check this is what you intend to do."} do
+        %i.fa.fa-thumbs-up
+        Approve All Observations
