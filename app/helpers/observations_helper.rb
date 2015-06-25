@@ -35,7 +35,7 @@ module ObservationsHelper
   end
 
   def row_highlight(observation)
-    if !observation.valid?
+    if !observation.valid? && !observation.accepted?
       'danger'
     elsif observation.may_accept? && !assist?
       'warning'
