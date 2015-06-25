@@ -2,4 +2,4 @@
   .alert.alert-info
     Notes are limited to 80 characters
 = f.fields_for :notes do |n|
-  =n.text_field :text, hide_label: :true
+  =n.text_field :text, hide_label: :true, maxlength: 80
