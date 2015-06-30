@@ -118,7 +118,7 @@ class CruisesController < ApplicationController
 
   def set_observations
     @observations = @cruise.observations.order(observed_at: :desc).accessible_by(current_ability)
-    @observations = @observations.where(id: params[:observations]) if params[:observations]
+    @observations = @observations.where(id: params[:observations].map(&:to_i)) if params[:observations]
     @observations.page(params[:page]) unless request.format == 'application/zip'
   end
 
@@ -151,7 +151,7 @@ class CruisesController < ApplicationController
         f.write @cruise.metadata.to_yaml
       end
 
-      #Ugly hack to get around paging
+      logger.info(@observations.to_sql)
       @observations.each do |observation|
         # %w(csv json).each do |format|
         #   if File.exist?(observation.export_file(format))
@@ -169,7 +169,7 @@ class CruisesController < ApplicationController
       end
 
       zipfile.get_output_stream("#{@cruise}.json") do |f|
-        f.write JSON.pretty_generate(JSON.parse(@cruise.render_to_string))
+        f.write JSON.pretty_generate(JSON.parse(@cruise.render_to_string(@observations)))
       end
       zipfile.get_output_stream("#{@cruise}.csv") do |f|
         f << Observation.csv_headers + "\n"
