@@ -4,7 +4,7 @@
       .fileinput{data: {provides: 'fileinput'}, class: (f.object.new_record? ? 'fileinput-new' : 'fileinput-exists')}
         .fileinput-new.thumbnail{style: 'width: 140px; height: 78px;', data: {trigger: 'fileinput'}}
         .fileinput-preview.thumbnail.fileinput-exists{style: 'max-width: 140px; max-height: 78px;'}
-          = link_to image_tag(f.object.url), f.object.url, target: '_blank' unless f.object.new_record?
+          = link_to image_tag(photos_path(f.object.url)), photos_path(f.object.url), target: '_blank' unless f.object.new_record?
         .btn.btn-default.btn-file{class: ('disabled' unless f.object.new_record?)}
           .fileinput-new Attach Photo
           .fileinput-exists.fileinput-filename
