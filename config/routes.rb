@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get '/auth/failure', to: 'sessions#failure'
   resources :sessions
   resources :memberships
+  get '/photos/*filename', to: 'photos#show', as: :photos
 
   resources :users
 
