@@ -12,7 +12,7 @@
       %li.list-group-item
         = link_to "All Observations", cruise_path(@active_cruise, :zip)
       %li.list-group-item
-        = link_to "Selected Observations", cruise_path(@active_cruise, :zip), id: 'selected-export'
+        = link_to "Selected Observations", cruise_path(@active_cruise, :zip), class: 'selected-export'
     %ul.list-group
       %li.list-group-item.active
         Export with photos
@@ -22,7 +22,7 @@
       %li.list-group-item
         = link_to "All Observations", cruise_path(@active_cruise, :zip, photos: true)
       %li.list-group-item
-        = link_to "Selected Observations", cruise_path(@active_cruise, :zip, photos: true), id: 'selected-photos-export'
+        = link_to "Selected Observations", cruise_path(@active_cruise, :zip, photos: true), class: 'selected-export'
 
     %ul.list-group
       %li.list-group-item.active

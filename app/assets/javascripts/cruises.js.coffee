@@ -64,7 +64,7 @@ $(document).on 'click', '#all-export', ->
 $(document).on 'click', '#none-export', ->
   $(".export[type='checkbox']").prop("checked", false)
 
-$(document).on 'click', '#selected-export', (e) ->
+$(document).on 'click', '.selected-export', (e) ->
   e.preventDefault()
   params = ""
   $(".export[type='checkbox']:checked").each (index, item) ->
