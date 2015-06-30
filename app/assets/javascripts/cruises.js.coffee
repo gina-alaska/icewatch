@@ -66,12 +66,15 @@ $(document).on 'click', '#none-export', ->
 
 $(document).on 'click', '.selected-export', (e) ->
   e.preventDefault()
+
   params = ""
   $(".export[type='checkbox']:checked").each (index, item) ->
     params += "&" unless index is 0
     params += "observations[]=#{$(item).val()}"
+  params = "observations[]=#{null}" if params is ""
 
-  document.location = "#{$(this).attr('href')}?#{params}"
+  joiner = if $(this).attr('href').includes('?') then "&" else "?"
+  document.location = "#{$(this).attr('href')}#{joiner}#{params}"
 
 $(document).on 'click', '#sigrid-data-submit', (e) ->
   e.preventDefault()
