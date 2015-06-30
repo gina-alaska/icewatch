@@ -153,12 +153,12 @@ class CruisesController < ApplicationController
 
       #Ugly hack to get around paging
       @observations.each do |observation|
-        %w(csv json).each do |format|
-          if File.exist?(observation.export_file(format))
-            obs_path = File.join(observation.to_s, File.basename(observation.export_file(format)))
-            zipfile.add obs_path, observation.export_file(format)
-          end
-        end
+        # %w(csv json).each do |format|
+        #   if File.exist?(observation.export_file(format))
+        #     obs_path = File.join(observation.to_s, File.basename(observation.export_file(format)))
+        #     zipfile.add obs_path, observation.export_file(format)
+        #   end
+        # end
         if include_photos
           observation.photos.each do |photo|
             next unless File.exists?(photo.file_path)
