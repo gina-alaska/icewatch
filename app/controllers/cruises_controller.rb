@@ -19,6 +19,7 @@ class CruisesController < ApplicationController
   # GET /cruises/1
   # GET /cruises/1.json
   def show
+    Rails.logger.info( request.format )
     if @cruise.approved? or can?(:read, @cruise)
       respond_to do |format|
         format.html
@@ -116,12 +117,9 @@ class CruisesController < ApplicationController
   end
 
   def set_observations
-    @observations = @cruise.observations.order(observed_at: :desc)
-    @observations = if params[:observations]
-      @observations.where(id: params[:observations])
-    else
-      @observations.accessible_by(current_ability).page(params[:page])
-    end
+    @observations = @cruise.observations.order(observed_at: :desc).accessible_by(current_ability)
+    @observations = @observations.where(id: params[:observations]) if params[:observations]
+    @observations.page(params[:page]) unless request.format == 'application/zip'
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
@@ -153,6 +151,7 @@ class CruisesController < ApplicationController
         f.write @cruise.metadata.to_yaml
       end
 
+      #Ugly hack to get around paging
       @observations.each do |observation|
         %w(csv json).each do |format|
           if File.exist?(observation.export_file(format))
