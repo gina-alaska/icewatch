@@ -15,4 +15,10 @@ class ApplicationController < ActionController::Base
     session[:redirect_back_to] = request.original_url
     redirect_to root_url
   end
+
+  def assist?
+    # Shows up as an array. Not sure if that is always the case so
+    #  force it to be one for this check
+    Array(request.variant).include? :assist
+  end
 end

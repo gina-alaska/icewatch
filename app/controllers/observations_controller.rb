@@ -4,7 +4,7 @@ class ObservationsController < ApplicationController
   before_action :set_observation, only: [:show, :edit, :update, :destroy]
 
   if Rails.application.secrets.icewatch_assist
-    after_action :export_json, :export_csv, only: [:update]
+    after_action :export_json, :export_csv, only: [:update, :import]
   end
 
   # GET /observations
@@ -103,7 +103,11 @@ class ObservationsController < ApplicationController
 
     @cruise.observations.destroy_all
     respond_to do |format|
-      format.html { redirect_to cruise_url(@cruise), notice: 'All observations were successfully destroyed.'}
+      if assist?
+        format.html { redirect_to root_url, notice: 'All observations were successfully destoyed.' }
+      else
+        format.html { redirect_to cruise_url(@cruise), notice: 'All observations were successfully destroyed.' }
+      end
     end
   end
 
