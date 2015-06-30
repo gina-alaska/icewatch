@@ -54,7 +54,11 @@ class Cruise < ActiveRecord::Base
   end
 
   def export_path
-    File.join(EXPORT_PATH, to_s)
+    File.join(EXPORT_PATH, relative_export_path)
+  end
+
+  def relative_export_path
+    File.join('observations', to_s)
   end
 
   def metadata
