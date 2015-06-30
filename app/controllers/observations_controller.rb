@@ -4,7 +4,7 @@ class ObservationsController < ApplicationController
   before_action :set_observation, only: [:show, :edit, :update, :destroy]
 
   if Rails.application.secrets.icewatch_assist
-    after_action :export_json, :export_csv, only: [:update]
+    after_action :export_json, :export_csv, only: [:update, :import]
   end
 
   # GET /observations
