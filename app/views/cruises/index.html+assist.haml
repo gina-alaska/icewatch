@@ -2,7 +2,6 @@
   %h3 Welcome to the
   %h2 Arctic Shipborne Sea Ice Standardization Tool
   = link_to "Start Observation", cruise_observations_path(@active_cruise), class: 'btn btn-primary btn-lg', method: 'POST'
-
 .row
   .col-md-2.col-sm-2
     %ul.list-group
@@ -46,6 +45,13 @@
         Cruise
       %li.list-group-item
         = link_to "Edit", edit_cruise_path(@active_cruise)
+
+    %ul.list-group
+      %li.list-group-item.active.danger Delete
+      %li.list-group-item.list-group-item-danger
+        = link_to all_cruise_observations_path(@active_cruise), method: :delete, data: {confirm: 'This will permanetly destroy all observations, are you sure?'} do
+          %i.fa.fa-trash
+          All Observations
 
   .col-md-10.col-sm-10
     .panel.panel-primary
