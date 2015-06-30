@@ -113,6 +113,10 @@ class Observation < ActiveRecord::Base
     File.join(cruise.export_path, to_s)
   end
 
+  def relative_export_path
+    File.join(cruise.relative_export_path, to_s)
+  end
+
   def export_file(format)
     File.join(export_path, "#{self}.#{format}")
   end
