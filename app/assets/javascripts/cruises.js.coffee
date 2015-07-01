@@ -73,7 +73,7 @@ $(document).on 'click', '.selected-export', (e) ->
     params += "observations[]=#{$(item).val()}"
   params = "observations[]=#{null}" if params is ""
 
-  joiner = if $(this).attr('href').includes('?') then "&" else "?"
+  joiner = if $(this).attr('href').indexOf('?') is -1 then "?" else "&"
   document.location = "#{$(this).attr('href')}#{joiner}#{params}"
 
 $(document).on 'click', '#sigrid-data-submit', (e) ->
