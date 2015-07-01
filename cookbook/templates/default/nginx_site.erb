@@ -26,6 +26,12 @@ server {
         expires max;
         add_header Cache-Control public;
   }
+  location ~ ^/(files)/ {
+    root <%= @install_path %>/public/system;
+    gzip_static on;
+    expires max;
+    add_header Cache-Control public;
+  }
 <% end %>
   error_page 500 502 503 504 /500.html;
   location = /500.html {

@@ -4,7 +4,7 @@ maintainer_email 'sdmacfarlane@alaska.edu'
 license          'APACHE2'
 description      'Installs/Configures icewatch'
 long_description 'Installs/Configures icewatch'
-version          '2.0.0'
+version          '2.0.1'
 
 depends 'java'
 depends 'rubies'
