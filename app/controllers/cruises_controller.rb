@@ -119,7 +119,7 @@ class CruisesController < ApplicationController
   def set_observations
     @observations = @cruise.observations.order(observed_at: :desc).accessible_by(current_ability)
     @observations = @observations.where(id: params[:observations].map(&:to_i)) if params[:observations]
-    @observations.page(params[:page]) unless request.format == 'application/zip'
+    @observations = @observations.page(params[:page]) unless request.format == 'application/zip'
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
