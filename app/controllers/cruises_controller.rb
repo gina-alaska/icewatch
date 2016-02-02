@@ -103,7 +103,7 @@ class CruisesController < ApplicationController
     # FIXME: should return counts of succes/failure, or some other useful information
     @cruise.batch_approve_observations(filter_invalid?)
 
-    redirect_to @cruise, notice: "Approved all valid observations for #{@cruise.to_s}"
+    redirect_to @cruise, notice: "Approved all valid observations for #{@cruise}"
   end
 
   private
