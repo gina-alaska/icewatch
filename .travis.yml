@@ -1,0 +1,18 @@
+language: ruby
+rvm:
+- 2.2.4
+cache: bundler
+addons:
+  postgresql: '9.3'
+script:
+- bundle exec rake db:setup
+- bundle exec rake db:test:prepare
+- bundle exec rake db:fixtures:load
+- bundle exec rake test
+- bundle exec rubocop
+sudo: false
+env:
+- DATABASE_URL=postgresql://localhost/travis_ci_test RAILS_ENV=test
+notifications:
+  slack:
+    secure: f12r6JgPOSZaVgpMMQdpU6JF8PV9WJRtv5PGyatpFnBL8ZJey53Rr+B+mmChr9R301x9GhqgY+rLjQk8SKtjQJLYNZQJUhBomc+BsXbK/rGJCAgxwbgOJNffQKMh/EFa+w0jKU9t4zWZRr7wlvMKki5XSAiZezFPvlswGbE3CM4=
