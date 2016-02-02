@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     post :approve, on: :member
     post :approve_observations, on: :member
   end
-  resources :lookups
+  resources :lookups, only: [:index, :show]
 
   get '/logout', to: 'sessions#destroy'
   get '/login', to: 'sessions#new'

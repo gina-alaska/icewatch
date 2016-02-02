@@ -5,38 +5,29 @@ class CommentsControllerTest < ActionController::TestCase
     @comment = comments(:one)
   end
 
-  test 'should get index' do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:comments)
-  end
-
-  test 'should get new' do
-    get :new
-    assert_response :success
-  end
-
   test 'should create comment' do
     assert_difference('Comment.count') do
-      post :create, comment: { commentable_id: @comment.commentable_id, commentable_type: @comment.commentable_type, person_id: @comment.person_id, text: @comment.text }
+      xhr :post, :create, observation_id: @comment.observation.id, format: :js, comment: {
+        person_id_or_name: @comment.person_id,
+        text: @comment.text
+      }
     end
 
-    assert_redirected_to comment_path(assigns(:comment))
-  end
-
-  test 'should show comment' do
-    get :show, id: @comment
     assert_response :success
   end
 
   test 'should get edit' do
-    get :edit, id: @comment
+    xhr :post, :edit, id: @comment, format: :js
     assert_response :success
   end
 
   test 'should update comment' do
-    patch :update, id: @comment, comment: { commentable_id: @comment.commentable_id, commentable_type: @comment.commentable_type, person_id: @comment.person_id, text: @comment.text }
-    assert_redirected_to comment_path(assigns(:comment))
+    patch :update, id: @comment, observation_id: @comment.observation.id, format: :js, comment: {
+      person_id_or_name: @comment.person_id,
+      text: @comment.text
+    }
+
+    assert_response :success
   end
 
   test 'should destroy comment' do
@@ -44,6 +35,6 @@ class CommentsControllerTest < ActionController::TestCase
       delete :destroy, id: @comment
     end
 
-    assert_redirected_to comments_path
+    assert_redirected_to observation_path(@comment.observation)
   end
 end

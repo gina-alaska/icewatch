@@ -14,8 +14,3 @@
         %td= lookup.name
         %td= lookup.type
         %td= lookup.comment
-        %td= link_to 'Show', lookup
-        %td= link_to 'Edit', edit_lookup_path(lookup)
-        %td= link_to 'Destroy', lookup, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
-= link_to 'New Lookup', new_lookup_path

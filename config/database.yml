@@ -18,9 +18,9 @@ default: &default
   pool: 5
   timeout: 5000
   database: <%= ENV['RAILS_DATABASE'] %>
-  username: <%= ENV['RAILS_DATABASE_USERNAME'] %>
-  password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
-  host:     <%= ENV['RAILS_DATABASE_HOST'] %>
+  # username: <%= ENV['RAILS_DATABASE_USERNAME'] %>
+  # password: <%= ENV['RAILS_DATABASE_PASSWORD'] %>
+  # host:     <%= ENV['RAILS_DATABASE_HOST'] %>
   encoding: UTF8
 
 development:

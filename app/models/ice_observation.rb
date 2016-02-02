@@ -8,8 +8,8 @@ class IceObservation < ActiveRecord::Base
   belongs_to :sediment_lookup
   belongs_to :snow_lookup
 
-  has_one :melt_pond
-  has_one :topography
+  has_one :melt_pond, dependent: :destroy
+  has_one :topography, dependent: :destroy
 
   accepts_nested_attributes_for :melt_pond, :topography
 
@@ -73,7 +73,7 @@ class IceObservation < ActiveRecord::Base
   def ice_types_with_ten_codes_cant_have_floe_size
     return unless %w(Shuga Frazil Grease).include?(ice_lookup.try(:name))
     return if floe_size_lookup.nil?
-    
+
     errors.add(:ice_lookup_id, "#{ice_lookup.name} cannot have a floe size")
   end
 end

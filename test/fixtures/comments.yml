@@ -5,9 +5,11 @@ one:
   commentable_id: 1
   commentable_type: MyString
   person_id: 1
+  observation: one
 
 two:
   text: MyString
   commentable_id: 1
   commentable_type: MyString
   person_id: 1
+  observation: two
