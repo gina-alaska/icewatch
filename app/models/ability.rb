@@ -18,8 +18,7 @@ class Ability
     end
 
     if user.has_role? :manager
-      can :approve, Cruise
-      can :approve_observations, Cruise
+      can [:manage, :approve, :approve_observations], Cruise
       can :approve, Observation
       can :edit, Observation
       can :read, User

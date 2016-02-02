@@ -25,16 +25,5 @@ class ManagerRoleTest < ActionDispatch::IntegrationTest
     fill_in('Name', with: u.name)
     fill_in('Email', with: u.email)
     click_button('Sign In')
-    # page.driver.post '/auth/developer/callback', name: u.name, email: u.email
-    # page.driver.follow_redirect!
   end
-
-
 end
-
-#
-# can :approve, Cruise
-# can :approve_observations, Cruise
-# can :approve, Observation
-# can :edit, Observation
-# can :read, User
