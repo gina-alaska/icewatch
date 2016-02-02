@@ -66,6 +66,7 @@ group :development, :test do
   gem 'guard-minitest'
   gem 'guard-rubocop'
   gem 'shoulda'
+  gem 'capybara'
 end
 
 
