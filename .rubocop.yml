@@ -1,4 +1,7 @@
 inherit_from: .rubocop_todo.yml
+Rails:
+  Enabled: true
+
 AllCops:
   Exclude:
     - db/**/*.rb
@@ -10,3 +13,18 @@ AllCops:
     - app/models/concerns/gina_authentication/**/*.rb
     - test/**/*
     - config/initializers/omniauth.rb
+    - script/**/*
+    - vendor/**/*
+
+Metrics/LineLength:
+  Max: 180
+
+Style/AlignHash:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: false
+

@@ -70,6 +70,11 @@ class IceObservationsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def ice_observation_params
-    params.require(:ice_observation).permit(:observation_id, :floe_size_lookup_id, :snow_lookup_id, :ice_lookup_id, :algae_lookup_id, :algae_density_lookup_id, :algae_density_lookup_id, :sediment_lookup_id, :partial_concentration, :thickness, :snow_thickness, :obs_type)
+    params.require(:ice_observation).permit(
+      :observation_id, :floe_size_lookup_id, :snow_lookup_id, :ice_lookup_id,
+      :algae_lookup_id, :algae_density_lookup_id, :algae_density_lookup_id,
+      :sediment_lookup_id, :partial_concentration, :thickness, :snow_thickness,
+      :obs_type
+    )
   end
 end
