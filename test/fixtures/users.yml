@@ -5,7 +5,12 @@ admin:
   email: admin@tests.com
   role: admin
 
-two:
-  name: MyString
-  email: MyString
-  avatar: MyString
+manager:
+  name: manager
+  email: manager@tests.com
+  role: manager
+
+guest:
+  name: guest
+  email: guest@tests.com
+  role: guest

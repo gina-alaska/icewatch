@@ -4,6 +4,6 @@ one:
   user_id: 1
   email: MyString
 
-two:
-  user_id: 1
-  email: MyString
+manager:
+  user: manager
+  email: manager@tests.com

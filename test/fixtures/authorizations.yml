@@ -5,7 +5,7 @@ one:
   uid: MyString
   user_id: 1
 
-two:
-  provider: MyString
-  uid: MyString
-  user_id: 1
+manager:
+  provider: developer
+  uid: manager@tests.com
+  user: manager
