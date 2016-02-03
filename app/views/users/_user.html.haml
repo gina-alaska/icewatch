@@ -1,4 +1,4 @@
-%tr
+%tr{id: dom_id(user, 'row')}
   %td= user.name
   %td= user.role
   %td
@@ -6,3 +6,8 @@
       = link_to edit_user_path(user), class: 'btn btn-default' do
         %i.fa.fa-edit
         Edit
+      - unless user.has_role?('admin')
+        = link_to user_path(user), class: 'btn btn-danger', method: :delete do
+          %i.fa.fa-trash
+          Delete
+

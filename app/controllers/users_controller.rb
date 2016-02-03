@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   include GinaAuthentication::Users
-  before_action :setup_user, only: [:show, :edit, :update]
+  before_action :setup_user, only: [:show, :edit, :update, :destroy]
   authorize_resource
-  
+
   def index
     @users = User.order('lower(name) ASC')
   end
@@ -21,6 +21,14 @@ class UsersController < ApplicationController
       else
         format.html { render :edit }
       end
+    end
+  end
+
+  def destroy
+    if @user.destroy
+      redirect_to(users_path, notice: "User #{@user} deleted.")
+    else
+      redirect_to(users_path, notice: "Unable to delete #{@user}.")
     end
   end
 
