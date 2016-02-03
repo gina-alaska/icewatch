@@ -17,4 +17,18 @@ end
 class ActionDispatch::IntegrationTest
   # Make the Capybara DSL available in all integration tests
   include Capybara::DSL
+
+  # Add helper method to log in a user
+  def login(user)
+    u = users(user)
+    visit('/auth/developer')
+    fill_in('Name', with: u.name)
+    fill_in('Email', with: u.email)
+    click_button('Sign In')
+  end
+
+  def logout
+    visit('/')
+    click_link('Logout')
+  end
 end
