@@ -13,13 +13,13 @@ class IceObservationTest < ActiveSupport::TestCase
   should belong_to(:algae_location_lookup)
   should belong_to(:sediment_lookup)
 
-  # TODO:  This test doesn't pass. Commenting out to make master functional,
-  # since there is a bug report for this problem. Will solve in isolated branch
-  # def test_frazil_shuga_grease_floe_size_validation
-  #   ice_observation = ice_observations(:primary)
-  #   %w(frazil shuga grease).each do |ice_type|
-  #     ice_observation.ice_lookup = lookups(ice_type.to_sym)
-  #     refute ice_observation.valid?, "#{ice_type} should not be valid"
-  #   end
-  # end
+  def test_frazil_shuga_grease_floe_size_validation
+    %w(brash frazil shuga grease slush).each do |ice_type|
+      ice_observation = IceObservation.new(
+        floe_size_lookup: lookups('brash-broken-ice'.to_sym),
+        ice_lookup: lookups(ice_type.to_sym)
+      )
+      refute ice_observation.valid?, "#{ice_type} with floe size should not be valid"
+    end
+  end
 end
