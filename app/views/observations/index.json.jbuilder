@@ -1,4 +1,4 @@
-json.array!(@observations) do |observation|
-  json.extract! observation, :id, :cruise_id, :observed_at, :latitude, :longitude, :uuid
-  json.url observation_url(observation, format: :json)
+json.extract! @cruise, :starts_at, :ends_at, :objective, :captain, :primary_observer, :chief_scientist
+json.observations do
+  json.array! @observations, partial: 'observations/observation', as: :observation
 end
