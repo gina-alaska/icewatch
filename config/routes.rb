@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :cruises do
-    resources :observations, except: [:index, :new], shallow: true do
+    resources :observations, except: [:new], shallow: true do
       collection do
         post :import
         delete :all
