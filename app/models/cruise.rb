@@ -45,9 +45,6 @@ class Cruise < ActiveRecord::Base
   end
 
   def render_to_string(obs, format = :json)
-    logger.info '***************************'
-    logger.info obs.to_sql
-
     ActionView::Base.new(Rails.configuration.paths['app/views'])
       .render(template: "cruises/show.#{format}", format: format, locals: { :@cruise => self, :@observations => obs  })
   end
@@ -93,5 +90,22 @@ class Cruise < ActiveRecord::Base
       h[ice_type] += 1
       h
     end
+  end
+
+  def self.csv_headers
+    %w{ ship captain chief_scientist primary_observer
+        objective starts_at ends_at }.join(",")
+  end
+
+  def as_csv
+    [
+      ship,
+      captain,
+      chief_scientist,
+      primary_observer.try(:name),
+      objective,
+      starts_at,
+      ends_at
+    ]
   end
 end
