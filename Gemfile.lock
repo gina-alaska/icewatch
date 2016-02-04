@@ -99,6 +99,7 @@ GEM
       multipart-post (>= 1.2, < 3)
     ffi (1.9.6)
     ffi (1.9.6-java)
+    forgery (0.6.0)
     formatador (0.2.5)
     friendly_id (5.0.4)
       activerecord (>= 4.0.0)
@@ -375,6 +376,7 @@ DEPENDENCIES
   chartkick
   coffee-rails (~> 4.0.0)
   dotenv-rails
+  forgery
   friendly_id
   google-api-client
   guard
