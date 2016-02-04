@@ -9,9 +9,10 @@ class ObservationsController < ApplicationController
 
   # GET /observations
   # GET /observations.json
-  # def index
-  #   @observations = Observation.all
-  # end
+  def index
+    @cruise = Cruise.find(params[:cruise_id])
+    @observations = @cruise.observations.order(observed_at: :desc).accessible_by(current_ability)
+  end
 
   # GET /observations/1
   # GET /observations/1.json

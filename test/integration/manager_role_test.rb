@@ -4,7 +4,7 @@ class ManagerRoleTest < ActionDispatch::IntegrationTest
   def teardown
     logout
   end
-  
+
   def test_managers_can_approve_cruises
     login(:manager)
 

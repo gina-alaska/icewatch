@@ -29,12 +29,12 @@ base:
   visibility_lookup: 50m
 
 <% 100.times do |m| %>
-valid_meteorology<%= m %>:
+valid_meteorology_<%= m %>:
   observation: valid_observation_<%= m %>
   visibility_lookup: 50m
-unapproved_meteorology<%= m %>:
+unapproved_meteorology_<%= m %>:
   observation: unapproved_observation_<%= m %>
   visibility_lookup: 50m
-invalid_meteorology<%= m %>:
+invalid_meteorology_<%= m %>:
   observation: invalid_observation_<%= m %>
 <% end %>

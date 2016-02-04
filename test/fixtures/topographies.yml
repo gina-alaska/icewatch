@@ -15,3 +15,27 @@ two:
   concentration: 1
   ridge_height: 1
   topography_lookup_id: 1
+
+<% 100.times do |topo| %>
+primary_valid_<%= topo %>:
+  ice_observation: primary_valid_<%= topo %>
+  old: true
+  snow_covered: false
+  concentration: 1
+  ridge_height: 1
+  topography_lookup: level-ice
+secondary_valid_<%= topo %>:
+  ice_observation: secondary_valid_<%= topo %>
+  old: true
+  snow_covered: false
+  concentration: 1
+  ridge_height: 1
+  topography_lookup: level-ice
+tertiary_valid_<%= topo %>:
+  ice_observation: tertiary_valid_<%= topo %>
+  old: true
+  snow_covered: false
+  concentration: 1
+  ridge_height: 1
+  topography_lookup: level-ice
+<% end %>

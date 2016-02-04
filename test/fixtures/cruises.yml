@@ -6,6 +6,7 @@ one:
   objective: MyString
   approved: false
   ship: Boat
+  primary_observer: one
 
 test:
   starts_at: 2014-09-21 14:45:52
@@ -13,6 +14,7 @@ test:
   objective: MyString
   approved: false
   ship: SS MONKEY
+  primary_observer: one
 
 <% 10.times do |c| %>
 cruise_<%=c%>:
@@ -21,4 +23,8 @@ cruise_<%=c%>:
   objective: See things
   approved: <%= c % 2 ? true : false %>
   ship: Ship <%= c %>
+  chief_scientist: Science <%= c %>
+  captain: Captain <%= c %>
+  primary_observer: one
+  objective: Watch the Ice
 <% end %>
