@@ -21,3 +21,19 @@ two:
   freeboard: 1
   dried_ice: false
   rotten_ice: false
+
+
+<% 100.times do |melt| %>
+primary_valid_<%= melt %>:
+  ice_observation: primary_valid_<%= melt %>
+  dried_ice: false
+  rotten_ice: false
+secondary_valid_<%= melt %>:
+  ice_observation: secondary_valid_<%= melt %>
+  dried_ice: false
+  rotten_ice: false
+tertiary_valid_<%= melt %>:
+  ice_observation: tertiary_valid_<%= melt %>
+  dried_ice: false
+  rotten_ice: false
+<% end %>
