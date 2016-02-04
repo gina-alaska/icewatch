@@ -19,7 +19,6 @@ class CruisesController < ApplicationController
   # GET /cruises/1
   # GET /cruises/1.json
   def show
-    Rails.logger.info( request.format )
     if @cruise.approved? or can?(:read, @cruise)
       respond_to do |format|
         format.html
