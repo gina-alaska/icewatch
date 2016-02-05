@@ -1,6 +1,6 @@
 = f.fields_for :ice_observations, ice_observation do |io|
   .col-md-4.col-sm-4
-    %h4= io.object.obs_type.capitalize
+    %h4= "#{io.object.obs_type.capitalize} Ice"
     = io.collection_select :snow_lookup_id, sort_by_code(SnowLookup.all), :id, :code_with_name,
       {label: 'Snow Type', include_blank: 'No Observation'}
     = io.number_field :snow_thickness, label: 'Snow Depth (cm)'
