@@ -1,4 +1,4 @@
-.col-md-4.col-sm-4
+.col-md-4.col-sm-4{id: dom_id(ice_observation)}
   = f.fields_for :ice_observations, ice_observation do |io|
     %h4= io.object.obs_type.capitalize
     - tc = f.object.ice.total_concentration
@@ -6,7 +6,7 @@
       { help: "Total Concentration: #{tc}/10", label: 'Partial Concentration (tenths)', include_blank: 'No Observation'},
        class: 'partial-concentration'
     = io.collection_select :ice_lookup_id, sort_by_code(IceLookup.all), :id, :code_with_name,
-      {label: 'Ice Type', include_blank: 'No Observation'}
+      {label: 'Ice Type', include_blank: 'No Observation'}, {class: 'ice-type'}
     = io.number_field :thickness, label: 'Thickness (cm)'
     = io.collection_select :floe_size_lookup_id, sort_by_code(FloeSizeLookup.all), :id, :code_with_name,
-      {label: 'Floe Size', include_blank: 'No Observation'}
+      {label: 'Floe Size', include_blank: 'No Observation'}, {class: 'floe-size'}
