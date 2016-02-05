@@ -78,6 +78,7 @@ GEM
       timers (~> 4.0.0)
     chartkick (1.3.2)
     chronic (0.10.2)
+    cliver (0.3.2)
     coderay (1.1.0)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
@@ -214,6 +215,11 @@ GEM
     parser (2.2.0.2)
       ast (>= 1.1, < 3.0)
     pg (0.18.1)
+    poltergeist (1.9.0)
+      capybara (~> 2.1)
+      cliver (~> 0.3.1)
+      multi_json (~> 1.0)
+      websocket-driver (>= 0.2.0)
     powerpack (0.1.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
@@ -355,6 +361,11 @@ GEM
       jruby-rack (>= 1.1.1, < 1.3)
       rake (>= 0.9.6)
       rubyzip (>= 0.9, < 1.2)
+    websocket-driver (0.6.3)
+      websocket-extensions (>= 0.1.0)
+    websocket-driver (0.6.3-java)
+      websocket-extensions (>= 0.1.0)
+    websocket-extensions (0.1.2)
     whenever (0.9.4)
       chronic (>= 0.6.3)
     xpath (2.0.0)
@@ -395,6 +406,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-openid
   pg
+  poltergeist
   puma
   rails (= 4.2.4)
   rails-assets-bootstrap!
