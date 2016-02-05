@@ -26,4 +26,10 @@ module CruisesHelper
       concat(data)
     end
   end
+
+  def cruise_dates(cruise, format_str)
+    s = cruise.starts_at.try(:strftime, format_str)
+    e = cruise.ends_at.try(:strftime, format_str)
+    "#{s} to #{e}"
+  end
 end
