@@ -4,8 +4,15 @@ require 'rails/test_help'
 require 'capybara/rails'
 require 'capybara/poltergeist'
 
-Capybara.default_driver = :poltergeist
-Capybara.javascript_driver = :poltergeist
+Capybara.register_driver :poltergeist_debug do |app|
+  Capybara::Poltergeist::Driver.new(app, :inspector => true)
+end
+
+
+Capybara.default_driver = :poltergeist_debug
+Capybara.javascript_driver = :poltergeist_debug
+Capybara.default_max_wait_time = 5
+
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
