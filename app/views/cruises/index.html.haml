@@ -14,6 +14,7 @@
           = link_to cruise.ship, cruise_path(cruise)
           %span.badge
             = cruise.observations.count
+          %small= cruise_dates(cruise, '%b %d')
     %ul.list-group
       %li.list-group-item.active
         %strong Available Years
