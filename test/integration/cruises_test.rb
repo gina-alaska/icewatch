@@ -16,8 +16,8 @@ class CruisesTest < ActionDispatch::IntegrationTest
     end
 
     within("#cruise-metadata") do
-      assert_equal cruise_path(cruise, :csv), find_link('CSV')[:href], "No link to Metadata as CSV"
-      assert_equal cruise_path(cruise, :json), find_link('JSON')[:href], "No link to Metadata as JSON"
+      assert has_link?('CSV', href: cruise_path(cruise,:csv)), "No link to Metadata as CSV"
+      assert has_link?('JSON', href: cruise_path(cruise,:json)), "No link to Metadata as JSON"
     end
   end
 
@@ -39,10 +39,8 @@ class CruisesTest < ActionDispatch::IntegrationTest
     visit(cruise_path(cruise))
     within("#cruise-data") do
       path = cruise_observations_path(cruise, as.downcase.to_sym)
-      assert_equal path, find_link(as)[:href], "No link to observation data as #{as}"
+      assert has_link?(as, href: path), "No link to Metadata as #{as}"
       click_link(as)
-
-      # assert_response 'success', "Could not download #{as}"
     end
   end
 end
