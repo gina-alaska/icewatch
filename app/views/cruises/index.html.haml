@@ -13,7 +13,7 @@
         %li.list-group-item{class: cruise_highlight(cruise)}
           = link_to cruise.ship, cruise_path(cruise)
           %span.badge
-            = cruise.observations.count
+            = cruise.observations.accessible_by(current_ability).count
           %small= cruise_dates(cruise, '%b %d')
     %ul.list-group
       %li.list-group-item.active
