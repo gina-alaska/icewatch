@@ -44,7 +44,7 @@ deploy_revision node['icewatch']['home'] do
   revision app['revision']
   user 'webdev'
   group 'webdev'
-  migrate true
+  migrate false
   migration_command 'bundle exec rake db:migrate'
   environment 'RAILS_ENV' => 'production'
   action node['icewatch']['deploy_action'] || 'deploy'
