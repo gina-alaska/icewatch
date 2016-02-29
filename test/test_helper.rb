@@ -2,6 +2,17 @@ ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
+require 'capybara/poltergeist'
+
+Capybara.register_driver :poltergeist_debug do |app|
+  Capybara::Poltergeist::Driver.new(app, :inspector => true)
+end
+
+
+Capybara.default_driver = :poltergeist_debug
+Capybara.javascript_driver = :poltergeist_debug
+Capybara.default_max_wait_time = 5
+
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
@@ -29,6 +40,8 @@ class ActionDispatch::IntegrationTest
 
   def logout
     visit('/')
+
+    click_on('Welcome', exact: false)
     click_link('Logout')
   end
 end

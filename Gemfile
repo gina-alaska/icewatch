@@ -67,6 +67,7 @@ group :development, :test do
   gem 'guard-rubocop'
   gem 'shoulda'
   gem 'capybara'
+  gem 'poltergeist'
   gem 'forgery'
 end
 
