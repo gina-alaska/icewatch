@@ -1,6 +1,6 @@
 = f.fields_for :ice_observations, ice_observation do |io|
   .col-md-4.col-sm-4
-    %h4= io.object.obs_type.capitalize
+    %h4= "#{io.object.obs_type.capitalize} Ice"
     = io.collection_select :algae_lookup_id, sort_by_code(AlgaeLookup.all), :id, :code_with_name,
       {label: 'Algae Concentration', include_blank: 'No Observation'}
     = io.collection_select :algae_density_lookup_id, sort_by_code(AlgaeDensityLookup.all), :id, :code_with_name,

@@ -1,6 +1,6 @@
 = f.fields_for :ice_observations, ice_observation do |io|
   .col-md-4.col-sm-4
-    %h4= io.object.obs_type.capitalize
+    %h4= "#{io.object.obs_type.capitalize} Ice"
     = io.fields_for :melt_pond do |m|
       = m.select :surface_coverage, concentration_options, {label: 'Pond Concentration', include_blank: 'No Observation'}, help: 'Area of ice covered in tenths'
       = m.collection_select :pattern_lookup_id, sort_by_code(PatternLookup.all), :id, :code_with_name,

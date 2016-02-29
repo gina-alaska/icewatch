@@ -1,5 +1,3 @@
-include_recipe "yum-gina"
-
 node.default['rubies']['list']                 = ['ruby-2.2.2']
 node.default['rubies']['bundler']['install']   = false
 node.default['chruby_install']['default_ruby'] = 'ruby-2.2.2'

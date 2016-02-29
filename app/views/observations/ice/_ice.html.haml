@@ -1,6 +1,6 @@
 .col-md-4.col-sm-4{id: dom_id(ice_observation)}
   = f.fields_for :ice_observations, ice_observation do |io|
-    %h4= io.object.obs_type.capitalize
+    %h4= "#{io.object.obs_type.capitalize} Ice"
     - tc = f.object.ice.total_concentration
     = io.select :partial_concentration, concentration_options(tc),
       { help: "Total Concentration: #{tc}/10", label: 'Partial Concentration (tenths)', include_blank: 'No Observation'},
