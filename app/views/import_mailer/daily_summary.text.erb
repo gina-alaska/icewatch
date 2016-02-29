@@ -1,5 +1,15 @@
+<%- if @cruises.any? %>
 The following cruises have observations pending approval:
 
 <%- @cruises.each do |cruise| %>
   <%= cruise_url(cruise, host: 'icewatch.gina.alaska.edu') %>
+<%- end %>
+<%- end %>
+
+<%- if @users.any? %>
+The following users registered with IceWatch:
+
+<%- @users.each do |user| %>
+  <%= user_url(user, host: 'icewatch.gina.alaska.edu') %>
+<%- end %>
 <%- end %>
