@@ -2,7 +2,7 @@ class SendDailySummaryJob < ActiveJob::Base
   queue_as :default
 
   def perform(*args)
-    users = User.where(role: ['manager','admin']).pluck(:email)
+    users = User.where(role: %w{manager admin}).pluck(:email)
 
     cruise_ids = Observation.saved.pluck(:cruise_id).uniq
     new_users = User.where('created_at > ?', 24.hours.ago.beginning_of_day)
