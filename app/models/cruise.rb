@@ -2,6 +2,7 @@ class Cruise < ActiveRecord::Base
   include PrimaryObserver
 
   has_many :observations
+  has_many :uploaded_photosets
   has_and_belongs_to_many :users
   belongs_to :primary_observer, class_name: Person
 
