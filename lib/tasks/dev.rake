@@ -33,6 +33,7 @@ namespace :dev do
     o.longitude = Forgery('geo').longitude
     generate_ice(o.ice)
     generate_meteorology(o.meteorology)
+    o.photos = rand(0..10).times.map{generate_photo}
     o.save(validate: false)
   end
 
@@ -46,6 +47,12 @@ namespace :dev do
   def generate_meteorology met
     met.weather_lookup = sample(WeatherLookup).first
     met.visibility_lookup = sample(VisibilityLookup).first
+  end
+
+  def generate_photo
+    Photo.new(name: Forgery('name').company_name,
+              on_boat_location_lookup_id: sample(OnBoatLocationLookup).first,
+              note: Forgery('lorem_ipsum').sentence)
   end
 
   def sample( model, count = 1 )
