@@ -56,7 +56,7 @@ class Observation < ActiveRecord::Base
   has_many :faunas, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :notes, dependent: :destroy
-  has_many :photos, dependent: :destroy
+  has_many :photos, as: :photoable, dependent: :destroy
 
   accepts_nested_attributes_for :ice, :ice_observations, :meteorology,
                                 :comments, :notes, :ship,

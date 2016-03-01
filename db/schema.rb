@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301191629) do
+ActiveRecord::Schema.define(version: 20160301230755) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -182,14 +182,17 @@ ActiveRecord::Schema.define(version: 20160301191629) do
   end
 
   create_table "photos", force: :cascade do |t|
-    t.integer  "observation_id"
     t.integer  "on_boat_location_lookup_id"
     t.string   "name"
     t.string   "checksum"
     t.string   "note"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "photoable_id"
+    t.string   "photoable_type"
   end
+
+  add_index "photos", ["photoable_type", "photoable_id"], name: "index_photos_on_photoable_type_and_photoable_id", using: :btree
 
   create_table "ships", force: :cascade do |t|
     t.integer  "heading"

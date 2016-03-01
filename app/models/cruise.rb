@@ -3,12 +3,11 @@ class Cruise < ActiveRecord::Base
 
   has_many :observations
   has_many :uploaded_photosets
+  has_many :photos, as: :photoable, dependent: :destroy
   has_and_belongs_to_many :users
   belongs_to :primary_observer, class_name: Person
 
   validates_presence_of :ship, :starts_at, :ends_at, :objective
-
-  # validates_presense_of :captain, :archived, :approved
   validates_length_of :objective, maximum: 300
 
   scope :start_dates, -> { order(starts_at: :desc).pluck(:starts_at) }
