@@ -6,6 +6,7 @@ class UploadedPhotosetsController < ApplicationController
 
     respond_to do |format|
       if @uploaded_photoset.save
+        ImportPhotoset.perform_later(@uploaded_photoset)
         format.html { redirect_to @cruise, notice: 'Uploaded photoset was successfully created.' }
         format.json { render :show, status: :created, location: @uploaded_photoset }
       else
