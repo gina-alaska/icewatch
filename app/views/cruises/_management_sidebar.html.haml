@@ -1,12 +1,12 @@
 %ul.list-group
   %li.list-group-item.active Manage
-  = render 'sidebar_approve'
+  = render 'cruises/sidebar_approve'
   - if @cruise.locked?
-    = render 'sidebar_lock'
+    = render 'cruises/sidebar_lock'
   - else
-    = render 'sidebar_upload'
-    = render 'sidebar_lock'
-    = render 'sidebar_destroy'
+    = render 'cruises/sidebar_upload'
+    = render 'cruises/sidebar_lock'
+    = render 'cruises/sidebar_destroy'
 
 %ul.list-group
   %li.list-group-item.active.danger Delete Observations

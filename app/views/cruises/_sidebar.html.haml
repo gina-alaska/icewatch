@@ -1,0 +1,37 @@
+%ul.list-group#cruise-data
+  %li.list-group-item.active
+    %strong Download Observation Data
+  %li.list-group-item
+    = link_to "CSV", cruise_observations_path(@cruise, :csv)
+  %li.list-group-item
+    = link_to "JSON", cruise_observations_path(@cruise, :json)
+  %li.list-group-item
+    = link_to "GeoJSON", cruise_observations_path(@cruise, :geojson)
+  %li.list-group-item
+    = link_to "Sigrid3(Beta)", '#', id: 'sigrid-data-submit'
+    = form_tag ogre_url, id: 'sigrid-form' do
+      = hidden_field_tag :jsonUrl, cruise_observations_url(@cruise, :sigrid3)
+      = hidden_field_tag :outputName, "#{@cruise.to_s}.zip"
+
+%ul.list-group#cruise-metadata
+  %li.list-group-item.active
+    %strong Download Cruise Metadata
+  %li.list-group-item
+    = link_to "CSV", cruise_path(@cruise, :csv)
+  %li.list-group-item
+    = link_to "JSON", cruise_path(@cruise, :json)
+
+%ul.list-group#cruise-about
+  %li.list-group-item.active
+    %strong About
+  = list_group_item_for(@cruise.captain, 'Captain: ')
+  = list_group_item_for(@cruise.chief_scientist, 'Chief Scientist: ')
+  = list_group_item_for(@cruise.primary_observer.try(:name), "Primary Observer: ")
+  = list_group_item_for(@cruise.objective, "Objective: ")
+  = list_group_item_for(@cruise.starts_at, "Cruise Start: ")
+  = list_group_item_for(@cruise.ends_at, "Cruise Finish: ")
+
+.panel.panel-default
+  #map.map
+    = render partial: 'cruises/layer', locals: { layer: @cruise }
+  = render 'cruises/legend'

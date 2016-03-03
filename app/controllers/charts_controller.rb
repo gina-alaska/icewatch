@@ -1,8 +1,10 @@
 class ChartsController < ApplicationController
   before_action :set_cruise
 
-  def ice_concentration
+  def index
+  end
 
+  def ice_concentration
   end
 
   def ice_type

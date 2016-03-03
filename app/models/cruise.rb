@@ -4,6 +4,7 @@ class Cruise < ActiveRecord::Base
   has_many :observations
   has_many :uploaded_photosets
   has_many :photos, as: :photoable, dependent: :destroy
+  has_many :observation_photos, through: :observations, source: :photos
   has_and_belongs_to_many :users
   belongs_to :primary_observer, class_name: Person
 

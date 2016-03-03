@@ -1,0 +1,11 @@
+.page-header
+  %h1
+    = @cruise.ship
+    %small
+      = "#{ymd(@cruise.starts_at)} to #{ymd(@cruise.ends_at)}"
+
+  %ul.nav.nav-tabs.nav-justified
+    = active_link_to 'Observations', cruise_path(@cruise), wrap_tag: 'li', active: :exclusive
+    = active_link_to 'Photos', cruise_photos_path(@cruise), wrap_tag: 'li'
+    = active_link_to 'Graphs', cruise_charts_path(@cruise), wrap_tag: 'li'
+

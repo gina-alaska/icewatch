@@ -3,6 +3,8 @@ class Observation < ActiveRecord::Base
   include PrimaryObserver
   include AASM
 
+  paginates_per 25
+
   aasm column: 'status' do
     state :saved, initial: true
     state :accepted

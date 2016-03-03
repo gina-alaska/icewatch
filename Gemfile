@@ -1,6 +1,4 @@
 source 'https://rubygems.org'
-
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '= 4.2.4'
 # Use SCSS for stylesheets
@@ -59,6 +57,7 @@ gem 'kaminari'
 gem 'dotenv-rails'
 gem 'refile', require: 'refile/rails'
 gem 'refile-mini_magick', platform: :ruby
+gem 'active_link_to'
 
 group :development, :test do
   gem 'better_errors', platform: :ruby
