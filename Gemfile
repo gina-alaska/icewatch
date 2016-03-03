@@ -57,7 +57,8 @@ gem 'tzinfo-data'#, platforms: [:mingw, :mswin, :jruby]
 gem 'high_voltage', '~> 2.2.1', platform: :ruby
 gem 'kaminari'
 gem 'dotenv-rails'
-gem 'refile', require: 'refile/rails', platform: :ruby
+gem 'refile', require: 'refile/rails'
+gem 'refile-mini_magick', platform: :ruby
 
 group :development, :test do
   gem 'better_errors', platform: :ruby
@@ -79,5 +80,6 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-font-awesome'
   gem 'rails-assets-jasny-bootstrap'
   gem 'rails-assets-selectize'
+  gem 'rails-assets-jquery-masonry'
 end
 

@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     end
     post :approve, on: :member
     post :approve_observations, on: :member
-    resources :uploaded_photosets, only: :create
+    resources :uploaded_photosets, only: [:create, :new]
   end
   resources :lookups, only: [:index, :show]
 

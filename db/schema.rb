@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301230755) do
+ActiveRecord::Schema.define(version: 20160302183036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -190,6 +190,10 @@ ActiveRecord::Schema.define(version: 20160301230755) do
     t.datetime "updated_at"
     t.integer  "photoable_id"
     t.string   "photoable_type"
+    t.string   "file_id"
+    t.string   "file_filename"
+    t.string   "file_content_type"
+    t.integer  "file_size"
   end
 
   add_index "photos", ["photoable_type", "photoable_id"], name: "index_photos_on_photoable_type_and_photoable_id", using: :btree
@@ -219,8 +223,11 @@ ActiveRecord::Schema.define(version: 20160301230755) do
   create_table "uploaded_photosets", force: :cascade do |t|
     t.string   "file_id"
     t.integer  "cruise_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "file_filename"
+    t.integer  "file_size"
+    t.string   "file_content_type"
   end
 
   create_table "users", force: :cascade do |t|

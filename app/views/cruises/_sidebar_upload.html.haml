@@ -6,5 +6,6 @@
   class: 'hidden'
 
 %li.list-group-item
-  %i.fa.fa-camera
-  Upload Photos
+  = link_to new_cruise_uploaded_photoset_path(@cruise) do
+    %i.fa.fa-camera
+    Upload Photos

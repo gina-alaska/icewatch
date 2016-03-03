@@ -54,4 +54,5 @@
       #cruise-graphs.tab-pane
         = render 'graphs'
       #cruise-photos.tab-pane
-        -# = render @cruise.photos
+        .grid{data: {masonry: '{ "itemSelector": ".grid-item", "columnWidth": 200 }' }}
+          = render @cruise.photos

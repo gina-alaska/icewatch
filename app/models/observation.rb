@@ -63,8 +63,8 @@ class Observation < ActiveRecord::Base
                                 :primary_observer, :additional_observers,
                                 :meteorology
   accepts_nested_attributes_for :faunas, allow_destroy: true, reject_if: ->(f) { f['name'].blank? }
-  accepts_nested_attributes_for :photos, allow_destroy: true, reject_if: ->(f) { f['tempfile'].blank? && f['name'].blank? }
-
+  accepts_nested_attributes_for :photos, allow_destroy: true, reject_if: ->(f) { f['file'].blank? }
+  accepts_attachments_for :photos, append: true
 
   validates_uniqueness_of :observed_at, scope: [:cruise_id, :latitude, :longitude], message: 'This observation already exists'
   validates_presence_of :primary_observer, :observed_at, :latitude, :longitude

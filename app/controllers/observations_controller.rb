@@ -177,7 +177,7 @@ private
                                                              clouds_attributes: [:id, :cloud_lookup_id, :cover, :height, :cloud_type]
                                                             ],
                                     faunas_attributes: [:id, :name, :count, :_destroy],
-                                    photos_attributes: [:id, :name, :tempfile, :on_boat_location_lookup_id, :_destroy]
+                                    photos_attributes: [:id, :file, :on_boat_location_lookup_id, :_destroy]
     )
   end
 
