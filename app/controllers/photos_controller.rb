@@ -11,6 +11,7 @@ class PhotosController < ApplicationController
   end
 
   def index
+    @photos = @cruise.photos
   end
 
   private
