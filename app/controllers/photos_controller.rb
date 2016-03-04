@@ -11,7 +11,7 @@ class PhotosController < ApplicationController
   end
 
   def index
-    @photos = @cruise.photos
+    @photos = @cruise.photos.page(params[:page]).per(25)
   end
 
   def download
