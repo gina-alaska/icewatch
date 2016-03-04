@@ -79,6 +79,5 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-font-awesome'
   gem 'rails-assets-jasny-bootstrap'
   gem 'rails-assets-selectize'
-  gem 'rails-assets-jquery-masonry'
 end
 

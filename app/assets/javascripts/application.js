@@ -25,5 +25,4 @@
 //= require eonasdan-bootstrap-datetimepicker
 //= require highcharts/highcharts
 //= require chartkick
-//= require jquery-masonry/dist/masonry.pkgd.js
 //= require_tree .
