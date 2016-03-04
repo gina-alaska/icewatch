@@ -58,6 +58,7 @@ gem 'dotenv-rails'
 gem 'refile', require: 'refile/rails'
 gem 'refile-mini_magick', platform: :ruby
 gem 'active_link_to'
+gem 'font-awesome-rails'
 
 group :development, :test do
   gem 'better_errors', platform: :ruby
@@ -76,7 +77,6 @@ end
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'
   gem 'rails-assets-eonasdan-bootstrap-datetimepicker'
-  gem 'rails-assets-font-awesome'
   gem 'rails-assets-jasny-bootstrap'
   gem 'rails-assets-selectize'
 end
