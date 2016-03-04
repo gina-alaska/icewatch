@@ -1,5 +1,5 @@
 class PhotosController < ApplicationController
-  before_action :set_cruise, only: [:index]
+  before_action :set_cruise
 
   def show
     path = params[:filename]
@@ -12,6 +12,10 @@ class PhotosController < ApplicationController
 
   def index
     @photos = @cruise.photos
+  end
+
+  def download
+
   end
 
   private

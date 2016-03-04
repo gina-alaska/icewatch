@@ -19,7 +19,9 @@ Rails.application.routes.draw do
     post :approve, on: :member
     post :approve_observations, on: :member
     resources :uploaded_photosets, only: [:create, :new]
-    resources :photos, only: [:index]
+    resources :photos, only: [:index] do
+      get :download
+    end
   end
   resources :lookups, only: [:index, :show]
 

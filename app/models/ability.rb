@@ -20,6 +20,7 @@ class Ability
     if user.has_role? :manager
       can [:manage, :approve, :approve_observations], Cruise
       can [:manage, :approve, :edit], Observation
+      can :create, UploadedPhotoset
       can :read, User
       # Managers can approve Cruises
       # Managers can approve Observations
@@ -38,6 +39,7 @@ class Ability
       can :read, Cruise, id: user_cruises(user)
       can :read, Observation, status: 'accepted'
       can :read, User, id: user.id
+      can :create, UploadedPhotoset, cruise_id: user_cruises(user)
       # Members can create cruises
       # Members can upload observations
       # Members can perform guest actions
