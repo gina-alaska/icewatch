@@ -1,4 +1,5 @@
 class UploadedPhotosetsController < ApplicationController
+  authorize_resource
   # POST /uploaded_photosets
   before_action :set_cruise, only: [:create, :new]
   def new

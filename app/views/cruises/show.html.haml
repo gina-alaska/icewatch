@@ -4,6 +4,29 @@
   .col-xs-4
     - if can?(:manage, @cruise) or can?(:import, @cruise)
       = render 'cruises/management_sidebar'
+    %ul.list-group#cruise-data
+      %li.list-group-item.active
+        %strong Download Observation Data
+      %li.list-group-item
+        = link_to "CSV", cruise_observations_path(@cruise, :csv)
+      %li.list-group-item
+        = link_to "JSON", cruise_observations_path(@cruise, :json)
+      %li.list-group-item
+        = link_to "GeoJSON", cruise_observations_path(@cruise, :geojson)
+      %li.list-group-item
+        = link_to "Sigrid3(Beta)", '#', id: 'sigrid-data-submit'
+        = form_tag ogre_url, id: 'sigrid-form' do
+          = hidden_field_tag :jsonUrl, cruise_observations_url(@cruise, :sigrid3)
+          = hidden_field_tag :outputName, "#{@cruise.to_s}.zip"
+
+    %ul.list-group#cruise-metadata
+      %li.list-group-item.active
+        %strong Download Cruise Metadata
+      %li.list-group-item
+        = link_to "CSV", cruise_path(@cruise, :csv)
+      %li.list-group-item
+        = link_to "JSON", cruise_path(@cruise, :json)
+
     = render 'sidebar'
   .col-xs-8
     = render 'cruise_observations', cruise: @cruise

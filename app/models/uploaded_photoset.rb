@@ -1,10 +1,8 @@
 class UploadedPhotoset < ActiveRecord::Base
-  authorize_resource
-
   belongs_to :cruise
 
   attachment :file
-  
+
   def copy_to_photo
     case file_content_type
     when 'application/zip'
