@@ -52,7 +52,8 @@ namespace :dev do
   def generate_photo
     Photo.new(name: Forgery('name').company_name,
               on_boat_location_lookup_id: sample(OnBoatLocationLookup).first,
-              note: Forgery('lorem_ipsum').sentence)
+              note: Forgery('lorem_ipsum').sentence,
+              file: File.open('test/fixtures/images/vegas.jpg'))
   end
 
   def sample( model, count = 1 )
