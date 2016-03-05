@@ -42,7 +42,7 @@ module Sigrid3Helper
 
   def self.form_of_water(open_water_code)
     case open_water_code
-    when 1,2
+    when 1, 2
       1
     when 6
       3
@@ -55,7 +55,7 @@ module Sigrid3Helper
 
   def self.snow_type(snow_code)
     case snow_code
-    when 2,3,4,7,11
+    when 2, 3, 4, 7, 11
       0
     else
       nil
@@ -64,7 +64,7 @@ module Sigrid3Helper
 
   def self.topographic_nature(topo_code)
     case topo_code
-    when 200,400
+    when 200, 400
       1
     when 500
       3
@@ -91,14 +91,14 @@ module Sigrid3Helper
 
   def self.stage_of_development(ice_type_code, thickness)
     case ice_type_code
-    when 10,11
+    when 10, 11
       '81'
     when 20
       '82'
     when 30
-      if thickness != nil and thickness >= 10 and thickness <= 30
+      if !thickness.nil? and thickness >= 10 and thickness <= 30
         '84'
-      elsif thickness != nil and thickness > 30 and thickness <= 70
+      elsif !thickness.nil? and thickness > 30 and thickness <= 70
         '87'
       else
         '80'
@@ -120,7 +120,7 @@ module Sigrid3Helper
     when 90
       '70'
     when 95
-      #TODO: I need a code here
+      # TODO: I need a code here
       '80'
     else
       '80'
@@ -160,15 +160,15 @@ module Sigrid3Helper
 
   def self.partial_without_surface_coverage(observation)
     partial_concentrations = observation.ice_observations.select(&:partial_concentration)
-    partial_concentrations.reject!{|i| i.melt_pond.surface_coverage }
+    partial_concentrations.reject! { |i| i.melt_pond.surface_coverage }
     partial_concentrations.any?
   end
 
   def self.has_brash_ice_with_thickness(ice_observations)
-    #Group ice observations by ice_lookup_code and thickness
-    brash_obs = Array(ice_observations).collect{|i| [i.ice_lookup.try(:code), i.thickness]}
-    #Select any that have both code of 90 and thickness is not nil
-    brash_obs.select{|b| b.first == 90 and !b.last.nil? }.any?
+    # Group ice observations by ice_lookup_code and thickness
+    brash_obs = Array(ice_observations).collect { |i| [i.ice_lookup.try(:code), i.thickness] }
+    # Select any that have both code of 90 and thickness is not nil
+    brash_obs.select { |b| b.first == 90 and !b.last.nil? }.any?
   end
 
   def self.brash_observation(observation)
@@ -176,7 +176,7 @@ module Sigrid3Helper
       ice_obs = observation.send(type.to_sym)
       return ice_obs if has_brash_ice_with_thickness(ice_obs)
     end
-    
+
     nil
   end
 end

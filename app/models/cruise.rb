@@ -76,7 +76,7 @@ class Cruise < ActiveRecord::Base
     archived
   end
 
-  def batch_approve_observations filter_invalid = true
+  def batch_approve_observations(filter_invalid = true)
     observations.each do |observation|
       next if filter_invalid && !observation.may_accept?
 

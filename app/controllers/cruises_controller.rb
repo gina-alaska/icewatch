@@ -10,7 +10,7 @@ class CruisesController < ApplicationController
   # GET /cruises.json
   def index
     @cruises = Cruise.accessible_by(current_ability).for_year(@current_year).order(starts_at: :desc)
-    @available_years = Cruise.accessible_by(current_ability).start_dates.group_by{|s| s.year }
+    @available_years = Cruise.accessible_by(current_ability).start_dates.group_by(&:year)
     if Rails.application.secrets.icewatch_assist && @cruises.empty?
       redirect_to new_cruise_path
     end

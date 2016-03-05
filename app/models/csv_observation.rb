@@ -19,7 +19,7 @@ class CsvObservation
     super
   end
 
-  def method_missing *args
+  def method_missing(*args)
     super unless args.first =~ /=$/
     field = args.first.to_s.chomp('=').upcase
 

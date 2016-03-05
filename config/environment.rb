@@ -1,10 +1,10 @@
 # Load the Rails application.
 require File.expand_path('../application', __FILE__)
 
-if RUBY_PLATFORM == 'java'
-  EXPORT_PATH = java.lang.System.getProperty('export') || 'public'
+EXPORT_PATH = if RUBY_PLATFORM == 'java'
+  (java.lang.System.getProperty('export') || 'public').freeze
 else
-  EXPORT_PATH = 'public'
+  'public'.freeze
 end
 
 # Initialize the Rails application.

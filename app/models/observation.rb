@@ -242,15 +242,15 @@ class Observation < ActiveRecord::Base
 
   def merge_association_errors
     %w(ship ice primary_ice_observation secondary_ice_observation tertiary_ice_observation meteorology).each do |assoc|
-      if self.send(assoc.to_sym).errors.any?
-        self.send(assoc.to_sym).errors.full_messages.each do |msg|
+      if send(assoc.to_sym).errors.any?
+        send(assoc.to_sym).errors.full_messages.each do |msg|
           errors[:base] << "#{assoc.humanize} error: #{msg}"
         end
       end
     end
     faunas.each do |fauna|
       next if fauna.new_record? # Don't validate unsaved entries.
-      #Not sure why fauana validations aren't being run so force it
+      # Not sure why fauana validations aren't being run so force it
       fauna.valid?
       if fauna.errors.any?
         fauna.errors.full_messages.each do |msg|

@@ -26,25 +26,25 @@ namespace :dev do
   def generate_observation_for(cruise)
     o = cruise.build_observation
 
-    o.observed_at = cruise.starts_at + (rand(0..(20 * 24 * 60))).minutes
+    o.observed_at = cruise.starts_at + rand(0..(20 * 24 * 60)).minutes
     o.primary_observer = sample(Person).first
     # o.additional_observers = sample(Person, rand(0..5))
     o.latitude = Forgery('geo').latitude
     o.longitude = Forgery('geo').longitude
     generate_ice(o.ice)
     generate_meteorology(o.meteorology)
-    o.photos = rand(0..10).times.map{generate_photo}
+    o.photos = rand(0..10).times.map { generate_photo }
     o.save(validate: false)
   end
 
-  def generate_ice ice
+  def generate_ice(ice)
     ice.total_concentration = rand(0..10)
     ice.open_water_lookup = sample(OpenWaterLookup).first
     ice.thick_ice_lookup = sample(IceLookup).first
     ice.thin_ice_lookup = sample(IceLookup).first
   end
 
-  def generate_meteorology met
+  def generate_meteorology(met)
     met.weather_lookup = sample(WeatherLookup).first
     met.visibility_lookup = sample(VisibilityLookup).first
   end
@@ -56,7 +56,7 @@ namespace :dev do
               file: File.open('test/fixtures/images/vegas.jpg'))
   end
 
-  def sample( model, count = 1 )
-    result = model.limit(count).order("RANDOM()")
+  def sample(model, count = 1)
+    model.limit(count).order("RANDOM()")
   end
 end
