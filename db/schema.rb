@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150615230312) do
+ActiveRecord::Schema.define(version: 20160304000151) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -189,7 +189,14 @@ ActiveRecord::Schema.define(version: 20150615230312) do
     t.string   "note"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "file_id"
+    t.string   "file_filename"
+    t.string   "file_content_type"
+    t.integer  "file_size"
+    t.integer  "cruise_id"
   end
+
+  add_index "photos", ["cruise_id"], name: "index_photos_on_cruise_id", using: :btree
 
   create_table "ships", force: :cascade do |t|
     t.integer  "heading"
@@ -213,6 +220,16 @@ ActiveRecord::Schema.define(version: 20150615230312) do
     t.boolean  "consolidated"
   end
 
+  create_table "uploaded_photosets", force: :cascade do |t|
+    t.string   "file_id"
+    t.integer  "cruise_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.string   "file_filename"
+    t.integer  "file_size"
+    t.string   "file_content_type"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -222,4 +239,5 @@ ActiveRecord::Schema.define(version: 20150615230312) do
     t.string   "role",       default: "guest"
   end
 
+  add_foreign_key "photos", "cruises"
 end

@@ -12,12 +12,16 @@ Rails.application.routes.draw do
       end
       resources :comments, except: [:index, :show], shallow: false
     end
-    resource :charts, only: [] do
-      get :total_concentration
-      get :ice_type
+    resources :charts, only: [:index] do
+      get :total_concentration, on: :collection
+      get :ice_type, on: :collection
     end
     post :approve, on: :member
     post :approve_observations, on: :member
+    resources :uploaded_photosets, only: [:create, :new]
+    resources :photos, only: [:index] do
+      get :download
+    end
   end
   resources :lookups, only: [:index, :show]
 

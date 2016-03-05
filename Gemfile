@@ -1,6 +1,4 @@
 source 'https://rubygems.org'
-
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '= 4.2.4'
 # Use SCSS for stylesheets
@@ -57,6 +55,10 @@ gem 'tzinfo-data'#, platforms: [:mingw, :mswin, :jruby]
 gem 'high_voltage', '~> 2.2.1', platform: :ruby
 gem 'kaminari'
 gem 'dotenv-rails'
+gem 'refile', require: 'refile/rails'
+gem 'refile-mini_magick', platform: :ruby
+gem 'active_link_to'
+gem 'font-awesome-rails'
 
 group :development, :test do
   gem 'better_errors', platform: :ruby
@@ -75,7 +77,6 @@ end
 source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'
   gem 'rails-assets-eonasdan-bootstrap-datetimepicker'
-  gem 'rails-assets-font-awesome'
   gem 'rails-assets-jasny-bootstrap'
   gem 'rails-assets-selectize'
 end

@@ -3,6 +3,8 @@ class Observation < ActiveRecord::Base
   include PrimaryObserver
   include AASM
 
+  paginates_per 25
+
   aasm column: 'status' do
     state :saved, initial: true
     state :accepted
@@ -63,8 +65,8 @@ class Observation < ActiveRecord::Base
                                 :primary_observer, :additional_observers,
                                 :meteorology
   accepts_nested_attributes_for :faunas, allow_destroy: true, reject_if: ->(f) { f['name'].blank? }
-  accepts_nested_attributes_for :photos, allow_destroy: true, reject_if: ->(f) { f['tempfile'].blank? && f['name'].blank? }
-
+  accepts_nested_attributes_for :photos, allow_destroy: true, reject_if: ->(f) { f['file'].blank? }
+  accepts_attachments_for :photos, append: true
 
   validates_uniqueness_of :observed_at, scope: [:cruise_id, :latitude, :longitude], message: 'This observation already exists'
   validates_presence_of :primary_observer, :observed_at, :latitude, :longitude
@@ -240,15 +242,15 @@ class Observation < ActiveRecord::Base
 
   def merge_association_errors
     %w(ship ice primary_ice_observation secondary_ice_observation tertiary_ice_observation meteorology).each do |assoc|
-      if self.send(assoc.to_sym).errors.any?
-        self.send(assoc.to_sym).errors.full_messages.each do |msg|
+      if send(assoc.to_sym).errors.any?
+        send(assoc.to_sym).errors.full_messages.each do |msg|
           errors[:base] << "#{assoc.humanize} error: #{msg}"
         end
       end
     end
     faunas.each do |fauna|
       next if fauna.new_record? # Don't validate unsaved entries.
-      #Not sure why fauana validations aren't being run so force it
+      # Not sure why fauana validations aren't being run so force it
       fauna.valid?
       if fauna.errors.any?
         fauna.errors.full_messages.each do |msg|

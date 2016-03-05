@@ -1,0 +1,10 @@
+= bootstrap_form_for [@cruise,@uploaded_photoset] do |f|
+  .fileinput.fileinput-new.input-group{data: {provides: 'fileinput'}}
+    .form-control{data: {trigger: 'fileinput'}}
+      %i.fa.fa-file.file-exists
+      %span.fileinput-filename
+    %span.input-group-addon.btn.btn-default.btn-file
+      %span.fileinput-new Select file
+      %span.fileinput-exists Change
+      = f.attachment_field :file
+  = f.submit "Upload Photos"

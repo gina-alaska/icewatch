@@ -1,11 +1,9 @@
-%h1
-  = @cruise.ship
-  %small
-    = "#{ymd(@cruise.starts_at)} to #{ymd(@cruise.ends_at)}"
+= render 'cruises/header'
+
 .row
   .col-xs-4
     - if can?(:manage, @cruise) or can?(:import, @cruise)
-      = render 'management_sidebar'
+      = render 'cruises/management_sidebar'
     %ul.list-group#cruise-data
       %li.list-group-item.active
         %strong Download Observation Data
@@ -25,33 +23,10 @@
       %li.list-group-item.active
         %strong Download Cruise Metadata
       %li.list-group-item
-        =link_to "CSV", cruise_path(@cruise, :csv)
+        = link_to "CSV", cruise_path(@cruise, :csv)
       %li.list-group-item
         = link_to "JSON", cruise_path(@cruise, :json)
 
-    %ul.list-group#cruise-about
-      %li.list-group-item.active
-        %strong About
-      = list_group_item_for(@cruise.captain, 'Captain: ')
-      = list_group_item_for(@cruise.chief_scientist, 'Chief Scientist: ')
-      = list_group_item_for(@cruise.primary_observer.try(:name), "Primary Observer: ")
-      = list_group_item_for(@cruise.objective, "Objective: ")
-      = list_group_item_for(@cruise.starts_at, "Cruise Start: ")
-      = list_group_item_for(@cruise.ends_at, "Cruise Finish: ")
-
-    .panel.panel-default
-      #map.map
-        = render partial: 'layer', locals: { layer: @cruise }
-      = render 'legend'
+    = render 'sidebar'
   .col-xs-8
-    %ul.nav.nav-tabs
-      %li.active= link_to "Observations", "#cruise-obs", data: { toggle: :tab }
-      %li= link_to "Graphs", "#cruise-graphs", data: { toggle: :tab }
-      %li= link_to "Photos", "#cruise-photos", data: { toggle: :tab }
-    #observation-views.tab-content
-      #cruise-obs.tab-pane.active
-        = render 'cruise_observations', cruise: @cruise
-      #cruise-graphs.tab-pane
-        = render 'graphs'
-      #cruise-photos.tab-pane
-        -# = render @cruise.photos
+    = render 'cruise_observations', cruise: @cruise

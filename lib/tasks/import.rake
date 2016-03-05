@@ -57,7 +57,7 @@ namespace :import do
         CSV.parse(csv_observations, headers: true).each do |row|
           begin
             csv_observation = CsvObservation.new(row.to_hash)
-          rescue Exception => ex
+          rescue Exception
             puts "Failed to create: "
             puts row
             puts row.inspect

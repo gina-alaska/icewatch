@@ -36,19 +36,19 @@ json.properties do |prop|
 
   prop.SA  Sigrid3Helper.stage_of_development(
             observation.primary.ice_lookup.try(:code),
-            observation.primary.thickness )
+            observation.primary.thickness)
   prop.SB  Sigrid3Helper.stage_of_development(
             observation.secondary.ice_lookup.try(:code),
-            observation.secondary.thickness )
+            observation.secondary.thickness)
   prop.SC  Sigrid3Helper.stage_of_development(
             observation.tertiary.ice_lookup.try(:code),
-            observation.tertiary.thickness )
+            observation.tertiary.thickness)
   prop.CN  Sigrid3Helper.stage_of_development(
             observation.ice.thin_ice_lookup.try(:code),
-            0 )
+            0)
   prop.CD  Sigrid3Helper.stage_of_development(
             observation.ice.thick_ice_lookup.try(:code),
-            0  )
+            0)
   prop.FA  Sigrid3Helper.form_of_ice(observation.primary.floe_size_lookup.try(:code))
   prop.FB  Sigrid3Helper.form_of_ice(observation.secondary.floe_size_lookup.try(:code))
   prop.FC  Sigrid3Helper.form_of_ice(observation.tertiary.floe_size_lookup.try(:code))

@@ -1,0 +1,14 @@
+%ul.list-group#cruise-about
+  %li.list-group-item.active
+    %strong About
+  = list_group_item_for(@cruise.captain, 'Captain: ')
+  = list_group_item_for(@cruise.chief_scientist, 'Chief Scientist: ')
+  = list_group_item_for(@cruise.primary_observer.try(:name), "Primary Observer: ")
+  = list_group_item_for(@cruise.objective, "Objective: ")
+  = list_group_item_for(@cruise.starts_at, "Cruise Start: ")
+  = list_group_item_for(@cruise.ends_at, "Cruise Finish: ")
+
+.panel.panel-default
+  #map.map
+    = render partial: 'cruises/layer', locals: { layer: @cruise }
+  = render 'cruises/legend'

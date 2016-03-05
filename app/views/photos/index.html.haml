@@ -1,0 +1,9 @@
+= render 'cruises/header'
+.row
+  .col-xs-4
+    = render 'cruises/sidebar'
+  .col-xs-8
+    .clearfix.text-center
+      = render @photos
+    .text-center= paginate @photos
+

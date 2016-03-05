@@ -117,7 +117,7 @@ class ObservationsController < ApplicationController
 
     @cruise.observations.saved.destroy_all
     respond_to do |format|
-      format.html { redirect_to cruise_url(@cruise), notice: 'All unapproved observations were successfully destroyed.'}
+      format.html { redirect_to cruise_url(@cruise), notice: 'All unapproved observations were successfully destroyed.' }
     end
   end
 
@@ -127,7 +127,7 @@ class ObservationsController < ApplicationController
     Observation.where(id: @observations).destroy_all
 
     respond_to do |format|
-      format.html { redirect_to cruise_url(@cruise), notice: 'All unapproved observations were successfully destroyed.'}
+      format.html { redirect_to cruise_url(@cruise), notice: 'All unapproved observations were successfully destroyed.' }
     end
   end
 
@@ -147,7 +147,7 @@ private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_observation
-    @observation = Observation.where(id: params[:id]).includes(:ice_observations).first#find(params[:id])
+    @observation = Observation.where(id: params[:id]).includes(:ice_observations).first
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
@@ -177,7 +177,7 @@ private
                                                              clouds_attributes: [:id, :cloud_lookup_id, :cover, :height, :cloud_type]
                                                             ],
                                     faunas_attributes: [:id, :name, :count, :_destroy],
-                                    photos_attributes: [:id, :name, :tempfile, :on_boat_location_lookup_id, :_destroy]
+                                    photos_attributes: [:id, :file, :on_boat_location_lookup_id, :_destroy]
     )
   end
 

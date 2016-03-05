@@ -1,4 +1,4 @@
-= paginate @observations
+
 %table#observation-table.table
   %thead
     %tr
@@ -10,3 +10,5 @@
       %th
   %tbody
     = render partial: 'observation', collection: @observations
+
+.text-center= paginate @observations
