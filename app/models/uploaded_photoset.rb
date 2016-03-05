@@ -30,6 +30,7 @@ class UploadedPhotoset < ActiveRecord::Base
         zip_file.each do |entry|
           next unless image_file_extension?(entry.name)
           entry.extract(entry.name)
+
           photo = cruise.photos.build
           File.open(entry.name) do |f|
             photo.file = f
