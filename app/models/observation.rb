@@ -1,6 +1,7 @@
 class Observation < ActiveRecord::Base
   include IceTypes
   include PrimaryObserver
+  include Location
   include AASM
 
   paginates_per 25
@@ -74,7 +75,6 @@ class Observation < ActiveRecord::Base
   validates_associated :ice, :primary_ice_observation, :secondary_ice_observation,
                        :tertiary_ice_observation, :ship, :meteorology
 
-  validate :location
   validate :partial_concentrations_equal_total_concentration
   validate :ice_thickness_are_decreasing_order
   # validate :ice_lookup_code_presence
@@ -187,11 +187,6 @@ class Observation < ActiveRecord::Base
   end
 
   private
-
-  def location
-    errors.add(:latitude, 'Latitude must be between -90 and 90') unless latitude.to_f <= 90 && latitude.to_f >= -90
-    errors.add(:longitude, 'Longitude must be between -180 and 180') unless longitude.to_f <= 180 && longitude.to_f >= -180
-  end
 
   def partial_concentrations_equal_total_concentration
     unless partial_and_total_concentrations_equal?
