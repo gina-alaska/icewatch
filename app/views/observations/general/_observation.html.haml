@@ -1,19 +1,36 @@
 %table.table
   %tr
-    %td= f.collection_select :primary_observer_id_or_name, Person.all, :id, :name,
-      {label: 'Primary Observer', include_blank: true}, class: 'person-field', placeholder: 'Select person or type to add'
-    %td= f.collection_select :additional_observers_id_or_name, Person.all, :id,
-      :name, {label: 'Additional Observers', selected: @observation.additional_observers_id_or_name, help: 'Separate observers with ","'},
-      {multiple: true, class: 'person-field', placeholder: 'Select person or type to add'}
+    %td{colspan: 3}
+      = f.collection_select :primary_observer_id_or_name, Person.all, :id, :name,
+        {label: 'Primary Observer', include_blank: true}, class: 'person-field', placeholder: 'Select person or type to add'
+    %td{colspan: 3}
+      =f.collection_select :additional_observers_id_or_name, Person.all, :id,
+        :name, {label: 'Additional Observers', selected: @observation.additional_observers_id_or_name, help: 'Separate observers with ","'},
+        {multiple: true, class: 'person-field', placeholder: 'Select person or type to add'}
   %tr
-    %td{colspan: 2}
+    %td{colspan: 6}
       = f.datetime_field :observed_at, label: 'Observation Date and Time (current computer time)', help: 'YYYY-mm-dd HH:MM',
       class: 'datetimepicker', data: {"date-format" => 'YYYY-MM-DD HH:mm Z', "date-sideBySide" => true},
       value: f.object.observed_at.try(:strftime,"%Y-%m-%d %H:%M")
+  %tr.info
+    %th{colspan: 3} Latitude
+    %th{colspan: 3} Longitude
   %tr
     %td
-      = f.text_field :latitude, help: dms(f.object.latitude),
-        placeholder: "DD.DDDD or DD MM SS", class: 'coordinate'
+      = f.number_field :latitude, step: 0.0001, label: "(Decimal) Degrees"
     %td
-      = f.text_field :longitude, help: dms(f.object.longitude),
-        placeholder: "DD.DDDD or DD MM SS", class: 'coordinate'
+      = f.number_field :lat_minutes, step: 0.0001, label: "(Decimal) Minutes"
+    %td
+      = f.number_field :lat_seconds, step: 0.0001, label: "Seconds"
+    %td
+      = f.number_field :longitude, step: 0.0001, label: "(Decimal) Degrees"
+    %td
+      = f.number_field :lon_minutes, step: 0.0001, label: "(Decimal) Minutes"
+    %td
+      = f.number_field :lon_seconds, step: 0.0001, label: "Seconds"
+
+.alert.alert-warning
+  %strong Degrees with Decimal Minutes
+  and
+  %strong Degrees Minutes Seconds
+  entries will be converted to decimal degrees on save
