@@ -1,4 +1,4 @@
-class UploadedPhotoset < ActiveRecord::Base
+class UploadedFile < ActiveRecord::Base
   belongs_to :cruise
 
   attachment :file

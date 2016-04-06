@@ -217,9 +217,9 @@ Style/EmptyLinesAroundAccessModifier:
   Exclude:
     - 'app/controllers/cruises_controller.rb'
     - 'app/controllers/photos_controller.rb'
-    - 'app/controllers/uploaded_photosets_controller.rb'
+    - 'app/controllers/uploaded_files_controller.rb'
     - 'app/controllers/users_controller.rb'
-    - 'app/models/uploaded_photoset.rb'
+    - 'app/models/uploaded_file.rb'
     - 'app/models/user.rb'
 
 # Offense count: 2
@@ -228,7 +228,7 @@ Style/EmptyLinesAroundAccessModifier:
 # SupportedStyles: empty_lines, no_empty_lines
 Style/EmptyLinesAroundClassBody:
   Exclude:
-    - 'app/jobs/import_photoset_job.rb'
+    - 'app/jobs/import_file_job.rb'
     - 'app/models/observation.rb'
 
 # Offense count: 2
@@ -334,7 +334,7 @@ Style/PercentLiteralDelimiters:
     - 'app/jobs/send_daily_summary_job.rb'
     - 'app/models/cruise.rb'
     - 'app/models/observation.rb'
-    - 'app/models/uploaded_photoset.rb'
+    - 'app/models/uploaded_file.rb'
 
 # Offense count: 2
 # Configuration parameters: NamePrefix, NamePrefixBlacklist, NameWhitelist.

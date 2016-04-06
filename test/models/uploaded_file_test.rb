@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ImportPhotosetJobTest < ActiveJob::TestCase
+class UploadedFileTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
