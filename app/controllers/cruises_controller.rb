@@ -26,10 +26,7 @@ class CruisesController < ApplicationController
         format.json
         format.csv
         format.zip do
-          generate_zip !!params[:photos]
-          File.open(File.join(@cruise.export_path, "#{@cruise}.zip"), 'rb') do |f|
-            send_data f.read, filename: "#{@cruise}.zip"
-          end
+          send_data File.read(@cruise.zip!(@observations, !!params[:photos]))
         end
       end
     else
@@ -139,44 +136,5 @@ class CruisesController < ApplicationController
 
   def filter_invalid?
     params[:filter_invalid] == 'false' ? false : true
-  end
-
-  def generate_zip(include_photos = false)
-    FileUtils.mkdir_p @cruise.export_path unless File.exist? @cruise.export_path
-    export_file = File.join(@cruise.export_path, "#{@cruise}.zip")
-    FileUtils.remove(export_file) if File.exist?(export_file)
-
-    Zip::File.open(export_file, Zip::File::CREATE) do |zipfile|
-      zipfile.get_output_stream 'METADATA' do |f|
-        f.write @cruise.metadata.to_yaml
-      end
-
-      logger.info(@observations.to_sql)
-      @observations.each do |observation|
-        # %w(csv json).each do |format|
-        #   if File.exist?(observation.export_file(format))
-        #     obs_path = File.join(observation.to_s, File.basename(observation.export_file(format)))
-        #     zipfile.add obs_path, observation.export_file(format)
-        #   end
-        # end
-        if include_photos
-          observation.photos.each do |photo|
-            next unless File.exists?(photo.file_path)
-            path = File.join(observation.to_s, File.basename(photo.file_path))
-            zipfile.add path, photo.file_path
-          end
-        end
-      end
-
-      zipfile.get_output_stream("#{@cruise}.json") do |f|
-        f.write JSON.pretty_generate(JSON.parse(@cruise.render_to_string(@observations)))
-      end
-      zipfile.get_output_stream("#{@cruise}.csv") do |f|
-        f << Observation.csv_headers + "\n"
-        @observations.each do |o|
-          f << o.as_csv.to_csv
-        end
-      end
-    end
   end
 end

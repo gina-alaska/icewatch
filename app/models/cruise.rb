@@ -1,5 +1,6 @@
 class Cruise < ActiveRecord::Base
   include PrimaryObserver
+  include Zippable
 
   has_many :observations
   has_many :uploaded_photosets
