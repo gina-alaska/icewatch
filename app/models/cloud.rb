@@ -1,6 +1,8 @@
 class Cloud < ActiveRecord::Base
+  include Lookupable
   belongs_to :meteorology
-  belongs_to :cloud_lookup
+
+  lookup :cloud_lookup
 
   scope :high, -> { where(cloud_type: 'high') }
   scope :medium, -> { where(cloud_type: 'medium') }
@@ -15,9 +17,5 @@ class Cloud < ActiveRecord::Base
 
   def as_csv
     [cloud_lookup.try(:code), cover, height]
-  end
-
-  def cloud_lookup_code
-    cloud_lookup.try(&:code)
   end
 end

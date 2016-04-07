@@ -1,9 +1,12 @@
 class Ice < ActiveRecord::Base
+  include Lookupable
+
   CONCENTRATION_VALUES = (0..10).to_a
   belongs_to :observation
-  belongs_to :thin_ice_lookup, class_name: 'IceLookup'
-  belongs_to :thick_ice_lookup, class_name: 'IceLookup'
-  belongs_to :open_water_lookup
+
+  lookup :thin_ice_lookup, class_name: 'IceLookup'
+  lookup :thick_ice_lookup, class_name: 'IceLookup'
+  lookup :open_water_lookup
 
   validates_presence_of :total_concentration
   validates :total_concentration, numericality: { only_integer: true, greater_than_or_equal_to: 0, less_than_or_equal_to: 10 }
@@ -23,11 +26,5 @@ class Ice < ActiveRecord::Base
       thin_ice_lookup.try(:code),
       thick_ice_lookup.try(:code)
     ]
-  end
-
-  %w(open_water thin_ice thick_ice).each do |lookup|
-    define_method "#{lookup}_lookup_code" do      # define_method "open_water_lookup_code" do
-      send("#{lookup}_lookup").try(&:code)    #   self.send("open_water_lookup_code").try(&:code)
-    end                                           # end
   end
 end

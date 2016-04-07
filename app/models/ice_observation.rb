@@ -1,12 +1,14 @@
 class IceObservation < ActiveRecord::Base
+  include Lookupable
   belongs_to :observation
-  belongs_to :algae_lookup
-  belongs_to :algae_density_lookup
-  belongs_to :algae_location_lookup
-  belongs_to :floe_size_lookup
-  belongs_to :ice_lookup
-  belongs_to :sediment_lookup
-  belongs_to :snow_lookup
+
+  lookup :algae_lookup
+  lookup :algae_density_lookup
+  lookup :algae_location_lookup
+  lookup :floe_size_lookup
+  lookup :ice_lookup
+  lookup :sediment_lookup
+  lookup :snow_lookup
 
   has_one :melt_pond, dependent: :destroy
   has_one :topography, dependent: :destroy
@@ -60,12 +62,6 @@ class IceObservation < ActiveRecord::Base
       algae_density_lookup.try(:code),
       algae_location_lookup.try(:code)
     ]
-  end
-
-  %w(algae_density algae_location algae floe_size ice sediment snow).each do |lookup|
-    define_method "#{lookup}_lookup_code" do      # define_method "snow_lookup_code" do
-      send("#{lookup}_lookup").try(&:code)        #   self.send("snow_lookup_code").try(&:code)
-    end                                           # end
   end
 
   private
