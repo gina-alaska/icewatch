@@ -6,8 +6,7 @@ module Zippable
     remove_existing_export!
 
     Zip::File.open(export_filepath, Zip::File::CREATE) do |zipfile|
-
-      zipfile.get_output_stream("METADATA")     {|f| f << metadata.to_yaml }
+      zipfile.get_output_stream("METADATA") { |f| f << metadata.to_yaml }
 
       zipfile.get_output_stream("#{self}.json") do |f|
         f << JSON.pretty_generate(JSON.parse(render_to_string(renderable_obs)))
@@ -35,6 +34,7 @@ module Zippable
   end
 
   private
+
   def create_export_path!
     FileUtils.mkdir_p export_path unless File.exist? export_path
   end
