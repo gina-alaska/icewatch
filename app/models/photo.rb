@@ -17,4 +17,8 @@ class Photo < ActiveRecord::Base
   def associate_with_cruise
     self.cruise_id = observation.cruise_id
   end
+
+  def observation_filepath
+    File.join(observation.to_s, file_filename)
+  end
 end
