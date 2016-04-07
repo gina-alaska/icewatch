@@ -3,23 +3,36 @@ module Importable
 
     extend ActiveSupport::Concern
 
-    ASSIGNABLE_ATTRIBUTES = %w( observed_at latitude longitude uuid )
-    ASSIGNABLE_MODELS = %w(ice ice_observations )
+    ASSIGNABLE_ATTRIBUTES = %w( observed_at latitude longitude uuid
+                                primary_observer_id_or_name
+                                additional_observers_id_or_name)
+
+    ASSIGNABLE_MODELS = %w( ice ice_observations meteorology notes comments ship photos)
 
 
-    def from_json(json)
+    def from_export(json)
       obs_data = json.dup
 
-      rewrite_legacy_observed_at(json)
+      rewrite_legacy_observed_at(obs_data)
+      rewrite_observers(obs_data, 'primary_observer')
+      rewrite_observers(obs_data, 'additional_observers')
 
-      assign_attributes(json.values_at(ASSIGNABLE_ATTRIBUTES)
+      assign_attributes(obs_data.select{|k,v| ASSIGNABLE_ATTRIBUTES.include?(k) })
 
       ASSIGNABLE_MODELS.each do |model|
-        if json.has_key?(model)
-          self.send(model).build.from_json(json[model])
+        if obs_data.has_key?(model)
+          case
+          when obs_data[model].is_a?(Hash)
+            self.send("build_#{model}").from_export(obs_data[model])
+          when obs_data[model].is_a?(Array)
+            obs_data[model].each do |m|
+              self.send(model).build.from_export(m)
+            end
+          end
         end
       end
 
+      self
     end
 
     def rewrite_legacy_observed_at(json)

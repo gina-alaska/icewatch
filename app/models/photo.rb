@@ -1,5 +1,7 @@
 class Photo < ActiveRecord::Base
   include Lookupable
+  include Importable::Photo
+  
   belongs_to :observation
   belongs_to :cruise
 

@@ -1,9 +1,8 @@
 module Importable
-  module Ice
+  module Ship
     extend ActiveSupport::Concern
 
-    ASSIGNABLE_ATTRIBUTES = %w( open_water_lookup_code thick_ice_lookup_code
-                                thin_ice_lookup_code total_concentration )
+    ASSIGNABLE_ATTRIBUTES = %w( heading power ship_activity_lookup_code speed )
 
 
     def from_export(json)

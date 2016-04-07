@@ -1,9 +1,8 @@
 module Importable
-  module Ice
+  module Cloud
     extend ActiveSupport::Concern
 
-    ASSIGNABLE_ATTRIBUTES = %w( open_water_lookup_code thick_ice_lookup_code
-                                thin_ice_lookup_code total_concentration )
+    ASSIGNABLE_ATTRIBUTES = %w( cloud_type cloud_lookup_code cover height )
 
 
     def from_export(json)

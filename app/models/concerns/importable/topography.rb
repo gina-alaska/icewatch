@@ -1,9 +1,9 @@
 module Importable
-  module Ice
+  module Topography
     extend ActiveSupport::Concern
 
-    ASSIGNABLE_ATTRIBUTES = %w( open_water_lookup_code thick_ice_lookup_code
-                                thin_ice_lookup_code total_concentration )
+    ASSIGNABLE_ATTRIBUTES = %w( concentration ridge_height consolidated
+                                old snow_covered topography_lookup_code)
 
 
     def from_export(json)

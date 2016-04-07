@@ -1,7 +1,7 @@
 class Cruise < ActiveRecord::Base
   include PrimaryObserver
   include Zippable
-  # include Importable::Cruise
+  include Importable::Cruise
 
   has_many :observations
   has_many :uploaded_files

@@ -1,9 +1,8 @@
 module Importable
-  module Ice
+  module Photo
     extend ActiveSupport::Concern
 
-    ASSIGNABLE_ATTRIBUTES = %w( open_water_lookup_code thick_ice_lookup_code
-                                thin_ice_lookup_code total_concentration )
+    ASSIGNABLE_ATTRIBUTES = %w( on_boat_location_lookup_code note checksum name )
 
 
     def from_export(json)

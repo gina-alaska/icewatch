@@ -1,5 +1,6 @@
 class Meteorology < ActiveRecord::Base
   include Lookupable
+  include Importable::Meteorology
   has_many :clouds
 
   has_one :high_cloud, -> { high }, class_name: 'Cloud'

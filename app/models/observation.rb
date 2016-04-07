@@ -2,7 +2,8 @@ class Observation < ActiveRecord::Base
   include IceTypes
   include PrimaryObserver
   include AASM
-
+  include Importable::Observation
+  
   paginates_per 25
 
   aasm column: 'status' do

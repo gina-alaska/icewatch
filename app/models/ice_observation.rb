@@ -1,5 +1,6 @@
 class IceObservation < ActiveRecord::Base
   include Lookupable
+  include Importable::IceObservation
   belongs_to :observation
 
   lookup :algae_lookup
