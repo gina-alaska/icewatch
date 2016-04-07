@@ -1,6 +1,9 @@
 class Topography < ActiveRecord::Base
+  include Lookupable
+
   belongs_to :ice_observation
-  belongs_to :topography_lookup
+
+  lookup :topography_lookup
 
   validates :concentration, numericality: {
     only_integer: true,
@@ -27,9 +30,5 @@ class Topography < ActiveRecord::Base
       consolidated,
       snow_covered
     ]
-  end
-
-  def topography_lookup_code
-    topography_lookup.try(&:code)
   end
 end
