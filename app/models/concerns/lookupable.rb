@@ -12,17 +12,17 @@ module Lookupable
   #   self.send("thin_ice_lookup").try(&:code)
   # end
   class_methods do
-    def lookup(name, opts={})
+    def lookup(name, opts = {})
       class_name = (opts[:class_name] || name.to_s.camelize).constantize
 
       belongs_to name, class_name: class_name
 
       define_method("#{name}_code=") do |code|
-        self.send("#{name}=", class_name.where(code: code).first)
+        send("#{name}=", class_name.find_by(code: code))
       end
 
       define_method("#{name}_code") do
-        self.send(name).try(&:code)
+        send(name).try(&:code)
       end
     end
   end
