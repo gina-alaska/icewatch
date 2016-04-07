@@ -1,8 +1,10 @@
 class Ship < ActiveRecord::Base
+  include Lookupable
   POWER_VALUES = %w(0 1/4 1/2 3/4 full).freeze
 
-  belongs_to :ship_activity_lookup
   belongs_to :observation
+
+  lookup :ship_activity_lookup
 
   validates :power,
             numericality: {
@@ -17,9 +19,5 @@ class Ship < ActiveRecord::Base
 
   def as_csv
     [power, speed, heading, ship_activity_lookup.try(:code)]
-  end
-
-  def ship_activity_lookup_code
-    ship_activity_lookup.try(&:code)
   end
 end

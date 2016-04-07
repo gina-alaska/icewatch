@@ -1,7 +1,9 @@
 class Photo < ActiveRecord::Base
+  include Lookupable
   belongs_to :observation
   belongs_to :cruise
-  belongs_to :on_boat_location_lookup
+
+  lookup :on_boat_location_lookup
 
   attachment :file, type: :image
 
@@ -10,10 +12,6 @@ class Photo < ActiveRecord::Base
 
   def generate_checksum
     self.checksum = Digest::MD5.hexdigest(File.read(file.download))
-  end
-
-  def on_boat_location_lookup_code
-    on_boat_location_lookup.try(:code)
   end
 
   def associate_with_cruise
