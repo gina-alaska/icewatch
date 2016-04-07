@@ -2,7 +2,7 @@ module Importable
   module Cruise
     extend ActiveSupport::Concern
 
-    def from_export(cruise_json)
+    def observations_from_export(cruise_json)
       return unless cruise_json.has_key?('observations')
 
       cruise_data = cruise_json.dup

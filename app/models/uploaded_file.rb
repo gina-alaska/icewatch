@@ -29,7 +29,7 @@ class UploadedFile < ActiveRecord::Base
       Zip::File.open(file.to_io) do |zip_file|
 
         zip_file.glob("*.json").each do |json_file|
-          cruise.observations_from_json(Json.parse(File.read(json_file)))
+          cruise.observations_from_export(Json.parse(File.read(json_file)))
         end
 
         image_file_extensions.each do |ext|
