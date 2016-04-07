@@ -18,7 +18,7 @@ module Lookupable
       belongs_to name, class_name: class_name
 
       define_method("#{name}_code=") do |code|
-        send("#{name}=", class_name.find_by(code: code))
+        send("#{name}_id=", class_name.find_by(code: code).try(:id))
       end
 
       define_method("#{name}_code") do
