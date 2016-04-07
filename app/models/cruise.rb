@@ -1,5 +1,6 @@
 class Cruise < ActiveRecord::Base
   include PrimaryObserver
+  # include Importable::Cruise
 
   has_many :observations
   has_many :uploaded_files

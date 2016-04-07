@@ -18,6 +18,4 @@ module PrimaryObserver
   def resolve_observer(id_or_name)
     Person.find_or_create_by_id_or_name(id_or_name)
   end
-
-
 end

@@ -27,16 +27,20 @@ class UploadedFile < ActiveRecord::Base
     tempdir = Dir.mktmpdir
     Dir.chdir(tempdir) do
       Zip::File.open(file.to_io) do |zip_file|
-        zip_file.each do |entry|
-          next unless image_file_extension?(entry.name)
-          entry.extract(entry.name)
 
-          photo = cruise.photos.build
-          File.open(entry.name) do |f|
-            photo.file = f
+        zip_file.glob("*.json").each do |json_file|
+          cruise.observations_from_json(Json.parse(File.read(json_file)))
+        end
+
+        image_file_extensions.each do |ext|
+          zip_file.glob("*#{ext}") do |image_file|
+            photo = cruise.photos.build
+            File.open(entry.name) do |f|
+              photo.file = f
+            end
+
+            photos << photo if photo.save
           end
-
-          photos << photo if photo.save
         end
       end
     end
@@ -53,7 +57,11 @@ class UploadedFile < ActiveRecord::Base
     }
   end
 
+  def image_file_extensions
+    %w{.jpg .jpeg .png .gif}
+  end
+
   def image_file_extension?(entry)
-    %w{.jpg .jpeg .png .gif}.include? File.extname(entry.downcase)
+    image_file_extensions.include? File.extname(entry.downcase)
   end
 end
