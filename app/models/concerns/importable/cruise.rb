@@ -15,15 +15,14 @@ module Importable
     def observation_from_export(json)
       obs_data = json.dup
 
-      # unique_fields = %w(latitude longitude observed_at)
+      existing = observations.where(latitude: obs_data['latitude'],
+                                    longitude: obs_data['longitude'],
+                                    observed_at: obs_data['observed_at'] || obs_data['obs_datetime'])
+      existing.destroy_all
 
-      # new_observation = observations.where()
 
       new_observation = observations.build.from_export(obs_data)
       new_observation.save(validate: false)
-      new_observation.reload
-
-      new_observation.destroy unless new_observation.valid?
     end
   end
 end
