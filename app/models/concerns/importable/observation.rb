@@ -37,20 +37,7 @@ module Importable
     end
 
     def rewrite_observers(json, key)
-      person = json.delete(key)
-      json["#{key}_id_or_name"] = fix_observer(person)
-    end
-
-    def fix_observer(person)
-      return nil unless person.present?
-      case
-      when person.is_a?(Array)
-        person.map { |j| fix_observer(j) }.flatten
-      when person.is_a?(Hash)
-        Person.find_by(name: "#{person['firstname']} #{person['lastname']}").try(:name) || person
-      else
-        Person.find_by(name: person).try(:name) || person
-      end
+      json["#{key}_id_or_name"] = json.delete(key) if json.key?(key) 
     end
   end
 end
