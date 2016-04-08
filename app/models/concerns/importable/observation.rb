@@ -37,7 +37,7 @@ module Importable
     end
 
     def rewrite_observers(json, key)
-      json["#{key}_id_or_name"] = json.delete(key) if json.key?(key) 
+      json["#{key}_id_or_name"] = json.delete(key) if json.key?(key)
     end
   end
 end
