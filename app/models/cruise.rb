@@ -48,7 +48,7 @@ class Cruise < ActiveRecord::Base
 
   def render_to_string(obs, format = :json)
     ActionView::Base.new(Rails.configuration.paths['app/views'])
-      .render(template: "cruises/show.#{format}", format: format, locals: { :@cruise => self, :@observations => obs  })
+      .render(template: "observations/index.#{format}", format: format, locals: { :@cruise => self, :@observations => obs  })
   end
 
   def to_s

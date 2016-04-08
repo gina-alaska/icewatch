@@ -1,7 +1,7 @@
 class Topography < ActiveRecord::Base
   include Lookupable
   include Importable::Topography
-  
+
   belongs_to :ice_observation
 
   lookup :topography_lookup

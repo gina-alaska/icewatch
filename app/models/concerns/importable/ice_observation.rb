@@ -11,24 +11,24 @@ module Importable
                                 sediment_lookup_code
                                 snow_lookup_code
                                 thickness
-                                )
+                                ).freeze
 
-    ASSIGNABLE_MODELS = %w( topography melt_pond )
+    ASSIGNABLE_MODELS = %w( topography melt_pond ).freeze
 
     def from_export(json)
       obs_data = json.dup
 
-      assign_attributes(obs_data.select{|k,v| ASSIGNABLE_ATTRIBUTES.include?(k) })
+      assign_attributes(obs_data.select { |k, _v| ASSIGNABLE_ATTRIBUTES.include?(k) })
 
       ASSIGNABLE_MODELS.each do |model|
-        if obs_data.has_key?(model)
-          case
-          when obs_data[model].is_a?(Hash)
-            self.send("build_#{model}").from_export(obs_data[model])
-          when obs_data[model].is_a?(Array)
-            obs_data[model].each do |m|
-              self.send(model).build.from_export(m)
-            end
+        next unless obs_data.key?(model)
+
+        case
+        when obs_data[model].is_a?(Hash)
+          send("build_#{model}").from_export(obs_data[model])
+        when obs_data[model].is_a?(Array)
+          obs_data[model].each do |m|
+            send(model).build.from_export(m)
           end
         end
       end

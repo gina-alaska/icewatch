@@ -1,7 +1,7 @@
 class Ship < ActiveRecord::Base
   include Lookupable
   include Importable::Ship
-  
+
   POWER_VALUES = %w(0 1/4 1/2 3/4 full).freeze
 
   belongs_to :observation

@@ -3,7 +3,7 @@ class UploadedFile < ActiveRecord::Base
 
   attachment :file
 
-  def copy_to_photo
+  def import!
     case file_content_type
     when 'application/zip'
       handle_zip
@@ -23,28 +23,37 @@ class UploadedFile < ActiveRecord::Base
   end
 
   def handle_zip
-    photos = []
     tempdir = Dir.mktmpdir
     Dir.chdir(tempdir) do
       Zip::File.open(file.to_io) do |zip_file|
-
-        zip_file.glob("*.json").each do |json_file|
-          cruise.observations_from_export(Json.parse(File.read(json_file)))
+        zip_file.glob("*.json").each do |entry|
+          entry.extract(entry.name)
+          cruise.observations_from_export(JSON.parse(File.read(entry.name)))
         end
 
         image_file_extensions.each do |ext|
-          zip_file.glob("*#{ext}") do |image_file|
-            photo = cruise.photos.build
-            File.open(entry.name) do |f|
-              photo.file = f
-            end
+          zip_file.glob("**/*#{ext}") do |entry|
+            filename = File.basename(entry.name)
+            entry.extract(filename)
+            checksum = Digest::MD5.hexdigest(File.read(filename))
 
-            photos << photo if photo.save
+            # A photo can be uploaded multiple times.
+            # This is not a good thing, but we have to handle this scenario.
+            photos = cruise.photos.where(checksum: checksum, file_filename: filename)
+            photos ||= [cruise.photos.build(checksum: checksum)]
+
+            photos.each do |photo|
+              next if photo.file_id.present?
+              File.open(filename) do |f|
+                photo.file = f
+              end
+              photo.save
+            end
+            FileUtils.safe_unlink(filename)
           end
         end
       end
     end
-    photos
   ensure
     FileUtils.safe_unlink(tempdir)
   end

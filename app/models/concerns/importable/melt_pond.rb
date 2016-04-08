@@ -4,13 +4,12 @@ module Importable
 
     ASSIGNABLE_ATTRIBUTES = %w( bottom_type_lookup_code dried_ice freeboard
                                 max_depth_lookup_code pattern_lookup_code
-                                rotten_ice surface_coverage surface_lookup_code )
-
+                                rotten_ice surface_coverage surface_lookup_code ).freeze
 
     def from_export(json)
       obs_data = json.dup
 
-      assign_attributes(obs_data.select{|k,v| ASSIGNABLE_ATTRIBUTES.include?(k) })
+      assign_attributes(obs_data.select { |k, _v| ASSIGNABLE_ATTRIBUTES.include?(k) })
     end
   end
 end

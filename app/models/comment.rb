@@ -1,6 +1,6 @@
 class Comment < ActiveRecord::Base
   include Importable::Comment
-  
+
   belongs_to :observation
   belongs_to :person
 
