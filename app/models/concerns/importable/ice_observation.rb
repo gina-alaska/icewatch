@@ -6,9 +6,11 @@ module Importable
                                 partial_concentration
                                 algae_density_lookup_code
                                 algae_location_lookup_code
+                                algae_lookup_code
                                 floe_size_lookup_code
                                 ice_lookup_code
                                 sediment_lookup_code
+                                snow_thickness
                                 snow_lookup_code
                                 thickness
                                 ).freeze

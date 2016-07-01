@@ -24,7 +24,7 @@ class UploadedFilesController < ApplicationController
   private
   # Never trust parameters from the scary internet, only allow the white list through.
   def uploaded_file_params
-    params.require(:uploaded_file).permit(:file)
+    params.require(:uploaded_file).permit(:file, :hosted_file_url)
   end
 
   def set_cruise

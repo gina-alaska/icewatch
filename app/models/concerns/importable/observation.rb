@@ -11,6 +11,7 @@ module Importable
     def from_export(json)
       obs_data = json.dup
 
+      scrub_existing_data
       rewrite_legacy_observed_at(obs_data)
       rewrite_observers(obs_data, 'primary_observer')
       rewrite_observers(obs_data, 'additional_observers')
@@ -38,6 +39,17 @@ module Importable
 
     def rewrite_observers(json, key)
       json["#{key}_id_or_name"] = json.delete(key) if json.key?(key)
+    end
+
+    def scrub_existing_data
+      self.status = 'saved'
+      (ASSIGNABLE_MODELS - ['photos']).each do |model|
+        send(model).try(:destroy)
+        send(model).try(:destroy_all)
+      end
+      (ASSIGNABLE_ATTRIBUTES).each do |attribute|
+        send("#{attribute}=", nil)
+      end
     end
   end
 end

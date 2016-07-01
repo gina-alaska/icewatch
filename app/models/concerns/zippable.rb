@@ -18,7 +18,7 @@ module Zippable
           f << o.as_csv.to_csv
         end
       end
-
+      
       if include_photos
         renderable_obs.each do |observation|
           observation.photos.each do |photo|
