@@ -154,6 +154,7 @@ private
   def observation_params
     params.require(:observation).permit(
       :cruise_id, :observed_at, :latitude, :longitude, :uuid,
+      :lat_minutes, :lat_seconds, :lon_minutes, :lon_seconds,
       :primary_observer_id_or_name, additional_observers_id_or_name: [],
                                     ship_attributes: [:id, :heading, :power, :speed, :ship_activity_lookup_id],
                                     notes_attributes: [:id, :text],
