@@ -26,7 +26,7 @@ gem 'spring',        group: :development
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem 'warbler', platforms: :jruby
+gem 'warbler', '~> 2.0.0'#, platforms: :jruby
 gem 'activerecord-jdbcsqlite3-adapter', platform: :jruby
 gem 'jruby-openssl', platform: :jruby
 
@@ -52,7 +52,7 @@ gem 'rubyzip', '>= 1.0.0', require: 'zip'
 gem 'bower-rails'
 gem 'whenever', platform: :ruby
 gem 'tzinfo-data'#, platforms: [:mingw, :mswin, :jruby]
-gem 'high_voltage', '~> 2.2.1', platform: :ruby
+gem 'high_voltage', '~> 2.2.1'#, platform: :ruby
 gem 'kaminari'
 gem 'dotenv-rails'
 gem 'refile', require: 'refile/rails'
@@ -75,7 +75,8 @@ group :development, :test do
 end
 
 
-source 'https://rails-assets.org' do
+#source 'https://rails-assets.org' do
+source 'http://insecure.rails-assets.org' do
   gem 'rails-assets-bootstrap'
   gem 'rails-assets-eonasdan-bootstrap-datetimepicker'
   gem 'rails-assets-jasny-bootstrap'

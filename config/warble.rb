@@ -149,7 +149,7 @@ Warbler::Config.new do |config|
   # config.webxml.booter = :rails
 
   # Set JRuby to run in 2.0 mode.
-  config.webxml.jruby.compat.version = '2.0'
+  # config.webxml.jruby.compat.version = '2.3'
 
   # When using the :rack booter, "Rackup" script to use.
   # - For 'rackup.path', the value points to the location of the rackup
