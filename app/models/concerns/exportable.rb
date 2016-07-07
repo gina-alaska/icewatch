@@ -2,7 +2,7 @@ module Exportable
   extend ActiveSupport::Concern
 
   included do
-    before_save :write_data, if: -> { Icewatch.assist? }
+    after_commit :write_data, if: -> { Icewatch.assist? }
     before_destroy :delete_data, if: -> { Icewatch.assist? }
   end
 
