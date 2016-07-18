@@ -11,6 +11,20 @@
         .lead Java
 
         = link_to 'Download Java', 'http://www.java.com/download/', target: '_blank'
+        .alert.alert-info
+          %p
+            .lead ASSIST requires JAVA 7 or newer.
+            You will need to update your JAVA to the latest version if you encounter the error:
+
+            %blockquote
+              Exception in thread "main" java.lang.UnsupportedClassVersionError: org/eclipse/jetty/runner/Runner : Unsupported major.minor version 51.0
+
+          %p
+            On MacOS you can sometimes run into this issue even with the latest version installed.
+            See #{link_to "this document", "http://stackoverflow.com/questions/12757558/installed-java-7-on-mac-os-x-but-terminal-is-still-using-version-6"} for assistance.
+
+
+
 
 .panel.panel-default
   .panel-body
