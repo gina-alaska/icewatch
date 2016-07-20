@@ -1,4 +1,15 @@
 namespace :dev do
+  require 'fileutils'
+  desc 'Set Development Ruby to Ruby'
+  task :ruby do
+    FileUtils.ln_s "Gemfile.lock.ruby", "Gemfile.lock", force: true
+  end
+
+  desc 'Set Development Ruby to JRuby'
+  task :jruby do
+    FileUtils.ln_s "Gemfile.lock.java", "Gemfile.lock", force: true
+  end
+
   desc 'Populate the database with sample data'
   task prime: :environment do
     100.times { Person.create(name: Forgery('name').full_name) }
