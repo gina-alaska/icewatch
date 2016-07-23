@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: cookbook
-# Recipe:: hab_director
+# Spec:: default
 #
 # The MIT License (MIT)
 #
@@ -24,17 +24,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-include_recipe "icewatch::_habitat"
 
-nginx = node['icewatch']['nginx']
-nginx_package = "#{Chef::Config[:file_cache_path]}/uafgina-icewatch-nginx-#{nginx['version']}.hart"
+require 'spec_helper'
 
-cookbook_file nginx_package do 
-  source nginx['source']
-  notifies :run, 'execute[hab-install-nginx]', :immediately
-end
+describe 'cookbook::app' do
+  context 'When all attributes are default, on an unspecified platform' do
+    let(:chef_run) do
+      runner = ChefSpec::ServerRunner.new
+      runner.converge(described_recipe)
+    end
 
-execute 'hab-install-nginx' do 
-  action :nothing
-  command "hab pkg install #{nginx_package}"
+    it 'converges successfully' do
+      expect { chef_run }.to_not raise_error
+    end
+  end
 end

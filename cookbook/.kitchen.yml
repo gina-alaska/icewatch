@@ -6,10 +6,11 @@ provisioner:
   name: chef_zero
 
 platforms:
-  - name: chef/centos-6.5
+  - name: bento/centos-7.1
 
 suites:
   - name: default
     run_list:
-      - recipe[icewatch::default]
+      - recipe[icewatch::database]
+      - recipe[icewatch::hab_director]
     attributes:

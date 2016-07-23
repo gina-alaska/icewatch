@@ -1,0 +1,6 @@
+port = <%= @port %>
+
+[database]
+<% @database.each do |key, value| %>
+<%= key %> = "<%= value %>"
+<% end %>

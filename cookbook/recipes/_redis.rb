@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: cookbook
-# Recipe:: hab_director
+# Recipe:: _redis
 #
 # The MIT License (MIT)
 #
@@ -26,15 +26,8 @@
 
 include_recipe "icewatch::_habitat"
 
-nginx = node['icewatch']['nginx']
-nginx_package = "#{Chef::Config[:file_cache_path]}/uafgina-icewatch-nginx-#{nginx['version']}.hart"
+redis = node['icewatch']['redis_version']
 
-cookbook_file nginx_package do 
-  source nginx['source']
-  notifies :run, 'execute[hab-install-nginx]', :immediately
-end
-
-execute 'hab-install-nginx' do 
-  action :nothing
-  command "hab pkg install #{nginx_package}"
+execute 'hab-install-redis' do 
+  command "hab pkg install #{redis}"
 end

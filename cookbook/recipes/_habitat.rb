@@ -24,17 +24,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-include_recipe "icewatch::_habitat"
+node.default['habitat']['version'] = "0.8.0"
+node.default['habitat']['release'] = "20160708161531"
 
-nginx = node['icewatch']['nginx']
-nginx_package = "#{Chef::Config[:file_cache_path]}/uafgina-icewatch-nginx-#{nginx['version']}.hart"
-
-cookbook_file nginx_package do 
-  source nginx['source']
-  notifies :run, 'execute[hab-install-nginx]', :immediately
-end
-
-execute 'hab-install-nginx' do 
-  action :nothing
-  command "hab pkg install #{nginx_package}"
-end
+include_recipe "habitat-cookbook::default"

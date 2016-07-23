@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: cookbook
-# Recipe:: hab_director
+# Recipe:: app
 #
 # The MIT License (MIT)
 #
@@ -24,17 +24,24 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-include_recipe "icewatch::_habitat"
+# This is for stand-alone installations of the application
+#  All in one must use hab_director
 
-nginx = node['icewatch']['nginx']
-nginx_package = "#{Chef::Config[:file_cache_path]}/uafgina-icewatch-nginx-#{nginx['version']}.hart"
+include_recipe 'icewatch::_application'
 
-cookbook_file nginx_package do 
-  source nginx['source']
-  notifies :run, 'execute[hab-install-nginx]', :immediately
+systemd_service 'puma' do
+  description 'Icewatch Puma Application Server'
+  after %w( network.target postgresql93.target redis.target)
+  service do
+    environment({ "ICEWATCH_SERVICE" => "web" })
+    exec_start "/usr/local/bin/hab start uafgina/icewatch"
+    kill_signal 'SIGINT'
+    kill_mode 'mixed'
+    private_tmp true
+  end
+  only_if { ::File.open('/proc/1/comm').gets.chomp == 'systemd' } # systemd
 end
 
-execute 'hab-install-nginx' do 
-  action :nothing
-  command "hab pkg install #{nginx_package}"
+service 'puma' do
+  action [:enable, :start]
 end

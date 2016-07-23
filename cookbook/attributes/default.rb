@@ -3,36 +3,31 @@ override['postgresql']['enable_pgdg_yum'] = true
 override['postgresql']['version'] = "9.3"
 override['postgresql']['dir'] = '/var/lib/pgsql/9.3/data'
 override['postgresql']['config']['data_directory'] = '/var/lib/pgsql/9.3/data'
+override['postgresql']['setup_script'] = '/usr/pgsql-9.3/bin/postgresql93-setup'
 override['postgresql']['client']['packages'] = %w{postgresql93 postgresql93-devel}
 override['postgresql']['server']['packages'] = %w{postgresql93-server}
 override['postgresql']['server']['service_name'] = 'postgresql-9.3'
 override['postgresql']['contrib']['packages'] = %w{postgresql93-contrib}
 override['postgresql']['config']['listen_addresses'] = '0.0.0.0'
 
-
-
-# default['icewatch']['database']['name'] = 'icewatch'
-# default['icewatch']['database']['database'] = 'icewatch'
-# default['icewatch']['database']['hostname'] = "localhost"
-# default['icewatch']['database']['username'] = 'icewatch'
-# default['icewatch']['database']['password'] = nil
-# default['icewatch']['database']['adapter'] = 'postgresql'
-# default['icewatch']['database']['client_encoding'] = 'UTF8'
-# default['icewatch']['database']['pool'] = 5
-# default['icewatch']['database']['schema_search_path'] = 'icewatch,public'
-
-default['icewatch']['environment'] = "development"
-default['icewatch']['data_bag'] = 'icewatch-test'
-
-#Path configuration
-default['icewatch']['home'] = '/www/icewatch'
-
-
-default['icewatch']['puma_port'] = '5000'
-
-default['icewatch']['ruby'] = {
-  'version' => 'ruby-2.2.2',
-  'package' => 'gina-ruby-21'
+default['icewatch']['version'] = "2.1.0"
+default['icewatch']['release'] = "2016000000000"
+default['icewatch']['source'] = "uafgina-icewatch-upload-cruise-json-20160723005939-x86_64-linux.hart"
+default['icewatch']['nginx'] = {
+  'source' => 'uafgina-icewatch-nginx-1.10.1-20160722010143-x86_64-linux.hart',
+  'version' => '1.10.1',
+  'release' => '20160722010143',
 }
+default['icewatch']['postgres_version'] = "core/postgresql/9.5.3"
+default['icewatch']['redis_version'] = "core/redis/3.0.7"
+
+default['icewatch']['database']['name'] = 'icewatch'
+default['icewatch']['database']['username'] = 'icewatch'
+default['icewatch']['database']['password'] = 'youshouldreallychangeme'
+default['icewatch']['database']['pool'] = 5
+default['icewatch']['database']['timeout'] = 5000
+default['icewatch']['database']['host'] = 'localhost'
+default['icewatch']['database']['port'] = 5432
+
 
 default['icewatch']['storage']['actions'] = [:mount, :enable]

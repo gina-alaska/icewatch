@@ -1,0 +1,9 @@
+{
+  "id": "icewatch",
+  "database": {
+    "password": "kitchen"
+  },
+  "passwords": {
+    "postgres": "pg-kitchen"
+  }
+}
