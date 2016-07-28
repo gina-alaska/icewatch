@@ -46,8 +46,8 @@ directory "/hab/svc/icewatch" do
   action :create
 end
 
-icewatch_secrets = chef_vault_item('apps', 'icewatch')['database']
-database = node['icewatch']['database'].merge(icewatch_secrets)
+icewatch_secrets = chef_vault_item('apps', 'icewatch')
+database = node['icewatch']['database'].merge(icewatch_secrets['database'])
 
 template '/hab/svc/icewatch/user.toml' do
   source 'icewatch-user.toml.erb'
@@ -56,6 +56,7 @@ template '/hab/svc/icewatch/user.toml' do
   mode '0600'
   variables({
     database: database,
-    port: 9292
+    port: 9292,
+    secret_key_base: icewatch_secrets['secret_key_base']
   })
 end

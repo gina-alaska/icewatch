@@ -38,3 +38,18 @@ execute 'hab-install-nginx' do
   action :nothing
   command "hab pkg install #{nginx_package}"
 end
+
+directory '/hab/svc/icewatch-nginx' do
+  recursive true
+end
+
+template '/hab/svc/icewatch-nginx/user.toml' do
+  source 'nginx-user.toml.erb'
+  owner 'hab'
+  group 'hab'
+  mode '0600'
+  variables({
+    ip: node['ipaddress'],
+    port: 9292
+  })
+end
