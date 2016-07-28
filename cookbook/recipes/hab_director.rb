@@ -31,6 +31,7 @@ directory "/hab/svc/hab-director" do
   mode "0700"
   owner 'hab'
   group 'hab'
+  recursive true
 end
 
 systemd_service 'hab-director' do
@@ -53,8 +54,7 @@ include_recipe "icewatch::_redis"
 include_recipe "icewatch::_application"
 include_recipe "icewatch::_nginx"
 
-directory '/hab/svc/hab-director'
-
+# origin.name.group.organization[.env]
 services = {
   "core.redis.icewatch.prod" => {
     "start" => "--permanent-peer"
@@ -62,11 +62,11 @@ services = {
   "uafgina.icewatch.icewatch.prod" => {
     "start" => "--permanent-peer"
   },
-  "uafgina.icewatch.icewatch.prod.env" => {
-    "ICEWATCH_SERVICE" => "web"
-  },
+  # "uafgina.icewatch.icewatch.prod.env" => {
+  #   "ICEWATCH_SERVICE" => "web"
+  # },
   "uafgina.icewatch-nginx.icewatch.prod" => {
-    "start" => "--permanent-peer"
+    "start" => "--permanent-peer --bind app:icewatch.prod"
   }
 }
 
@@ -77,7 +77,7 @@ template '/hab/svc/hab-director/chef.toml' do
   variables({
     services: services
   })
-  notifies :run, "execute[apply-hab-director-toml]", :immediately
+  notifies :nothing, "execute[apply-hab-director-toml]", :immediately
 end
 
 execute 'apply-hab-director-toml' do

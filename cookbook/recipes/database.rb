@@ -23,6 +23,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
+include_recipe "chef-vault"
 
 icewatch_secrets = chef_vault_item("apps", "icewatch")
 db_secrets = icewatch_secrets['database']
@@ -60,50 +61,5 @@ postgresql_database_user db['username'] do
   privileges    [:all]
   action        :grant
 end
-
-
-# postgresql = node['icewatch']['postgres_version']
-
-# execute 'hab-install-postgresql' do 
-#   command "hab pkg install #{postgresql}"
-# end
-
-# directory '/hab/svc/postgresql' do
-#   owner 'hab'
-#   group 'hab'
-#   recursive true
-# end
-
-# include_recipe 'chef-vault'
-# icewatch_vault = chef_vault_item('apps', 'icewatch')
-# db_password = icewatch_vault['initdb_superuser_password']
-
-# template '/hab/svc/postgresql/user.toml' do
-#   source "postgres-user.toml.erb"
-#   owner 'hab'
-#   group 'hab'
-#   mode '0600'
-#   variables({
-#     initdb_superuser_password: db_password
-#   })
-# end
-
-# systemd_service 'postgresql' do
-#   description 'Postgresql Database Server'
-#   after %w( network.target )
-#   service do
-#     environment 'LANG' => 'C'
-#     exec_start "/usr/local/bin/hab start #{postgresql}"
-#     kill_signal 'SIGWINCH'
-#     kill_mode 'mixed'
-#     private_tmp true
-#   end
-#   only_if { ::File.open('/proc/1/comm').gets.chomp == 'systemd' } # systemd
-# end
-
-# service 'postgresql' do
-#   action [:enable, :start]
-# end
-
 
 # TODO: Set up backups
