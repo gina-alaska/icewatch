@@ -81,8 +81,9 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.10.0)
-    concurrent-ruby (1.0.1)
-    concurrent-ruby (1.0.1-java)
+    concurrent-ruby (1.0.2)
+    concurrent-ruby (1.0.2-java)
+    connection_pool (2.2.0)
     debug_inspector (0.0.2)
     domain_name (0.5.20160216)
       unf (>= 0.0.5, < 1.0.0)
@@ -306,6 +307,7 @@ GEM
       ffi (>= 0.5.0)
     rdoc (4.2.2)
       json (~> 1.4)
+    redis (3.3.1)
     ref (2.0.0)
     refile (0.6.2)
       mime-types
@@ -347,6 +349,11 @@ GEM
     shoulda-context (1.2.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
+    sidekiq (4.1.4)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      redis (~> 3.2, >= 3.2.1)
+      sinatra (>= 1.4.7)
     signet (0.7.2)
       addressable (~> 2.3)
       faraday (~> 0.9)
@@ -460,6 +467,7 @@ DEPENDENCIES
   sass-rails (~> 5.0.0)
   sdoc (~> 0.4.0)
   shoulda
+  sidekiq (~> 4.1.0)
   spring
   therubyracer
   therubyrhino

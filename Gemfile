@@ -59,6 +59,7 @@ gem 'refile', require: 'refile/rails'
 gem 'refile-mini_magick', platform: :ruby
 gem 'active_link_to'
 gem 'font-awesome-rails'
+gem 'sidekiq', '~> 4.1.0', platform: :ruby
 
 group :development, :test do
   gem 'better_errors', platform: :ruby
