@@ -54,10 +54,39 @@ postgresql_database_user db['username'] do
   not_if db['password'].nil?
 end
 
-
 postgresql_database_user db['username'] do
   connection    postgresql_connection_info
   database_name db['name']
   privileges    [:all]
   action        :grant
 end
+
+# include_recipe 'backup' 
+
+# aws = icewatch_secrets['aws']
+# backup_model :my_db do
+#   description "Back up my database"
+
+#   definition <<-DEF
+#     split_into_chunks_of 4000
+
+#     database Postgresql do |db|
+#       db.name = '#{db['name']}'
+#       db.username = '#{db['username']}'
+#       db.password = '#{db['password']}'
+#     end
+
+#     compress_with Gzip
+
+#     store_with S3 do |s3|
+#       s3.access_key_id = '#{aws['access_key_id']}'
+#       s3.secret_access_key = '#{aws['secret_access_key']}'
+#       s3.bucket = 'gina-icewatch'
+#     end
+#   DEF
+
+#   schedule({
+#     :minute => 0,
+#     :hour   => 0
+#   })
+# end

@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: cookbook
-# Recipe:: hab_director
+# Cookbook Name:: role-icewatch
+# Recipe:: default
 #
 # The MIT License (MIT)
 #
@@ -24,44 +24,63 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-# Install habitat
-include_recipe "icewatch::_habitat"
+include_recipe 'gina-server'
 
-icewatch = node['icewatch']
-icewatch_package = "#{Chef::Config[:file_cache_path]}/uafgina-icewatch-#{icewatch['version']}.hart"
+node.default['icewatch']['cache'] = '/mnt/icewatch/cache'
+include_recipe 'lvm'
 
-cookbook_file icewatch_package do
-  source icewatch['source']
-  notifies :run, 'execute[hab-install-icewatch]', :immediately
+lvm_volume_group 'vgCache' do
+  physical_volumes ['/dev/vdb']
+
+  logical_volume 'cache' do
+    size        '100%VG'
+    filesystem  'ext4'
+    mount_point location: '/mnt/icewatch', options: 'noatime,nodiratime'
+  end
+
+  only_if { ::File.blockdev?('/dev/vdb') }
 end
 
-execute 'hab-install-icewatch' do 
-  action :nothing
-  command "hab pkg install #{icewatch_package}"
-end
+# Get hab user prepped
+include_recipe 'icewatch::_habitat'
 
-directory "/hab/svc/icewatch" do
-  owner 'hab'
-  group 'hab'
+directory node['icewatch']['cache'] do
   action :create
-end
-
-icewatch_secrets = chef_vault_item('apps', 'icewatch')
-database = node['icewatch']['database'].merge(icewatch_secrets['database'])
-
-template '/hab/svc/icewatch/user.toml' do
-  source 'icewatch-user.toml.erb'
+  recursive true
   owner 'hab'
   group 'hab'
-  mode '0600'
-  variables({
-    database: database,
-    port: 9292,
-    secret_key_base: icewatch_secrets['secret_key_base'],
-    cache_path: node['icewatch']['cache']
-  })
 end
+
+ 
+include_recipe 'icewatch::database'
+include_recipe 'icewatch::redis'
+include_recipe 'icewatch::app'
+include_recipe 'icewatch::worker'
 
 directory node['icewatch']['cache'] do 
   action :create
+  owner 'hab'
+  group 'hab'
+  recursive true
+end
+
+node.default['firewall']['redhat7_iptables'] = true
+
+include_recipe 'firewall'
+
+firewall_rule 'allow ssh gina' do
+  port 22
+  source '137.229.19.0/24'
+  command :allow
+end
+
+firewall_rule 'allow ssh gina private' do
+  port 22
+  source '10.19.16.0/24'
+  command :allow
+end
+
+firewall_rule 'allow http' do
+  port 80
+  command :allow
 end

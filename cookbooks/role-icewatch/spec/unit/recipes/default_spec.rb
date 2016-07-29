@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: cookbook
-# Recipe:: hab_director
+# Cookbook Name:: role-icewatch
+# Spec:: default
 #
 # The MIT License (MIT)
 #
@@ -24,44 +24,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-# Install habitat
-include_recipe "icewatch::_habitat"
 
-icewatch = node['icewatch']
-icewatch_package = "#{Chef::Config[:file_cache_path]}/uafgina-icewatch-#{icewatch['version']}.hart"
+require 'spec_helper'
 
-cookbook_file icewatch_package do
-  source icewatch['source']
-  notifies :run, 'execute[hab-install-icewatch]', :immediately
-end
+describe 'role-icewatch::default' do
+  context 'When all attributes are default, on an unspecified platform' do
+    let(:chef_run) do
+      runner = ChefSpec::ServerRunner.new
+      runner.converge(described_recipe)
+    end
 
-execute 'hab-install-icewatch' do 
-  action :nothing
-  command "hab pkg install #{icewatch_package}"
-end
-
-directory "/hab/svc/icewatch" do
-  owner 'hab'
-  group 'hab'
-  action :create
-end
-
-icewatch_secrets = chef_vault_item('apps', 'icewatch')
-database = node['icewatch']['database'].merge(icewatch_secrets['database'])
-
-template '/hab/svc/icewatch/user.toml' do
-  source 'icewatch-user.toml.erb'
-  owner 'hab'
-  group 'hab'
-  mode '0600'
-  variables({
-    database: database,
-    port: 9292,
-    secret_key_base: icewatch_secrets['secret_key_base'],
-    cache_path: node['icewatch']['cache']
-  })
-end
-
-directory node['icewatch']['cache'] do 
-  action :create
+    it 'converges successfully' do
+      expect { chef_run }.to_not raise_error
+    end
+  end
 end
