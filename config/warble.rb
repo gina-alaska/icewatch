@@ -94,7 +94,7 @@ Warbler::Config.new do |config|
   # config.compile_gems = false
 
   # When set it specify the bytecode version for compiled class files
-  # config.bytecode_version = "1.6"
+  config.bytecode_version = "1.7"
 
   # When set to true, Warbler will override the value of ENV['GEM_HOME'] even it
   # has already been set. When set to false it will use any existing value of
@@ -149,7 +149,7 @@ Warbler::Config.new do |config|
   # config.webxml.booter = :rails
 
   # Set JRuby to run in 2.0 mode.
-  config.webxml.jruby.compat.version = '2.0'
+  # config.webxml.jruby.compat.version = '2.3'
 
   # When using the :rack booter, "Rackup" script to use.
   # - For 'rackup.path', the value points to the location of the rackup

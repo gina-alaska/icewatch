@@ -1,5 +1,6 @@
 class Ice < ActiveRecord::Base
   include Lookupable
+  include Importable::Ice
 
   CONCENTRATION_VALUES = (0..10).to_a
   belongs_to :observation

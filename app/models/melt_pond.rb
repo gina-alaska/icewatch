@@ -1,5 +1,6 @@
 class MeltPond < ActiveRecord::Base
   include Lookupable
+  include Importable::MeltPond
   belongs_to :ice_observation
 
   lookup :max_depth_lookup

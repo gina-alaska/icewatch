@@ -1,5 +1,7 @@
 class Cloud < ActiveRecord::Base
   include Lookupable
+  include Importable::Cloud
+
   belongs_to :meteorology
 
   lookup :cloud_lookup

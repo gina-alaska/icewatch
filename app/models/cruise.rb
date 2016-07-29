@@ -1,9 +1,10 @@
 class Cruise < ActiveRecord::Base
   include PrimaryObserver
   include Zippable
+  include Importable::Cruise
 
   has_many :observations
-  has_many :uploaded_photosets
+  has_many :uploaded_files
   has_many :photos, dependent: :destroy
   has_and_belongs_to_many :users
   belongs_to :primary_observer, class_name: Person
@@ -47,7 +48,7 @@ class Cruise < ActiveRecord::Base
 
   def render_to_string(obs, format = :json)
     ActionView::Base.new(Rails.configuration.paths['app/views'])
-      .render(template: "cruises/show.#{format}", format: format, locals: { :@cruise => self, :@observations => obs  })
+      .render(template: "observations/index.#{format}", format: format, locals: { :@cruise => self, :@observations => obs  })
   end
 
   def to_s

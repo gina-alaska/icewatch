@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-- 2.2.4
+- 2.3.1
 cache: bundler
 addons:
   postgresql: '9.3'
@@ -9,7 +9,6 @@ script:
 - bundle exec rake db:test:prepare
 - bundle exec rake db:fixtures:load
 - bundle exec rake test
-- bundle exec rubocop
 sudo: false
 env:
 - DATABASE_URL=postgresql://localhost/travis_ci_test RAILS_ENV=test

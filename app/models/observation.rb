@@ -3,6 +3,8 @@ class Observation < ActiveRecord::Base
   include PrimaryObserver
   include Location
   include AASM
+  include Importable::Observation
+  include Exportable
 
   paginates_per 25
 
@@ -156,7 +158,7 @@ class Observation < ActiveRecord::Base
   end
 
   def render_to_string(format = :json)
-    ActionView::Base.new(Rails.configuration.paths['app/views'])
+    ActionView::Base.new(Rails.configuration.paths['app/views'].expanded)
       .render(template: "observations/show.#{format}", format: format, locals: { :@observation => self })
   end
 
@@ -260,5 +262,4 @@ class Observation < ActiveRecord::Base
       end
     end
   end
-
 end

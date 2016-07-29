@@ -14,5 +14,9 @@
   {
     "code": 40,
     "name": "On station"
+  },
+  {
+    "code": 50,
+    "name": "Travelling along ice edge"
   }
 ]

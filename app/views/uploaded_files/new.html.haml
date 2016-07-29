@@ -1,0 +1,34 @@
+%ul.nav.nav-tabs.nav-justified
+  %li.active= link_to 'Upload Cruise Data', '#upload-data', data: { toggle: 'tab' }
+  %li= link_to 'Download Hosted Data', '#download-data', data: { toggle: 'tab' }
+
+.tab-content
+  #upload-data.tab-pane.active
+    .alert.alert-info
+      %strong
+        Due to network limitations, file uploads are limited to 100MB in size.
+      %p
+        If your data is larger than 100MB you will need to divide your dataset into
+        multiple ZIP files.  You may also use a service such as Dropbox, Google Drive
+        or your own server.
+      %p
+        Ice Watch supports downloading from
+        %strong HTTP, HTTPS, and FTP.
+    = bootstrap_form_for [@cruise,@uploaded_file] do |f|
+      #upload-data-fields.fileinput.fileinput-new.input-group{data: {provides: 'fileinput'}}
+        .form-control{data: {trigger: 'fileinput'}}
+          %i.fa.fa-file.file-exists
+          %span.fileinput-filename
+        %span.input-group-addon.btn.btn-default.btn-file
+          %span.fileinput-new Select file
+          %span.fileinput-exists Change
+          = f.attachment_field :file
+      #size-warning.alert.alert-danger.hide
+        File size is limited to 100MB.
+
+      = f.submit "Upload Cruise Data", id: 'upload-submit'
+  #download-data.tab-pane
+    = bootstrap_form_for [@cruise,@uploaded_file] do |f|
+      = f.text_field :hosted_file_url
+      = f.submit "Download Hosted Data"
+

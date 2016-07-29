@@ -2,9 +2,9 @@
 require File.expand_path('../application', __FILE__)
 
 EXPORT_PATH = if RUBY_PLATFORM == 'java'
-  (java.lang.System.getProperty('export') || 'public').freeze
+  Rails.root.join(java.lang.System.getProperty('export') || 'public').freeze
 else
-  'public'.freeze
+  Rails.root.join('public').freeze
 end
 
 # Initialize the Rails application.
