@@ -29,7 +29,7 @@ include_recipe "icewatch::_habitat"
 nginx = node['icewatch']['nginx']
 nginx_package = "#{Chef::Config[:file_cache_path]}/uafgina-icewatch-nginx-#{nginx['version']}.hart"
 
-cookbook_file nginx_package do 
+remote_file nginx_package do 
   source nginx['source']
   notifies :run, 'execute[hab-install-nginx]', :immediately
 end

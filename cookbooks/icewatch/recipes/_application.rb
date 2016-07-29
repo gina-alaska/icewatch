@@ -28,9 +28,9 @@
 include_recipe "icewatch::_habitat"
 
 icewatch = node['icewatch']
-icewatch_package = "#{Chef::Config[:file_cache_path]}/uafgina-icewatch-#{icewatch['version']}.hart"
+icewatch_package = "#{Chef::Config[:file_cache_path]}/uafgina-icewatch-#{icewatch['version']}-#{icewatch['release']}.hart"
 
-cookbook_file icewatch_package do
+remote_file icewatch_package do
   source icewatch['source']
   notifies :run, 'execute[hab-install-icewatch]', :immediately
 end
