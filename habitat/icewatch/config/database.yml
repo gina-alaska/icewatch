@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  client_encoding: UTF8
+  pool: {{cfg.database.pool}}
+  timeout: {{cfg.database.timeout}}
+
+production:
+  <<: *default
+  database: {{cfg.database.name}}
+  username: {{cfg.database.username}}
+  password: {{cfg.database.password}}
+{{~#if bind.has_database}}
+{{~#each bind.database.members}}
+  host: {{ip}}
+  port: {{port}}
+{{~/each}}
+{{~else}}
+  host: {{cfg.database.host}}
+  port: {{cfg.database.port}}
+{{~/if}}
