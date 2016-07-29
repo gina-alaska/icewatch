@@ -23,5 +23,5 @@
 .otto
 
 habitat/icewatch/icewatch
-habitat/*/results
+habitat/results
 *.hart
