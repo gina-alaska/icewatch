@@ -1,0 +1,7 @@
+# TODO: Bring in the toml gem, give this a hash and just dump straight to toml 
+<% @services.each do |service, config| %>
+[services.<%= service %>]
+<% config.each do |key, value| %> 
+<%= key %> = "<%= value %>"
+<% end %>
+<% end %>

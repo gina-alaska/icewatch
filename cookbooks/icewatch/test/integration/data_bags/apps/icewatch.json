@@ -1,0 +1,10 @@
+{
+  "id": "icewatch",
+  "database": {
+    "password": "kitchen"
+  },
+  "passwords": {
+    "postgres": "pg-kitchen"
+  },
+  "secret_key_base": "e306cf82d6e0dcbdb294d288ba4336f4a925ca335b06d6aa3827685385fefcf3267dfbc897d027afe4b8835df6fad93e5c07a602a830b0664c0810016df8533c"
+}
