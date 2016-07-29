@@ -12,5 +12,7 @@ suites:
   - name: default
     run_list:
       - recipe[icewatch::database]
-      - recipe[icewatch::hab_director]
+      - recipe[icewatch::redis]
+      - recipe[icewatch::app]
+      - recipe[icewatch::worker]
     attributes:

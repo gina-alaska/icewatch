@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: cookbook
-# Recipe:: hab_director
+# Spec:: default
 #
 # The MIT License (MIT)
 #
@@ -23,41 +23,19 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-include_recipe "chef-vault"
-
-icewatch_secrets = chef_vault_item("apps", "icewatch")
-db_secrets = icewatch_secrets['database']
-db = node['icewatch']['database'].merge(db_secrets)
-
-node.set['postgresql']['password']['postgres'] = icewatch_secrets['passwords']['postgres']
-
-include_recipe "postgresql::server"
-include_recipe "database::postgresql"
-include_recipe "chef-vault"
-
-postgresql_connection_info = {
-  host: "127.0.0.1",
-  port: "5432",
-	username: 'postgres',
-  password: icewatch_secrets['passwords']['postgres']
-}
-
-postgresql_database db['name'] do 
-  connection postgresql_connection_info
-  action :create
-end
-
-postgresql_database_user db['username'] do
-  connection postgresql_connection_info
-  password   db['password']
-  action     :create
-  not_if db['password'].nil?
-end
 
 
-postgresql_database_user db['username'] do
-  connection    postgresql_connection_info
-  database_name db['name']
-  privileges    [:all]
-  action        :grant
+require 'spec_helper'
+
+describe 'cookbook::worker' do
+  context 'When all attributes are default, on an unspecified platform' do
+    let(:chef_run) do
+      runner = ChefSpec::ServerRunner.new
+      runner.converge(described_recipe)
+    end
+
+    it 'converges successfully' do
+      expect { chef_run }.to_not raise_error
+    end
+  end
 end

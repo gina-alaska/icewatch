@@ -33,8 +33,8 @@ systemd_service 'puma' do
   description 'Icewatch Puma Application Server'
   after %w( network.target postgresql93.target redis.target)
   service do
-    environment({ "ICEWATCH_SERVICE" => "web" })
-    exec_start "/usr/local/bin/hab start uafgina/icewatch"
+    environment({ "ICEWATCH_APP" => "web" })
+    exec_start "/usr/local/bin/hab start uafgina/icewatch --listen-peer #{node['ipaddress']}:9000 --listen-http #{node['ipaddress']}:8000"
     kill_signal 'SIGINT'
     kill_mode 'mixed'
     private_tmp true

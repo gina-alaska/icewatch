@@ -33,7 +33,7 @@ systemd_service 'redis' do
   description 'REDIS Server'
   after %w( network.target postgresql93.target )
   service do
-    exec_start "/usr/local/bin/hab start #{redis}"
+    exec_start "/usr/local/bin/hab start core/redis --listen-peer #{node['ipaddress']}:9001 --listen-http #{node['ipaddress']}:8001"
     kill_signal 'SIGWINCH'
     kill_mode 'mixed'
     private_tmp true

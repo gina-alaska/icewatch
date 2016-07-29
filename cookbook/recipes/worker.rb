@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: cookbook
-# Recipe:: hab_director
+# Recipe:: worker
 #
 # The MIT License (MIT)
 #
@@ -23,41 +23,20 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
-include_recipe "chef-vault"
 
-icewatch_secrets = chef_vault_item("apps", "icewatch")
-db_secrets = icewatch_secrets['database']
-db = node['icewatch']['database'].merge(db_secrets)
-
-node.set['postgresql']['password']['postgres'] = icewatch_secrets['passwords']['postgres']
-
-include_recipe "postgresql::server"
-include_recipe "database::postgresql"
-include_recipe "chef-vault"
-
-postgresql_connection_info = {
-  host: "127.0.0.1",
-  port: "5432",
-	username: 'postgres',
-  password: icewatch_secrets['passwords']['postgres']
-}
-
-postgresql_database db['name'] do 
-  connection postgresql_connection_info
-  action :create
+systemd_service 'sidekiq' do
+  description 'Icewatch Sidekiq Worker'
+  after %w( network.target postgresql93.target redis.target)
+  service do
+    environment({ "ICEWATCH_APP" => "worker" })
+    exec_start "/usr/local/bin/hab start uafgina/icewatch --listen-peer #{node['ipaddress']}:9002 --listen-http #{node['ipaddress']}:8002"
+    kill_signal 'SIGINT'
+    kill_mode 'mixed'
+    private_tmp true
+  end
+  only_if { ::File.open('/proc/1/comm').gets.chomp == 'systemd' } # systemd
 end
 
-postgresql_database_user db['username'] do
-  connection postgresql_connection_info
-  password   db['password']
-  action     :create
-  not_if db['password'].nil?
-end
-
-
-postgresql_database_user db['username'] do
-  connection    postgresql_connection_info
-  database_name db['name']
-  privileges    [:all]
-  action        :grant
+service 'sidekiq' do
+  action [:enable, :start]
 end

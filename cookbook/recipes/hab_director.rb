@@ -59,14 +59,17 @@ services = {
   "core.redis.icewatch.prod" => {
     "start" => "--permanent-peer"
   },
-  "uafgina.icewatch.icewatch.prod" => {
+  "uafgina.icewatch.puma.prod" => {
     "start" => "--permanent-peer"
   },
-  # "uafgina.icewatch.icewatch.prod.env" => {
-  #   "ICEWATCH_SERVICE" => "web"
+  # "uafgina.icewatch.sidekiq.prod" => {
+  #   "start" => "--permanent-peer"
   # },
-  "uafgina.icewatch-nginx.icewatch.prod" => {
-    "start" => "--permanent-peer --bind app:icewatch.prod"
+  # "uafgina.icewatch.sidekiq.prod.env" => {
+  #   "ICEWATCH_APP" => "worker"
+  # },
+  "uafgina.icewatch-nginx.nginx.prod" => {
+    "start" => "--permanent-peer --bind app:puma"
   }
 }
 

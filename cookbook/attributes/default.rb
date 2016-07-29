@@ -12,7 +12,7 @@ override['postgresql']['config']['listen_addresses'] = '0.0.0.0'
 
 default['icewatch']['version'] = "2.1.0"
 default['icewatch']['release'] = "2016000000000"
-default['icewatch']['source'] = "uafgina-icewatch-upload-cruise-json-20160723193710-x86_64-linux.hart"
+default['icewatch']['source'] = "uafgina-icewatch-upload-cruise-json-20160728225530-x86_64-linux.hart"
 default['icewatch']['nginx'] = {
   'source' => 'uafgina-icewatch-nginx-1.10.1-20160723225731-x86_64-linux.hart',
   'version' => '1.10.1',
