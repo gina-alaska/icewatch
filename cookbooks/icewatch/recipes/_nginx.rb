@@ -32,6 +32,9 @@ nginx_package = "#{Chef::Config[:file_cache_path]}/uafgina-icewatch-nginx-#{ngin
 remote_file nginx_package do 
   source nginx['source']
   notifies :run, 'execute[hab-install-nginx]', :immediately
+  not_if { 
+    ::File.exist?("/hab/pkg/uafgina/icewatch/#{nginx['version']}/#{nginx['release']}")
+  }
 end
 
 execute 'hab-install-nginx' do 

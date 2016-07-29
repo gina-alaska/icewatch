@@ -33,6 +33,9 @@ icewatch_package = "#{Chef::Config[:file_cache_path]}/uafgina-icewatch-#{icewatc
 remote_file icewatch_package do
   source icewatch['source']
   notifies :run, 'execute[hab-install-icewatch]', :immediately
+  not_if { 
+    ::File.exist?("/hab/pkg/uafgina/icewatch/#{icewatch['version']}/#{icewatch['release']}")
+  }
 end
 
 execute 'hab-install-icewatch' do 

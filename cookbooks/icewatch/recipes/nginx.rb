@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: cookbook
-# Recipe:: worker
+# Cookbook Name:: icewatch
+# Recipe:: nginx
 #
 # The MIT License (MIT)
 #
@@ -24,12 +24,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-systemd_service 'sidekiq' do
-  description 'Icewatch Sidekiq Worker'
-  after %w( network.target postgresql93.target redis.target)
+include_recipe 'icewatch::_nginx'
+
+systemd_service 'nginx' do
+  description 'Icewatch NGINX Server'
+  after %w( network.target puma.target)
   service do
-    environment({ "ICEWATCH_APP" => "worker" })
-    exec_start "/usr/local/bin/hab start uafgina/icewatch --listen-peer #{node['ipaddress']}:9002 --listen-http #{node['ipaddress']}:8002"
+    exec_start "/usr/local/bin/hab start uafgina/icewatch-nginx --listen-peer #{node['ipaddress']}:9004 --listen-http #{node['ipaddress']}:8004"
     kill_signal 'SIGINT'
     kill_mode 'process'
     private_tmp true
@@ -37,6 +38,6 @@ systemd_service 'sidekiq' do
   only_if { ::File.open('/proc/1/comm').gets.chomp == 'systemd' } # systemd
 end
 
-service 'sidekiq' do
+service 'nginx' do
   action [:enable, :start]
 end

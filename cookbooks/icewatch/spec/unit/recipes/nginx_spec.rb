@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: cookbook
-# Recipe:: worker
+# Cookbook Name:: icewatch
+# Spec:: default
 #
 # The MIT License (MIT)
 #
@@ -24,19 +24,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-systemd_service 'sidekiq' do
-  description 'Icewatch Sidekiq Worker'
-  after %w( network.target postgresql93.target redis.target)
-  service do
-    environment({ "ICEWATCH_APP" => "worker" })
-    exec_start "/usr/local/bin/hab start uafgina/icewatch --listen-peer #{node['ipaddress']}:9002 --listen-http #{node['ipaddress']}:8002"
-    kill_signal 'SIGINT'
-    kill_mode 'process'
-    private_tmp true
-  end
-  only_if { ::File.open('/proc/1/comm').gets.chomp == 'systemd' } # systemd
-end
 
-service 'sidekiq' do
-  action [:enable, :start]
+require 'spec_helper'
+
+describe 'icewatch::nginx' do
+  context 'When all attributes are default, on an unspecified platform' do
+    let(:chef_run) do
+      runner = ChefSpec::ServerRunner.new
+      runner.converge(described_recipe)
+    end
+
+    it 'converges successfully' do
+      expect { chef_run }.to_not raise_error
+    end
+  end
 end

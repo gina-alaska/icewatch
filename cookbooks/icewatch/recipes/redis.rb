@@ -35,7 +35,7 @@ systemd_service 'redis' do
   service do
     exec_start "/usr/local/bin/hab start core/redis --listen-peer #{node['ipaddress']}:9001 --listen-http #{node['ipaddress']}:8001"
     kill_signal 'SIGWINCH'
-    kill_mode 'mixed'
+    kill_mode 'process'
     private_tmp true
   end
   only_if { ::File.open('/proc/1/comm').gets.chomp == 'systemd' } # systemd
