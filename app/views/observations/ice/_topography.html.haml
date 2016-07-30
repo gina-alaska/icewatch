@@ -3,23 +3,14 @@
     %h4= "#{io.object.obs_type.capitalize} Ice"
     = io.fields_for :topography do |t|
       = t.collection_select :topography_lookup_id, sort_by_code(TopographyLookup.all), :id, :code_with_name,
-        {label: 'Topography Type', include_blank: 'No Observation'}, {class: 'topography'}
+        {label: 'Topography Type', include_blank: 'No Observation'},
+        {class: 'topography', data: {ridge: ridge_ids, concentration: concentration_ids}}
+
       = t.select :concentration, concentration_options,
         { label: 'Concentration (in tenths)', include_blank: 'No Observation'}, {class: 'concentration'}
+
       = t.number_field :ridge_height, { class: 'ridge',
           label: 'Ridge Height (meter to nearest half meter)', step: 0.5}
-      -# %h5 Old
-      -# %p
-      -#   = t.check_box_without_bootstrap :old, class: 'ridge', data: {indeterminate: true, "label-text": 'N/A', 'on-text': 'Yes', 'off-text': 'No'}
-      -#   %button.btn.btn-default Reset
-      -# %h5 Consolidated
-      -# %p
-      -#   = t.check_box_without_bootstrap :consolidated, class: 'ridge', data: {indeterminate: true, "label-text": 'N/A', 'on-text': 'Yes', 'off-text': 'No'}
-      -#   %button.btn.btn-default Reset
-      -# %h5 Snow Covered
-      -# %p
-      -#   = t.check_box_without_bootstrap :snow_covered, class: 'ridge', data: {indeterminate: true, "label-text": 'N/A', 'on-text': 'Yes', 'off-text': 'No'}
-      -#   %button.btn.btn-default Reset
 
       = t.select :old, yes_no_options, {include_blank: 'No Observation'}, {class: 'ridge'}
       = t.select :consolidated, yes_no_options, { include_blank: 'No Observation'}, {class: 'ridge'}

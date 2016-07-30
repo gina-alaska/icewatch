@@ -3,11 +3,6 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 @handleTopographies = ->
-  levelCodes = <%= TopographyLookup.codes_between(100,199).pluck(:id) %>
-  pancakeCodes = <%= TopographyLookup.codes_between(200,399).pluck(:id) %>
-  raftCodes = <%= TopographyLookup.codes_between(400,499).pluck(:id) %>
-  ridgeCodes = <%= TopographyLookup.codes_between(500,599).pluck(:id) %>
-
   disableField = (field) ->
     if $(field).data('selectize') isnt undefined
       $(field).data('selectize').clear()
@@ -29,27 +24,22 @@
 
   group = $(this).parents('.topography-group')
   selectedValue = parseInt($(this).find('option:selected').val())
+
   switch
-    when levelCodes.indexOf(selectedValue) >= 0
-      # Disable all fields
-      $(group).find('.ridge,.concentration').each (idx, el) ->
-        disableField(el)
-    when [].concat(pancakeCodes,raftCodes).indexOf(selectedValue) >= 0
+    when  $(this).data('concentration').indexOf(selectedValue) >= 0
       # Enable concentration
       # Disable all others
       enableField($(group).find(".concentration"))
       $(group).find(".ridge").each (idx, el) ->
         disableField(el)
-    when ridgeCodes.indexOf(selectedValue) >= 0
+    when $(this).data('ridge').indexOf(selectedValue) >= 0
       # Enable all fields
       $(group).find('.ridge,.concentration').each (idx, el) ->
         enableField(el)
     else
-      # Shouldn't ever be here, disable everything
-      $(group).find('.ridge,.concentration').each (idx,el) ->
+      # Disable all fields
+      $(group).find('.ridge,.concentration').each (idx, el) ->
         disableField(el)
-
-
 
 $(document).on 'change', '.topography', handleTopographies
 $(document).on 'ready page:load', ->
