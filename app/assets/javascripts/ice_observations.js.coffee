@@ -14,9 +14,9 @@ $(document).on 'change', '#observation_ice_attributes_total_concentration', ->
     for key, opt of concentrationOptions
       if parseInt(opt.value) > tc then data.removeOption(opt.value) else data.addOption(opt)
 
-
 @handleIceType = ->
-  iceCodes = <%= IceLookup.where(code: [10,11,12,13,90]).pluck(:id) %>
+  iceCodes = $(this).data('ice-codes')
+  
   disableField = (field) ->
     if $(field).data('selectize') isnt undefined
       $(field).data('selectize').setValue(null)
