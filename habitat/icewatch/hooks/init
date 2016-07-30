@@ -35,13 +35,11 @@ cd ${ICEWATCH_DATA}/dist
 
 exec 2>&1
 
+echo "Linking cache directory" 
+ln -sf {{cfg.cache_path}} ${ICEWATCH_DATA}/dist/tmp/uploads
+
 if [[ ! -f ${ICEWATCH_DATA}/.migrations_complete ]]; then
   echo "Running 'rake db:create && rake db:migrate' in ${PWD}"
   exec chpst -u hab bin/rake bootstrap && \
        touch $ICEWATCH_DATA/.migrations_complete
 fi
-
-exec chpst -u hab bin/rake tmp:create
-
-echo "Linking cache directory" 
-ln -sf {{cfg.cache_path}} ${ICEWATCH_DATA}/dist/tmp/uploads

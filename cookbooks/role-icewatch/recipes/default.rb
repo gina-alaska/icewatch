@@ -51,6 +51,13 @@ directory node['icewatch']['cache'] do
   group 'hab'
 end
 
+node.override['icewatch']['version'] = '20160730011508'
+node.override['icewatch']['source'] = 'https://s3-us-west-2.amazonaws.com/gina-icewatch/uafgina-icewatch-3.0.0-20160730011508-x86_64-linux.hart'
+node.override['icewatch']['nginx'] = {
+  'source' => "https://s3-us-west-2.amazonaws.com/gina-icewatch/uafgina-icewatch-nginx-1.10.1-20160730011208-x86_64-linux.hart",
+  'release' => "20160730011208"
+}
+
  
 include_recipe 'icewatch::database'
 include_recipe 'icewatch::redis'
@@ -67,10 +74,10 @@ end
 
 node.default['firewall']['redhat7_iptables'] = true
 
-# # Explicitly disable firewalld
-# service 'firewalld' do
-#   action [:stop, :disable]
-# end
+# Explicitly disable firewalld
+service 'firewalld' do
+  action [:stop, :disable]
+end
 
 # include_recipe 'firewall'
 
