@@ -29,15 +29,15 @@ include_recipe "icewatch::_habitat"
 nginx = node['icewatch']['nginx']
 nginx_package = "#{Chef::Config[:file_cache_path]}/uafgina-icewatch-nginx-#{nginx['version']}.hart"
 
-remote_file nginx_package do 
+remote_file nginx_package do
   source nginx['source']
   notifies :run, 'execute[hab-install-nginx]', :immediately
-  not_if { 
+  not_if {
     ::File.exist?("/hab/pkg/uafgina/icewatch/#{nginx['version']}/#{nginx['release']}")
   }
 end
 
-execute 'hab-install-nginx' do 
+execute 'hab-install-nginx' do
   action :nothing
   command "hab pkg install #{nginx_package}"
 end
@@ -53,6 +53,7 @@ template '/hab/svc/icewatch-nginx/user.toml' do
   mode '0600'
   variables({
     ip: node['ipaddress'],
-    port: 9292
+    port: 9292,
+    icewatch_version: "#{node['icewatch']['version']}-#{node['icewatch']['release']}"
   })
 end

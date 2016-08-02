@@ -26,7 +26,7 @@
 
 include_recipe 'gina-server'
 
-node.default['icewatch']['cache'] = '/mnt/icewatch/cache'
+node.override['icewatch']['cache'] = '/mnt/icewatch/cache'
 include_recipe 'lvm'
 
 lvm_volume_group 'vgCache' do
@@ -51,21 +51,22 @@ directory node['icewatch']['cache'] do
   group 'hab'
 end
 
-node.override['icewatch']['version'] = '20160730011508'
-node.override['icewatch']['source'] = 'https://s3-us-west-2.amazonaws.com/gina-icewatch/uafgina-icewatch-3.0.0-20160730011508-x86_64-linux.hart'
-node.override['icewatch']['nginx'] = {
-  'source' => "https://s3-us-west-2.amazonaws.com/gina-icewatch/uafgina-icewatch-nginx-1.10.1-20160730011208-x86_64-linux.hart",
-  'release' => "20160730011208"
-}
+%w(store cache).each do |d|
+  directory "#{node['icewatch']['cache']}/#{d}" do
+    action :create
+    recursive true
+    owner 'hab'
+    group 'hab'
+  end
+end
 
- 
 include_recipe 'icewatch::database'
 include_recipe 'icewatch::redis'
 include_recipe 'icewatch::app'
 include_recipe 'icewatch::nginx'
 include_recipe 'icewatch::worker'
 
-directory node['icewatch']['cache'] do 
+directory node['icewatch']['cache'] do
   action :create
   owner 'hab'
   group 'hab'

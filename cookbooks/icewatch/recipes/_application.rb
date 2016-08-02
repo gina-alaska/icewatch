@@ -33,12 +33,12 @@ icewatch_package = "#{Chef::Config[:file_cache_path]}/uafgina-icewatch-#{icewatc
 remote_file icewatch_package do
   source icewatch['source']
   notifies :run, 'execute[hab-install-icewatch]', :immediately
-  not_if { 
+  not_if {
     ::File.exist?("/hab/pkg/uafgina/icewatch/#{icewatch['version']}/#{icewatch['release']}")
   }
 end
 
-execute 'hab-install-icewatch' do 
+execute 'hab-install-icewatch' do
   action :nothing
   command "hab pkg install #{icewatch_package}"
 end
@@ -61,10 +61,12 @@ template '/hab/svc/icewatch/user.toml' do
     database: database,
     port: 9292,
     secret_key_base: icewatch_secrets['secret_key_base'],
-    cache_path: node['icewatch']['cache']
+    cache_path: node['icewatch']['cache'],
+    google_secret: icewatch_secrets['google_secret'],
+    google_key: icewatch_secrets['google_key']
   })
 end
 
-directory node['icewatch']['cache'] do 
+directory node['icewatch']['cache'] do
   action :create
 end

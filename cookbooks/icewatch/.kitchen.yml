@@ -1,6 +1,9 @@
 ---
 driver:
   name: vagrant
+  driver_config:
+    network:
+      - ["forwarded_port", {guest: 80, host: 8080}]
 
 provisioner:
   name: chef_zero
@@ -15,4 +18,5 @@ suites:
       - recipe[icewatch::redis]
       - recipe[icewatch::app]
       - recipe[icewatch::worker]
+      - recipe[icewatch::nginx]
     attributes:

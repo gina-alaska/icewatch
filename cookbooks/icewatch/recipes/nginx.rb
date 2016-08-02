@@ -24,20 +24,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-include_recipe 'icewatch::_nginx'
+node.default['nginx']['repo_source'] = 'nginx'
+include_recipe 'nginx'
 
-systemd_service 'nginx' do
-  description 'Icewatch NGINX Server'
-  after %w( network.target puma.target)
-  service do
-    exec_start "/usr/local/bin/hab start uafgina/icewatch-nginx --listen-peer #{node['ipaddress']}:9004 --listen-http #{node['ipaddress']}:8004"
-    kill_signal 'SIGINT'
-    kill_mode 'process'
-    private_tmp true
-  end
-  only_if { ::File.open('/proc/1/comm').gets.chomp == 'systemd' } # systemd
+template "#{node['nginx']['dir']}/sites-available/icewatch.conf" do
+  source 'nginx-icewatch.conf.erb'
 end
 
-service 'nginx' do
-  action [:enable, :start]
+nginx_site '000-default' do
+  enable false
+end
+
+nginx_site 'icewatch.conf' do
+  enable true
 end
