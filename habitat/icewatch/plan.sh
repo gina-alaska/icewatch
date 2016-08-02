@@ -1,10 +1,10 @@
 pkg_name="icewatch"
-pkg_version="3.0.0"
+pkg_version="3.0.1"
 pkg_origin="uafgina"
 pkg_maintainer="UAF GINA <support+habitat@gina.alaska.edu>"
 pkg_license=('MIT')
 pkg_source="https://github.com/gina-alaska/${pkg_name}/archive/${pkg_version}.tar.gz"
-pkg_shasum="22ca108c2bcb9e544ec25898b71386537fe18f4e3f46cd13f25a5225e12632bd"
+pkg_shasum="21c181960c4159f973ce269b9bef64aeb3508f28b4af09ac73adc285a76ec760"
 
 pkg_deps=(
   core/bundler/1.11.2/20160708181052
@@ -57,7 +57,7 @@ do_build() {
   export CPPFLAGS="${CPPFLAGS} ${CFLAGS}"
   export GIT_SSL_CAINFO="$(pkg_path_for core/cacerts)/ssl/certs/cacert.pem"
   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pkg_path_for core/gcc-libs)/lib
-  
+
   local _bundler_dir=$(pkg_path_for bundler)
   local _libxml2_dir=$(pkg_path_for libxml2)
   local _libxslt_dir=$(pkg_path_for libxslt)
@@ -83,13 +83,17 @@ do_build() {
     echo 'gem "tzinfo-data"' >> Gemfile
   fi
 
-  npm install bower  
+  npm install bower
   bundle install --jobs 2 --retry 5 --path vendor/bundle --binstubs --without development test
 
-  build_line "Creating tmp"
-  rake tmp:create
   build_line "Precompiling Assets"
-  rake as
+  bin/rake assets:precompile RAILS_ENV=production
+
+  build_line "Removing tmp/uploads"
+  rm -rf tmp/uploads
+
+  build_line "Removing cookbooks and habitat"
+  rm -rf cookbooks habitat
 }
 
 do_install() {

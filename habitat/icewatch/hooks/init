@@ -12,34 +12,38 @@ _libs=(
 export LD_LIBRARY_PATH=$(join : ${_libs[@]})
 export ICEWATCH_HOME="{{pkg.path}}"
 export ICEWATCH_DATA="{{pkg.svc_data_path}}"
+export ICEWATCH_DIST="${ICEWATCH_DATA}/{{pkg.version}}-{{pkg.release}}"
 
-echo "Removing previous version deployed at ${ICEWATCH_DATA}"
-rm -rf ${ICEWATCH_DATA}/*
+if [[ ! -d $ICEWATCH_DIST ]]; then
+  echo "Deploying new version from ${ICEWATCH_HOME} to ${ICEWATCH_DIST}"
+  cp -a ${ICEWATCH_HOME}/dist/ ${ICEWATCH_DIST}
 
-echo "Deploying new version from ${ICEWATCH_HOME} to ${ICEWATCH_DATA}"
-cp -a ${ICEWATCH_HOME}/dist ${ICEWATCH_DATA}/dist
+  echo "Linking database.yml"
+  ln -sf {{pkg.svc_config_path}}/database.yml ${ICEWATCH_DIST}/config/database.yml
+  echo "Linking secrets.yml"
+  ln -sf {{pkg.svc_config_path}}/secrets.yml ${ICEWATCH_DIST}/config/secrets.yml
+  echo "Linking dotenv"
+  ln -sf {{pkg.svc_config_path}}/env.production ${ICEWATCH_DIST}/.env.production
 
-echo "Linking database.yml"
-ln -sf {{pkg.svc_config_path}}/database.yml ${ICEWATCH_DATA}/dist/config/database.yml
-echo "Linking secrets.yml"
-ln -sf {{pkg.svc_config_path}}/secrets.yml ${ICEWATCH_DATA}/dist/config/secrets.yml
+  chown -R hab:hab ${ICEWATCH_DIST}
+else
+  echo "{{pkg.version}} already deployed"
+fi
 
-
-export GEM_HOME="${ICEWATCH_DATA}/dist/vendor/bundle/ruby/2.3.0"
+export GEM_HOME="${ICEWATCH_DIST}/vendor/bundle/ruby/2.3.0"
 export GEM_PATH="$(hab pkg path core/ruby)/lib/ruby/gems/2.3.0:$(hab pkg path core/bundler):$GEM_HOME"
-export PATH="$PATH:${ICEWATCH_DATA}/dist/bin:$(hab pkg path uafgina/imagemagick)/bin"
+export PATH="$PATH:${ICEWATCH_DIST}/bin:$(hab pkg path uafgina/imagemagick)/bin"
 export RAILS_ENV="production"
 
-chown -R hab:hab ${ICEWATCH_DATA}/dist
-cd ${ICEWATCH_DATA}/dist
+cd ${ICEWATCH_DIST}
 
 exec 2>&1
 
-echo "Linking cache directory" 
-ln -sf {{cfg.cache_path}} ${ICEWATCH_DATA}/dist/tmp/uploads
+echo "Linking cache directory"
+ln -sf {{cfg.cache_path}} ${ICEWATCH_DIST}/tmp/uploads
 
-if [[ ! -f ${ICEWATCH_DATA}/.migrations_complete ]]; then
+if [[ ! -f ${ICEWATCH_DIST}/.migrations_complete ]]; then
   echo "Running 'rake db:create && rake db:migrate' in ${PWD}"
   exec chpst -u hab bin/rake bootstrap && \
-       touch $ICEWATCH_DATA/.migrations_complete
+       touch ${ICEWATCH_DIST}/.migrations_complete
 fi

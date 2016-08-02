@@ -2,7 +2,8 @@ binding_ip = "0.0.0.0"
 port = 9292
 secret_key_base = "05889afcbd35a5a33b5473a617a0098e0d5c863439b27c16d018f79e679bcda318e9a18ef6c9b564fd416737f725124a69e22803a3959b70c3e1b02be8dadc92"
 cache_path = "/tmp"
-
+google_secret = ""
+google_key = ""
 
 [database]
 name = "icewatch_production"
