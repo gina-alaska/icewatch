@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: cookbook
-# Recipe:: hab_director
+# Cookbook Name:: icewatch
+# Spec:: default
 #
 # The MIT License (MIT)
 #
@@ -24,36 +24,18 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-include_recipe "icewatch::_habitat"
 
-nginx = node['icewatch']['nginx']
-nginx_package = "#{Chef::Config[:file_cache_path]}/uafgina-icewatch-nginx-#{nginx['version']}.hart"
+require 'spec_helper'
 
-remote_file nginx_package do
-  source nginx['source']
-  notifies :run, 'execute[hab-install-nginx]', :immediately
-  not_if {
-    ::File.exist?("/hab/pkg/uafgina/icewatch/#{nginx['version']}/#{nginx['release']}")
-  }
-end
+describe 'icewatch::nginx' do
+  context 'When all attributes are default, on an unspecified platform' do
+    let(:chef_run) do
+      runner = ChefSpec::ServerRunner.new
+      runner.converge(described_recipe)
+    end
 
-execute 'hab-install-nginx' do
-  action :nothing
-  command "hab pkg install #{nginx_package}"
-end
-
-directory '/hab/svc/icewatch-nginx' do
-  recursive true
-end
-
-template '/hab/svc/icewatch-nginx/user.toml' do
-  source 'nginx-user.toml.erb'
-  owner 'hab'
-  group 'hab'
-  mode '0600'
-  variables({
-    ip: node['ipaddress'],
-    port: 9292,
-    icewatch_version: "#{node['icewatch']['version']}-#{node['icewatch']['release']}"
-  })
+    it 'converges successfully' do
+      expect { chef_run }.to_not raise_error
+    end
+  end
 end

@@ -5,7 +5,6 @@ function join { local IFS="$1"; shift; echo "$*"; }
 _libs=(
   "$(hab pkg path core/gcc-libs)/lib" \
   "$(hab pkg path core/imagemagick)/lib" \
-  "$(hab pkg path core/libjpeg)/lib" \
   "$(hab pkg path core/libpng)/lib" \
   "$(hab pkg path core/zlib)/lib"
 )
@@ -14,16 +13,18 @@ export ICEWATCH_DATA="{{pkg.svc_data_path}}"
 export GEM_HOME="${ICEWATCH_DATA}/dist/vendor/bundle/ruby/2.3.0"
 export GEM_PATH="$(hab pkg path core/ruby)/lib/ruby/gems/2.3.0:$(hab pkg path core/bundler):$GEM_HOME"
 export LD_LIBRARY_PATH=$(join : ${_libs[@]})
-export PATH="$PATH:${ICEWATCH_DATA}/dist/bin:$(hab pkg path uafgina/imagemagick)/bin"
+export PATH="$PATH:${ICEWATCH_DATA}/dist/bin:$(hab pkg path core/imagemagick)/bin"
 export RAILS_ENV="production"
+export SSL_CERT_FILE=$(hab pkg path core/cacerts)/ssl/cert.pem
+
 ICEWATCH_APP="${ICEWATCH_APP}:-web"
 
-cd $ICEWATCH_DATA/dist
+cd $ICEWATCH_DATA/{{pkg.version}}-{{pkg.release}}
 
 exec 2>&1
 
 if [[ $ICEWATCH_APP == 'worker' ]]; then
-  exec chpst -u hab bundle exec sidekiq 
+  exec chpst -u hab bundle exec sidekiq
 else
   exec chpst -u hab ./bin/rails server -b {{cfg.binding_ip}} -p {{cfg.port}}
 fi

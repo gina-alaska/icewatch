@@ -1,6 +1,6 @@
 #
-# Cookbook Name:: cookbook
-# Recipe:: hab_director
+# Cookbook Name:: icewatch
+# Recipe:: nginx
 #
 # The MIT License (MIT)
 #
@@ -24,36 +24,17 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-include_recipe "icewatch::_habitat"
+node.default['nginx']['repo_source'] = 'nginx'
+include_recipe 'nginx'
 
-nginx = node['icewatch']['nginx']
-nginx_package = "#{Chef::Config[:file_cache_path]}/uafgina-icewatch-nginx-#{nginx['version']}.hart"
-
-remote_file nginx_package do
-  source nginx['source']
-  notifies :run, 'execute[hab-install-nginx]', :immediately
-  not_if {
-    ::File.exist?("/hab/pkg/uafgina/icewatch/#{nginx['version']}/#{nginx['release']}")
-  }
+template "#{node['nginx']['dir']}/sites-available/icewatch.conf" do
+  source 'nginx-icewatch.conf.erb'
 end
 
-execute 'hab-install-nginx' do
-  action :nothing
-  command "hab pkg install #{nginx_package}"
+nginx_site '000-default' do
+  enable false
 end
 
-directory '/hab/svc/icewatch-nginx' do
-  recursive true
-end
-
-template '/hab/svc/icewatch-nginx/user.toml' do
-  source 'nginx-user.toml.erb'
-  owner 'hab'
-  group 'hab'
-  mode '0600'
-  variables({
-    ip: node['ipaddress'],
-    port: 9292,
-    icewatch_version: "#{node['icewatch']['version']}-#{node['icewatch']['release']}"
-  })
+nginx_site 'icewatch.conf' do
+  enable true
 end

@@ -31,7 +31,7 @@ systemd_service 'sidekiq' do
     environment({ "ICEWATCH_APP" => "worker" })
     exec_start "/usr/local/bin/hab start uafgina/icewatch --listen-peer #{node['ipaddress']}:9002 --listen-http #{node['ipaddress']}:8002"
     kill_signal 'SIGINT'
-    kill_mode 'mixed'
+    kill_mode 'process'
     private_tmp true
   end
   only_if { ::File.open('/proc/1/comm').gets.chomp == 'systemd' } # systemd

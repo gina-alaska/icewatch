@@ -36,7 +36,7 @@ systemd_service 'puma' do
     environment({ "ICEWATCH_APP" => "web" })
     exec_start "/usr/local/bin/hab start uafgina/icewatch --listen-peer #{node['ipaddress']}:9000 --listen-http #{node['ipaddress']}:8000"
     kill_signal 'SIGINT'
-    kill_mode 'mixed'
+    kill_mode 'process'
     private_tmp true
   end
   only_if { ::File.open('/proc/1/comm').gets.chomp == 'systemd' } # systemd

@@ -26,7 +26,7 @@
 
 include_recipe 'gina-server'
 
-node.default['icewatch']['cache'] = '/mnt/icewatch/cache'
+node.override['icewatch']['cache'] = '/mnt/icewatch/cache'
 include_recipe 'lvm'
 
 lvm_volume_group 'vgCache' do
@@ -51,13 +51,22 @@ directory node['icewatch']['cache'] do
   group 'hab'
 end
 
- 
+%w(store cache).each do |d|
+  directory "#{node['icewatch']['cache']}/#{d}" do
+    action :create
+    recursive true
+    owner 'hab'
+    group 'hab'
+  end
+end
+
 include_recipe 'icewatch::database'
 include_recipe 'icewatch::redis'
 include_recipe 'icewatch::app'
+include_recipe 'icewatch::nginx'
 include_recipe 'icewatch::worker'
 
-directory node['icewatch']['cache'] do 
+directory node['icewatch']['cache'] do
   action :create
   owner 'hab'
   group 'hab'
@@ -66,21 +75,36 @@ end
 
 node.default['firewall']['redhat7_iptables'] = true
 
-include_recipe 'firewall'
-
-firewall_rule 'allow ssh gina' do
-  port 22
-  source '137.229.19.0/24'
-  command :allow
+# Explicitly disable firewalld
+service 'firewalld' do
+  action [:stop, :disable]
 end
 
-firewall_rule 'allow ssh gina private' do
-  port 22
-  source '10.19.16.0/24'
-  command :allow
-end
+# include_recipe 'firewall'
 
-firewall_rule 'allow http' do
-  port 80
-  command :allow
-end
+# firewall_rule 'allow ssh gina' do
+#   port 22
+#   source '137.229.19.0/24'
+#   command :allow
+# end
+
+# firewall_rule 'allow ssh gina private' do
+#   port 22
+#   source '10.19.16.0/24'
+#   command :allow
+# end
+
+# firewall_rule 'allow http' do
+#   port 80
+#   command :allow
+# end
+
+# firewall_rule 'allow localhost' do
+#   source '127.0.0.1/32'
+#   command :allow
+# end
+
+# firewall_rule 'allow myself' do
+#   source "#{node['ipaddress']}/32"
+#   command :allow
+# end

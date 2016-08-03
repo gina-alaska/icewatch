@@ -1,53 +1,44 @@
 pkg_name="icewatch"
-pkg_version="3.0.0"
+pkg_version="3.0.1"
 pkg_origin="uafgina"
 pkg_maintainer="UAF GINA <support+habitat@gina.alaska.edu>"
 pkg_license=('MIT')
-pkg_source="${pkg_name}-${pkg_version}.tar.bz2"
+pkg_source="https://github.com/gina-alaska/${pkg_name}/archive/${pkg_version}.tar.gz"
+pkg_shasum="21c181960c4159f973ce269b9bef64aeb3508f28b4af09ac73adc285a76ec760"
+
 pkg_deps=(
-  core/bundler
-  core/cacerts
-  core/glibc
-  core/libffi
-  core/libyaml
-  core/libxml2
-  core/libxslt
-  core/openssl
-  core/postgresql
-  core/redis
-  core/ruby
-  core/zlib
-  core/imagemagick
+  core/bundler/1.11.2/20160708181052
+  core/cacerts/2016.04.20/20160612081125
+  core/glibc/2.22/20160612063629
+  core/libffi/3.2.1/20160621150608
+  core/libyaml/0.1.6/20160612150821
+  core/libxml2/2.9.2/20160612150903
+  core/libxslt/1.1.28/20160707065627
+  core/openssl/1.0.2h/20160708160802
+  core/postgresql/9.5.3/20160708180214
+  core/redis/3.0.7/20160614001713
+  core/ruby/2.3.1/20160708180653
+  core/zlib/1.2.8/20160612064520
+  core/imagemagick/6.9.2-10/20160715022522
+  core/node
 )
 pkg_build_deps=(
-  core/coreutils
-  core/gcc
-  core/make
-  core/git
-  core/postgresql
-  core/which
-  core/pkg-config
-  core/imagemagick
+  core/coreutils/8.25/20160716003322
+  core/gcc/5.2.0/20160612064854
+  core/make/4.1/20160612080650
+  core/git/2.7.4/20160726200149
+  core/postgresql/9.5.3/20160708180214
+  core/which/2.21/20160612155441
+  core/pkg-config/0.29/20160612075046
+  core/imagemagick/6.9.2-10/20160715022522
+  core/node
+  core/sqlite
 )
 
 pkg_bin_dirs=(bin)
 pkg_include_dirs=(include)
 pkg_lib_dirs=(lib)
 pkg_expose=(9292)
-
-do_download() {
-  export GIT_SSL_CAINFO="$(pkg_path_for core/cacerts)/ssl/certs/cacert.pem"
-  if [[ ! -d icewatch ]]; then
-    git clone https://github.com/gina-alaska/icewatch
-  fi
-  pushd icewatch
-  git checkout $pkg_version
-  popd
-  tar -cjvf $HAB_CACHE_SRC_PATH/${pkg_name}-${pkg_version}.tar.bz2 \
-      --transform "s,^\./icewatch,icewatch-${pkg_version}," ./icewatch \
-      --exclude icewatch/.git --exclude icewatch/spec
-  pkg_shasum=$(trim $(sha256sum $HAB_CACHE_SRC_PATH/${pkg_filename} | cut -d " " -f 1))
-}
 
 do_prepare() {
   build_line "Setting link for /usr/bin/env to 'coreutils'"
@@ -64,6 +55,8 @@ do_prepare() {
 
 do_build() {
   export CPPFLAGS="${CPPFLAGS} ${CFLAGS}"
+  export GIT_SSL_CAINFO="$(pkg_path_for core/cacerts)/ssl/certs/cacert.pem"
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(pkg_path_for core/gcc-libs)/lib
 
   local _bundler_dir=$(pkg_path_for bundler)
   local _libxml2_dir=$(pkg_path_for libxml2)
@@ -90,7 +83,17 @@ do_build() {
     echo 'gem "tzinfo-data"' >> Gemfile
   fi
 
+  npm install bower
   bundle install --jobs 2 --retry 5 --path vendor/bundle --binstubs --without development test
+
+  build_line "Precompiling Assets"
+  bin/rake assets:precompile RAILS_ENV=production
+
+  build_line "Removing tmp/uploads"
+  rm -rf tmp/uploads
+
+  build_line "Removing cookbooks and habitat"
+  rm -rf cookbooks habitat
 }
 
 do_install() {
