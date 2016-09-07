@@ -4,7 +4,7 @@ maintainer_email 'support+chef@gina.alaska.edu'
 license 'mit'
 description 'Installs/Configures role-icewatch'
 long_description 'Installs/Configures role-icewatch'
-version '1.1.4'
+version '1.1.5'
 
 depends 'icewatch', '= 3.1.6'
 depends 'gina-server', '~> 1.0.0'
