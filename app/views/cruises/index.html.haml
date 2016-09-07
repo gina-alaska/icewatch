@@ -3,6 +3,8 @@
     %ul.list-group
       %li.list-group-item
         = link_to 'Download ASSIST', page_path('assist')
+      %li.list-group-item
+        = link_to 'Guide to collecting and uploading data', page_path('data_guide')
       - if can? :create, Cruise
         %li.list-group-item
           = link_to "Register Cruise", new_cruise_path
