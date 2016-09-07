@@ -8,6 +8,10 @@
       %li.list-group-item.active
         %strong Download Observation Data
       %li.list-group-item
+        = link_to "Data Description (pdf)", "https://s3-us-west-2.amazonaws.com/gina-icewatch/ASSIST_v4_CheatSheets.pdf"
+      %li.list-group-item
+        = link_to "Data Descriptoin (xls)", "https://s3-us-west-2.amazonaws.com/gina-icewatch/ASSIST_v4_CheatSheets.xlsx"
+      %li.list-group-item
         = link_to "CSV", cruise_observations_path(@cruise, :csv)
       %li.list-group-item
         = link_to "JSON", cruise_observations_path(@cruise, :json)
@@ -18,7 +22,6 @@
         = form_tag ogre_url, id: 'sigrid-form' do
           = hidden_field_tag :jsonUrl, cruise_observations_url(@cruise, :sigrid3)
           = hidden_field_tag :outputName, "#{@cruise.to_s}.zip"
-
     %ul.list-group#cruise-metadata
       %li.list-group-item.active
         %strong Download Cruise Metadata
