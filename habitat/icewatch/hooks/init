@@ -44,6 +44,6 @@ ln -sf {{cfg.cache_path}} ${ICEWATCH_DIST}/tmp/uploads
 
 if [[ ! -f ${ICEWATCH_DIST}/.migrations_complete ]]; then
   echo "Running 'rake db:create && rake db:migrate' in ${PWD}"
-  exec chpst -u hab bin/rake bootstrap && \
+  exec bin/rake bootstrap && \
        touch ${ICEWATCH_DIST}/.migrations_complete
 fi

@@ -24,7 +24,7 @@ cd $ICEWATCH_DATA/{{pkg.version}}-{{pkg.release}}
 exec 2>&1
 
 if [[ $ICEWATCH_APP == 'worker' ]]; then
-  exec chpst -u hab bundle exec sidekiq
+  exec bundle exec sidekiq
 else
-  exec chpst -u hab ./bin/rails server -b {{cfg.binding_ip}} -p {{cfg.port}}
+  exec ./bin/rails server -b {{cfg.binding_ip}} -p {{cfg.port}}
 fi
