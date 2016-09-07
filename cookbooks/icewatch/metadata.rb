@@ -4,7 +4,7 @@ maintainer_email 'sdmacfarlane@alaska.edu'
 license          'APACHE2'
 description      'Installs/Configures icewatch'
 long_description 'Installs/Configures icewatch'
-version          '3.1.4'
+version          '3.1.5'
 
 depends 'postgresql'
 depends 'database'
