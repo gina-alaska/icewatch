@@ -1,10 +1,10 @@
 pkg_name="icewatch"
-pkg_version="3.0.1"
+pkg_version="3.0.2"
 pkg_origin="uafgina"
 pkg_maintainer="UAF GINA <support+habitat@gina.alaska.edu>"
 pkg_license=('MIT')
 pkg_source="https://github.com/gina-alaska/${pkg_name}/archive/${pkg_version}.tar.gz"
-pkg_shasum="21c181960c4159f973ce269b9bef64aeb3508f28b4af09ac73adc285a76ec760"
+pkg_shasum="94fb227c906a64f82994b2d54a888b3d43e300e613fef6f26fb1cc30024b204f"
 
 pkg_deps=(
   core/bundler/1.11.2/20160708181052
