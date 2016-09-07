@@ -5,7 +5,7 @@ require 'capybara/rails'
 require 'capybara/poltergeist'
 
 Capybara.register_driver :poltergeist_debug do |app|
-  Capybara::Poltergeist::Driver.new(app, :inspector => true)
+  Capybara::Poltergeist::Driver.new(app, inspector: true, js_errors: false)
 end
 
 
