@@ -14,7 +14,7 @@ class IceObservationTest < ActiveSupport::TestCase
   should belong_to(:sediment_lookup)
 
   def test_frazil_shuga_grease_floe_size_validation
-    %w(brash frazil shuga grease slush).each do |ice_type|
+    %w(frazil shuga grease slush).each do |ice_type|
       ice_observation = IceObservation.new(
         floe_size_lookup: lookups('brash-broken-ice'.to_sym),
         ice_lookup: lookups(ice_type.to_sym)
