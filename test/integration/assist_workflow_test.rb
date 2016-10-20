@@ -17,7 +17,7 @@ class AssistWorkflowTest < ActionDispatch::IntegrationTest
     login(:manager)
 
     observation.ice_observations.each do |ice_observation|
-      %w{frazil shuga grease slush brash}.each do |ice_type|
+      %w{frazil shuga grease slush}.each do |ice_type|
         visit(edit_observation_path(observation))
 
         within('#page') do
