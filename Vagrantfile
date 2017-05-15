@@ -33,7 +33,7 @@ Vagrant.configure(2) do |config|
     fi
 
     # JRUBY
-    /usr/local/bin/ruby-install jruby 9.1.5.0
+    /usr/local/bin/ruby-install jruby 9.1.7.0
 
     # NODE and BOWER
     if [[ ! -f /usr/loca/bin/npm ]]; then

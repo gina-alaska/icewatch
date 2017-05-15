@@ -77,5 +77,5 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Use sidekiq in production
-  config.active_job.queue_adapter = :sidekiq
+  config.active_job.queue_adapter = :sidekiq if RUBY_ENGINE == 'ruby'
 end

@@ -27,11 +27,11 @@ gem 'spring',        group: :development
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'warbler', '~> 2.0.0'#, platforms: :jruby
-gem 'activerecord-jdbcsqlite3-adapter', platform: :jruby
-gem 'jruby-openssl', platform: :jruby
+gem 'activerecord-jdbcsqlite3-adapter', platforms: :jruby
+gem 'jruby-openssl', platforms: :jruby
 
-gem 'pg', platform: :ruby
-gem 'puma', platform: :ruby
+gem 'pg', platforms: :ruby
+gem 'puma', platforms: :ruby
 gem 'chartkick'
 
 gem 'haml'
@@ -50,20 +50,20 @@ gem 'httparty'
 gem 'aasm'
 gem 'rubyzip', '>= 1.0.0', require: 'zip'
 gem 'bower-rails'
-gem 'whenever', platform: :ruby
+gem 'whenever', platforms: :ruby
 gem 'tzinfo-data'#, platforms: [:mingw, :mswin, :jruby]
-gem 'high_voltage', '~> 2.2.1'#, platform: :ruby
+gem 'high_voltage', '~> 2.2.1'#, platforms: :ruby
 gem 'kaminari'
 gem 'dotenv-rails'
 gem 'refile', require: 'refile/rails'
-gem 'refile-mini_magick', platform: :ruby
+gem 'refile-mini_magick', platforms: :ruby
 gem 'active_link_to'
 gem 'font-awesome-rails'
-gem 'sidekiq', '~> 4.1.0', platform: :ruby
+gem 'sidekiq', '~> 4.1.0', platforms: :ruby
 
 group :development, :test do
-  gem 'better_errors', platform: :ruby
-  gem 'binding_of_caller', platform: :ruby
+  gem 'better_errors', platforms: :ruby
+  gem 'binding_of_caller', platforms: :ruby
   gem 'rubocop'
   gem 'guard'
   gem 'guard-minitest'
