@@ -17,8 +17,9 @@ $(document).on 'ready page:load', ->
   map = new L.Map 'map',
   	crs: crs,
   	continuousWorld: true
+  map.setView [80.856,-147.849], 3
 
-  L.tileLayer.wms('http://wms.alaskamapped.org/bdl/',
+  L.tileLayer.wms('http://wms.alaskamapped.org/gina/bdl?GOGC=22F4942A5CC6',
     layers: 'BestDataAvailableLayer'
     format: 'image/jpeg'
     continuousWorld: true).addTo(map)
@@ -46,7 +47,6 @@ $(document).on 'ready page:load', ->
       )
       cruiseLayer.addLayer(layer)
       map.fitBounds(cruiseLayer.getBounds())
-    map.setView [80.856,-147.849], 3
 
 $(document).on 'change.bs.fileinput', '.cruise-upload', (event) ->
   $(this).find('input[type=file]').parse
