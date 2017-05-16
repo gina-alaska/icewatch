@@ -1,5 +1,5 @@
 pkg_name="icewatch"
-pkg_version="3.1.1"
+pkg_version="3.1.2"
 pkg_origin="uafgina"
 pkg_maintainer="UAF GINA <support+habitat@gina.alaska.edu>"
 pkg_license=('MIT')
@@ -7,7 +7,8 @@ pkg_source="https://github.com/gina-alaska/${pkg_name}/archive/${pkg_version}.ta
 pkg_shasum="c896b70318f8345356970e950022a560b58cebdf1ebfe40753481feae0384c87"
 
 pkg_deps=(
-  core/bundler
+  core/bundler/1.13.7
+  core/ruby/2.3.1/20161214031900
   core/cacerts
   core/glibc
   core/libffi
@@ -17,7 +18,6 @@ pkg_deps=(
   core/openssl
   core/postgresql
   core/redis
-  core/ruby
   core/zlib
   core/imagemagick
   core/node

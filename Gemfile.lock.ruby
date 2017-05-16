@@ -399,6 +399,7 @@ GEM
     unf (0.1.4-java)
     unf_ext (0.0.7.2)
     unicode-display_width (0.3.1)
+    version (1.0.0)
     warbler (2.0.3)
       jruby-jars (>= 9.0.0.0)
       jruby-rack (>= 1.1.1, < 1.3)
@@ -474,6 +475,7 @@ DEPENDENCIES
   turbolinks
   tzinfo-data
   uglifier (>= 1.3.0)
+  version
   warbler (~> 2.0.0)
   whenever
 
