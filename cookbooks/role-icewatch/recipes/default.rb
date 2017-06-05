@@ -61,7 +61,6 @@ include_recipe 'icewatch::database'
 include_recipe 'icewatch::redis'
 include_recipe 'icewatch::app'
 include_recipe 'icewatch::nginx'
-include_recipe 'icewatch::worker'
 
 directory node['icewatch']['cache'] do
   action :create
