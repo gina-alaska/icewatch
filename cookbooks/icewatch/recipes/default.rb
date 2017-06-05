@@ -26,7 +26,5 @@
 
 include_recipe "icewatch::database"
 include_recipe "icewatch::redis"
-include_recipe "icewatch::application"
-include_recipe "icewatch::worker"
+include_recipe "icewatch::app"
 include_recipe "icewatch::nginx"
-include_recipe "icewatch::hab_director"
