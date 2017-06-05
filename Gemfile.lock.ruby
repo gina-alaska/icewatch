@@ -6,7 +6,7 @@ GIT
 
 GEM
   remote: https://rubygems.org/
-  remote: http://insecure.rails-assets.org/
+  remote: https://rails-assets.org/
   specs:
     aasm (4.9.0)
     actionmailer (4.2.4)
@@ -168,7 +168,7 @@ GEM
     kaminari (0.16.3)
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
-    libv8 (3.16.14.13)
+    libv8 (3.16.14.19)
     listen (3.0.6)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9.7)
@@ -399,6 +399,7 @@ GEM
     unf (0.1.4-java)
     unf_ext (0.0.7.2)
     unicode-display_width (0.3.1)
+    version (1.0.0)
     warbler (2.0.3)
       jruby-jars (>= 9.0.0.0)
       jruby-rack (>= 1.1.1, < 1.3)
@@ -474,8 +475,12 @@ DEPENDENCIES
   turbolinks
   tzinfo-data
   uglifier (>= 1.3.0)
+  version
   warbler (~> 2.0.0)
   whenever
 
+RUBY VERSION
+   ruby 2.3.1p112
+
 BUNDLED WITH
-   1.11.2
+   1.13.5

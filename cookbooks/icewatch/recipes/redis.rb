@@ -27,20 +27,9 @@
 # This is for stand-alone installations of the application
 #  All in one must use hab_director
 
-include_recipe "icewatch::_redis"
+include_recipe "icewatch::_habitat"
 
-systemd_service 'redis' do
-  description 'REDIS Server'
-  after %w( network.target postgresql93.target )
-  service do
-    exec_start "/usr/local/bin/hab start core/redis --listen-peer #{node['ipaddress']}:9001 --listen-http #{node['ipaddress']}:8001"
-    kill_signal 'SIGWINCH'
-    kill_mode 'process'
-    private_tmp true
-  end
-  only_if { ::File.open('/proc/1/comm').gets.chomp == 'systemd' } # systemd
-end
-
-service 'redis' do
-  action [:enable, :start]
+hab_package 'core/redis'
+hab_service 'core/redis' do
+  action [:load, :start]
 end

@@ -24,7 +24,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-node.default['habitat']['version'] = "0.8.0"
-node.default['habitat']['release'] = "20160708161531"
-
-include_recipe "habitat-cookbook::default"
+gina_hab_install 'default' do
+  version '0.24.1'
+end

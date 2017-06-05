@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# redirect stderr
+exec 2>&1
+
+{{#unless svc.me.follower}}
+exec hab pkg exec {{ pkg.origin }}/{{ pkg.name }} {{ pkg.name }}-release
+{{/unless}}
