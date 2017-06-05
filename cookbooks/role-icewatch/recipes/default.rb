@@ -41,9 +41,6 @@ lvm_volume_group 'vgCache' do
   only_if { ::File.blockdev?('/dev/vdb') }
 end
 
-# Get hab user prepped
-include_recipe 'icewatch::_habitat'
-
 directory node['icewatch']['cache'] do
   action :create
   recursive true
@@ -73,12 +70,12 @@ directory node['icewatch']['cache'] do
   recursive true
 end
 
-node.default['firewall']['redhat7_iptables'] = true
+# node.default['firewall']['redhat7_iptables'] = true
 
 # Explicitly disable firewalld
-service 'firewalld' do
-  action [:stop, :disable]
-end
+# service 'firewalld' do
+#   action [:stop, :disable]
+# end
 
 # include_recipe 'firewall'
 
