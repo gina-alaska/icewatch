@@ -18,5 +18,3 @@ suites:
     run_list:
       - recipe[role-icewatch::default]
     attributes:
-      firewall:
-        allow_ssh: true

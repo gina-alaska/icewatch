@@ -69,6 +69,11 @@ directory node['icewatch']['cache'] do
   recursive true
 end
 
+firewall_rule 'http/https' do
+  port [80, 443]
+  command :allow
+end
+
 # node.default['firewall']['redhat7_iptables'] = true
 
 # Explicitly disable firewalld
