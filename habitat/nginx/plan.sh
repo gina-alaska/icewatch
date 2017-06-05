@@ -1,7 +1,7 @@
 # Copied from core/nginx until I can figure out a good way to "wrap" services and provide
 #  our own config
 
-pkg_name="icewatch-nginx"
+pkg_name="icewatch-proxy"
 pkg_version="1.10.1"
 pkg_origin="uafgina"
 pkg_maintainer="UAF GINA <support+habitat@gina.alaska.edu>"

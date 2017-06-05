@@ -77,11 +77,11 @@ group :development, :test do
 end
 
 
-#source 'https://rails-assets.org' do
-source 'http://insecure.rails-assets.org' do
+source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'
   gem 'rails-assets-eonasdan-bootstrap-datetimepicker'
   gem 'rails-assets-jasny-bootstrap'
   gem 'rails-assets-selectize'
 end
 
+ruby '2.3.1'

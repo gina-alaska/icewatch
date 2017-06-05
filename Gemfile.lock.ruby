@@ -6,7 +6,7 @@ GIT
 
 GEM
   remote: https://rubygems.org/
-  remote: http://insecure.rails-assets.org/
+  remote: https://rails-assets.org/
   specs:
     aasm (4.9.0)
     actionmailer (4.2.4)
@@ -478,6 +478,9 @@ DEPENDENCIES
   version
   warbler (~> 2.0.0)
   whenever
+
+RUBY VERSION
+   ruby 2.3.1p112
 
 BUNDLED WITH
    1.13.5
