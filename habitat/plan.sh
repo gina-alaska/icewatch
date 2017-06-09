@@ -20,12 +20,12 @@ pkg_include_dirs=(include)
 pkg_lib_dirs=(lib)
 pkg_expose=(4000)
 
-pkg_scaffolding=core/scaffolding-ruby
+pkg_scaffolding=uafgina/scaffolding-ruby
 
 declare -A scaffolding_env
 
-scaffolding_env[ICEWATCH_GOOGLE_KEY]="{{cfg.google_secret}}"
-scaffolding_env[ICEWATCH_GOOGLE_SECRET]="{{cfg.google_key}}"
+scaffolding_env[ICEWATCH_GOOGLE_KEY]="{{cfg.google_key}}"
+scaffolding_env[ICEWATCH_GOOGLE_SECRET]="{{cfg.google_secret}}"
 
 do_prepare() {
   do_default_prepare
