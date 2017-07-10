@@ -84,4 +84,4 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-selectize'
 end
 
-ruby '2.3.1'
+ruby '2.3.4'

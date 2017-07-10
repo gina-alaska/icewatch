@@ -21,6 +21,7 @@
 
 .powenv
 .otto
+.env
 
 habitat/icewatch/icewatch
 habitat/icewatch/results
