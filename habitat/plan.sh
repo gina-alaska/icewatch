@@ -8,7 +8,7 @@ pkg_license=('MIT')
 
 pkg_deps=(
   core/cacerts
-  core/imagemagick
+  uafgina/imagemagick
   core/sqlite
   core/gcc-libs
 )
