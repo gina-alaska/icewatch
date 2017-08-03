@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       member do
         patch :approve
       end
+      resources :photos, shallow: false
       resources :comments, except: [:index, :show], shallow: false
     end
     resources :charts, only: [:index] do

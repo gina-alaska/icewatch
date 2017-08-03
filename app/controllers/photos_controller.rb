@@ -1,5 +1,5 @@
 class PhotosController < ApplicationController
-  before_action :set_cruise
+  before_action :set_parent
 
   def show
     path = params[:filename]
@@ -11,7 +11,7 @@ class PhotosController < ApplicationController
   end
 
   def index
-    @photos = @cruise.photos.page(params[:page]).per(25)
+    @photos = @parent.photos.page(params[:page]).per(25)
   end
 
   def download
@@ -19,7 +19,12 @@ class PhotosController < ApplicationController
   end
 
   private
-  def set_cruise
-    @cruise = Cruise.find(params[:cruise_id])
+  def set_parent
+    @cruise = @parent = Cruise.find(params[:cruise_id]) if params[:cruise_id]
+
+    if params[:observation_id]
+      @parent = Observation.find(params[:observation_id])
+      @cruise = @parent.cruise
+    end
   end
 end

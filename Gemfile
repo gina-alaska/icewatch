@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '= 4.2.4'
+gem 'rails', '= 4.2.9'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -56,11 +56,11 @@ gem 'tzinfo-data'#, platforms: [:mingw, :mswin, :jruby]
 gem 'high_voltage', '~> 2.2.1'#, platforms: :ruby
 gem 'kaminari'
 gem 'dotenv-rails'
-gem 'refile', require: 'refile/rails'
+gem 'refile', '~> 0.6.2', require: 'refile/rails'
 gem 'refile-mini_magick', platforms: :ruby
 gem 'active_link_to'
 gem 'font-awesome-rails'
-gem 'sidekiq', '~> 4.1.0', platforms: :ruby
+gem 'sidekiq', '< 5', platforms: :ruby
 
 group :development, :test do
   gem 'better_errors', platforms: :ruby

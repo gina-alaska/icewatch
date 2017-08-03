@@ -2,4 +2,11 @@
   .panel-body
     = attachment_image_tag(photo, :file, :fill, 200, 200)
   .panel-footer
+    %strong Filename:
+    = photo.file_filename
+    %br/
+    %strong Location:
+    = photo.on_boat_location_lookup.name
+    %br/
+
     = link_to 'Full Size', attachment_url(photo, :file)

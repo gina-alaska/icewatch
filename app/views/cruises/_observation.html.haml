@@ -16,3 +16,6 @@
           data: {confirm: 'This will permanently remove this observation'},
           class: 'btn btn-xsm btn-danger' do
           %i.fa.fa-trash
+    - if observation.photos.count > 0
+      = link_to observation_photos_path(observation), class: 'btn btn-xsm btn-default' do
+        %i.fa.fa-photo
