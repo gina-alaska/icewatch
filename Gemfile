@@ -50,7 +50,7 @@ gem 'rails_12factor', group: :production
 gem 'httparty'
 gem 'aasm'
 gem 'rubyzip', '>= 1.0.0', require: 'zip'
-gem 'bower-rails'
+#gem 'bower-rails'
 gem 'whenever', platforms: :ruby
 gem 'tzinfo-data'#, platforms: [:mingw, :mswin, :jruby]
 gem 'high_voltage', '~> 2.2.1'#, platforms: :ruby
@@ -81,7 +81,13 @@ source 'https://rails-assets.org' do
   gem 'rails-assets-bootstrap'
   gem 'rails-assets-eonasdan-bootstrap-datetimepicker'
   gem 'rails-assets-jasny-bootstrap'
-  gem 'rails-assets-selectize'
+  gem 'rails-assets-selectize', '0.11.2'
+  gem 'rails-assets-leaflet', '0.7.3'
+  gem 'rails-assets-proj4'
+  gem 'rails-assets-proj4leaflet', '0.7.2'
+  gem 'rails-assets-papaparse', '4.0.7'
+  gem 'rails-assets-moment' #, '2.8.4'
+  gem 'rails-assets-highcharts', '4.1.10'
 end
 
 ruby '2.3.4'

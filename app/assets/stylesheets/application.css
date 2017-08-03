@@ -13,9 +13,9 @@
  *= require_tree .
  *= require bootstrap
  *= require font-awesome
- *= require leaflet/dist/leaflet
+ *= require leaflet
  *= require jasny-bootstrap
- *= require selectize/dist/css/selectize.bootstrap3
+ *= require selectize/selectize.bootstrap3
  *= require eonasdan-bootstrap-datetimepicker
  *= require_self
  */

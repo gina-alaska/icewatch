@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 
-$(document).on 'ready page:load', ->
+$(document).on 'ready turbolinks:load', ->
   crs = new L.Proj.CRS('EPSG:3572',
 	 '+proj=laea +lat_0=90 +lon_0=-150 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs',
   		resolutions: [

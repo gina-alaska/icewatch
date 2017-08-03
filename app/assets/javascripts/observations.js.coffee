@@ -7,7 +7,7 @@ $(document).on 'keypress keyup keydown', 'form input[type="text"]', (event) ->
     event.preventDefault()
     return false
 
-$(document).on 'ready page:load', ->
+$(document).on 'ready turbolinks:load', ->
   $("select:not(.person-field)").selectize
     allowEmptyOption: true
 

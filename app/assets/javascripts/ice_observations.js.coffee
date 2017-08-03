@@ -44,6 +44,6 @@ $(document).on 'change', '#observation_ice_attributes_total_concentration', ->
           enableField(el)
 
 $(document).on 'change', '.ice-type', handleIceType
-$(document).on 'ready page:load', ->
+$(document).on 'ready turbolinks:load', ->
   $("select.ice-type").trigger('change')
 

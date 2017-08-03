@@ -12,7 +12,9 @@ pkg_deps=(
   core/sqlite
   core/gcc-libs
 )
+
 pkg_build_deps=(
+  core/ruby/2.3.4/20170519004213
 )
 
 pkg_bin_dirs=(bin)

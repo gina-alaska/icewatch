@@ -39,7 +39,6 @@ Vagrant.configure(2) do |config|
     if [[ ! -f /usr/loca/bin/npm ]]; then
       curl --silent --location https://rpm.nodesource.com/setup_6.x | bash -
       yum -y install nodejs
-      npm install -g bower
     fi
 
     # Configure login shells

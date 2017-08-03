@@ -62,7 +62,6 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bower-rails (0.11.0)
     builder (3.2.3)
     cancancan (2.0.0)
     capybara (2.14.4)
@@ -282,17 +281,24 @@ GEM
     rails-assets-eonasdan-bootstrap-datetimepicker (4.17.47)
       rails-assets-jquery (>= 1.8.3)
       rails-assets-moment (>= 2.10.5)
+    rails-assets-highcharts (4.1.10)
     rails-assets-jasny-bootstrap (3.1.3)
       rails-assets-bootstrap (>= 3.1.0)
       rails-assets-jquery (>= 1.9.0)
     rails-assets-jquery (3.2.1)
+    rails-assets-leaflet (0.7.3)
     rails-assets-microplugin (0.0.3)
     rails-assets-moment (2.18.1)
-    rails-assets-selectize (0.12.4)
+    rails-assets-papaparse (4.0.7)
+    rails-assets-proj4 (2.1.4)
+    rails-assets-proj4leaflet (0.7.2)
+      rails-assets-leaflet (~> 0.7.2)
+      rails-assets-proj4 (~> 2.1.2)
+    rails-assets-selectize (0.11.2)
       rails-assets-jquery (>= 1.7.0)
       rails-assets-microplugin (~> 0.0.0)
-      rails-assets-sifter (~> 0.5.0)
-    rails-assets-sifter (0.5.2)
+      rails-assets-sifter (~> 0.3.0)
+    rails-assets-sifter (0.3.4)
     rails-deprecated_sanitizer (1.0.3)
       activesupport (>= 4.2.0.alpha)
     rails-dom-testing (1.0.8)
@@ -447,7 +453,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap_form!
-  bower-rails
   cancancan
   capybara
   chartkick
@@ -479,8 +484,14 @@ DEPENDENCIES
   rails (= 4.2.9)
   rails-assets-bootstrap!
   rails-assets-eonasdan-bootstrap-datetimepicker!
+  rails-assets-highcharts (= 4.1.10)!
   rails-assets-jasny-bootstrap!
-  rails-assets-selectize!
+  rails-assets-leaflet (= 0.7.3)!
+  rails-assets-moment!
+  rails-assets-papaparse (= 4.0.7)!
+  rails-assets-proj4!
+  rails-assets-proj4leaflet (= 0.7.2)!
+  rails-assets-selectize (= 0.11.2)!
   rails_12factor
   refile (~> 0.6.2)
   refile-mini_magick

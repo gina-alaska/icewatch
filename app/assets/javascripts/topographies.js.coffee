@@ -42,6 +42,6 @@
         disableField(el)
 
 $(document).on 'change', '.topography', handleTopographies
-$(document).on 'ready page:load', ->
+$(document).on 'ready turbolinks:load', ->
   $("select.topography").trigger('change')
   # $(".ridge[type='checkbox']").bootstrapSwitch();

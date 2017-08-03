@@ -5,8 +5,9 @@
     %strong Filename:
     = photo.file_filename
     %br/
-    %strong Location:
-    = photo.on_boat_location_lookup.name
-    %br/
+    - if photo.on_boat_location_lookup
+      %strong Location:
+      = photo.on_boat_location_lookup.name
+      %br/
 
     = link_to 'Full Size', attachment_url(photo, :file)
