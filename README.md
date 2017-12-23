@@ -1,4 +1,8 @@
-TODO add readme content
+# ICEWATCH - A.K.A. ASSIST
+
+This is the rails application to help data collection for ice observations.   See the http://icewatch.gina.alaska.edu website for details.
+
+This is distributed as a JRuby application called ASSIST.
 
 ## Starting build environment
 
