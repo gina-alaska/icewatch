@@ -11,6 +11,7 @@ class UploadedFilesController < ApplicationController
 
     respond_to do |format|
       if @uploaded_file.save
+        crash
         ImportFileJob.perform_later(@uploaded_file)
         format.html { redirect_to @cruise, notice: 'Upload has been sumbmitted to background processing for import' }
         format.json { render :show, status: :created, location: @uploaded_file }

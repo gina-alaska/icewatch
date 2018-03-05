@@ -8,7 +8,7 @@ class AdminMailerPreview < ActionMailer::Preview
     AdminMailer.new_cruise(Cruise.first, User.first)
   end
   
-  def new_data_upload
-    AdminMailer.new_data_upload()
+  def new_csv_upload
+    AdminMailer.new_csv_upload(Observation)
   end
 end

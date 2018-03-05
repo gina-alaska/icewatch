@@ -87,6 +87,7 @@ class ObservationsController < ApplicationController
           format.html { redirect_to cruises_url, notice: 'Observations were successfully imported' }
           format.json { head :no_content }
           format.js
+          AdminMailer.new_csv_upload(@observation)
         else
           format.html { redirect_to cruises_url, notice: 'There was an error importing the observations' }
           format.json { render json: @observation.errors.full_messages, status: :unprocessable_entity }
