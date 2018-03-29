@@ -15,8 +15,8 @@ class AdminMailer < ApplicationMailer
     mail(subject: 'New Cruise Registered')
   end
   
-  def new_csv_upload (csv)
-    @cruise = Cruise.find(csv.first.id)
+  def new_csv_upload (cruise)
+    @cruise = cruise.id
     mail(subject: 'New Data Uploaded')
   end
   
