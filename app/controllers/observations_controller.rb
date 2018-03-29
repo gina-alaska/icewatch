@@ -10,6 +10,13 @@ class ObservationsController < ApplicationController
     @observations = @cruise.observations.order(observed_at: :desc).accessible_by(current_ability)
   end
 
+  # this generates the aspect specific csv file
+  # GET /aspect/1
+  def aspcet_csv 
+    @json = index.json
+    
+  end
+
   # GET /observations/1
   # GET /observations/1.json
   def show
@@ -87,6 +94,7 @@ class ObservationsController < ApplicationController
           format.html { redirect_to cruises_url, notice: 'Observations were successfully imported' }
           format.json { head :no_content }
           format.js
+          AdminMailer.new_csv_upload(@observation)
         else
           format.html { redirect_to cruises_url, notice: 'There was an error importing the observations' }
           format.json { render json: @observation.errors.full_messages, status: :unprocessable_entity }
