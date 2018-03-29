@@ -10,7 +10,7 @@ module GinaAuthentication
         # Create a new user or add an auth to existing user, depending on
         # whether there is already a user signed in.
         @auth = Authorization.create_from_hash(auth_hash, current_user)
-        AdminMailer.new_user(@auth.user).deliver_later
+        AdminMailer.new_user(@auth.user).deliver
       end
 
       # Log the authorizing user in.

@@ -55,7 +55,7 @@ class CruisesController < ApplicationController
       if @cruise.save
         format.html { redirect_to after_modify_path, notice: 'Cruise was successfully created.' }
         format.json { render :show, status: :created, location: @cruise }
-        AdminMailer.new_cruise(@cruise, current_user)
+        AdminMailer.new_cruise(@cruise, current_user).deliver
       else
         format.html { render :new }
         format.json { render json: @cruise.errors, status: :unprocessable_entity }
