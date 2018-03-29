@@ -16,7 +16,7 @@ class AdminMailer < ApplicationMailer
   end
   
   def new_csv_upload (cruise)
-    @cruise = cruise.id
+    @cruise = cruise
     mail(subject: 'New Data Uploaded')
   end
   
