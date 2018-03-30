@@ -4,12 +4,13 @@ class @ObsUploader
     @recordCount = @data.length
     @createProgressBar()
     # submitNextRow()
-
+    
   submitNextRow: ->
     if @data.length <= 0
       $(".progress-bar").removeClass('active progress-bar-striped')
         .addClass('progress-bar-success')
       $("#modal-close-btn").removeClass('disabled')
+      
       return
 
     row = @data.shift()
@@ -34,7 +35,16 @@ class @ObsUploader
                                                   """
 
       success: (data, status, xhr) =>
+      
         @updateProgressBar()
+        if @data.length == 1
+          $.ajax @url + '_follow_up' ,
+            type: 'POST'
+            contentType: 'application/json'
+            dataType: 'script'
+            data: JSON.stringify
+              observation: row
+        
         @submitNextRow()
 
   updateProgressBar: ->

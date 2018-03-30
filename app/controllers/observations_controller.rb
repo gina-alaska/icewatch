@@ -94,7 +94,15 @@ class ObservationsController < ApplicationController
         end
       end
     end
+  end
+  
+  def import_follow_up
+    # send mail after import is finised
+    @cruise = Cruise.find params[:cruise_id]
     AdminMailer.new_csv_upload(@cruise).deliver
+    format.html { redirect_to cruises_url, notice: 'Observations were successfully imported' }
+    format.json { head :no_content }
+    format.js
   end
 
   def all

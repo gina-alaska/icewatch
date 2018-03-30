@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     resources :observations, except: [:new], shallow: true do
       collection do
         post :import
+        post :import_follow_up
         delete :all
         delete :unapproved
         delete :invalid
