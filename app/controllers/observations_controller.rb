@@ -100,6 +100,7 @@ class ObservationsController < ApplicationController
     # send mail after import is finised
     @cruise = Cruise.find params[:cruise_id]
     AdminMailer.new_csv_upload(@cruise).deliver
+    render :nothing => true
   end
 
   def all
