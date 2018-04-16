@@ -29,3 +29,5 @@ habitat/results
 habitat/logs
 *.hart
 results
+
+.DS_Store
