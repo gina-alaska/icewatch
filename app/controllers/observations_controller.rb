@@ -14,6 +14,7 @@ class ObservationsController < ApplicationController
     respond_to do |format|
       format.csv { send_data build_csv, filename: "observations-#{@cruise.id}.csv"}
       format.json { send_data build_json, filename: "observations-#{@cruise.id}.json"}
+      format.geojson { send_data build_geojson, filename: "observations-#{@cruise.id}.geojson"}
     end
   end
 
@@ -164,6 +165,38 @@ private
     "
     csv = ERB.new(template).result binding
   end
+  
+  def concentration_color(dominant_ice_type)
+    case dominant_ice_type
+    when 'old' then '#50BBD4'
+    when 'new' then '#D9D9D9'
+    when 'first_year' then '#BFD7D3'
+    when 'other' then '#92A9C4'
+    else '#FF0000'
+    end
+  end
+
+  
+  def build_geojson
+    result = Jbuilder.new do |json|
+      json.type 'FeatureCollection'
+      json.features do
+        json.array @observations do |observation|
+          json.type 'Feature'
+          json.geometry do
+            json.type 'Point'
+            json.coordinates [observation.longitude, observation.latitude]
+          end
+          json.properties do
+            json.iceConcentration observation.ice.total_concentration
+            json.fillColor concentration_color(observation.dominant_ice_type)
+            json.dominantIceType observation.dominant_ice_type
+          end
+        end
+      end
+    end.attributes!
+    JSON.generate(result)
+  end 
   
   def build_json
     ## build json observation file
