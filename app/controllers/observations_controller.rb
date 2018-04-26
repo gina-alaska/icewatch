@@ -1,5 +1,5 @@
 class ObservationsController < ApplicationController
-  authorize_resource
+  authorize_resource except: [:aspect]
 
   before_action :set_observation, only: [:show, :edit, :update, :destroy]
 
@@ -8,6 +8,21 @@ class ObservationsController < ApplicationController
   def index
     @cruise = Cruise.find(params[:cruise_id])
     @observations = @cruise.observations.order(observed_at: :desc).accessible_by(current_ability)
+    
+    
+    
+    respond_to do |format|
+      format.csv { send_data build_csv, filename: "observations-#{@cruise.id}.csv"}
+      format.json { send_data build_json, filename: "observations-#{@cruise.id}.json"}
+    end
+  end
+
+
+  def aspect
+    #~ redirect_to "http://www.rubyonrails.org"
+    @cruise = Cruise.find(params[:id])
+    @observations = @cruise.observations.order(observed_at: :desc).accessible_by(current_ability)
+    #~ render 'aspect'
   end
 
   # GET /observations/1
@@ -140,6 +155,72 @@ class ObservationsController < ApplicationController
   end
 
 private
+
+  def build_csv
+    ## build csv observation file
+    template = "<%= Observation.csv_headers %>
+    <% @observations.each do |obs| %><%= obs.as_csv.to_csv.chomp.html_safe %>
+    <% end %>
+    "
+    csv = ERB.new(template).result binding
+  end
+  
+  def build_json
+    ## build json observation file
+    result = Jbuilder.new do |json|
+        json.extract! @cruise, :starts_at, :ends_at, :objective, :ship, :captain, :primary_observer, :chief_scientist
+        json.observations do 
+          json.array! @observations do |observation|
+            json.extract! observation, :observed_at, :latitude, :longitude, :uuid
+            json.primary_observer observation.primary_observer.try(:name)
+            json.additional_observers observation.additional_observers.map(&:name)
+            json.ice do
+              json.extract! observation.ice, :open_water_lookup_code, :thick_ice_lookup_code,
+                     :thin_ice_lookup_code, :total_concentration
+            end
+            json.ice_observations do
+              json.array! observation.ice_observations do |ice_observation|
+                  json.extract! ice_observation, :obs_type, :partial_concentration, :algae_density_lookup_code,
+                              :algae_location_lookup_code, :algae_lookup_code, :floe_size_lookup_code,
+                              :ice_lookup_code, :sediment_lookup_code, :snow_lookup_code, :snow_thickness,
+                              :thickness
+                  json.topography ice_observation.topography, :concentration, :ridge_height,
+                                :consolidated, :old, :snow_covered, :topography_lookup_code
+                  json.melt_pond ice_observation.melt_pond, :bottom_type_lookup_code, :dried_ice,
+                               :freeboard, :max_depth_lookup_code, :pattern_lookup_code, :rotten_ice,
+                               :surface_coverage, :surface_lookup_code
+              end
+            
+            end
+            json.meteorology do
+              json.extract! observation.meteorology, :air_pressure, :air_temperature,
+                            :relative_humidity, :total_cloud_cover, :visibility_lookup_code, :water_temperature,
+                            :weather_lookup_code, :wind_direction, :wind_speed
+              json.clouds do
+                json.array! observation.meteorology.clouds do |cloud|
+                    json.extract! cloud, :cloud_type, :cloud_lookup_code, :cover, :height
+                end
+              end
+            end
+            json.notes observation.notes.map(&:text)
+            json.ship observation.ship, :heading, :power, :ship_activity_lookup_code, :speed
+            json.comments do
+              json.array! observation.comments do  |comment|
+                json.extract! comment, :text
+                json.person comment.person.try(&:name)
+              end
+            end
+            json.photos do
+              json.array! observation.photos do |photo|
+                json.extract! photo, :on_boat_location_lookup_code, :note, :checksum
+                json.name photo.file_filename
+              end
+            end
+          end
+        end
+    end.attributes!
+    JSON.generate(result)
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_observation
