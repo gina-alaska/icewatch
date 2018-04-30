@@ -1,7 +1,15 @@
 Rails.application.routes.draw do
   resources :cruises do
+      member do
+        get :aspect, to: 'observations#aspect'
+      end
+    #~ member do
+      #~ get :aspect, to: 'observations#aspect'
+    #~ end
+  #~ get "aspect(.:format)", to: 'observations#aspect', as: 'aspect'
     resources :observations, except: [:new], shallow: true do
       collection do
+        
         post :import
         delete :all
         delete :unapproved
@@ -10,6 +18,7 @@ Rails.application.routes.draw do
       member do
         patch :approve
       end
+      
       resources :photos, shallow: false
       resources :comments, except: [:index, :show], shallow: false
     end
@@ -26,6 +35,8 @@ Rails.application.routes.draw do
   end
   resources :lookups, only: [:index, :show]
 
+  #~ get '/cruises/:cruise_id/aspcet(.:format)', to: 'observations#aspcet', as: 'cruise_aspect'
+  #~ get "/cruises/:cruise_id/aspect(.:format)", to: 'observations#aspect', as: 'aspect'
   get '/logout', to: 'sessions#destroy'
   get '/login', to: 'sessions#new'
   get '/auth/:provider/disable', to: 'users#disable_provider'
