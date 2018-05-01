@@ -183,8 +183,8 @@ def assist2aspect ( assist ):
         'WW', 'PO', 'AO', 'Comments'
     ]
     # split out time and date
-    aspect['Time'] = aspect['Date'].map(lambda d: str(d).split(' ')[1][:2])
-    aspect['Date'] = aspect['Date'].map(lambda d: str(d).split(' ')[0])
+    aspect['Time'] = aspect['Date'].map(lambda d: str(d).strip().split(' ')[1][:2])
+    aspect['Date'] = aspect['Date'].map(lambda d: str(d).strip().split(' ')[0])
     
     # add columns not in assist
     not_in_assist = ['MPl11', 'MPl21', 'MPl12', 'MPl22', 'MPl13', 'MPl23']
@@ -193,7 +193,7 @@ def assist2aspect ( assist ):
     
     # Ice Types
     for key in ['ty1', 'ty2', 'ty3']:
-        aspect [aspect[key] == '75'] = '85'
+        aspect [aspect[key] == '75'][key] = '85'
         
     
     #~ # Floe sizes: this is a direct conversion 

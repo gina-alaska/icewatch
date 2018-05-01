@@ -37,7 +37,7 @@ class ObservationsController < ApplicationController
 
 
     respond_to do |format|
-      format.csv { send_data data, filename: "aspect=observations-#{@cruise.id}.csv"}
+      format.csv { send_data data, filename: "aspect-observations-#{@cruise.id}.csv"}
     end
 
     RubyPython.stop # stop the Python interpreter
