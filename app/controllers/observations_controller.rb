@@ -1,3 +1,4 @@
+require "rubypython"
 class ObservationsController < ApplicationController
   authorize_resource except: [:aspect]
 
@@ -20,10 +21,27 @@ class ObservationsController < ApplicationController
 
 
   def aspect
-    #~ redirect_to "http://www.rubyonrails.org"
+
     @cruise = Cruise.find(params[:id])
     @observations = @cruise.observations.order(observed_at: :desc).accessible_by(current_ability)
-    #~ render 'aspect'
+    
+
+    RubyPython.start(:python_exe => "python2.7") # start the Python interpreter
+    
+    a2a =  RubyPython.import("a2a")
+    
+    assist = build_csv
+    Rails.logger.info(assist)
+    data = a2a.assist2aspect.str2str(assist)
+
+
+
+    respond_to do |format|
+      format.csv { send_data data, filename: "aspect=observations-#{@cruise.id}.csv"}
+    end
+
+    RubyPython.stop # stop the Python interpreter
+    
   end
 
   # this generates the aspect specific csv file

@@ -62,6 +62,7 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    blankslate (3.1.3)
     builder (3.2.3)
     cancancan (2.0.0)
     capybara (2.14.4)
@@ -352,6 +353,9 @@ GEM
     ruby-openid (2.7.0)
     ruby-progressbar (1.8.1)
     ruby_dep (1.5.0)
+    rubypython (0.6.3)
+      blankslate (>= 2.1.2.3)
+      ffi (>= 1.0.7)
     rubyzip (1.2.1)
     sass (3.5.1)
       sass-listen (~> 4.0.0)
@@ -496,6 +500,7 @@ DEPENDENCIES
   refile (~> 0.6.2)
   refile-mini_magick
   rubocop
+  rubypython
   rubyzip (>= 1.0.0)
   sass-rails (~> 5.0.0)
   sdoc (~> 0.4.0)
@@ -515,4 +520,4 @@ RUBY VERSION
    ruby 2.3.4p301
 
 BUNDLED WITH
-   1.15.1
+   1.16.1
