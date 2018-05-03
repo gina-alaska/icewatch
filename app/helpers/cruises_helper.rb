@@ -32,4 +32,5 @@ module CruisesHelper
     e = cruise.ends_at.try(:strftime, format_str)
     "#{s} to #{e}"
   end
+  
 end

@@ -16,16 +16,15 @@ class ObservationsController < ApplicationController
       format.csv { send_data build_csv, filename: "observations-#{@cruise.id}.csv"}
       format.json { send_data build_json, filename: "observations-#{@cruise.id}.json"}
       format.geojson { send_data build_geojson, filename: "observations-#{@cruise.id}.geojson"}
+      format.sigrid3
     end
   end
-
 
   def aspect
 
     @cruise = Cruise.find(params[:id])
     @observations = @cruise.observations.order(observed_at: :desc).accessible_by(current_ability)
     
-
     RubyPython.start(:python_exe => "python2.7") # start the Python interpreter
     
     a2a =  RubyPython.import("a2a")
@@ -34,20 +33,11 @@ class ObservationsController < ApplicationController
     Rails.logger.info(assist)
     data = a2a.assist2aspect.str2str(assist)
 
-
-
     respond_to do |format|
       format.csv { send_data data, filename: "aspect-observations-#{@cruise.id}.csv"}
     end
 
     RubyPython.stop # stop the Python interpreter
-    
-  end
-
-  # this generates the aspect specific csv file
-  # GET /aspect/1
-  def aspcet_csv 
-    @json = index.json
     
   end
 
