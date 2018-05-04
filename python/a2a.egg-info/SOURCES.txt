@@ -1,8 +1,0 @@
-setup.py
-a2a/__init__.py
-a2a/assist2aspect.py
-a2a.egg-info/PKG-INFO
-a2a.egg-info/SOURCES.txt
-a2a.egg-info/dependency_links.txt
-a2a.egg-info/requires.txt
-a2a.egg-info/top_level.txt

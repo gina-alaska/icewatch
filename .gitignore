@@ -31,3 +31,5 @@ habitat/logs
 results
 
 .DS_Store
+
+*.egg-info/*
