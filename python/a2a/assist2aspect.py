@@ -119,7 +119,7 @@ def create_aspect_topo_code (topo_data):
         try: 
             return bool_map[x]
         except KeyError:
-            return 0
+            return np.nan
     topo_data['code'][topo_data['Top'] != 500] = \
         topo_data['Top'][topo_data['Top'] != 500]
     topo_data['code'][topo_data['Top'] == 500] = \
@@ -127,9 +127,7 @@ def create_aspect_topo_code (topo_data):
     
     topo_data['code'] = topo_data['code'] + topo_data['x'] + topo_data['y']
     
-    topo_data['code'][
-        np.logical_and(topo_data['code'] < 100, topo_data['code'] > 0) 
-    ] = -999
+    topo_data['code'][topo_data['code'] == 0] = np.nan
     
     return topo_data['code']
     
