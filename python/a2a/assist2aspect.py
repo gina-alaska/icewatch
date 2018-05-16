@@ -233,10 +233,14 @@ def assist2aspect ( assist ):
     #~ aspect['WW'] = aspect['WW'].map(lambda x: str(x).replace('nan',''))
     aspect['WW'] = aspect['WW'].map(lambda x: '{:02d}'.format(int(x)) if str(x) != 'nan' else '')
     
-    
+    aspect['AO'][ aspect['AO'].map(lambda x: str(x).lower()) == 'nan'] = ''
     aspect['Observer'] = aspect['PO'] + \
         aspect['AO'].map(lambda o:  ':'+ str(o) if len(str(o)) > 0 else str(o))
     
+    
+    aspect['Flag1'] = ''
+    aspect['Flag2'] = ''
+    aspect['Flag3'] = ''
     # aspect columns in corret order
     sorted_aspect_cols = [ 
         'Date', 'Time', 'Latitude', 'Longitude', 
@@ -245,7 +249,7 @@ def assist2aspect ( assist ):
         'MPd2','MPl12','MPl22','c3','ty3','z3','f3','to3','Sty3','Sz3','BI3',
         'MPc3','MPd3','MPl13','MPl23','O/W','Water Temp','Air Temp',
         'Wind speed [m/s]','Wind Dir. [deg]','Cloud [_/8]','Vis',
-        'WW','Observer','Comments'
+        'WW', 'Flag1', 'Flag2', 'Flag3','Observer','Comments'
     ]
 
     ## TEMP
@@ -259,12 +263,27 @@ def str2str (assist_string):
     assist = read_csv(assist_io, dtype=str)
     aspect = assist2aspect( assist )
     #~ return 'here'
+    aspect.columns = [
+        'Date', 'Time', 'Latitude', 'Longitude', 'Conc.',
+        'c','ty','z','f','txy','S','sz','bi','mc','mz', 'ml1','ml2',
+        'c','ty','z','f','txy','S','sz','bi','mc','mz', 'ml1','ml2',
+        'c','ty','z','f','txy','S','sz','bi','mc','mz', 'ml1','ml2',
+        
+        'O/W','Tw','Ta',
+        'Speed', 'Dir.','Cloud', 'Vis',
+        'Weather', 'Flag1','Flag2','Flag3','Observer','Comments'
+    ]
     
     #convert to csv string and return
     aspect_io = StringIO.StringIO()
     aspect.to_csv(aspect_io, index = False)
     aspect = aspect_io.getvalue()
     aspect_io.close()
+   
+    aspect = 'Date,Hr,Latitude,Longitude,Total,' + 'Primary,' * 12 + \
+        'Secondary,' * 12 + 'Tertiary,' * 12 + \
+        ',,,Wind,Wind,,,,Quality,Quality,Quality,,\n' + aspect
+    
     return aspect
     
     
