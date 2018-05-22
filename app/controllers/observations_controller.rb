@@ -1,3 +1,4 @@
+require "rubypython"
 class ObservationsController < ApplicationController
   authorize_resource except: [:aspect]
 
@@ -15,15 +16,29 @@ class ObservationsController < ApplicationController
       format.csv { send_data build_csv, filename: "observations-#{@cruise.id}.csv"}
       format.json { send_data build_json, filename: "observations-#{@cruise.id}.json"}
       format.geojson { send_data build_geojson, filename: "observations-#{@cruise.id}.geojson"}
+      format.sigrid3
     end
   end
 
-
   def aspect
-    #~ redirect_to "http://www.rubyonrails.org"
+
     @cruise = Cruise.find(params[:id])
     @observations = @cruise.observations.order(observed_at: :desc).accessible_by(current_ability)
-    #~ render 'aspect'
+    
+    RubyPython.start(:python_exe => "python2.7") # start the Python interpreter
+    
+    a2a =  RubyPython.import("a2a")
+    
+    assist = build_csv
+    Rails.logger.info(assist)
+    data = a2a.assist2aspect.str2str(assist)
+
+    respond_to do |format|
+      format.csv { send_data data, filename: "aspect-observations-#{@cruise.id}.csv"}
+    end
+
+    RubyPython.stop # stop the Python interpreter
+    
   end
 
   # GET /observations/1
@@ -103,7 +118,7 @@ class ObservationsController < ApplicationController
           format.html { redirect_to cruises_url, notice: 'Observations were successfully imported' }
           format.json { head :no_content }
           format.js
-          
+          AdminMailer.new_csv_upload(@observation)
         else
           format.html { redirect_to cruises_url, notice: 'There was an error importing the observations' }
           format.json { render json: @observation.errors.full_messages, status: :unprocessable_entity }

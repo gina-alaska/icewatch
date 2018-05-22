@@ -6,6 +6,13 @@ See the http://icewatch.gina.alaska.edu website for details.
 
 This is distributed as a JRuby application called ASSIST.
 
+## installing the python module for assist 2 aspcet conversions
+
+cd to the python directory and run
+
+`<path_to_systempython>/python2.7 setup.py install` or `develop`
+if you wish to modify the python code
+
 ## Building distributable ASSIST java app
 
 A vagrant box is provided to build the distributable ASSIST java app for 

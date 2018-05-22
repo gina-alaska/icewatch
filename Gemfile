@@ -62,6 +62,8 @@ gem 'active_link_to'
 gem 'font-awesome-rails'
 gem 'sidekiq', '< 5', platforms: :ruby
 
+gem 'rubypython'
+
 group :development, :test do
   gem 'better_errors', platforms: :ruby
   gem 'binding_of_caller', platforms: :ruby
