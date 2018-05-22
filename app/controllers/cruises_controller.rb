@@ -23,8 +23,10 @@ class CruisesController < ApplicationController
       respond_to do |format|
         format.html
         format.geojson
-        format.json
-        format.csv
+        #~ format.json
+        #~ format.csv
+        format.csv { send_data build_csv, filename: "cruise-metadata-#{@cruise.id}.csv"}
+        format.json { send_data build_json, filename: "cruise-metadata-#{@cruise.id}.json"}
         format.zip do
           send_data File.read(@cruise.zip!(@observations, !!params[:photos]))
         end
@@ -104,6 +106,26 @@ class CruisesController < ApplicationController
   end
 
   private
+  
+  def build_csv
+     ## build csv metadata file
+    template = "<%= Cruise.csv_headers %>
+    <%= @cruise.as_csv.to_csv.chomp.html_safe %>
+    "
+    csv = ERB.new(template).result binding
+  
+  end
+  
+  
+  def build_json
+    result = Jbuilder.new do |json|
+      json.extract! @cruise, :starts_at, :ends_at, :ship, :objective, :captain, :chief_scientist
+      json.primary_observer @cruise.primary_observer.try(:name)
+    end.attributes!
+    JSON.generate(result)
+  end
+  
+  
   def set_current_year
     year = params[:year] || Cruise.order(starts_at: :desc).first.try(:year)
     @current_year = year || Time.now.year
