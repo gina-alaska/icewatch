@@ -4,7 +4,7 @@ setlocal ENABLEDELAYEDEXPANSION
 set /p database=Enter name of cruise database (or Return to use default production.sqlite3):
 if %database%==[%1]==[] set database=production
 set ext=%database:~-7%
-if /I not "%ext%"==".sqlite3" set database=%database%.sqlite3 
+if /I not "%ext%"==".sqlite3" set database=%database%.sqlite3
 
 if EXIST "%database%" (
   echo Cruise %database% exists.
@@ -12,13 +12,12 @@ if EXIST "%database%" (
   set /p "answer=Are you sure you want to use database %database% [y/n]?:"
 
   if /I "!answer!"=="n" (
-    echo Exiting.
+    echo Exiting. Please try again with the name of the cruise you want to use.
 	TIMEOUT /T 3
 	exit
   )
 
   if /I NOT "!answer!"=="y" (
-    echo Invalid choice.  Choose y or n.
 	goto existingloopstart
   )
 ) else (
@@ -32,7 +31,6 @@ if EXIST "%database%" (
   )
 
   if /I NOT "!answer!"=="y" (
-    echo Invalid choice.  Choose y or n.
 	goto createloopstart
   )
   echo "Creating %database%."
@@ -46,4 +44,3 @@ set SECRET_KEY_BASE='31f071a9f7a37810dbfaa253b07c972be761a1fe90db090fb97382c12f8
 set ICEWATCH_ASSIST='true'
 java -Ddb=%DB% -Dexport=%EXPORT% -Xms512M -Xmx1G -XX:+CMSClassUnloadingEnabled -XX:+UseConcMarkSweepGC -jar %JAR%
 pause
-
