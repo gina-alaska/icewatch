@@ -1,7 +1,7 @@
 @echo off
 setlocal ENABLEDELAYEDEXPANSION
 
-set /p database=Enter name of cruise database (or Return to use default production.sqlite3):
+set /p database=Enter name of cruise database (omit extension), or [Return] to use default database:
 if %database%==[%1]==[] set database=production
 set ext=%database:~-7%
 if /I not "%ext%"==".sqlite3" set database=%database%.sqlite3
