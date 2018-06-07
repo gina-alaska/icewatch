@@ -181,7 +181,12 @@ def assist2aspect ( assist ):
         'WW', 'PO', 'AO', 'Comments'
     ]
     # split out time and date
-    aspect['Time'] = aspect['Date'].map(lambda d: str(d).strip().split(' ')[1][:2])
+    aspect['Time'] = aspect['Date'].map(lambda d: str(d).strip().split(' ')[1])
+    aspect['Time'] = aspect['Time'].map(
+        lambda d: str(
+            int(d.split(':')[0]) + (1 if int(d.split(':')[1]) >= 30 else 0)
+            )
+        )
     aspect['Date'] = aspect['Date'].map(lambda d: str(d).strip().split(' ')[0])
     
     # add columns not in assist
@@ -210,9 +215,9 @@ def assist2aspect ( assist ):
         temp = bi_data[[c for c in bi_data.columns if c[0] == col[0]]]
         temp.columns = ['A', 'AL']
         aspect[col[1]] = ''
-        aspect[col[1]][temp['A'] == '0'] = '0'
+        aspect[col[1]][temp['A'] == '0'] = "'0'"
         
-        for loc in [('10','d00'), ('20','0d0'), ('30','00d')]:
+        for loc in [('10',"'d00'"), ('20',"'0d0'"), ('30',"'00d'")]:
             index = np.logical_and(
                 np.logical_or(temp['A'] != '', temp['A'] != '0'),
                 temp['AL'] == loc[0]
@@ -283,7 +288,6 @@ def str2str (assist_string):
     aspect = 'Date,Hr,Latitude,Longitude,Total,' + 'Primary,' * 12 + \
         'Secondary,' * 12 + 'Tertiary,' * 12 + \
         ',,,Wind,Wind,,,,Quality,Quality,Quality,,\n' + aspect
-    
     return aspect
     
     
