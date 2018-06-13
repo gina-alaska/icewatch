@@ -8,9 +8,7 @@
       %li.list-group-item.active
         %strong Download Observation Data
       %li.list-group-item
-        = link_to "Data Description (pdf)", "https://s3-us-west-2.amazonaws.com/gina-icewatch/ASSIST_v4_CheatSheets.pdf"
-      %li.list-group-item
-        = link_to "Data Descriptoin (xls)", "https://s3-us-west-2.amazonaws.com/gina-icewatch/ASSIST_v4_CheatSheets.xlsx"
+        = link_to "CSV Data Description (pdf)", "https://s3-us-west-2.amazonaws.com/gina-icewatch/ASSIST_v4_CheatSheets.pdf"
       %li.list-group-item
         = link_to "CSV", cruise_observations_path(@cruise, :csv)
       %li.list-group-item
@@ -31,7 +29,11 @@
         = link_to "CSV", cruise_path(@cruise, :csv)
       %li.list-group-item
         = link_to "JSON", cruise_path(@cruise, :json)
-
+    %ul.list-group#data-description
+      %li.list-group-item.active
+        %strong Download Data Descriptions
+      %li.list-group-item
+        = link_to "CSV Data Description (pdf)", "https://s3-us-west-2.amazonaws.com/gina-icewatch/ASSIST_v4_CheatSheets.pdf"
     = render 'sidebar'
   .col-xs-8
     = render 'cruise_observations', cruise: @cruise
