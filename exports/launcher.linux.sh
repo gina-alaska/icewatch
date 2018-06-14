@@ -2,9 +2,7 @@
 ### ASSIST v4.1 laucher
 ###
 ### Use:
-### > ./launcher.sh <cruise_name>
-###
-### If no cruise name is provided 'production is used'
+### > ./launcher.sh 
 ###
 ### This tool should be distributed with empty-database.sqlite3. This file
 ### should not beused to run ASSIST, as it contains the infromation needed to

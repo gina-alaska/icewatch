@@ -38,3 +38,11 @@ Then run these commands which will also be echoed by the `vagrant up` command:
 
 ### Set admins
 `rake admin:user` will set logged in users as the admins
+
+
+## Manual bundle of assist launcher zip archive
+`cd exports`
+`zip -r ASSIST_v4.1.zip *`
+`cd ../public`
+`rm ASSIST_v4.1.zip`
+`mv ../public/ASSIST_v4.1.zip ./`
