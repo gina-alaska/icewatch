@@ -31,6 +31,17 @@
   .panel-body
     .row
       .col-xs-1
+        .numberCircle 3
+      .col-xs-8.col-xs-offset-1
+        .lead
+          Ice Watch Manual (Draft: June 2018)
+        %ul.list-inline
+          %li= link_to "Ice_Watch_Manual_v4.1.pdf", '/Ice_Watch_Manual_v4.1.pdf', target: :_blank
+
+.panel.panel-default
+  .panel-body
+    .row
+      .col-xs-1
         %i.fa.fa-ship.fa-4x.fa-muted
       .col-xs-8.col-xs-offset-1
         .lead ASSIST
@@ -52,7 +63,7 @@
         %table.table.table-striped
           %tr
             %td ASSIST v4.1 Installation Guide
-            %td= link_to "pdf", '/ASSIST_v4.1_Installation_Guide.pdf'
+            %td= link_to "pdf", '/ASSIST_v4.1_Installation_Guide.pdf', target: :_blank
             %td
           %tr
             %td ASSIST v4.1 Cheat Sheets
@@ -60,9 +71,10 @@
             %td= link_to "xlsx", '/ASSIST_v4.1_Cheat_Sheets.xlsx'
           %tr
             %td Algae Indentification Color Chart
-            %td= link_to "pdf", '/ASSIST_v4.1_algae_density.pdf'
+            %td= link_to "pdf", '/ASSIST_v4.1_algae_density.pdf',  target: :_blank
             %td
           %tr
             %td Known Bugs (ASSIST_v4.1)
-            %td= link_to "txt", '/ASSIST_v4.1_known_bugs.txt'
+            %td= link_to "txt", '/ASSIST_v4.1_known_bugs.txt',  target: :_blank
             %td
+
