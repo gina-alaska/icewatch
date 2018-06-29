@@ -1,48 +1,102 @@
-%p
-This guide is for those who wish to participate in Ice Watch by
-performing visual sea ice observations while and sea and contributing
-the data to the #{link_to 'Ice Watch', 'http://icewatch.gina.alaska.edu'} or
-#{link_to 'ASPeCt', 'http://aspect.antarctica.gov.au'} archive. Ice Watch collates sea ice
-observations collected in the Northern Hemisphere, whereas ASPeCt
-coordinates similar data collection in the Southern Ocean. Should you
-submit Southern Ocean data to Ice Watch we will work with you to provide
-your data to the ASPeCt archive.
+%p.lead
+  This guide is for those who wish to participate in Ice Watch by
+  performing visual sea ice observations while at sea and contributing
+  data to the #{link_to 'IceWatch','http://icewatch.gina.alaska.edu'}
+  or #{link_to 'ASPeCt','http://aspect.antarctica.gov.au'}
+  archive. Ice Watch collates sea ice observations collected in the
+  Northern Hemisphere, whereas ASPeCt coordinates similar data collection in the Southern
+  Ocean. Should you submit Southern Ocean data to Ice Watch we will work with you to provide your data to the ASPeCt archive.
 
-%p
-To participate in Ice Watch data collection please first register for an
-#{link_to 'Ice Watch account', 'http://iarc.uaf.edu/icewatch'}. You can either
-register with a Google account, or you can request GINA opens an account for you that is
-not managed by Google. When you open an account the Ice Watch team will
-be informed, and they may contact you to identify your interests and
-what kind of account you require. If it is determined you will be
-contributing data we will enable your account to do so. Please send
-an #{mail_to 'icewatch@gina.alaska.edu', 'email'} when you register your account to confirm we received the registration information.
+.panel.panel-default
+  .panel-body
+    .row
+      .col-xs-1
+        .numberCircle 1
+      .col-xs-8.col-xs-offset-1
+        .lead Download ASSIST
+        %p
+          When you are preparing to go to sea, download, install, and
+          launch the ASSIST software to record sea ice observations. An internet connection is required.
 
-%p
-When you are preparing to go to sea, download the most recent
-#{link_to 'Arctic Shipborne Sea Ice Standardization Tool software', page_url('assist')} to record observations. This software is called ASSIST. It is highly recommended
-you make sure ASSIST runs on the computer you will use at sea prior to
-leaving dock. Please see the #{link_to 'ASSIST installation guide', asset_path('ASSIST_v4.1_Installation_Guide.pdf')}
-for instructions on installing and launching ASSIST.
+        .alert.alert-info
+          %p
+            .lead Check that software installs and launches on your computer before you leave port.
+        %ul.list-inline
+          %li= link_to "ASSIST", page_path('about'), target: '_blank'
 
-%p
-You can register your cruise at any time. Registering prior to departure
-will alert the Ice Watch team to your participation so we can assist you
-better. You must register the cruise to  in order to upload data. After
-you are registered for an account, log in and click #{link_to 'Register Cruise', page_url('cruises/new')} on the left hand side bar. This will create a data base
-entry for your cruise and you will see your cruise listed on the left hand side bar.
+.panel.panel-default
+  .panel-body
+    .row
+      .col-xs-1
+        .numberCircle 2
+      .col-xs-8.col-xs-offset-1
+        .lead
+          Register for an Ice Watch account
+        %p
+          To participate in Ice Watch data collection please first
+          register for an Ice Watch account. When you open an account the Ice
+          Watch team will be informed, and they may contact you to identify
+          your interests and what kind of account you require. If it is
+          determined you will be contributing data we will enable your account
+          to do so. Please send an #{mail_to 'icewatch@gina.alaska.edu', 'email'} when you register your account to confirm we received the registration information.
 
-%p
-During the cruise you will perform an ice watch. We are in the process
-of writing a manual for observers. In the mean time, if you are
-inexperienced with Ice Watch observation protocols please send us an #{mail_to 'icewatch@gina.alaska.edu', 'email'} prior to leaving port.
+        = link_to "Ice Watch Login", "/auth/gina"
 
-%p
-Data recorded in ASSIST should be saved as CSV. WILL BE UPDATED WITH GUIDE SHORTLY.
+.panel.panel-default
+  .panel-body
+    .row
+      .col-xs-1
+        .numberCircle 3
+      .col-xs-8.col-xs-offset-1
+        .lead
+          Register your cruise with Ice Watch
+        %p
+          You can register your cruise at any time. Registering prior
+          to departure will alert the Ice Watch team to your participation so
+          we can assist you better. You must register the cruise to in order
+          to upload data. After you are registered for an account, log
+          in to Icewatch and register your cruise with a link on the
+          left-hand side bar. Click the Register Cruise link
+          on the left hand side bar. This will create a data base entry for your cruise and you will see your cruise listed on the left hand side bar.
 
-%p
-You may email CSV data to us during your cruise. If you are interested
-in near-real time data reporting to ice services, such as the service
-producing navigational charts for your cruise, please contact us.
+.panel.panel-default
+  .panel-body
+    .row
+      .col-xs-1
+        .numberCircle 4
+      .col-xs-8.col-xs-offset-1
+        .lead
+          Plan Your Data Backups
+        .alert.alert-info
+          %p
+            .lead When at sea, back up your ASSIST cruise data daily! 
 
-Thank you for participating.
+.panel.panel-default
+  .panel-body
+    .row
+      .col-xs-1
+        .numberCircle 5
+      .col-xs-8.col-xs-offset-1
+        .lead Email Ice Watch Team your data
+        %p
+          If you would like your data posted in near-real time while
+          you are at sea, you
+          can #{mail_to 'icewatch@gina.alaska.edu', 'email'} your data to the
+          Ice Watch team.  Send daily or weekly CSV files exported from ASSIST.
+
+.panel.panel-default
+  .panel-body
+    .row
+      .col-xs-1
+        .numberCircle 6
+      .col-xs-8.col-xs-offset-1
+        .lead Upload final cruise data to Ice Watch Archive
+        %p
+          After recording observations and return to port, upload your
+          cruise entry in Ice Watch. Click on the cruise entry on the
+          left-hand side bar menu. This will direct you to a page with
+          an option to "Upload Observation CSV" on the left hand side.
+          You can also modify the cruise data that was imported when
+          you registered your cruise with "Upload Cruise Data". Your uploaded
+          data can be quality controlled exactly as you do with the ASSIST
+          software.
