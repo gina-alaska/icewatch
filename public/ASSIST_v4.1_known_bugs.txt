@@ -6,4 +6,4 @@ ASSISTv4.1 released in June 2018. We welcome your feedback, comments and bug rep
 
 * Ice algae reporting is not fully compatible with ASPeCt standards in ASSIST_v4.1. In ASPeCt it is possible to record ice algae densities, brown ice observation, for a single ice type at three levels (top, middle, bottom) in the ice. In ASSIST the observer must choose one of these levels to report the algae density. In the Arctic algae is typically found on the base of ice. We recommend Arctic observers report the level with the highest algae density. For observers interested in recording ASPeCt-style brown ice observations we recommend recording the three digit ASPeCt code in the note0 field. When we have secured funding for an update to ASSIST, we will fix this "feature".
 
-Project Contact: icewatch@gina.alaska.eduls
+Project Contact: icewatch@gina.alaska.edu
