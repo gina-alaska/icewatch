@@ -1,4 +1,0 @@
-#!/bin/sh
-mkdir -p {{pkg.svc_var_path}}/nginx
-mkdir -p /hab/svc/nginx/var/client-body
-chown hab:hab {{pkg.svc_var_path}}
