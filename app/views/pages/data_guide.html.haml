@@ -13,7 +13,7 @@
       .col-xs-1
         .numberCircle 1
       .col-xs-8.col-xs-offset-1
-        .lead Download ASSIST
+        .lead= link_to "Download ASSIST", page_path('assist'), target: '_blank'
         %p
           When you are preparing to go to sea, download, install, and
           launch the ASSIST software to record sea ice observations. An internet connection is required.
@@ -21,8 +21,6 @@
         .alert.alert-info
           %p
             .lead Check that software installs and launches on your computer before you leave port.
-        %ul.list-inline
-          %li= link_to "ASSIST", page_path('about'), target: '_blank'
 
 .panel.panel-default
   .panel-body
@@ -73,15 +71,19 @@
       .col-xs-8.col-xs-offset-1
         .lead
           Perform your observations & back-up your data
+        %p= link_to "Ice_Watch_Manual_v4.1.pdf", '/Ice_Watch_Manual_v4.1.pdf', target: :_blank 
+        
         .alert.alert-info
           %p
             .lead When at sea, back up your ASSIST cruise data daily!
         %p
           Ideas for backup: Copy the sqlite3 database you created
-          with ASSIST to a thumbdrive or another computer daily, routinely export the all observations
+          with ASSIST to a thumbdrive or another computer daily. 
+          You can find the sqlite database in the directory you ran the ASSIST launcher from. 
+          Routinely export the all observations
           to csv from ASSIST and store them on another computer. #{mail_to 'icewatch@gina.alaska.edu', 'Email'} the
           Ice Watch team if you need assistance.
-        = link_to "Ice_Watch_Manual_v4.1.pdf", '/Ice_Watch_Manual_v4.1.pdf', target: :_blank  
+         
 .panel.panel-default
   .panel-body
     .row
