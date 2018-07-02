@@ -75,7 +75,12 @@
           Perform your observations & back-up your data
         .alert.alert-info
           %p
-            .lead When at sea, back up your ASSIST cruise data daily! 
+            .lead When at sea, back up your ASSIST cruise data daily!
+        %p
+          Ideas for backup: Copy the sqlite3 database you created
+          with ASSIST to a thumbdrive or another computer daily, routinely export the all observations
+          to csv from ASSIST and store them on another computer. #{mail_to 'icewatch@gina.alaska.edu', 'Email'} the
+          Ice Watch team if you need assistance.
         = link_to "Ice_Watch_Manual_v4.1.pdf", '/Ice_Watch_Manual_v4.1.pdf', target: :_blank  
 .panel.panel-default
   .panel-body
