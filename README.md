@@ -34,6 +34,7 @@ Then run these commands which will also be echoed by the `vagrant up` command:
 
 ```
 
+
 ## Developing on the webapp
 
 ### Set admins
@@ -45,4 +46,4 @@ Then run these commands which will also be echoed by the `vagrant up` command:
 `zip -r ASSIST_v4.1.zip *`
 `cd ../public`
 `rm ASSIST_v4.1.zip`
-`mv ../public/ASSIST_v4.1.zip ./`
+`mv ../exports/ASSIST_v4.1.zip ./`
