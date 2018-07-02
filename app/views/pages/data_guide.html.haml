@@ -28,8 +28,7 @@
       .col-xs-1
         .numberCircle 2
       .col-xs-8.col-xs-offset-1
-        .lead
-          Register for an Ice Watch account
+        .lead= link_to "Register for an Ice Watch account", "/auth/gina"
         %p
           To participate in Ice Watch data collection please first
           register for an Ice Watch account. When you open an account the Ice
@@ -38,7 +37,7 @@
           determined you will be contributing data we will enable your account
           to do so. Please send an #{mail_to 'icewatch@gina.alaska.edu', 'email'} when you register your account to confirm we received the registration information.
 
-        = link_to "Ice Watch Login", "/auth/gina"
+        
 
 .panel.panel-default
   .panel-body
@@ -46,8 +45,7 @@
       .col-xs-1
         .numberCircle 3
       .col-xs-8.col-xs-offset-1
-        .lead
-          Register your cruise with Ice Watch
+        .lead= link_to "Register your cruise with Ice Watch", "/cruises/new"
         %p
           You can register your cruise at any time. Registering prior
           to departure will alert the Ice Watch team to your participation so
