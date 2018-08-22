@@ -13,7 +13,7 @@ Icewatch Web
 6. Deploy the rails app. Be sure to set the Ogre url in config/secrets.yml. 
    To restore the image backups untar the images at /tmp/uploads/store/.
    This directory should now contain files named like
-   ```7e6904d2d87dd70042bd2ec7fed253f057efa42ca407123ce3ae79b1e7a0```
+   ``7e6904d2d87dd70042bd2ec7fed253f057efa42ca407123ce3ae79b1e7a0``
 7. In config/secrets.yml google_key, and google_secret are for Google Analytics 
    intergration
 
