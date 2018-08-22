@@ -37,6 +37,7 @@ Then run these commands which will also be echoed by the `vagrant up` command:
 
 ## Developing on the webapp
 
+see README-deploy-icewatch.rst
 ### Set admins
 `rake admin:user` will set logged in users as the admins
 
