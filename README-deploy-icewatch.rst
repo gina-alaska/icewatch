@@ -1,7 +1,8 @@
 Icewatch Web
 ------------
 
-1. Obtain a copy of the database and set it up in postgres
+1. Obtain a copy of the database and set it up in postgres. 
+   Also, get a copy of the image backups (a tar.gz archive).
 2. Set up an instance of the Ogre ogr2ogr webclient to point the app at 
    https://github.com/wavded/ogre
 3. Install ImageMagick, and gdal
@@ -9,7 +10,10 @@ Icewatch Web
 5. Install the Assist to aspect conversion python tools located in python/ 
    using the setup script. This requires that the python packages setuptools, 
    numpy, and pandas are installed.
-6. Deploy the rails app. Be sure to set the Ogre url in config/secrets.yml.
+6. Deploy the rails app. Be sure to set the Ogre url in config/secrets.yml. 
+   To restore the image backups untar the images at /tmp/uploads/store/.
+   This directory should now contain files named like
+   ```7e6904d2d87dd70042bd2ec7fed253f057efa42ca407123ce3ae79b1e7a0```
 7. In config/secrets.yml google_key, and google_secret are for Google Analytics 
    intergration
 
