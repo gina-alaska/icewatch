@@ -6,7 +6,7 @@ See the http://icewatch.gina.alaska.edu website for details.
 
 This is distributed as a JRuby application called ASSIST.
 
-## installing the python module for assist 2 aspcet conversions
+## installing the python module for assist 2 aspect conversions
 
 cd to the python directory and run
 
