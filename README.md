@@ -1,7 +1,7 @@
-# ICEWATCH
+# General ICEWATCH Information
 
 
-This is the rails application to help data collection for ice observations.   
+Icewatch is the rails application to help with data collection for ice observations.   
 See the http://icewatch.gina.alaska.edu website for details.
 
 This is distributed as a JRuby application called ASSIST.
