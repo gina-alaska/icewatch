@@ -1,5 +1,5 @@
-Icewatch Web
-------------
+Icewatch Web App Installation Steps
+------------------------------------
 
 1. Obtain a copy of the database and set it up in postgres. 
    Also, get a copy of the image backups (a tar.gz archive).
@@ -17,8 +17,8 @@ Icewatch Web
 7. In config/secrets.yml google_key, and google_secret are for Google Analytics 
    intergration
 
-ASSIST
-------
+ASSIST App Installation Steps
+-----------------------------
 
 1. ASSIST is version of the web code indended to be run locally.
    This is crrently accompilished on windows using Java. This does
