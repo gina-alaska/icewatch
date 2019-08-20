@@ -19,7 +19,7 @@ $(document).on 'ready turbolinks:load', ->
   	continuousWorld: true
   map.setView [80.856,-147.849], 3
 
-  L.tileLayer.wms('http://wms.alaskamapped.org/gina/bdl?GOGC=22F4942A5CC6',
+  L.tileLayer.wms('http://tiles.gina.alaska.edu/tilesrv/drg/tile/{x}/{y}/{z}.png?GOGC=220EAC1F05E4,
     layers: 'BestDataAvailableLayer'
     format: 'image/jpeg'
     continuousWorld: true).addTo(map)
